@@ -1,0 +1,14 @@
+\begin{tikzpicture}[>=latex,scale=1.5]
+
+    \foreach \y in {1,...,4}{
+    \draw[red,
+    tangent=0.1,
+    tangent=0.6,
+    tangent=0.85,
+    ] plot[domain=1:4] (\x, 0.2*\y+0.05*\y*\x^2);
+    \draw [red, use tangent=1,->] (0,0) -- (0.1,0);% node[anchor=south] {$\Efield$};
+    \draw [red, use tangent=2,->] (0,0) -- (0.1,0);
+    \draw [red, use tangent=3,->] (0,0)  -- (0.1,0);
+    }
+
+\end{tikzpicture}

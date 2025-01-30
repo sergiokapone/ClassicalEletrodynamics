@@ -1,0 +1,71 @@
+\begin{tikzpicture}[>=latex,
+		surface/.pic = {
+				\draw[opacity=0.5]  plot[smooth
+						cycle, tension=.7]
+				coordinates {
+						(-1,0)
+						(-0.5,1)
+						(0.5,2)
+						(2.5,1.5)
+						(3,0.5)
+						(2,-1.5)
+						(0.5,-2)
+						(-0.5,-1)
+					};
+			},
+		>=latex,
+		scale=1.0,
+		transform shape
+	]
+
+
+	\begin{scope}
+		\foreach \i in {20,40,...,360}
+			{
+				\draw[->, red] (0,0)  ++(\i:0.1) -- ++(\i:2);
+			}
+
+		\node[font=\scriptsize, anchor=south west, inner sep=1pt, text
+		width=2cm,
+			align=center, text=blue] (divi) at (15:2.1) {В цій точці \\
+			$\Div\Efield =
+				\infty$ \\ (виток поля)};
+		\draw[<-, gray, thick] (0,0) to[out=45, in = -135] (divi.south west);
+		\coordinate (zd) at (120:1.8);
+		\pic[gray, scale=0.1] at  (zd)  {surface};
+		\node[font=\scriptsize, anchor=south west, inner sep=1pt, text
+		width=2cm,
+			align=center, text=blue] (div0) at (180:4) {В цій точці \\
+			$\Div\Efield =
+				0$ \\ (витоків нема)};
+		\draw[<-, gray, thick] (zd) to[out=195, in = 45] (div0.north);
+	\end{scope}
+
+	\begin{scope}[xshift=7cm,
+			decoration={
+					markings,
+					mark=at position 0.5 with {\arrow{<}}}
+		]
+		\foreach \i in {20,40,...,360}
+			{
+				\draw[postaction={decorate}, blue] (0,0)  ++(\i:0.1) --
+				++(\i:2);
+			}
+
+		\node[font=\scriptsize, anchor=south west, inner sep=1pt, text
+		width=2cm,
+			align=center, text=red] (divi) at (10:2.1) {В цій точці \\
+			$\Div\Efield =
+				-\infty$ \\ (стік поля)};
+		\draw[<-, gray, thick] (0,0) to[out=45, in = -135] (divi.south west);
+		\coordinate (zd) at (120:1.8);
+		\pic[gray, scale=0.1] at  (zd)  {surface};
+		\node[font=\scriptsize, anchor=south west, inner sep=1pt, text
+		width=2cm,
+			align=center, text=red] (div0) at (210:4) {В цій точці \\
+			$\Div\Efield =
+				0$ \\ (стоків нема)};
+		\draw[<-, gray, thick] (zd) to[out=195, in = 45] (div0.north);
+	\end{scope}
+
+\end{tikzpicture}

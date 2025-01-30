@@ -1,0 +1,18 @@
+\begin{tikzpicture}[>=latex, scale=1.5]
+\draw[->] (0,0) -- ++(0, 1) node[left] {$z$};
+\draw[->] (0,0) -- ++(1, 0) node[below] {$y$};
+\draw[->] (0,0) -- ++(-135:0.75) node[left] {$x$};
+\draw[->, red] (0,0) -- node[above, text=black] {$\vect{r}$} (60:1.5) node[inner sep=1pt,
+circle,
+fill] (A) {};
+\draw[->, red] (0,0) -- node[below, text=black, sloped] {$\vect{r} + \vect{\epsilon}$}
+(35:2.5) node[inner sep=1pt, circle, fill] (B) {};
+\draw[->, blue] (A) -- node[above, text=black] {$\vect{\epsilon}$} (B);
+
+\node[text=blue] (fr) at (0.25, 2) {$f(\vect{r})$};
+\draw[gray, ->] (fr.south) to[out=-45, in=135] (A);
+
+\node[text=blue] (fre) at (2.75, 0.5) {$f(\vect{r} + \vect{\epsilon})$};
+\draw[gray, ->] (fre.north) to[out=45, in=-45] (B);
+
+\end{tikzpicture}

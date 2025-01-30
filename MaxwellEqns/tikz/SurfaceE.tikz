@@ -1,0 +1,30 @@
+\begin{tikzpicture}[>=latex, every node/.style={font=\scriptsize}, scale=1,
+            					transform shape]
+    \draw[ball color=blue!5] (0,0) to[bend left] ++(2,1.9)  to[bend left] ++(2,-2)
+    to[bend right]
+    ++(-2, -1)  to[bend
+    	right] cycle;
+    \draw[->, red] (0.2, 0.2) -- ++(80:1.5);
+    \draw[->, red] (0.8, 1) -- ++(80:1.5);
+    \draw[->, red] (1.6, 1.6) -- ++(80:1.5);
+
+    \draw[->, red] (1.2, 0) -- ++(75:1.5);
+    \draw[->, red] (2.2, 0.8) coordinate (A) -- ++(70:2) coordinate (B)
+    node[above] {$\Efield$};
+    \draw[->, red] (3, 1.2) -- ++(70:1.5);
+
+    \draw[->, red] (2, -0.4) -- ++(45:1.5);
+    \draw[->, red] (2.8, 0) -- ++(45:1.5);
+    \draw[->, red] (3.8, 0.2) -- ++(35:1.5);
+
+    \draw[fill=gray!50, opacity=0.5] (A) circle(0.5 and 0.15);
+    \draw[dashed] (A) ++(70:1.5) circle(0.5 and 0.15);
+    \draw[] (A) -- ++(90:2) coordinate (C) node[above, text=black]
+    	{$E_n$};
+    \draw[->, green!50!black, thick] (A) -- ++(90:0.5) node[left, text=black]
+    {$\vect{n}$};
+    \draw[densely dashed] (A) ++(180:0.5) -- ++(70:1.5);
+    \draw[densely dashed] (A) ++(0:0.5) -- ++(70:1.5);
+    \draw[dashed] (C) -- (B);
+    \node[below=5pt] at (A) {$dS$};
+\end{tikzpicture}

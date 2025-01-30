@@ -1,0 +1,22 @@
+\begin{tikzpicture}[>=latex, every node/.style={font=\scriptsize,inner sep=2pt}, scale=2]
+    \draw[fill=gray!50] (0, 0) circle (1 and 0.3);
+    \draw[fill=gray!50] (-1, 0) -- ++(0,-0.1) arc(180:360:1 and 0.3) -- ++(0, 0.1) arc(0:-180:1 and 0.3) ;
+    \draw[-stealth] (0,0) -- ++(0, 2) node[left] {$z$};
+    \draw[->] (0,0) -- node[above] {$R$} (-50:1 and 0.3);
+    \draw[fill=red!40] (150:0.8 and 0.23) arc(150:210:0.8 and 0.23) -- (210:0.7 and 0.17) arc(210:150:0.7 and 0.17) -- cycle;
+
+    \draw[->] (180:0.75) coordinate (r) -- node[anchor=south east] {$\vect{r}$} (0, 1.5) node[circle, fill, inner sep=0.25pt] (P) {};
+    \node[left] at (P) {$P$};
+    \draw[->, red] (P) -- ++({atan(1.5/0.75)}:0.5) node[above] {$d\Efield$};
+    \draw [] (P) ++(0,-0.5)  arc(-90:atan(1.5/0.75)-180:0.5) node[anchor=north, pos=0.6] {$\theta$};
+    \draw[->] (0 ,0) -- node[below] {$\vect{r}'$} ++(210:0.7 and 0.17);
+    \draw[] (0 ,0) -- ++(150:0.7 and 0.17);
+    \draw (205:0.25 and 0.08) arc(205:155:0.25 and 0.08) coordinate[pos=0.5] (dphi);
+    \node (dphi1) at (-0.25, 0.4) {$d\phi$};
+    \draw[-{Latex[length=3pt, open]}, blue] (dphi1.south) to[bend right] (dphi);
+    \node (dS) at (-1.25, 0.2) {$\sigma dS$};
+    \draw[-{Latex[length=3pt, open]}, blue] (dS) to[bend right] (r);
+    \draw[dash pattern={on 1pt off 0.5pt}] (0,0) --++ (0.25, 0);
+    \draw[dash pattern={on 1pt off 0.5pt}] (P) -- ++(0.25, 0);
+    \draw[<->] (0.15, 1.5) -- node[circle, fill=white, inner sep=1pt] {$z$} (0.15, 0);
+\end{tikzpicture}

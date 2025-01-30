@@ -1,0 +1,55 @@
+\begin{tikzpicture}[
+		>=latex,
+		line width=1pt,
+	]
+
+
+
+
+	\pgfmathsetmacro\h{1.33}
+	\pgfmathsetmacro\R{1}
+	\pgfmathsetmacro\r{0.4}
+
+	\coordinate (A) at (-\R, 0);
+	\coordinate (B) at (-\R, \h);
+	\coordinate (C) at (\R, \h);
+	\coordinate (D) at (\R, 0);
+
+	\coordinate (B') at (-\R, -\h);
+	\coordinate (C') at (\R, -\h);
+
+	\pic[opacity=0.5] (0,0) {area};
+
+
+
+	\draw[dashed, red] (A) arc(180:0:{\R} and \r);
+	\draw[red] (A) -- (B) arc(180:0:{\R} and \r) -- (D) arc(0:-180:{\R} and \r) -- cycle;
+	\draw[red] (B) arc(180:360:{\R} and \r);
+	\fill[fill=red, opacity=0.5, pattern=north east lines, pattern color=red, line width=0.5mm] (0, 0) circle({\R} and \r);
+
+	\draw[->] ($(B)!0.5!(C)$) -- ++(0, 0.75) node[above] {$\vect{n}_2$};
+
+	\draw[->, ultra thick] (0, 0) -- ++(0, 0.75) node[left, inner sep=3pt] {$\vect{n}$};
+
+%    \draw[->, red, ultra thick] (0, 0) -- ++(65:3) node[above, inner sep=3pt] {$\Efield_2$};
+%	\draw[->] (+0.25, 0) -- ++(0, 0.75) node[anchor=north west, inner sep=3pt] {$\vect{n}_1$};
+
+
+	\begin{scope}[on background layer]
+%		\draw[->] (0, 0) -- ++(0, -0.75) node[anchor=west, inner sep=3pt] {$\vect{n}_2$};
+		\draw[dashed, red, line width=1pt] (A) -- (B') arc(180:360:{\R} and \r) -- (D);
+		\draw[dashed, red, line width=1pt] (B') arc(180:0:{\R} and \r);
+%        \draw[<-, red, ultra thick] (0, 0) -- ++(25:-3) node[above, inner sep=3pt] {$\Efield_1$};
+    \draw[->, line width=1pt] ($(B')!0.5!(C')$) -- ++(0, -0.75) node[below] {$\vect{n}_1$};
+	\end{scope}
+
+    \begin{scope}
+        \coordinate (h) at ($(0,0) + ({\R+0.15}, 0)$) ;
+        \draw[-|] (h) -- ++(0, \h);
+        \draw[-|] (h) -- ++(0, -\h);
+        \node[right] at (h) {$h$};
+    \end{scope}
+
+
+
+\end{tikzpicture}

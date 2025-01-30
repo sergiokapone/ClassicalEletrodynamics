@@ -1,0 +1,351 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !TeX root =../FTProblems.tex
+
+\section{Основні формули векторного аналізу}\label{Vanaliz}
+
+\subsection{Тривимірний символ Леві-Чівіти}\label{Levi-Chiv}
+
+Тривимірний символ Леві-Чівіти визначений співвідношеннями
+\begin{equation}\label{eq:Levi-Chiv}
+\epsilon_{ijk} =  - \epsilon_{jik} =  - \epsilon_{ikj}.
+\end{equation}
+
+Деякі співвідношення з цим символом:
+\begin{align}
+    \epsilon_{ijk}\epsilon_{kpq} &= \delta_{ip}\delta_{jq} - \delta_{iq}\delta_{jp}, \\
+    \epsilon_{iqk}\epsilon_{pqk} &= 2\delta _{ip}.
+\end{align}
+
+Ротор та векторний добуток у декартових координатах $\{x,y,z\} = \{x_1, x_2, x_3\}$:
+\begin{align}
+\left[\rot\vect{A} \right]_i &= \epsilon_{ijk}{\partial_j}{A_k}, \\
+\left[ \vect{A} \times \vect{B} \right]_i &= \epsilon_{ijk}{A_j}{B_k},
+\end{align}
+всі індекси пробігають значення $1$, $2$, $3$.
+
+\subsection{Диференціальні операції в різних системах координат}
+
+\subsubsection{Декартова система координат}
+
+\begin{align}\label{cartesian}
+	\mathrm{grad}\,\psi \equiv \vect{\nabla}\psi & = \frac{\partial \psi}{\partial x} \vect{e}_x + \frac{\partial \psi}{\partial y} \vect{e}_y +
+	\frac{\partial \psi}{\partial z} \vect{e}_z \\
+	\mathrm{div}\,\left(\mathrm{grad}\,\psi\right) \equiv \Laplasian\psi    & = \frac{\partial^2 \psi}{\partial x^2} + \frac{\partial^2 \psi}{\partial y^2} + \frac{\partial^2 \psi }{\partial z^2}               \\
+	\mathrm{div}\,\vect{A} \equiv \divg\vect{A}     & = \frac{\partial A_x}{\partial x}  + \frac{\partial A_y}{\partial y} + \frac{\partial A_z}{\partial z}                              \\
+	\mathrm{rot}\,\vect{A} \equiv  \rot\vect{A}      & = \left( \frac{\partial A_z}{\partial y}  - \frac{\partial A_y}{\partial z}\right)  \vect{e}_x +
+	\left( \frac{\partial A_x}{\partial z}  - \frac{\partial A_z}{\partial x}\right)  \vect{e}_y +
+	\left( \frac{\partial A_y}{\partial x}  - \frac{\partial A_x}{\partial y}\right)  \vect{e}_z
+\end{align}
+
+\subsubsection{Циліндрична система координат}
+
+\begin{align}\label{cylindric}
+		\vect{\nabla}\psi & = \frac{\partial \psi}{\partial \rho} \vect{e}_{\rho} + \frac{1}{\rho}\frac{\partial \psi}{\partial \phi} \vect{e}_{\phi} + \frac{\partial \psi}{\partial z} \vect{e}_{z}                                                                                       \\
+	\Laplasian\psi    & = \frac{1}{r} \frac{\partial }{\partial r} \left( r \frac{\partial \psi}{\partial r} \right) + \frac{1}{r^2} \frac{\partial^2 \psi}{\partial \phi^2} + \frac{\partial^2 \psi}{\partial z^2}                                                                   \\
+	\divg\vect{A}     & = \frac{1}{\rho}\frac{\partial \left(\rho A_{\rho }\right)}{\partial \rho }+\frac{1}{\rho }\frac{\partial A_{\phi } }{\partial \phi }+\frac{\partial A_{z}}{\partial z}                                                                                    \\
+	\rot\vect{A}      & =\left({\frac {1}{\rho }}{\frac {\partial A_{z}}{\partial \phi }}-{\frac {\partial A_{\phi }}{\partial z}}\right)\vect{e}_{\rho}+\left({\frac {\partial A_{\rho }}{\partial z}}-{\frac {\partial A_{z}}{\partial \rho }}\right)\vect{e}_{\phi} + \nonumber \\
+	                  & +
+	{\frac {1}{\rho }}\left({\frac {\partial (\rho A_{\phi })}{\partial \rho }}-{\frac {\partial A_{\rho }}{\partial \phi }}\right)\vect{e}_{z}
+\end{align}
+Орти циліндричної системи координат зв'язані з декартовими ортами як:
+\begin{align}\label{}
+    \vect{e}_r &= \cos\phi\, \vect{e}_x + \sin\phi\, \vect{e}_y, \\
+    \vect{e}_{\phi} &= -\sin\phi\, \vect{e}_x + \cos\phi\, \vect{e}_y, \\
+    \vect{e}_{z} &= \vect{e}_z.
+\end{align}
+
+\subsubsection{Сферична система координат}
+
+\begin{align}\label{spheric}
+    \vect{\nabla}\psi & = \frac{\partial \psi}{\partial r} \vect{e}_{r} + \frac{1}{r}\frac{\partial \psi}{\partial \theta} \vect{e}_{\theta} + \frac{1}{r\sin\theta}\frac{\partial \psi}{\partial \phi} \vect{e}_{\phi}                                                                                                            \\
+	\Laplasian\psi    & = \frac{1}{r^2} \frac{\partial}{\partial r} \left( r^2 \frac{\partial \psi}{\partial r} \right) + \frac{1}{r^2 \sin \theta} \frac{\partial \psi}{\partial \theta} \left( \sin \theta \frac{\partial \psi}{\partial \theta} \right) + \frac{1}{r^2\sin^2 \theta} \frac{\partial^2 \psi}{\partial \phi^2} \\
+	\divg\vect{A}     & =\frac{1}{r^2}\frac{\partial \left(r^2A_r\right)}{\partial r}
+	+
+	\frac{1}{r\sin \theta }\frac{\partial}{\partial \theta }\left(A_{\theta }\sin \theta \right)
+	+
+	\frac{1}{r\sin\theta}\frac{\partial A_{\phi}}{\partial \phi }                                                                                                                                                                                                                                                            \\
+	\rot\vect{A}      & = \frac{1}{r\sin \theta }\left(\frac{\partial}{\partial \theta }\left(A_{\phi }\sin \theta \right)-\frac{\partial A_{\theta }}{\partial \phi }\right)\vect{e}_{r}
+	+
+	\frac{1}{r}\left(\frac{1}{\sin \theta }\frac{\partial A_{r}}{\partial \phi }-\frac{\partial}{\partial r}\left(rA_{\phi }\right)\right)\vect{e}_{\theta}
+	+ \nonumber                                                                                                                                                                                                                                                                                                                    \\
+	                  & + \frac{1}{r}\left(\frac{\partial}{\partial r}\left(rA_{\theta }\right)-\frac{\partial A_{r}}{\partial \theta }\right)\vect{e}_{\phi}
+\end{align}
+Орти сферичної системи координат зв'язані з декартовими ортами як:
+\begin{align}\label{}
+    \vect{e}_r &= \sin\theta\cos\phi\, \vect{e}_x + \sin\theta\sin\phi\, \vect{e}_y + \cos\theta\, \vect{e}_z, \\
+    \vect{e}_{\theta} &= \cos\theta\cos\phi\, \vect{e}_x + \cos\theta\sin\phi\, \vect{e}_y - \sin\theta\, \vect{e}_z, \\
+    \vect{e}_{\phi} &= -\sin\phi\, \vect{e}_x + \cos\phi\, \vect{e}_y. \\
+\end{align}
+
+\subsection{Другі похідні}
+
+\begin{align}
+	\mathrm{rot}\,\mathrm{grad}\,\phi    & = \rot(\vect{\nabla}\phi)  = 0                                             \\
+	\mathrm{div}\,\mathrm{rot}\,\vect{A} & = \divg(\rot\vect{A})  = 0                                                 \\
+	\mathrm{rot}\,\mathrm{rot}\,\vect{A} & = \rot(\rot\vect{A})  = \vect{\nabla}(\divg\vect{A}) - \Laplasian \vect{A}
+\end{align}
+
+
+\subsection{Похідні від добутків}
+
+\begin{align}
+	\mathrm{grad}\,(\phi \psi)             & = \psi\,\mathrm{grad}\,\phi +\phi\, \mathrm{grad}\,\psi                                                                                                                           \\
+	\mathrm{div}\,(\phi \vect{A})          & = \phi\,\mathrm{div}\,\vect{A} + \vect{A}\,\mathrm{grad}\,\phi                                                                                                                    \\
+	\mathrm{rot}\,(\phi \vect{A})          & = \phi\,\mathrm{rot}\,\vect{A} + \mathrm{grad}\,\phi \times \vect{A}                                                                                                              \\
+	\mathrm{grad}\,(\vect{A}\cdot\vect{B}) & = \vect{B}\times\mathrm{rot}\,\vect{A} + \vect{A}\times\mathrm{rot}\,\vect{B} + \left( \vect{B}\vect{\nabla}\right)\vect{A} + \left( \vect{A}\vect{\nabla}\right)\vect{B}         \\
+	\mathrm{div}\,(\vect{A}\times\vect{B}) & = \vect{B}\cdot\mathrm{rot}\,\vect{A} - \vect{A}\cdot\mathrm{rot}\,\vect{B}                                                                                                       \\
+	\mathrm{rot}\,(\vect{A}\times\vect{B}) & = \left( \vect{B}\vect{\nabla}\right)\vect{A} - \left( \vect{A}\vect{\nabla}\right)\vect{B} + 	\vect{A}\,\mathrm{div}\,\vect{B} - \vect{B}\,\mathrm{div}\,\vect{A} \label{rotvect} \\
+	\frac12\mathrm{grad}\,A^2              & =  \left( \vect{A}\vect{\nabla}\right)\vect{A} + \vect{A}\times\mathrm{rot}\,\vect{A}
+\end{align}
+
+
+\subsection{Інтегральні характеристики та теореми}
+
+Теорема Остроградського-Гаусса:
+\begin{equation}\label{OGTheorem}
+	\oiint\limits_{\partial \Omega} \vect{A}\cdot d\vect{S} = \iiint\limits_{\Omega} \divg\vect{A} dV,
+\end{equation}
+де $\Omega$~--- об'єм, $\partial\Omega$ --- його межа.
+
+Теорема Стокса:
+\begin{equation}\label{Stoksheorem}
+	\oint\limits_{\partial S} \vect{A}\cdot d\vect{l} = \iint\limits_S \rot\vect{A} \cdot d\vect{S},
+\end{equation}
+де $S$~--- поверхня, що спирається на контур $\partial S$.
+
+Теорема Гріна:
+\begin{equation}\label{Grin}
+	\iiint\limits_{\Omega}(\phi \nabla ^{2}\psi -\psi \nabla ^{2}\phi )\ dV=\iint \limits_{\partial \Omega}(\phi \vect{\nabla} \psi -\psi \vect{\nabla}
+	\phi )\cdot d\vect{S}.
+\end{equation}
+
+
+\section{Поліноми Лежандра}\label{Polinoms}
+
+Поліноми Лежандра застосовуються у теорії потенціалу при розкладанні виразу в околі точки $\vect{r}$:
+\begin{equation*}\label{}
+    \frac{1}{|\vect{r} - \vect{r}_0|} = \frac{1}{\sqrt{r^2 - 2rr_0 \cos\chi + r_0^2 }}  =  \sum\limits_{l = 0}^{\infty} \frac{r^l_<}{r^{l+1}_>} P_l(\cos\chi),
+\end{equation*}
+де $r_>$, $r_<$~--- більша і менша із величин $|\vect{r}|$ та $\vect{r}_0$, відповідно, $\cos\chi$~--- кут між векторами $\vect{r}$ та $|\vect{r}_0|$.
+
+\medskip%
+\textbf{Деякі поліноми Лежандра}
+
+\begin{align*}
+P_{0}(\cos\chi)  = 1, &\quad P_{1}(\cos\chi)  = \cos\chi, \\
+P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac {1}{2}(5\cos^2\chi-3\cos\chi).
+\end{align*}
+
+
+\section{Сферичні гармоніки}\label{Spherical_Harmonics}
+
+Сферичні функції, що залежать від полярних кутів визначаються формулою:
+\begin{equation*}
+    Y_{lm}(\theta,\phi) = (-1)^{(m+|m|)/2} \sqrt{\frac{2l+1}{4\pi}\frac{(l-m)!}{(l+m)!}}P_l^{|m|}(\cos \theta) e^{im\phi},
+\end{equation*}
+де $l = 0,1,2, \ldots$, $m$ пробігає значення від $-l$ до $l$, а $P_l^{|m|}(x)$~--- приєднані функції Лежандра.
+
+Вони утворюють повну ортонормовану систему функцій:
+\[
+    \int\limits_{\theta=0}^{\pi} \int\limits_{\phi=0}^{2\pi} Y^*_{l',m'}(\theta, \phi) Y_{l,m}(\theta, \phi) \sin\theta d\theta d\phi  = \delta_{l,l'} \delta_{m,m'}.
+\]
+
+Деякі сферичні гармоніки:
+\begin{align*}
+	Y_{0,0}(\theta,\phi)     & =\sqrt{1\over 4\pi},                                            \\
+	Y_{1,\pm 1}(\theta,\phi) & =\sqrt{3\over 8\pi} \, \sin\theta \, e^{\pm i\phi},             \\
+	Y_{1,0}(\theta,\phi)     & =\sqrt{3\over 4\pi}\, \cos\theta ,                              \\
+	Y_{2,0}(\theta,\phi)     & =\sqrt{5\over 16\pi}\, (3\cos^{2}\theta-1),                     \\
+	Y_{2,\pm 1}(\theta,\phi) & =\sqrt{15\over 8\pi}\, \sin\theta\, \cos\theta\, e^{\pm i\phi}, \\
+	Y_{2,\pm 2}(\theta,\phi) & =\sqrt{15\over 32\pi} \, \sin^{2}\theta \, e^{\pm2i\phi}.
+\end{align*}
+
+\section{Циліндричні функції}\setcounter{equation}{0}
+
+Рівняння, що виникають в задачах з циліндричною симетрією, мають вигляд:
+	\begin{equation}\label{eq:Bessel_eq}
+		\frac{d^2y}{dx^2} + \frac1x\frac{dy}{dx} + \left(1 - \frac{m^2}{x^2} \right) y = 0,
+	\end{equation}
+	розв'язок яких можна представити за допомогою функцій Бесселя $J_m(x)$ та Неймана $N_m$ у вигляді лінійної комбінації $y(x) = A J_m(x) + B N_m(x)$ або у вигляді лінійної комбінації $y(x) = A H^{(1)}_m(x) + B H^{(2)}_m(x)$, де функції $H_m^{(1,2)} =J_m \pm i N_m$~--- називаються функціями Ганкеля 1-го та 2-го роду, відповідно. Доцільність введення функцій Ганкеля обумовлена тим, що вони мають прості асимптотичні розкладання при $|x| \gg 1$ і зручні для задач, пов'язаних з поширенням хвиль.
+
+Для $m = 0,1,2,\ldots$ функції Неймана нескінченні в точці $x = 0$, тобто $\lim\limits_{x\to0}N_m(x) = -\infty$.
+
+Функції Бесселя можна представити за допомогою ряду (в околі точки $x = 0$ для цілих, або невід'ємних $m$):
+\begin{equation}\label{eq:J}
+    J_m(x) = \sum_{n=0}^\infty \frac{(-1)^n}{n! \Gamma(n+m+1)} {\left({\frac{x}{2}}\right)}^{2n+m},
+\end{equation}
+де $ \Gamma$~--- \href{https://en.wikipedia.org/wiki/Gamma_function}{гамма-функція}. Для $m \in \mathbb{Z}$ має місце рівність $J_{-m}(x)  = (-1)^m J_m(x)$.
+
+\begin{center}
+  \begin{tikzpicture}
+    \begin{axis}[axis lines = middle,
+			axis line style={-stealth},
+			minor grid style = {line width=.1pt,draw=gray!10},
+            width=\textwidth, height=0.5*\textwidth, xlabel=$x$,
+            xtick=\empty,
+%            ytick={-0.5,0.5,1},
+            legend style={draw=none},
+    ]
+    \addplot+[id=parable,domain=-20:20, samples=500, mark=none, width=2pt, color=red, thick]
+    gnuplot{besj0(x)};% node[pin=95:{$J_0(x)$}]{};
+    \addplot+[id=parable,domain=-20:20, samples=500, mark=none, width=2pt, color=blue, thick]
+    gnuplot{besj1(x)};% node[pin=130:{$J_1(x)$}]{};
+    \addplot+[id=parable2,domain=-20:20, samples=500, mark=none, width=2pt, color=green!50!black, thick]
+    gnuplot{2*1/x*besj1(x)-besj0(x)};% node[pin=-140:{$J_2(x)$}]{};
+    \legend{$J_0(x)$,$J_1(x)$,$J_2(x)$}
+   \end{axis}
+  \end{tikzpicture}
+
+    {Графіки функцій Бесселя $J_m$ для $m = 0,1,2$.}
+\end{center}
+
+\begin{center}
+  \begin{tikzpicture}
+    \begin{axis}[axis lines = middle,
+			axis line style={-stealth},
+			minor grid style = {line width=.1pt,draw=gray!10},
+            width=\textwidth, height=0.5*\textwidth, xlabel=$x$,
+            xtick=\empty,
+%            ytick={-0.5,0.5,1},
+            legend style={at={(current axis.south east)}, anchor = south east, draw=none},
+    ]
+    \addplot+[id=parable,domain=0:40, restrict y to domain=-1.5:1, samples=500, mark=none, width=2pt, color=red, thick]
+    gnuplot{besy0(x)};% node[pin=95:{$J_0(x)$}]{};
+    \addplot+[id=parable,domain=0:40, restrict y to domain=-1.5:1, samples=1000, mark=none, width=2pt, color=blue, thick]
+    gnuplot{besy1(x)};% node[pin=130:{$J_1(x)$}]{};
+    \addplot+[id=parable2,domain=0:40, restrict y to domain=-1.5:1, samples=1000, mark=none, width=2pt, color=green!50!black, thick]
+    gnuplot{2*1/x*besy1(x)-besy0(x)};% node[pin=-140:{$J_2(x)$}]{};
+    \legend{$N_0(x)$,$N_1(x)$,$N_2(x)$}
+   \end{axis}
+  \end{tikzpicture}
+
+    {Графіки функцій Неймана $N_m$ для $m = 0,1,2$.}
+\end{center}
+
+Функції Неймана визначаються через функції Бесселя як:
+\begin{equation}\label{eq:NG}
+    N_m(x) = \frac{J_m(x)\cos m\pi - J_{-m}(x)}{\sin m\pi}.
+\end{equation}
+
+
+Деякі рекурентні співвідношення:
+\begin{equation}
+    J_{m + 1}(x) + J_{m - 1}(x) = \frac{2m}{x}J_m(x).
+\end{equation}
+
+Деякі диференціальні та інтегральні співвідношення для нецілих $m$ (для цілих $m$ ці функції можна визначити за допомогою граничного переходу).:
+\begin{align}
+    \frac{d}{dx} J_0(x) = - J_1(x), \\
+    \frac{d}{dx} \left( x^{-m}J_m(x)\right)  = - x^{-m}J_{m+1}(x), \\
+     \int\limits_0^{x} x^{\prime m+1} J_m(x') dx' &= x^{m+1}J_{m+1}. \label{eq:recInt}
+\end{align}
+
+Інтеграли від добутків:
+\begin{equation}
+    \int\limits_0^x  J_m(k_1x')J_m(k_2x') x' dx' = \frac{x\left( k_2J_m(k_1x)J'_m(k_2x) - k_1J_m(k_2x)J'_m(k_1x)\right)}{k_1^2-k_2^{2}}   \label{eq:JJ0*}.
+\end{equation}
+
+В задачах, зазвичай, часто необхідно знайти наближений вигляд циліндричних функцій при малих та великих значеннях аргументу $x$:
+
+при $|x| \ll 1$ з~\eqref{eq:J}
+
+\begin{equation}
+    J_0(x) \approx 1 - \frac{x^2}{4}, \quad
+    J_m \approx \frac{x^m}{2^m m!}, \ m \ge 1,\, m \in \mathbb{N};
+\end{equation}
+
+при $|x| \gg 1$
+
+\begin{align}
+    J_m &\approx \sqrt{\frac{2}{\pi x}}  \cos\left( x - m\frac{\pi}{2} - \frac{\pi}{4}\right),
+      \label{eq:Jxgg1}\\
+    N_m &\approx \sqrt{\frac{2}{\pi x}}  \sin\left( x - m\frac{\pi}{2} - \frac{\pi}{4}\right),
+  \label{eq:Yxgg1}\\
+    H_m^{(1,2)} &\approx \sqrt{\frac{2}{\pi x}}  e^{\pm i \left( x - m\frac{\pi}{2} - \frac{\pi}{4}\right) }. \label{eq:Hxgg1}
+\end{align}
+
+Співвідношення Якобі-Ангера (розкладання за функціями Бесселя):
+\begin{equation}\label{eq:JacobiAnger}
+    e^{ix\cos\theta} = \sum\limits_{m= - \infty}^{\infty} i^mJ_m(x)e^{im\theta}, \quad
+    e^{ix\sin\theta} = \sum\limits_{m= - \infty}^{\infty} J_m(x)e^{im\theta}. \\
+\end{equation}
+
+\section{Дельта-функція Дірака}\setcounter{equation}{0}
+
+Дельта-функція Дірака (або $\delta$-функція) є узагальненою функцією і була введена фізиком Полем Діраком для моделювання густини ідеалізованої точкової маси або точкового заряду.
+
+На <<фізичному рівні строгості>> можна визначити $\delta$-функцію формальним співвідношенням:
+\begin{equation}
+    \int\limits_{-\infty}^{+\infty}f(x)\delta(x-x_0)\,dx=f(x_0),
+\end{equation}
+У випадку інтегрування по скінченному об'єму $V$:
+\begin{equation}\label{eq:delta3D}
+    \int\limits_{V}f(\vect{r})\delta(\vect{r} - \vect{r}_0) dV=f(\vect{r}_0),
+\end{equation}
+де точка $\vect{r}_0$ знаходиться всередині об'єму $V$.
+
+%$\delta$-функцію однієї дійсної змінної можна визначити як функцію, що задовольняє наступним умовам:
+%\begin{equation}\label{eq:delta}
+%\delta(x - x_0)=\left\{\begin{matrix}
+%   +\infty, & x=x_0, \\
+%   0, & x \neq x_0; \\
+%\end{matrix}\right.
+%\end{equation}
+%\begin{equation}\label{eq:deltaProp0}
+%    \int\limits_{-\infty}^{+\infty}\delta(x-x_0)dx=1.
+%\end{equation}
+%Тобто ця функція не дорівнює нулю тільки в точці $x = x_0$, де вона перетворюється в нескінченність таким чином, щоб її інтеграл в будь-якому околі точки $x = x_0$ дорівнює $1$.
+%
+%Аналітичне представлення $\delta$-функції:
+%\begin{equation}\label{eq:deltaanalit}
+%    \delta(x) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty} e^{ikx}dk.
+%\end{equation}
+\bigskip\noindent%
+\textbf{Властивості дельта-функції}
+\bigskip
+
+\begin{enumerate}[label=\alph*)]
+\item Дельта-функція парна $\delta(-x) = \delta(x)$,
+\item $x\delta(x) = 0$,
+\item $\delta(ax) = \frac{1}{|a|}\delta(x)$,
+\item  $x\delta^\prime(x)=-\delta(x)$,
+\item $\delta(f(x))=\sum\limits_k\frac{\delta(x-x_k)}{|f'(x_k)|}$, де $x_k$~--- нулі функції $f(x)$,
+
+\end{enumerate}
+
+%\subsection{Розкладання дельта-функції в ряд Фур'є}
+%
+%$\delta$-Функцію можна представити у вигляді ряду Фур'є на деякому проміжку $x \in (-l,l)$:
+%\begin{equation}\label{eq:deltacos}
+%    \delta(x) = \frac{1}{2l} +  \frac1l \sum\limits_{m=1}^{\infty}\cos\frac{m\pi}{l}x,
+%\end{equation}
+%або в комплексній формі
+%\begin{equation}\label{eq:deltae}
+%    \delta(x) =  \frac{1}{2l} \sum\limits_{m=-\infty}^{\infty}e^{i\frac{2m\pi}{l}x}.
+%\end{equation}
+%У випадку, якщо ми маємо періодичну функцію у вигляді $\delta$-<<частоколу>>~--- $\sum\limits_{k=-\infty}^{\infty}\delta(x-ka)$~--- відстань між піками якого дорівнює $a=2l$, то для нього розкладання також матиме вигляд~\eqref{eq:deltacos} (або \eqref{eq:deltae}):
+%\begin{equation}\label{eq:deltalll}
+%    \sum\limits_{k=-\infty}^{\infty}\delta(x-ka)  = \frac{1}{a} +  \frac2a \sum\limits_{m=1}^{\infty}\cos\frac{2m\pi}{a}x
+%\end{equation}
+% і буде справедливе на всій числовій прямій $x \in (-\infty,\infty)$.
+%
+%\subsection{Тривимірна дельта-функція}
+%
+%Тривимірна $\delta$-функція визначається співвідношеннями:
+%\begin{equation}\label{eq:delta3D}
+%    \delta(\vect{r} - \vect{r}_0) = \delta(x-x_0)\delta(y-y_0)\delta(z-z_0),
+%\end{equation}
+%\begin{equation}\label{eq:delta3D}
+%    \int\limits_{V}f(\vect{r})\delta(\vect{r} - \vect{r}_0) dV=f(\vect{r}_0),
+%\end{equation}
+%де точка $\vect{r}_0$ знаходиться в середині об'єму $V$.
+%
+%Аналітичне представлення тривимірної $\delta$-функції:
+%\begin{equation}\label{eq:deltaanalit3В}
+%    \delta(\vect{r}) = \frac{1}{(2\pi)^3}\int\limits_{-\infty}^{\infty} e^{i\vect{k}\cdot\vect{r}}d\vect{k},
+%\end{equation}
+%де $d\vect{k}=dk_xdk_ydk_z$.
+
+

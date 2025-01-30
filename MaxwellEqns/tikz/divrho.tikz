@@ -1,0 +1,45 @@
+\begin{tikzpicture}[>=latex,
+    charge/.style = {ball color=red!50, font=\scriptsize, inner sep=1pt},
+    surface/.style = {draw, opacity=0.5, smooth cycle, tension=.7},
+    filled_surface/.style = {red, fill=red!50, smooth cycle, tension=.7},
+    >=latex,
+    scale=1
+]
+
+\def\coordinates{
+    (-1,0)
+    (-0.5,1)
+    (0.5,2)
+    (2.5,1.5)
+    (3,0.5)
+    (2,-1.5)
+    (0.5,-2)
+    (-0.5,-1)
+}
+
+\begin{scope}
+    \clip[yshift=2cm] plot[smooth cycle, tension=.7] coordinates \coordinates;
+    \draw[yshift=2cm, draw=red, ball color=red!50] plot[smooth cycle, tension=.7]
+    coordinates \coordinates;
+    \draw plot [only marks, mark=+, domain=-1:3, samples=100, mark
+    options={color=red}]
+    (\x,{rnd*4});
+
+\end{scope}
+    \node[font=\scriptsize, anchor=south west, inner sep=1pt, text
+        width=2cm,
+    align=center, text=blue] (div0) at (180:4) {В цій точці \\
+    $\Div\Efield = 0$ \\ ($\rho = 0$)};
+    \draw[<-, gray, thick] (-0.75,0.5) node[inner sep=1pt, circle, fill] {}
+    to[out=195, in = 60] (div0.north);
+
+
+    \node[font=\scriptsize, anchor=south west, inner sep=1pt, text
+        width=2cm,
+    align=center, text=blue] (div1) at (45:4) {В цій точці \\
+    $\Div\Efield = 4\pi\rho$ \\ ($\rho \neq 0$)};
+    \draw[<-, gray, thick] (45:2) node[inner sep=1pt, circle, fill] {}
+    to[out=45, in = -135] (div1.south);
+
+
+\end{tikzpicture}

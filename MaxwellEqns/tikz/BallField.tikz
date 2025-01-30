@@ -1,0 +1,22 @@
+\begin{tikzpicture}
+	\begin{axis}[axis lines=middle,
+			xtick=\empty,
+			ytick=\empty,
+			extra x ticks={1},
+			extra x tick labels={$R$},
+			extra y ticks={1},
+			extra y tick labels={$\frac{Q}{R^2}$},
+			height=0.5\linewidth,
+			width=\linewidth,
+			ymax=1.3,
+			xlabel=$r$,
+			xlabel style={below right},
+			ylabel=$E$,
+			ylabel style={above left},
+		]
+		\addplot[domain=0:1, red, thick] {x};
+		\addplot[domain=1:3, red, thick] {1/x^2};
+		\draw[dashed] (axis cs:1,0) -- (axis cs:1,1);
+		\draw[dashed] (axis cs:1,1) -- (axis cs:0,1);
+	\end{axis}
+\end{tikzpicture}

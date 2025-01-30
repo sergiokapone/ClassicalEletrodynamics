@@ -1,0 +1,120 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !TeX root =../FTProblems.tex
+
+\newpage
+\chapter{Система \mbox{мікроскопічних} рівнянь Максвелла}
+
+%\epigraph{\Annabelle  Неможливо позбутися відчуття, що ці математичні формули існують незалежно від нас і володіють власним розумом, що вони мудріші за нас, мудріше навіть тих, хто їх відкрив, і що ми дістаємо з них більше, ніж спочатку було закладено\ldots}{Heinrich Hertz}
+%\epigraph{\Annabelle Уж не Боги ли начертали эти знаки?}{Л.~Больцман}
+
+%\renewcommand{\theequation}{\thepart.\arabic{equation}}
+\section{Рівняння Максвелла}
+
+Система рівнянь Максвелла сформульована в 60-х роках XIX століття на основі узагальнення емпіричних законів і розвитку ідей про електромагнітні явища. Система рівнянь є основою теорії електромагнітного поля і дозволяє розв'язувати задачі, пов'язані з відшуканням електричних і магнітних полів, що створюються заданим розподілом електричних зарядів і струмів.
+
+Інтегральна форма мікроскопічних рівнянь:
+\begin{align}
+	\oiint\limits_{\partial\Omega} \Efield\cdot d\vect{S} & = 4\pi\iiint\limits_{\Omega}\rho dV   \label{Int
+	I},                                                                                                         \\
+	\oiint\limits_{\partial\Omega} \Bfield\cdot d\vect{S} & = 0   \label{Int
+	II},                                                                                                                                   \\
+	\oint\limits_{\partial S} \Efield\cdot d\vect{r}  & = - \frac1c \iint\limits_S \frac{\partial\Bfield}{\partial t}\cdot d\vect{S}  \label{Int
+	III},                                                          \\
+	\oint\limits_{\partial S} \Bfield\cdot d\vect{r}  & =\dfrac{4\pi}{c} \iint\limits_S \vect{j}\cdot d\vect{S} +\frac{1}{c} \iint\limits_S
+	\frac{\partial\Efield}{\partial t}\cdot d\vect{S}  \label{Int IV},
+\end{align}
+де $\Omega$ --- довільний нерухомий об'єм, $\partial\Omega$ --- його межа; $S$ --- довільна нерухома орієнтована поверхня, $\partial S$ --- замкнений
+контур, що її обмежує.
+
+Диференціальна форма  мікроскопічних рівнянь:
+\begin{flalign}
+	\divg\Efield &= 4\pi\rho \label{Diff I},\\[0.8em]
+	\divg\Bfield &= 0 \label{Diff II},\\
+	\rot\Efield &= -\dfrac{1}{c}\dfrac{\partial\Bfield}{\partial t} \label{Diff III},\\
+	\rot\Bfield &= \dfrac{4\pi}{c} \vect{j}+\dfrac{1}{c}\dfrac{\partial\Efield}{\partial t} \label{Diff IV}.
+\end{flalign}
+
+
+\noindent%
+$ \Efield $~-- вектор напруженості електричного поля,\\
+$ \Bfield $~-- вектор індукції магнітного поля.
+
+
+\section{Закони збереження}
+
+\begin{itemize}
+	\item Електричного заряду
+	      \begin{equation}
+		      \frac{\partial \rho}{\partial t} + \divg\vect{j} = 0.
+	      \end{equation}
+	\item Збереження енергії (є наслідком рівнянь Максвелла)
+	      \begin{equation}
+		      \frac{\partial w}{\partial t} + \divg\vect{S} = -  \vect{j}\cdot\Efield,
+	      \end{equation}
+\end{itemize}
+де $ w $~-- густина енергії електромагнітного поля:
+\begin{equation}
+	w = \frac{1}{8\pi} (\Efield^2 + \Bfield^2),
+\end{equation}
+\noindent%
+$ \vect{S} $~-- вектор Пойнтінга (вектор густини потоку енергії):
+\begin{equation}
+	\vect{S} = \frac{c}{4\pi} \Efield\times\Bfield.
+\end{equation}
+Величина
+\begin{equation}
+	p =\vect{j}\cdot\Efield ,
+\end{equation}
+є потужністю, що виділяється в одиниці об'єму речовини.
+
+\section{Граничні умови для границі розділу двох середовищ}
+
+\begin{align}
+	\left[ \vect{n} \times (\Efield_{1} - \Efield_{2}) \right] & = 0, \label{EnBc}                        \\
+	\left( \Efield_{1} - \Efield_{2}\right) \cdot \vect{n}     & = 4\pi\sigma, \label{EtauBc}             \\
+	\left( \Bfield_{1} - \Bfield_{2}\right) \cdot \vect{n}     & = 0,    \label{BnBc}                     \\
+	\left[ \vect{n} \times (\Bfield_{1} - \Bfield_{2}) \right] & = \frac{4\pi}{c}\vect{i} \label{BtauBc},
+\end{align}
+
+\noindent%
+де $\sigma$~-- поверхнева густина вільних зарядів на границі розділу,\\
+$\vect{i}$~-- поверхневий струм провідності, який протікає по границі розділу, \\
+$\vect{n}$~--- вектор нормалі з середовища $2$  в середовище $1$.
+
+\section{Потенціали електромагнітного поля}
+
+\begin{align}
+	\Efield & = -\frac{1}{c}\frac{\partial \vect{A}}{\partial t} - \vect{\nabla}\phi, \label{E=phi+A} \\
+	\Bfield & = \rot\vect{A},
+\end{align}
+де $\phi$~-- скалярний потенціал, $ \vect{A} $~-- вектор-потенціал.
+
+Потенціали електромагнітного поля не визначені однозначно. Якщо замість потенціалів $\vect{A}$ та $\phi$ вибрати інші $\vect{A}'$ та $\phi'$, які пов'язані з вихідними перетвореннями:
+\begin{align}
+	\vect{A}' & = \vect{A} +\vect{\nabla}f,                     \\
+	\phi'     & = \phi - \frac1c \frac{\partial f}{\partial t},
+\end{align}
+де  $f(x,y,z,t)$~-- довільна функція, то поля $\Efield$ та $\Bfield$ залишаються незмінними.
+
+Умова
+\begin{equation}\label{Lorentz_gauge}
+	\vect\nabla\cdot\vect{A} = - \frac{1}{c}\frac{\partial\phi}{\partial t},
+\end{equation}
+називається калібруванням Лоренца і зазвичай використовується для динамічних задач.
+Використовуючи калібрування Лоренца, рівняння для скалярного і векторного потенціалів можна записати у симетричному вигляді:
+\begin{align}\label{Maxwell_equations_via_potantials}
+	\Delta \vect{\phi} - \frac{1}{c^2} \frac{\partial^2 \phi}{\partial t^2} = -4\pi\rho, \\
+	\Delta \vect{A} - \frac{1}{c^2} \frac{\partial^2 \vect{A}}{\partial t^2} = - \frac{4\pi}{c}\vect{j}.
+\end{align}
+
+У випадку ізольованої системи зарядів та струмів розв'язками цих рівнянь є \emph{запізнюючі потенціали}:
+\begin{equation}\label{Retarded_potentials}
+	\phi(\vect{r} , t) = \iiint\limits_{\Omega}\frac{\rho\left( \vect{r}', t - \frac{|\vect{r} - \vect{r}'|}{c}\right) }{|\vect{r} - \vect{r}'|}dV',
+	\quad
+	\vect{A}(\vect{r} , t) = \frac1c\iiint\limits_{\Omega}\frac{\vect{j}\left( \vect{r}', t - \frac{|\vect{r} - \vect{r}'|}{c}\right) }{|\vect{r} -
+	\vect{r}'|}dV'.
+\end{equation}
+
+%\renewcommand{\theequation}{\thechapter.\arabic{equation}}

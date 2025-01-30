@@ -1,0 +1,41 @@
+\begin{tikzpicture}[>=latex, thick, scale=1.4, rotate=-90]
+
+    \draw[blue] (0.2, 0.2) -- ++(80:-1.5);
+    \draw[blue] (0.8, 1) -- ++(80:-1.5);
+    \draw[blue] (1.6, 1.6) -- ++(80:-1.5);
+
+    \draw[blue] (1.2, 0) -- ++(75:-1.5);
+    \draw[blue] (2.2, 0.8) -- ++(70:-2);
+    \draw[blue] (3, 1.2) -- ++(70:-1.5);
+%
+    \draw[blue] (2, -0.4) -- ++(65:-1.5);
+%    \draw[blue] (2.8, 0) -- ++(45:-1.5);
+    \draw[blue] (3.8, 0.2) -- ++(45:-1.5);
+
+    \draw[ball color=gray!25] (0,0) to[bend left] ++(2,1.9)  to[bend left] ++(2,-2)
+    to[bend right]
+    ++(-2, -1)  to[bend
+    	right] cycle;
+
+
+    \draw[->, blue] (0.2, 0.2) -- ++(80:1.5);
+    \draw[->, blue] (0.8, 1) -- ++(80:1.5);
+    \draw[->, blue] (1.6, 1.6) -- ++(80:1.5);
+
+
+    \draw[->, blue] (1.2, 0) -- ++(75:1.5);
+    \draw[->, blue] (2.2, 0.8) coordinate (A) -- ++(70:2) coordinate (B)
+    node[right] {$\vect{v}$};
+    \draw[->, blue] (3, 1.2) -- ++(70:1.5);
+
+    \draw[->, blue] (2, -0.4) -- ++(65:1.5);
+    \draw[->, blue] (2.8, 0) -- ++(45:1.5);
+    \draw[->, blue] (3.8, 0.2) -- ++(45:1.5);
+
+    \draw[fill=gray!50, opacity=0.5] (A) circle(0.5 and 0.15);
+    \draw[dashed] (A) ++(70:1.5) circle(0.5 and 0.15);
+    \draw[->, thick] (A) -- ++(90:1.75) node[right, text=black]
+    {$\vect{n}$};
+    \draw[densely dashed] (A) ++(180:0.5) -- ++(70:1.5);
+    \draw[densely dashed] (A) ++(0:0.5) -- ++(70:1.5);
+\end{tikzpicture}

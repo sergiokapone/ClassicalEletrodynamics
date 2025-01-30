@@ -1,0 +1,167 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !BIB program = biber
+
+\documentclass[%
+biblatex,
+%marginversioninfo
+]{ConspectBook}
+
+%========================================================================================================
+%
+%									      Вихідні дані докумета
+%
+%========================================================================================================
+
+\title{Класична електродинаміка}
+\def\subtitle{Збірник задач}
+
+
+%======================================== Бібліографія ===================================================
+%
+\addbibresource{d:/Projects/LaTeX/MyPackages/bib/MyBase.bib}
+%\addbibresource{Kvant.bib}
+%
+%========================================================================================================
+
+%========================================================================================================
+%
+%\input{CoverPage}%					      Титульна сторінка
+%
+%========================================================================================================
+
+\begin{document}
+\pagestyle{empty}
+%\ifelectronic\CoverPage\setcounter{page}{0}\fi
+%\CoverPage
+\pagenumbering{arabic}
+%\maketitle
+%\makeinfopage
+%========================================================================================================
+%
+\clearpage\pagestyle{plain}
+\tableofcontents%				               Зміст
+%
+%========================================================================================================
+
+%========================================================================================================
+%
+%\include{intro}%                          Вступ та передмова
+%
+%========================================================================================================
+
+%========================================================================================================
+%
+%									      Вставка файлів розділів
+%
+%========================================================================================================
+
+\newcommand{\ChaptersOne}{
+    Measures,
+	MaxwellEqns,
+    ELimits
+}
+\newcommand{\ChaptersTwo}{
+    Potentials,
+    IsolatedSystem
+}
+
+\pagestyle{main}
+\part{Базові поняття та рівняння}
+
+%\input{Additions/MaxwellEquation}
+\multiinclude{\ChaptersOne}[]
+
+\part{Розв'язки рівнянь Максвелла}
+
+\multiinclude{\ChaptersTwo}[]
+
+%========================================================================================================
+%
+%									       Вставка відповідей
+%
+%========================================================================================================
+%\bookmarksetup{startatroot}
+%\answers
+%\multiinclude{\ChaptersOne}[-Answers]
+%\multiinclude{\ChaptersTwo}[-Answers]
+%========================================================================================================
+%
+%									             Додатки
+%
+%========================================================================================================
+\appendix
+\input{Additions/Vanaliz}
+%\input{Additions/PhysConstants}
+
+%%========================================================================================================
+%
+%									       Вставка бібліографії
+%
+%=========================================================================================================
+\clearpage\pagestyle{bibliography}
+
+\nocite{%
+	ZhdanovFT,
+	ZhdanovESS,
+    ZhdanovRelativity,
+	TerletskyElectroDyn,
+	Jackson,
+	GriffithsElectro,
+	PennerUgarov,
+	Tamm,
+	GreinerElectrodynamics,
+	LL2,
+	LL8,
+	Vlasov,
+	% ==========================
+	BatyginElectroRus,
+	Grechko,
+	Kramm,
+	Zhyrnov,
+	AlekseevElectro,
+	VekshteinElectro,
+	Ginldenburg,
+    ZangwillElectro,
+}
+
+
+
+\printbibheading[heading=bibintoc]
+
+\defbibheading{subheading}[\bibname]{%
+	\section*{#1\label{BibPage}}
+}
+
+\printbibliography[category=Textbooks, heading=subheading, title={Підручники та посібники}]
+\addtocategory{Textbooks}{%
+	ZhdanovFT,
+	ZhdanovESS,
+    ZhdanovRelativity,
+	Jackson,
+	GriffithsElectro,
+	PennerUgarov,
+	Tamm,
+	GreinerElectrodynamics,
+	LL2,
+	TerletskyElectroDyn,
+	Vlasov,
+	LL8,
+    ZangwillElectro,
+}
+
+
+\printbibliography[category=Problems, heading=subheading, title={Задачники}]
+\addtocategory{Problems}{%
+	BatyginElectroRus,
+	Grechko,
+	Kramm,
+	Zhyrnov,
+	AlekseevElectro,
+	VekshteinElectro,
+	Ginldenburg,
+}
+
+%\makelastpage
+\end{document}

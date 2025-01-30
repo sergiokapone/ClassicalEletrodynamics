@@ -1,0 +1,23 @@
+\begin{tikzpicture}[>=latex, scale=1.5]
+	\node [circle, ball color=red, inner sep=1pt, text=white, font=\bfseries] (q1) at (-1,-1) {\mathstrut$+$};
+	\node [circle, ball color=red, inner sep=1pt, text=white, font=\bfseries] (q2) at (1,1) {\mathstrut$+$};
+	\node[below=5pt] at (q1) {$q_1$};
+	\node[below=5pt] at (q2) {$q_2$};
+	\draw[dash pattern={on 1pt off 0.5pt}, ->] (q1) -- node[below right] {$\vect{r}_{12}$} (q2);
+	\draw[->, cyan, ultra thick] (q2) --  node[anchor=315, text=black]
+	{$\vect{F}_{12}$} ++(45:1);
+   \draw[->, cyan, ultra thick] (q1) --  node[anchor=315, text=black]
+    	{$\vect{F}_{21}$} ++(45:-1);
+\end{tikzpicture}
+\begin{tikzpicture}[>=latex, scale=1.5]
+	\node [circle, ball color=blue, inner sep=1pt, text=white, font=\bfseries] (q1) at (-1,-1) {\mathstrut$-$};
+	\node [circle, ball color=red, inner sep=1pt, text=white, font=\bfseries] (q2) at (1,1) {\mathstrut$+$};
+	\node[below=5pt] at (q1) {$q_1$};
+	\node[below=5pt] at (q2) {$q_2$};
+	\draw[dash pattern={on 1pt off 0.5pt}] (q1) -- (q2);
+    \draw[->, ultra thick] (q2) -- ++(45:0.5) node[above, anchor=south west] {$\vect{e}_r$};
+	\draw[->, cyan, ultra thick] (q2) --  node[anchor=315, text=black]
+	{$\vect{F}_{12}$} ++(45:-1);
+    \draw[->, cyan, ultra thick] (q1) --  node[anchor=315, text=black]
+    	{$\vect{F}_{21}$} ++(45:1);
+\end{tikzpicture}

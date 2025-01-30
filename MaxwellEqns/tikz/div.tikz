@@ -1,0 +1,45 @@
+\begin{tikzpicture}[>=latex, every node/.style={font=\scriptsize}, scale=1.5]
+
+    \draw[midarrow, red!40] (1.24,0) to[bend left] ++(75:3);
+    \draw[midarrow, red!40] (1.6,0) to[bend left=20pt] ++(70:3);
+    \draw[midarrow, red!40] (1.86,0) to[bend left=20pt] ++(55:3);
+
+	\draw[->] (0,0) -- ++(3, 0) node[below] {$y$};
+	\draw[->] (0,0) -- ++(0, 1) node[above] {$z$};
+	\draw[->] (0,0) -- ++(-135:0.75) node[below] {$x$};
+
+	\draw[green!50!black, thick] (1,2) coordinate (A)
+	-- ++(1.5, 0) coordinate (B)
+	--   ++(0,-1) coordinate (C)
+	-- node[below] {$dy$} ++(-1.5, 0) coordinate (D)
+	-- node[left] {$dz$} cycle;
+
+	\path (1.5,2.5) coordinate (A1)
+	-- ++(1.5, 0) coordinate (B1)
+	-- ++(0,-1) coordinate (C1)
+	-- ++(-1.5, 0) coordinate (D1)
+	-- cycle;
+
+	\draw[green!50!black, thick] [solid] (A1) --  (B1) -- (C1);
+	\draw[green!50!black, thick] [dashed] (C1) -- (D1) -- (A1);
+
+	\draw[green!50!black, thick] (A) -- (A1) (B) -- (B1) (C) -- node[right] {$dx$} (C1);
+	\draw[dashed, green!50!black, thick] (D) --(D1);
+
+    \coordinate (E1) at (1.25, 1.75);
+    \draw[->, red] (E1) -- ++(65:1.5) coordinate (e1) node[above] {$\Efield(\vect{r})$};
+    \draw[red] (E1) -- ++(0:{1.5*cos(65)}) coordinate (e1s) node[below] {$E_y(y)$};
+    \draw[dashed] (e1) -- (e1s);
+	\draw[->, thick] (E1) node[above] {$1$}  -- ++(-0.5, 0) node[above]
+	{$\vec{n}$};
+
+    \coordinate (E2) at ({1.25 + 1.5}, 1.75);
+    \draw[->, red] (E2) -- ++(45:1) coordinate (e2) node[above] {$\Efield(\vect{r} + d
+    \vect{r})$};
+    \draw[red] (E2) -- ++(0:{1*cos(45)}) coordinate (e2s) node[anchor=150, inner sep=1pt]
+    {$E_y(y + dy)$};
+    \draw[dashed] (e2) -- (e2s);
+	\draw[->, thick] (E2) node[above] {$2$} -- ++(+0.5, 0) node[above]
+	{$\vec{n}$};
+
+\end{tikzpicture}

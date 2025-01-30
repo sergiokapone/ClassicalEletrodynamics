@@ -1,0 +1,56 @@
+\begin{tikzpicture}[
+		>=latex,
+		line width=1pt,
+	]
+
+	\pgfmathsetmacro\h{0.6}
+	\pgfmathsetmacro\l{1.5}
+	\coordinate (A) at (-\l, 0);
+	\coordinate (B) at (-\l, \h);
+	\coordinate (C) at ($(\l, \h) - (0, 1)$);
+	\coordinate (D) at ($(\l, 0) - (0, 1)$);
+
+	\coordinate (B') at (-\l, -\h);
+	\coordinate (C') at ($(\l, -\h) - (0, 1)$);
+
+	\pic[opacity=0.5] at (0,-0.5) {area};
+
+
+    \draw[red] (A) -- (B) -- (C) -- (D);
+
+    \draw[dash pattern={on 5pt off 5pt}, red, opacity=0.1, tangent=0.25, tangent=0.5, tangent=0.75] (A) -- (D);
+    \draw[blue, use tangent=1, ->] (0,0) -- ++(45:0.5);
+    \draw[blue, use tangent=1]     (0,0) -- ++(45:-0.5);
+    \draw[blue, use tangent=2, ->] (0,0) -- ++(45:0.5) node[right] {$\vect{i}$};
+    \draw[blue, use tangent=2]     (0,0) -- ++(45:-0.5);
+    \draw[blue, use tangent=3, ->] (0,0) -- ++(45:0.5);
+    \draw[blue, use tangent=3]     (0,0) -- ++(45:-0.5);
+    \draw[->, ultra thick, red] ($(B)!0.5!(C)$) -- ++(-18:0.3) ;
+
+%    \draw[->, red, ultra thick] (0, -0.5) -- ++(65:3) node[above, inner sep=3pt] {$\Efield_2$};
+
+
+	\begin{scope}[on background layer]
+        \draw[red, dashed, line width=1pt] (D) -- (C') -- (B') -- (A);
+        \draw[<-, ultra thick, red] ($(B')!0.3!(C')$)  -- ++(-18:0.3);
+%        \draw[<-, red, ultra thick] (0, -0.5) -- ++(25:-3) node[above, inner sep=3pt] {$\Efield_1$};
+	\end{scope}
+
+    \node[above] at (B) {$B$};
+    \node[above] at (C) {$C$};
+    \node[below] at (C') {$D$};
+    \node[below] at (B') {$A$};
+
+    \begin{scope}
+        \coordinate (h) at ($(D) + (0.2, 0)$) ;
+        \draw[-|] (h) -- ++(0, \h);
+        \draw[-|] (h) -- ++(0, -\h);
+        \node[right] at (h) {$h$};
+    \end{scope}
+
+    \coordinate (O) at (0.75, 0.5) ;
+    \draw[->] (O) -- ++(0, 1) node[above] {$\vect{n}$};
+    \draw[->] (O) -- ++(30:1) node[right] {$\vect{b}$};
+    \draw[->] (O) -- ++(-18:1) node[right] {$\vect{\tau}$};
+
+\end{tikzpicture}

@@ -1,0 +1,16 @@
+\begin{tikzpicture}[>=latex,
+		decoration={
+				markings,
+				mark=at position 0.5 with {\arrow{<}}}
+	]
+	\foreach \i in {0,...,9}
+		{
+			\draw[->, red, postaction={decorate}, smooth] (0,0)
+			circle({0.05*(1+1.5^\i)});
+		}
+
+	\node[font=\scriptsize, anchor=south west, inner sep=1pt, text
+		width=2cm,
+		align=center, text=blue] (div0) at (180:4) {Вихор поля \\ $\Rot\Efield \neq 0$};
+	\draw[<-, gray, thick] (0,0) to[out=195, in = 45] (div0.north);
+\end{tikzpicture}

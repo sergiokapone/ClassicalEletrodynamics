@@ -1,0 +1,25 @@
+\begin{tikzpicture}[scale=1, transform shape,>=latex]
+	\node [circle, ball color=red, inner sep=0pt, text=white,
+		font=\scriptsize] (qp) at (0,0) {$+$};
+    \node[below=7pt] at (0,0) {$q$};
+
+
+\node [] (0) at (-2, 0) {};
+\node [] (1) at (0, 2) {};
+\node [] (2) at (2, 0) {};
+\node [] (3) at (0, -2) {};
+
+\begin{scope}[ultra thick, red]
+\draw [in=165, out=120, looseness=1.25] (0.center) to (1.center) node[above, text=black] {$S$};
+\draw [in=120, out=-15] (1.center) to (2.center);
+\draw [in=15, out=-75, looseness=1.25] (2.center) to (3.center);
+\draw [in=-60, out=-165, looseness=1.50] (3.center) to (0.center);
+\end{scope}
+
+\foreach \a in {0,20,...,340}
+{
+    \draw[->, red] (\a:2.5) -- (\a:1);
+}
+
+
+\end{tikzpicture}

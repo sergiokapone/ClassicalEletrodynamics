@@ -1,0 +1,128 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !TeX root =../FTProblems.tex
+\newpage
+\chapter{Система \mbox{макроскопічних} рівнянь Максвелла}
+
+%\epigraph{\Annabelle  Вважаю, що більш приземлені та матеріальні науки аж ніяк не можуть бути зневажені у порівнянні з піднесеним вивченням розуму і духу \ldots}{James Clerk Maxwell}
+%\setcounter{equation}{0}
+%\renewcommand{\theequation}{\thepart.\arabic{equation}}
+
+\section{Макроскопічні рівняння Максвелла}
+
+Макроскопічні рівняння Максвелла, або рівняння макроскопічної електродинаміки є результатом усереднення мікроскопічних рівнянь Максвелла.
+
+Інтегральна форма макроскопічних рівнянь:
+\begin{align}
+	\oiint\limits_{\partial\Omega} \Dfield\cdot d\vect{S} & = 4\pi\iiint\limits_{\Omega}\rho dV,   \label{essInt
+	I}                                                                                                         \\
+	\oiint\limits_{\partial\Omega} \Bfield\cdot d\vect{S} & = 0,   \label{essInt
+	II}                                                                                                                                   \\
+	\oint\limits_{\partial S} \Efield\cdot d\vect{r}  & = - \frac1c \iint\limits_S \frac{\partial\Bfield}{\partial t}\cdot d\vect{S},  \label{Int
+	III}                                                             \\
+	\oint\limits_{\partial S} \Hfield\cdot d\vect{r}  & =\dfrac{4\pi}{c} \iint\limits_S \vect{j}\cdot d\vect{S} +\frac{1}{c} \iint\limits_S
+	\frac{\partial\Dfield}{\partial t}\cdot d\vect{S},  \label{essInt IV}
+\end{align}
+де $ \Efield $~-- вектор напруженості електричного поля;\\
+\hspace*{3ex}$ \Bfield $~-- вектор індукції магнітного поля; \\
+\hspace*{3ex}$ \rho $~--- густина вільних електричних зарядів (не включає зв'язані заряди); \\
+\hspace*{3ex}$\vect{j}$~--- густина вільного струму (не включає струми намагнічення чи струми, які виникають за рахунок змінної поляризації); \\
+$ \Dfield $~-- вектор індукції електричного поля, вводиться як:
+\begin{equation}
+	\Dfield = \Efield + 4\pi\vect{P},
+\end{equation}
+де $\vect{P}$~---  вектор поляризації, або густина дипольного моменту;\\
+\hspace*{2ex} $ \Hfield $~-- вектор напруженості магнітного поля, вводиться як:
+
+\begin{equation}
+	\Bfield = \Hfield + 4\pi\vect{M},
+\end{equation}
+де  $\vect{M}$~--- вектор намагнічення, або густина магнітного моменту.
+\clearpage
+Диференціальна форма  макроскопічних рівнянь:
+\begin{flalign}
+	\divg\Dfield &= 4\pi\rho, \label{essDiff I}\\[0.8em]
+	\divg\Bfield &= 0, \label{essDiff II}\\
+	\rot\Efield &= -\dfrac{1}{c}\dfrac{\partial\Bfield}{\partial t}, \label{essDiff III}\\
+	\rot\Hfield &= \dfrac{4\pi}{c} \vect{j}+\dfrac{1}{c}\dfrac{\partial\Dfield}{\partial t}. \label{essDiff IV}
+\end{flalign}
+
+
+
+Зв'язок між об'ємною густиною зв'язаних $\rho_\text{зв'яз}$ зарядів та вектором поляризації $ \vect{P} $ всередині діелектрика
+\begin{equation}
+	\rho_\text{зв'яз} = -\vect{\nabla}\cdot\vect{P},
+\end{equation}
+
+
+Поверхнева густина зв'язаних зарядів на межі розділу діелектриків:
+\begin{equation}\label{}
+	\sigma_\text{зв'яз} = (\vect{P}_1 - \vect{P}_2)\cdot\vect{n},
+\end{equation}
+де $ \vect{n}$~-- нормаль до поверхні розділу діелектриків (напрямлена від $2$-го до $1$-го середовища).
+
+Ці співвідношення не є універсальним, але вони виконуються за досить широких умов,
+зокрема, коли макроскопічні електромагнітні поля є значно меншими, ніж поля усередині атомів та молекул.
+
+Зв'язок між струмами намагнічення $\vect{j}_m$:
+\begin{equation}
+	\vect{j}_\text{m} = c\vect{\nabla}\times\vect{M}.
+\end{equation}
+Ця формула також не є універсальною, але вона справедлива для широкого кола задач за помірних магнітних полів.
+
+В результаті намагнічення на поверхні магнетика утворюються ефективні струми з поверхневою густиною:
+\begin{equation}\label{}
+	\vect{i}_\text{m} = -c\left[ \vect{n}\times\vect{M}\right],
+\end{equation}
+де $ \vect{n}$~-- зовнішня нормаль до поверхні магнетика.
+
+\section{Співвідношення для лінійних ізотропних середовищ}
+
+Величини $\Dfield$ і $\Hfield$ залежать, інколи досить складним чином, від
+макроскопічних напруженості електричного поля $\Efield$ та індукції магнітного поля $\Bfield$. На цю залежність можуть впливати, прямо чи опосередковано, певні властивості чи характеристики середовища (густина, молекулярний склад, термодинамічні параметри), яке може бути однорідним чи неоднорідним, ізотропним чи анізотропним. Однак існує широке коло задач, де залежність $\Dfield$ і $\Hfield$  від $\Efield$ і $\Bfield$ можна вважати лінійною, і для її опису потрібно відносно невелике число параметрів середовища.
+
+
+Так, вектор поляризації пропорційний напруженості електричного поля:
+\begin{equation}\label{}
+	\vect{P} = \alpha\Efield,
+\end{equation}
+де коефіцієнт $\alpha$ називають поляризовністю діелектрика.
+
+Аналогічно, для магнітного поля вектор намагнічення пропорційний вектору напруженості магнітного поля:
+\begin{equation}\label{}
+	\vect{M} = \chi\Hfield,
+\end{equation}
+де коефіцієнт $\chi$ називають магнітною сприйнятливістю магнетика.
+
+
+Використовуючи ці співвідношення і вводячи величини діелектричної проникності середовища
+\[
+	\epsilon = 1 + 4\pi\alpha,
+\]
+та магнітної проникності середовища
+\[
+	\mu = 1 + 4\pi\chi,
+\]
+маємо співвідношення між векторами $\Efield$ і $\Dfield$ та між $\Bfield$ і $\Hfield$:
+\begin{align}
+	\Dfield & = \epsilon\Efield, \\
+	\Bfield & = \mu\Hfield.
+\end{align}
+
+
+\section{Умови на границі розділу двох середовищ}
+
+\begin{align}
+	\left[ \vect{n} \times (\Efield_{1} - \Efield_{2}) \right] & = 0, \label{essEnBc}                                      \\
+	\left( \Dfield_{1} - \Dfield_{2}\right) \cdot \vect{n}     & = 4\pi\sigma_\text{вільн}, \label{essEtauBc}              \\
+	\left( \Bfield_{1} - \Bfield_{2}\right) \cdot \vect{n}     & = 0,    \label{essBnBc}                                   \\
+	\left[ \vect{n} \times (\Hfield_{1} - \Hfield_{2}) \right] & = \frac{4\pi}{c}\vect{i}_\text{вільн}, \label{essBtauBc},
+\end{align}
+
+\noindent%
+де $ \vect{n}$~-- нормаль до поверхні розділу діелектриків (напрямлена від $2$-го до $1$-го середовища), \\
+\hspace*{3ex}$\sigma_\text{вільн}$~-- поверхнева густина вільних зарядів на границі розділу,\\
+\hspace*{3ex}$\vect{i}_\text{вільн}$~-- поверхнева густина вільного струму (наприклад, струму провідності в металах).
+
+%\renewcommand{\theequation}{\thechapter.\arabic{equation}}

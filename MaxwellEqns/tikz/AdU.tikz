@@ -1,0 +1,50 @@
+\begin{tikzpicture}[>=latex, scale=2]
+\tikzset{
+tangent/.style={
+        decoration={
+            markings,% switch on markings
+            mark=
+                at position #1
+                with
+                {
+                    \coordinate (tangent point-\pgfkeysvalueof{/pgf/decoration/mark info/sequence number}) at (0pt,0pt);
+                    \coordinate (tangent unit vector-\pgfkeysvalueof{/pgf/decoration/mark info/sequence number}) at (1,0pt);
+                    \coordinate (tangent orthogonal unit vector-\pgfkeysvalueof{/pgf/decoration/mark info/sequence number}) at (0pt,1);
+                }
+        },
+        postaction=decorate
+    },
+    use tangent/.style={
+        shift=(tangent point-#1),
+        x=(tangent unit vector-#1),
+        y=(tangent orthogonal unit vector-#1)
+    },
+    use tangent/.default=1
+}
+
+	\node[circle, fill, inner sep= 1pt] (1) at (-1,1) {};
+	\node[circle, fill, inner sep= 1pt] (2) at (1,2) {};
+	\draw [green!60!black, thick, name path=path,
+    tangent=0.2,
+    tangent=0.48,
+    looseness=1,
+    ] (1) to[out=-10, in=190] (2);
+    %(1) ..  controls (85:1.75) and (50:0.5) .. (2);
+    \draw [cyan, ultra thick, use tangent=1,->] (0,0) coordinate (dr1) -- (0.5,0) node[anchor=south] {$d\vect{r}$};
+    \draw [cyan, ultra thick, use tangent=2,->] (0,0) coordinate (dr2) -- (0.5,0) node[anchor=south] {$d\vect{r}$};
+	\node [circle, ball color=red, inner sep=0pt, text=white,
+		font=\scriptsize] (Q) at (0,0) {$+$};
+
+	\node[below=5pt] at (Q) {$Q$};
+	\draw[->] (Q) -- node[anchor=north east] {$\vect{r}_1$} (1);
+	\draw[->] (Q) -- node[anchor=north west] {$\vect{r}_2$} (2);
+
+    \draw[dash pattern={on 2pt off 1pt}] (Q) -- (dr1);
+	\draw[->, red, ultra thick] let \p1 = ($(dr1)-(Q)$) in (dr1) -- ++({atan2(\y1,\x1)}:0.6) node[above] {$\Efield$};
+
+    \draw[dash pattern={on 2pt off 1pt}] (Q) -- (dr2);
+	\draw[->, red, ultra thick] let \p1 = ($(dr2)-(Q)$) in (dr2) -- ++({atan2(\y1,\x1)}:0.4) node[above] {$\Efield$};
+
+	\node[below] at (1) {$1$};
+	\node[above] at (2) {$2$};
+\end{tikzpicture}

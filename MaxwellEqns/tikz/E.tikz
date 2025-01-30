@@ -1,0 +1,39 @@
+\begin{tikzpicture}[>=latex, transform shape, scale=1.5]
+	\node [circle, ball color=red, inner sep=0pt, text=white,
+		font=\scriptsize] (qp) at (0,0) {\mathstrut$+$};
+	\node[circle, inner sep=0.75pt, fill] (P) at (1, 2) {};
+	\node[left] at (P) {$P$};
+
+	\node[below=5pt] at (qp) {$Q$};
+
+	\draw[->] (qp) -- node[left] {$\vect{r}$} (P);
+
+	\draw[->, red, thick] let \p1=(qp), \p2=(P) in (P) --
+	++({atan(
+			(\y2-\y1)
+			/ (\x2 - \x1) )}:0.5) node[right] {$\Efield$};
+
+
+    \begin{scope}[xshift=2cm]
+      		\node [circle, ball color=blue, inner sep=0pt, text=white,
+    		font=\scriptsize]
+      		(qn) at
+      		(0,0) {\mathstrut$-$};
+      		\node[circle, inner sep=0.75pt, fill] (P) at (1, 2) {};
+
+      		\node[below=5pt] at (qn) {$Q$};
+
+      		\node[left] at (P) {$P$};
+
+      		\draw[->] (qn) -- node[left] {$\vect{r}$} (P);
+
+      		\path let \p1=(qn), \p2=(P) in (P) --
+      		++({atan(  (\y2-\y1) / (\x2 - \x1) )}:0.5);
+
+      		\draw[->, blue, thick] let \p1=(qn), \p2=(P) in (P) --
+      		++({180+atan( (\y2-\y1)
+      				/ (\x2 - \x1) )}:0.5) node[below right] {$\Efield$};
+    \end{scope}
+\end{tikzpicture}
+
+

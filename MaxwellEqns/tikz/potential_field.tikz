@@ -1,0 +1,10 @@
+\begin{tikzpicture}[>=latex]
+	\foreach \i in {20,40,...,360}
+		{
+			\draw[->, red] (0,0)  ++(\i:0.1) -- ++(\i:2);
+		}
+	\node[font=\scriptsize, anchor=south west, inner sep=1pt, text
+		width=2cm,
+		align=center, text=blue] (div0) at (180:4) {Джерело поля \\ $\Div\Efield \neq 0$};
+	\draw[<-, gray, thick] (0,0) to[out=195, in = 45] (div0.north);
+\end{tikzpicture}

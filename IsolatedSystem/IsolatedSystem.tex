@@ -1,0 +1,260 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !TeX root =../ClassicalEletrodynamics.tex
+
+%=========================================================
+%\Opensolutionfile{answer}[\currfilebase/\currfilebase-Answers]
+%\Writetofile{answer}{\protect\section*{\nameref*{\currfilebase}}}
+\chapter{Потенціали ізольованої системи зарядів і струмів}\label{\currfilebase}
+%=========================================================
+
+
+В цьому розділі нас цікавитиме поле обмеженої системи, яка є ізольована. Це означає, що протягом усієї історії системи, починаючи з нескінченного
+минулого, зовнішніх впливів немає; тобто немає джерел на нескінченності чи якогось зовнішнього випромінювання. На відміну від задачі Коші , коли поля
+розглядають за $t >0$, а при $t =0$ задають початкові умови (разом з граничними умовами на нескінченності), у разі ізольованої системи будемо розглядати
+поля за усіх часів, припускаючи, що функції $\rho(t, \vect{r})$ та $\vect{j}(t, \vect{r})$ задані на усій дійсній осі $t$. Це, зокрема, дозволяє
+оперувати з перетворенням Фур’є цих функцій за часом. Для ізольованої системи буде отримано розв’язок рівнянь \eqref{eq:Dphi}, \eqref{eq:DA} у вигляді
+запізнюючих потенціалів, який застосовується для розгляду різноманітних задач теорії випромінювання.
+
+
+%% --------------------------------------------------------
+\section{Перетворення Фур’є та рівняння Гельмгольца}
+%% --------------------------------------------------------
+
+Позначимо:
+\begin{equation}
+	\tilde{\phi}(\omega, \vec{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \phi(t, \vect{r}).
+\end{equation}
+\begin{equation}
+	\tilde{\vect{A}}(\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \vect{A}(t, \vect{r}).
+\end{equation}
+--- перетворення Фур’є для потенціалів.
+Оскільки диференціювання за часом індукує множення фур’є-образів на \((-i \omega)\), аналог калібрувальної умови Лоренца \eqref{eq:LorenzCondition} має
+вигляд:
+\begin{equation}
+	-\frac{i \omega}{c} \tilde{\phi} + \Div \tilde{\vect{A}} = 0.
+\end{equation}
+
+З закону збереження заряду \eqref{eq:charge_conservation_low_diff} маємо:
+\begin{equation}
+	-i \omega \tilde{\rho} + \Div \tilde{\vect{j}} = 0,
+\end{equation}
+де
+\begin{equation}
+	\tilde{\rho}(\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \rho(t, \vect{r}),
+\end{equation}
+\begin{equation}
+	\tilde{\vect{j}}(\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \vect{j}(t, \vect{r}).
+\end{equation}
+
+Далі розглянемо рівняння для потенціалів саме за умови Лоренца \eqref{eq:LorenzCondition} або \eqref{eq:A'}. З рівнянь \eqref{eq:Dphi}, \eqref{eq:DA},
+де друга похідна за часом індукує множення на \( -\omega^2 \) фур’є-образів, отримаємо \emph{рівняння Гельмгольца}:
+\begin{equation}\label{eq:Dphi_Fourier}
+	\Delta \tilde{\phi} + k^2 \tilde{\varphi} = -4\pi \tilde{\rho}, \quad \text{де} \quad k = \frac{\omega}{c}.
+\end{equation}
+\begin{equation}
+	\Delta \tilde{\vect{A}} + k^2 \tilde{\vect{A}} = -\frac{4\pi}{c} \tilde{\vect{j}}.
+\end{equation}
+
+
+
+%% --------------------------------------------------------
+\section{Умова випромінювання для ізольованої системи}
+%% --------------------------------------------------------
+
+
+Систему зарядів і струмів називатимемо ізольованою, якщо вона зосереджена в обмеженій області за відсутності зовнішнього випромінювання, що йде з
+нескінченності. Зосередимось на пошуку розв’язку рівняння \eqref{eq:Dphi} та його фур’є-образу \eqref{eq:Dphi_Fourier}для скалярного потенціалу $\phi$.
+Зараз ми зацікавлені у знаходженні розв’язку, що описує поле ізольованої системи джерел. Розглянемо спочатку розв’язок, що відповідає сферично
+симетричному точковому джерелу, та задовольняє рівнянню:
+\begin{equation*}
+	\mdlgwhtsquare\ \phi = \delta(\vect{r} - \vect{r}')\chi(t, \vect{r}'),
+\end{equation*}
+де $\chi(t, \vect{r}') = 4\pi\rho(t, \vect{r}_0)$. Очевидно, розв’язок \eqref{eq:Dphi} можна подати, як суперпозицію
+таких розв’язків з різними $\vect{r}_0$.
+
+Нехай $\vect{r}' = 0$. Поле, що створюється точковим джерелом у точці $\vect{r}$, є сферично-симетричним $\phi = \phi(t, r)$, $r = |\vect{r}|$. Завдяки
+сферичній симетрії:
+\begin{equation*}
+	\mdlgwhtsquare\ \phi = \frac1{c^2}\pparttime{\phi} - \frac1{r^2} \diff{}{r}\left(r^2 \diff{\phi}{r} \right) .
+\end{equation*}
+Покладемо $\phi = \frac{\psi}{r}$, тоді за $r>0$:
+\begin{equation*}
+	\mdlgwhtsquare\ \phi = \frac1r \left( \frac1{c^2}\pparttime{\psi} - \ddiff{\psi}{r}\right) =0 .
+\end{equation*}
+Це одновимірне хвильове рівняння, яке має загальний розв’язок:
+\begin{equation*}
+	\psi = f_1\left( t - \frac{r}c \right) + f_2\left( t + \frac{r}c \right),
+\end{equation*}
+де $f_1$ та $f_2$ --- довільні функції однієї змінної. Тут $f_1$ описує хвилі, що
+випромінюються джерелом, а $f_2$ --- хвилі, що приходять з нескінченності. \emph{За
+	відсутності зовнішнього випромінювання} слід покласти $f_2=0$. Звідси:
+\begin{equation*}
+	\phi = \frac1r f_1\left( t - \frac{r}c \right).
+\end{equation*}
+
+Якщо джерело знаходиться у точці $\vect{r}' \neq 0$, очевидно:
+\begin{equation}\label{eq:rad_phi}
+	\phi(t, \vect{r}) = \frac1{|\vect{r} - \vect{r}'|} f_1\left( t - \frac{|\vect{r} - \vect{r}'|}c \right).
+\end{equation}
+
+%% --------------------------------------------------------
+\section*{Умова випромінювання і рівняння Гельмгольца}
+%% --------------------------------------------------------
+
+
+Для фур'є-образів розв’язку \eqref{eq:rad_phi} маємо:
+\begin{equation}
+	\tilde{\phi} (\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int dt \, e^{i\omega t} \frac{1}{|\vect{r} - \vect{r}_0|}
+	\exp \left[ i \frac{\omega}{c} |\vect{r} - \vect{r}_0| \right] \tilde{f}_1(\omega),
+\end{equation}
+де
+\begin{equation}
+	\tilde{f}_1 (\omega) \equiv \frac{1}{\sqrt{2\pi}} \int d\xi \, e^{i\omega \xi} f_1(\xi).
+\end{equation}
+
+На великих відстанях
+\begin{equation}
+	\tilde{\phi} (\omega, \vect{r}) \sim \frac{e^{i\omega (r - \vect{n} \vect{r}_0)/c}}{r} + O(r^{-2}).
+\end{equation}
+
+Очевидно, для будь-якого сферично-симетричного розв’язку рівняння Гельмгольца \eqref{eq:Dphi_Fourier} зовні області, де права частина цього рівняння
+відмінна від нуля, за
+умови відсутності зовнішнього випромінювання
+\begin{equation}\label{eq:rad_phi_sph}
+	\tilde{\phi} (\omega, \vect{r}) \sim \frac{e^{ikr}}{r}.
+\end{equation}
+
+Розв’язок рівняння Гельмгольца, що задовольняє умовам випромінювання, у випадку обмеженої системи джерел має бути суперпозицією розв’язків типу
+\eqref{eq:rad_phi_sph} з
+різними $\vect{r}'$ і мати асимптотику
+\begin{equation}
+	\tilde{\phi} (\omega, \vect{r}) \approx C(\vect{n}) \frac{e^{ikr}}{r} + O(r^{-2}),
+\end{equation}
+де амплітуда $C(\vect{n}) $ залежить лише від кутів.
+
+
+%% --------------------------------------------------------
+\section{Запізнюючі потенціали}
+%% --------------------------------------------------------
+
+
+Умови випромінювання однозначно задають поля ізольованої системи струмів і розв’язки хвильових рівнянь (2.1.6), (2.1.8) для потенціалів, а також рівнянь
+Гельмгольца (2.2.5), (2.2.6) для їх Фур’є-перетворень. Розв’язки (2.1.6), (2.1.8) можна отримати безпосередньо, використовуючи сферично-симетричний
+розв’язок (2.2.7). Але ми проведемо аналогічний розгляд з використанням сферично-симетричного розв’язку рівнянь Гельмгольца, а потім перейдемо до
+розв’язків (2.1.6), (2.1.8) через перетворення Фур’є. Розглянемо рівняння для скалярного потенціалу (2.2.5) і шукатимемо фундаментальний розв’язок
+оператора в лівій частині (2.2.5):
+\begin{equation}
+	\nabla^2\tilde{G} + k^2\tilde{G} = \delta(\vect{r})
+\end{equation}
+Поле, створюване сферично-симетричним точковим джерелом, також є сферично-симетричним, тому можна покласти
+\begin{equation}
+	\tilde{G} (\vect{r}) = \frac{g(r)}{r}
+\end{equation}
+
+Тоді з (2.2.9) за $r>0$ маємо
+
+\begin{equation}
+	\frac{d^2 g}{dr^2} + k^2 g = 0 \quad \Rightarrow \quad g = C_1(k) e^{ikr} + C_2(k) e^{-ikr}.
+\end{equation}
+
+Враховуючи умову випромінювання, слід покласти $C_2(k)=0$:
+\begin{equation}
+	\tilde{G}(r) = C_1(k) \frac{e^{ikr}}{r}, \quad \text{за} \quad r>0.
+\end{equation}
+
+Залишається визначити $C_1(k)$. Коли $r \to 0$, поведінку розв’язку визначає співмножник $C_1/r$, а в лівій частині рівняння (2.2.9) домінує доданок
+$\Delta \varphi$. Тому асимптотика розв’язку за $r \to 0$ повинна збігатися з розв’язком рівняння Пуассона для точкового заряду:
+\begin{equation}
+	\Delta \left( \frac{q}{r} \right) = -4\pi q \delta (\vect{r}).
+\end{equation}
+
+Співставлення за $r > 0$ дає:
+\begin{equation}
+	\tilde{G}(r) = \frac{e^{ikr}}{4\pi r}.
+\end{equation}
+
+Більш послідовний розгляд фундаментальних розв’язків операторів Даламбера та Гельмгольца з точки зору узагальнених функцій див. Додаток 1.
+
+З урахуванням (10), за принципом суперпозиції розв’язки рівнянь (5),(6) за умови випромінювання можна подати згортками:
+\begin{equation}
+	\tilde{\varphi} (\omega, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \exp \left[ i \frac{\omega}{c} |\vect{r} - \vect{r}'| \right]
+	\tilde{\rho} (\omega, \vect{r}'),
+\end{equation}
+\begin{equation}
+	\tilde{\vect{A}}(\omega, \vect{r}) = \int \frac{dV'}{c|\vect{r} - \vect{r}'|} \exp \left[ i \frac{\omega}{c} |\vect{r} - \vect{r}'| \right]
+	\tilde{\vect{j}} (\omega, \vect{r}').
+\end{equation}
+
+За допомогою оберненого до (2.2.1),(2.2.2) перетворення Фур'є маємо:
+\begin{equation}
+	\varphi (t, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int e^{-i\omega t} \tilde{\varphi} (\omega, \vect{r}) d\omega,
+\end{equation}
+\begin{equation}
+	\rho (t, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int e^{-i\omega t} \tilde{\rho} (\omega, \vect{r}) d\omega.
+\end{equation}
+
+Звідси та з (2.2.11)
+\begin{equation}
+	\varphi (t, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \int \frac{d\omega}{\sqrt{2\pi}} e^{-i\omega t} \tilde{\rho} (\omega, \vect{r}')
+	= \int \frac{dV'}{|\vect{r} - \vect{r}'|} \rho (t_{\text{ret}}, \vect{r}'),
+\end{equation}
+де $t_{\text{ret}} = t - \frac{1}{c} |\vect{r} - \vect{r}'|$.
+
+Остаточно запишемо:
+\begin{equation}
+	\varphi (t, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \rho \left( t - \frac{1}{c} |\vect{r} - \vect{r}'|, \vect{r}' \right),
+\end{equation}
+а також, аналогічно, для розв’язку (2.1.8):
+\begin{equation}
+	\vect{A} (t, \vect{r}) = \frac{1}{c} \int \frac{dV'}{|\vect{r} - \vect{r}'|} \vect{j} \left( t - \frac{1}{c} |\vect{r} - \vect{r}'|,
+	\vect{r}' \right).
+\end{equation}
+
+Формули (2.2.15), (2.2.16) подають \textit{запізнюючі розв’язки} рівнянь (2.1.6), (2.1.8), що задовольняють умовам випромінювання в разі обмеженої
+ізольованої системи зарядів та струмів.
+
+Зауважимо, що (2.2.15), (2.2.16) можна записати у вигляді згортки фундаментального розв’язку оператора Даламбера з правими частинами рівнянь (2.1.6),
+(2.1.8) (див. Додаток 1). Цей фундаментальний розв’язок має вигляд:
+\begin{equation}
+	D(t, \vect{r}) = \frac{1}{2\pi c} \delta \left( t^2 - r^2 / c^2 \right) \theta(t).
+\end{equation}
+
+Згортка з правою частиною (2.1.6):
+\begin{equation}
+	\varphi (t, \vect{r}) = 4\pi \int dt' dV' D(t - t', \vect{r} - \vect{r}') \rho (t', \vect{r}').
+\end{equation}
+
+Підставимо (2.2.17):
+\begin{equation}
+	\varphi (t, \vect{r}) = \frac{2}{c} \int dt' dV' \delta \left[ \left( t - t' \right)^2 - \frac{(r - r')^2}{c^2} \right] \theta (t - t') \rho (t',
+	\vect{r}')
+\end{equation}
+\begin{equation}
+	= \frac{1}{c} \int dV' \int \delta \left[ t - t' - \frac{|\vect{r} - \vect{r}'|}{c} \right] \rho (t', \vect{r}') dt',
+\end{equation}
+що збігається з (2.2.15) після інтегрування по $t'$.
+
+Аналогічно:
+\begin{equation}
+	\vect{A'} (t, \vect{r}) = \frac{4\pi}{c} \int dt' dV' G(t - t', \vect{r} - \vect{r}') \vect{j} (t', \vect{r}').
+\end{equation}
+
+Перевіримо виконання калібрувальної умови Лоренца для розв’язків (2.2.18), (2.2.19):
+
+\begin{multline*}
+\frac{1}{c} \frac{\partial \varphi}{\partial t} + \Div\vect{A} = \\
+= \frac{4\pi}{c} \int dt' dV' \left[ \left( \frac{\partial}{\partial t'} G(t - t', \vect{r} - \vect{r}') \right) \rho (t, \vect{r}) + \left(
+\frac{\partial}{\partial x_i} G(t - t', \vect{r} - \vect{r}') \right) J_i (t', \vect{r}') \right] = \\
+= \frac{4\pi}{c} \int dt' dV' \left[ - \left( \frac{\partial}{\partial t'} G(t - t', \vect{r} - \vect{r}') \right) \rho (t', \vect{r}') - \left(
+\frac{\partial}{\partial x_i} G(t - t', \vect{r} - \vect{r}') \right) J_i (t', \vect{r}') \right] = \\
+= \frac{4\pi}{c} \int dt' dV' \left[ G(t - t', \vect{r} - \vect{r}') \frac{\partial}{\partial t'} \rho (t', \vect{r}') + G(t - t', \vect{r} -
+\vect{r}') \frac{\partial}{\partial x_i} J_i (t', \vect{r}') \right] = \\
+= \frac{4\pi}{c} \int dt' dV' G(t - t', \vect{r} - \vect{r}') \left[ \frac{\partial}{\partial t'} \rho (t', \vect{r}') + \Div\vect{j}
+(t', \vect{r}') \right] = 0
+\end{multline*}
+де \( \vect{r} = \{ x_i \} \), \( \vect{r}' = \{ x'_i \} \), в останньому перетворенні проведено інтегрування частинами по \( t' \) та по \( x'_i \) з
+урахуванням обмеженості області, де густини зарядів та струмів відмінні від нуля.
+
+Таким чином, виконання умови Лоренца для (2.2.18), (2.2.19) забезпечено законом збереження заряду.

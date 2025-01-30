@@ -1,0 +1,505 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !TeX root =../ClassicalEletrodynamics.tex
+
+%=========================================================
+\Opensolutionfile{answer}[\currfilebase/\currfilebase-Answers]
+\Writetofile{answer}{\protect\section*{\nameref*{\currfilebase}}}
+\chapter{Рівняння електромагнітного поля}\label{\currfilebase}
+%=========================================================
+
+
+
+%% --------------------------------------------------------
+\section{Мікроскопічні рівняння Максвелла (інтегральна форма)}
+%% --------------------------------------------------------
+
+
+В цьому розділі буде розглянута система рівнянь, яка дає змогу аналізувати електродинамічні явища в усій класичній області від мікроскопічних до
+макроскопічних масштабів. В рамках класичної електродинаміки ці рівняння вважаються точними, вони не містять наближень і явно враховують усі заряди і
+струми в рамках конкретного явища або теоретичної моделі. Далі будемо називати ці рівняння мікроскопічними --- на відміну від макроскопічних рівнянь,
+які
+припускають певні наближення або макроскопічні усереднення, наприклад, для опису поляризаційних зарядів і струмів намагнічення, що виникають у
+суцільному середовищі. Мікроскопічні рівняння отримано дослідним шляхом за допомогою узагальнення великої кількості експериментальних даних. Вихідною
+для нас буде інтегральна форма рівнянь Максвелла, з якої далі будуть отримані граничні умови і диференціальна форма цих рівнянь. Інтегральна форма
+мікроскопічних рівнянь має вид:
+
+\begin{align}
+	\oiint\limits_{\partial\Omega} \Efield\cdot d\vect{S} & = 4\pi q_{\Omega}   \label{Int
+	I},                                                                                                         \\
+	\oiint\limits_{\partial\Omega} \Bfield\cdot d\vect{S} & = 0   \label{Int
+	II},                                                                                                                                   \\
+\end{align}
+де $\Omega$ --- довільний нерухомий об'єм, $\partial\Omega$ --- його межа; $S$ --- довільна нерухома орієнтована поверхня, $\partial S$ --- замкнений
+контур, що її обмежує, $q_{\Omega}$ --- повний заряд в області $\Omega$.
+
+\begin{align}
+	\oint\limits_{\partial S} \Efield\cdot d\vect{r}  & = - \frac1c \iint\limits_S \frac{\partial\Bfield}{\partial t}\cdot d\vect{S}  \label{Int
+	III},                                                          \\
+	\oint\limits_{\partial S} \Bfield\cdot d\vect{r}  & =\dfrac{4\pi}{c} I_S +\frac{1}{c} \iint\limits_S
+	\frac{\partial\Efield}{\partial t}\cdot d\vect{S}  \label{Int IV},
+\end{align}
+де $S$ --- довільна нерухома орієнтована поверхня, $\partial S$ --- замкнений
+контур, що її обмежує. $I_S$ --- струм через $S$ у додатному напрямку.
+
+В літературі можна зустріти форму рівнянь електродинаміки для об′ємів та поверхонь, що деформуються із часом. Зокрема, замість рівняння \eqref{Int III}
+часто використовують зв’язок між електрорушійною силою, що виникає у рухомому провідникові, та зміною потоку магнітного поля через поверхню, що обмежена
+контуром цього провідника. Цей зв’язок можна отримати з записаних рівнянь, якщо при обчисленні е.р.с. врахувати також внесок сил, що діють на носії
+струму з боку магнітного поля.
+
+
+%% --------------------------------------------------------
+\section{Сумісність рівнянь Максвелла із законом збереження заряду}
+%% --------------------------------------------------------
+
+
+Наявність довільного об′єму $\Omega$ та довільної поверхні $S$ в рівняннях Максвелла є дещо незвичайним; принаймні,
+треба перевірити, чи не призводить це до неоднозначностей. Наприклад, в рівнянні \eqref{Int IV} ми можемо вибрати різні поверхні $S_1$ і
+$S_2$, що мають спільну межу $\partial S$ (рис.~\ref{tikz:surface}).
+%---------------------------------------------------------
+\begin{SCfigure}[][h!]
+	\centering
+\begin{tikzpicture}[>=latex]
+
+    \coordinate (O) at (-0.25, 0);
+
+	\fill[thick, red, rotate around={-15:(O)}, red!50] (O) circle(1 and 0.3);
+
+    \node (S1) at (-1, -0.5)  {$S_1$};
+    \draw[->] (S1.east) to[out=0, in=-90] (O);
+    \draw[thick, red, rotate around={-15:(O)}, dashed] (O) ++(180:-1) arc(0:180:1 and 0.3);
+    \draw[thick, ->, rotate around={-15:(O)}, fill=red!50] (O) -- ++(0, 0.5);
+	\draw[red!50, fill=red!50, rotate around={-15:(O)}, tangent=0.45, opacity=0.5] ($(O)-(1,0)$) to[out=80, in=40, looseness=4.8]
+	coordinate[pos=0.2] 	(s2) 	(0.75, 0) arc(0:-180:1 and 0.3) -- cycle;
+
+     \draw[thick, rotate around={-15:(O)}, use tangent=1, ->] (0,0) -- ++(90:0.5);
+
+    \draw[thick, red, rotate around={-15:(O)}] (O) ++(180:1) arc(180:360:1 and 0.3);
+%		\draw[fill=red!50, opacity=0.5] (0, -1.5) circle[x radius=1 cm, y radius= 0.3 cm];
+%        \draw[->] (0, -1.5) -- ++(0, 1) node[left] {$n$};
+%		\draw[in=55, out=125, looseness=3.9, fill=red!50, opacity=0.75] (-1, -1.5) to (+1, -1.5) arc[x radius=1 cm, y radius= 0.3 cm, start
+%				angle=0,
+%				delta angle=180] --cycle;
+%
+%        \draw[->] (0, 0.5) -- ++(0, 1) node[left] {$n$};
+
+
+    \node (S2) at (-1, +2)  {$S_2$};
+    \draw[->] (S2.east) to[out=0, in=90] (s2);
+
+    \end{tikzpicture}
+\caption{}
+\label{tikz:surface}
+\end{SCfigure}
+%---------------------------------------------------------
+
+Тоді з рівняння \eqref{Int IV} легко отримати:
+\begin{equation}\label{eq:diff4}
+    \frac{4\pi}c(I_{S_1} - I_{S_2}) +\frac1c \left( \iint\limits_{S_1}
+	\frac{\partial\Efield}{\partial t}\cdot d\vect{S}  - \iint\limits_{S_2}
+	\frac{\partial\Efield}{\partial t}\cdot d\vect{S}  \right) = 0
+\end{equation}
+Чи суперечить це іншим рівнянням? Виявляється, ні, якщо врахувати закон збереження заряду. Нехай $\Omega$ --- це область, оточена поверхнями $S_1$ та
+$S_2$. Межа $\partial\Omega$ має орієнтацію, спільну з однією з цих поверхонь і протилежну до іншої на відповідних ділянках. Тоді рівняння
+\eqref{eq:diff4} можна переписати так:
+\begin{equation}
+    4\pi I_{\partial\Omega} + \frac{d}{dt} \iint\limits_{\partial\Omega} \Efield\cdot d\vect{S} = 0,
+\end{equation}
+де похідну винесено за знак інтегралу. Оскільки поверхневий інтеграл тут в силу \eqref{Int I} пов’язаний із зарядом $q_{\Omega}$ в області $\Omega$,
+звідси:
+\begin{equation}\label{eq:charge_conservation_low}
+    I_{\partial\Omega} + \frac{q_{\Omega}}{dt} = 0.
+\end{equation}
+
+Таким чином, рівняння \eqref{eq:diff4} тотожно виконується внаслідок рівняння
+\eqref{Int I} та закону збереження заряду \eqref{eq:charge_conservation_low}.
+У разі рівняння \eqref{Int III} ми можемо також вибрати різні поверхні
+інтегрування з однаковою межею; тут аналогічні міркування з огляду на
+рівняння \eqref{Int II} також показують відсутність суперечностей.
+
+
+%% --------------------------------------------------------
+\section{Диференціальна форма рівнянь Максвелла}
+%% --------------------------------------------------------
+
+
+В рівнянні \eqref{Int I} за означенням:
+\begin{equation}
+    q_{\Omega} = \iiint\limits_{\Omega} \rho dV
+\end{equation}
+де $\rho$ ---  об′ємна густина заряду. За теоремою Остроградського-Гаусса ліва частина \eqref{Int I} також зводиться до об′ємного інтегралу, звідки:
+\begin{equation*}
+     \iiint\limits_{\Omega} \Div\Efield dV = \iiint\limits_{\Omega} \rho dV
+\end{equation*}
+зважаючи на довільність області $\Omega$:
+\begin{equation}\label{eq:M1D}
+    \Div\Efield = 4\pi\rho
+\end{equation}
+Аналогічно, з \eqref{Int II} маємо:
+\begin{equation}\label{eq:M2D}
+    \Div\Bfield = 0.
+\end{equation}
+В рівнянні \eqref{Int III} перетворимо ліву частину за теоремою Стокса:
+\begin{equation*}
+    \iint\limits_{S} \Rot\Efield\cdot d\vect{S} = - \frac1c \iint\limits_S \frac{\partial\Bfield}{\partial t}\cdot d\vect{S}
+\end{equation*}
+звідки, з урахуванням довільності $S$:
+\begin{equation}\label{eq:M3D}
+    \Rot\Efield = - \frac1c \frac{\partial\Bfield}{\partial t}.
+\end{equation}
+Аналогічно, виражаючи також згідно до \eqref{eq:charge_conservation_low} струм у правій частині
+eqref{Int IV}  через інтеграл від густини струму $\vect{j}$, отримаємо:
+\begin{equation}\label{eq:M4D}
+    \Rot\Bfield = \frac{4\pi}c\vect{j} + \frac1c \frac{\partial\Efield}{\partial t}.
+\end{equation}
+Рівняння \eqref{eq:M1D} -- \eqref{eq:M4D} складають систему мікроскопічних рівнянь
+Максвелла у диференціальній формі.
+
+З рівнянь Максвелла \eqref{eq:M1D}, \eqref{eq:M4D} можна виразити густини заряду та
+струму через напруженості полів. Виникає питання, чи не суперечитимуть ці
+рівняння закону збереження заряду \eqref{eq:charge_conservation_low}, де цих напруженостей немає. Це
+питання вище було розглянуто на основі інтегральної форми рівнянь
+Максвелла. Покажемо це також за допомогою диференціальної форми рівнянь.
+Візьмемо дивергенцію від обох частин \eqref{eq:charge_conservation_low} враховуючи, що $\Div\Rot\equiv0$:
+\begin{equation*}
+    0 = \frac{4\pi}c\Div\vect{j} + \frac1c \frac{\partial}{\partial t} \Div\Efield.
+\end{equation*}
+Підставляючи $\Div\Efield$ з \eqref{eq:M1D} отримаємо:
+\begin{equation*}
+    \Div\vect{j} + \frac{\partial\rho}{\partial t} = 0.
+\end{equation*}
+що збігається з рівнянням неперервності \eqref{eq:charge_conservation_low} --- диференціальною формою
+закону збереження заряду.
+Зауважимо, що обчислення дивергенції від обох частин \eqref{eq:M3D} з
+урахуванням \eqref{eq:M2D} приводить до тотожності.
+
+
+%% --------------------------------------------------------
+\section{Умови на поверхні розриву}
+%% --------------------------------------------------------
+
+
+Досить часто трапляється ситуація, коли поля $\Efield$ або $\Bfield$ мають розриви
+першого роду на деякій поверхні $S$, залишаючись скінченними і неперервними
+при переміщеннях вздовж цієї поверхні. Це пов′язано з існуванням
+поверхневих зарядів та струмів на $S$ з густинами $\sigma$ та $\vect{i}$ відповідно.
+
+Для отримання граничних умов на поверхні розриву, розглянемо довільний
+досить малий елемент поверхні $S$, котрий можна вважати майже плоским.
+
+Нехай $\vect{n}$ --- нормаль до площини розриву, що розділяє $1$ та $2$, причому
+$\vect{n}$ напрямлена з $1$ в $2$
+
+\begin{SCfigure}[0.5][h!]
+	\centering
+	\localinput{bc1.tikz}
+	\caption{До виведення першої граничної умови}%
+	\label{tikz:bc1}
+\end{SCfigure}
+
+Нехай $\Omega$ --- область всередині циліндра
+(рис.~\ref{tikz:bc1}), з основами $S_1$ та $S_2$,
+паралельними $S$, причому $S_1$ лежить у
+середовищі $1$, $S_2$ --- в $2$, а висота циліндра дорівнює $h$.
+
+Застосуємо рівняння \eqref{Int I} розбиваючи інтеграл по $\partial\Omega$ на частини, що відповідають $S_1$, $S_2$ та боковій поверхні
+циліндра $\partial\Omega'$:
+\begin{equation*}
+    	\iint\limits_{S_1} \Efield\cdot d\vect{S} +  \iint\limits_{S_2} \Efield\cdot d\vect{S} + \iint\limits_{\partial\Omega'} \Efield\cdot
+    	d\vect{S} = 4\pi q_{\Omega},
+\end{equation*}
+де повний заряд всередині $\Omega$ складається в загальному випадку з неперервнорозподіленого об′ємного заряду iз інтегрованою об’ємною
+густиною ρ та поверхневого заряду з поверхневою густиною $\sigma$ на $S$:
+\begin{equation*}
+    q_{\Omega} = \iiint\limits_{\Omega} \rho dV + \iint\limits_S \sigma dS.
+\end{equation*}
+
+
+Якщо висота $h  \to 0$, об'єм та бокова поверхня циліндра також прямують до нуля, а з ними й інтеграли по об′єму та по бічній поверхні. Відкидаючи ці
+інтеграли, отримаємо:
+\begin{equation*}
+    	\iint\limits_{S_1} \Efield_1\cdot d\vect{S} +  \iint\limits_{S_2} \Efield_2\cdot d\vect{S}  = 4\pi q_{\Omega}.
+\end{equation*}
+Оскільки:
+\begin{equation*}
+    \iint\limits_{S_1} \Efield_1\cdot d\vect{S}  = - \iint\limits_{S} \Efield_1\cdot \vect{n}\ dS, \quad \\
+    \iint\limits_{S_2} \Efield_2\cdot d\vect{S} = \iint\limits_{S} \Efield_1\cdot \vect{n}\ dS,
+\end{equation*}
+де враховано напрямки нормалей до $\partial\Omega$ на $S_1$ та $S_2$, звідки:
+\begin{equation*}
+    \iint\limits_{S} (\Efield_2 - \Efield_1)\cdot\vect{n}\ dS = 4\pi \iint\limits_S \sigma dS.
+\end{equation*}
+Завдяки довільності $S$, дістаємо співвідношення в будь-якій точці поверхні
+розриву:
+\begin{equation}\label{eq:bc1}
+    (\Efield_2 - \Efield_1)\cdot\vect{n} = 4\pi\sigma,
+\end{equation}
+яке пов’язує нормальні до поверхні розриву складові напруженості
+електричного поля з обох боків розриву.
+
+\begin{SCfigure}[0.5][h!]
+	\centering
+	\localinput{bc2.tikz}
+	\caption{До виведення другої граничної умови}%
+	\label{tikz:bc2}
+\end{SCfigure}
+
+Щоб отримати зв’язок тангенціальних компонент E, звернемося до рівняння \eqref{Int III}. Розглянемо прямокутний контур, дві сторони $BC$ і $AD$
+(рис.~\ref{tikz:bc2}) якого паралельні до поверхні розриву.
+
+З рівняння \eqref{Int III}:
+\begin{equation*}
+    \int\limits_{AB} \Efield\cdot d\vect{r} + \int\limits_{BC} \Efield\cdot d\vect{r} + \int\limits_{CD} \Efield\cdot d\vect{r} + \int\limits_{DA}
+    \Efield\cdot d\vect{r} =
+    -\frac1c \frac{\partial\Bfield}{\partial t}\cdot d\vect{S}.
+\end{equation*}
+Інтеграл по $S$ (за умови неперервності $\frac{\partial\Bfield}{\partial t}$) прямує до нуля при $h\to0$.
+Тому, враховуючи напрямок обходу контура, що визначає знак інтегралів по
+$BC$ і $AD$, можна записати:
+\begin{equation*}
+\int\limits_{BC} (\Efield_2 - \Efield_1)\cdot\vect{\tau} d\ell = 0
+\end{equation*}
+де $\vect{\tau}$ --- тангенціальний одиничний вектор вздовж $BC$. Звідси, завдяки
+довільності вибору контура $ABCD$,
+\begin{equation}\label{eq:bc2}
+    (\Efield_2 - \Efield_1)\cdot\vect{\tau} = 0
+\end{equation}
+Очевидно, це співвідношення справедливе, якщо $\vect{\tau}$ --- довільний тангенціальний до поверхні $S$ одиничний вектор.
+Легко перевірити, розглядаючи \eqref{eq:bc2} для двох незалежних напрямків $\vect{\tau}$ на
+поверхні $S$, що еквівалентна формі граничних умов для тангенціальних
+складових може бути записана так:
+\begin{equation*}
+    \left[ \vect{n}\times (\Efield_2 - \Efield_1)\right] = 0
+\end{equation*}
+Таким чином, тангенціальна складова напруженості електричного поля не
+має розривy на $S$.
+
+З рівняння Максвелла \eqref{Int II} отримуємо співвідношення для нормальних
+компонент індукції магнітного поля аналогічно \eqref{eq:bc1}:
+\begin{equation}
+     (\Bfield_2 - \Bfield_1)\cdot\vect{n} = 0
+\end{equation}
+тобто нормальна компонента індукції магнітного поля не має розривів. Це є
+наслідком відсутності магнітних зарядів, в даному випадку, поверхневих.
+
+На відміну від цього, тангенціальна компонента $\Bfield$ може
+мати розриви за наявності поверхневого струму з поверхневою густиною~$\vect{i}$.
+
+\begin{SCfigure}[0.5][h!]
+	\centering
+	\localinput{bc2m.tikz}
+	\caption{До виведення другої граничної умови для $\Bfield$}%
+	\label{tikz:bc2m}
+\end{SCfigure}
+
+Нехай $\vect{n}$ --- вектор нормалі до поверхні, проведений з $1$ в $2$,  $\vect{\tau}$ --- тангенціальний одиничний вектор вздовж $BC$, а $\vect{b}$
+--- вектор, що перпендикулярний до $\vect{\tau}$ та $\vect{n}$ і утворює разом з ними праву трійку
+Запишемо:
+\begin{equation*}
+    \Bfield = B_n\vect{n} + B_{\tau}\vect{\tau} + B_b\vect{b},
+\end{equation*}
+де напрямок одиничного вектора $\vect{b}$ відповідає напрямку $\vect{i}$, напрямок
+одиничного вектора $\vect{\tau}$ перпендикулярний до $\vect{n}$ та $\vect{b}$.
+З рівняння \eqref {Int IV} для контура $ABCD$ при $h \to 0$, враховуючи, що за цієї
+умови інтеграли по сторонам $AB$ і $CD$ прямують до нуля, маємо:
+\begin{equation*}
+    \int\limits_{BC} \Bfield\cdot d\vect{r} + \int\limits_{DA} \Bfield\cdot d\vect{r} = \int\limits_{BC} (\Bfield_2 - \Bfield_1)\cdot\vect{\tau} d\ell =
+    \frac{4\pi}c I_{BC},
+\end{equation*}
+де $I_{BC} = \int\limits_{BC} \vect{i}\cdot\vect{b}\ d\ell$ --- поверхневий струм через BC. Звідси:
+\begin{equation}\label{eq:bc2m}
+    (\Bfield_2 - \Bfield_1)\cdot\vect{\tau} = \frac{4\pi}c\ \vect{i}\cdot\vect{b}.
+\end{equation}
+Розглядаючи \eqref{eq:bc2m} для двох незалежних напрямків $\vect{\tau}$ можемо написати:
+\begin{equation}\label{eq:bc2m2}
+    \left[ \vect{n}\times(\Bfield_2 - \Bfield_1)\right]  = \frac{4\pi}c\ \vect{i}.
+\end{equation}
+
+
+
+%% --------------------------------------------------------
+\section{Закони збереження}
+%% --------------------------------------------------------
+
+
+%% --------------------------------------------------------
+\subsection*{Збереження енергії електромагнітного поля}
+%% --------------------------------------------------------
+
+
+В електромагнітному полі на заряди діє сила Лоренца~\eqref{eq:Lorentz_force}. Потужність,
+що витрачає ця сила, є:
+\begin{equation*}
+    \vect{F}\cdot\vect{v} = q\Efield\cdot\vect{v}.
+\end{equation*}
+
+Якщо концентрація зарядів є $n$, маємо $\vect{j} = qn\vect{v}$; тоді потужність, що
+витрачає електричне поле в одиничному об’ємі, є:
+\begin{equation}
+    \frac{dA}{dt} = \vect{j}\cdot\Efield.
+\end{equation}
+Легко перевірити, що ця формула зберігається у разі загального розподілу
+різних зарядів за швидкостями.
+
+З рівняння \eqref{eq:M4D}:
+		\begin{equation*}
+			\vect{j} = \frac{c}{4\pi} \Rot\Bfield - \frac1c \parttime{\Efield}.
+		\end{equation*}
+звідси, за формулами векторного аналізу:
+		\begin{multline*}
+			\vect{j}\cdot\Efield =  \frac{c}{4\pi}\Efield\cdot\Rot\Bfield - \frac1{4\pi}\Efield\cdot\frac{\partial\Efield}{\partial t} = \\
+             = - \Div\left(\frac{c}{4\pi}[\Efield\times\Bfield]\right) + \frac{c}{4\pi}  \Bfield\cdot \Rot\Efield  -
+			\parttime{}
+			\left( \frac1{8\pi}\Efield^2\right)
+		\end{multline*}
+
+
+
+        В силу рівняння \eqref{eq:M3D}:
+		\begin{multline*}
+			\vect{j}\cdot\vect{E} =  - \Div\left(\frac{c}{4\pi}[\Efield\times\Bfield]\right) - \frac{1}{4\pi}  \Bfield\cdot
+			\parttime{\Bfield}  -
+			\parttime{} \left( \frac1{8\pi}\Efield^2\right) = \\
+             = - \Div\left(\frac{c}{4\pi}[\Efield\times\Bfield]\right) -  \parttime{} \left(
+			\frac1{8\pi}\Efield^2 +
+			\frac1{8\pi}\Bfield^2 \right)
+		\end{multline*}
+
+	Звідси отримуємо важливе співвідношення:
+\begin{equation}\label{eq:energy_balance}
+    \vect{j}\cdot\vect{E} + \Div\vect{\Pi} +  \parttime{} \frac{\Efield^2 + \Bfield^2}{8\pi}  = 0,
+\end{equation}
+де величину:
+\begin{equation}
+    \vect{\Pi} = \frac{c}{4\pi}[\Efield\times\Bfield]
+\end{equation}
+називають вектором Пойнтінга; як буде видно далі, він має зміст густини потоку енергії.
+
+Співвідношення \eqref{eq:energy_balance} виражає енергетичний баланс в одиниці об’єму.
+Проінтегруємо його по деякій області $\Omega$, перетворюючи інтеграл з
+дивергентним членом в інтеграл по (замкненій) поверхні $\partial\Omega$, що оточує $\Omega$:
+\begin{equation}\label{eq:energy_balance_int}
+    \iiint\limits_{\Omega} \vect{j}\cdot\vect{E} dV + \oiint\limits_{\partial\Omega} \vect{\Pi}\cdot d\vect{S} +  \parttime{} \iiint\limits_{\Omega}
+    \frac{\Efield^2 + \Bfield^2}{8\pi} dV  = 0.
+\end{equation}
+
+Перший в доданок в \eqref{eq:energy_balance_int} --- це робота, яку виконує поле за одиницю часу
+в об’ємі $\Omega$, другий --- потік енергії через поверхню $\partial\Omega$, останній доданок ---
+швидкість зміни енергії електромагнітного поля в об’ємі Ω. Величина:
+\begin{equation}
+    W = \iiint\limits_{\Omega}     \frac{\Efield^2 + \Bfield^2}{8\pi} dV
+\end{equation}
+являє собою енергію поля в області $\Omega$.
+
+
+%% --------------------------------------------------------
+\subsection*{Закон збереження імпульсу}
+%% --------------------------------------------------------
+
+Імпульс, що передає поле зарядам в одиниці об`єму, визначається силою
+Лоренца~\eqref{eq:Lorentz_force}:
+\begin{equation*}
+    \vect{f} = \rho\Efield + \frac1c\left[\vect{j}\times\Bfield\right].
+\end{equation*}
+
+З рівняння Максвелла \eqref{eq:M1D}:
+\begin{equation*}
+    \rho\Efield = \frac1{4\pi}\Efield\Div\Efield,
+\end{equation*}
+або для $k$-ої компоненти:
+\begin{equation*}
+    4\pi\rho E_k = E_k\partial_iE_i = \partial_i(E_iE_k) - E_i \partial_iE_k.
+\end{equation*}
+
+Запишемо рівняння \eqref{eq:M3D} $\Rot\Efield = - \frac1c \parttime\Bfield$ покомпонентно:
+\begin{equation*}
+    (\Rot\Efield)_i = \epsilon_{ijk}\partial_j E_k = - \frac1c \parttime{B_i},
+\end{equation*}
+помножимо його на $\epsilon_{pqi}$ ε та підсумуємо по $i$:
+\begin{equation*}
+    \epsilon_{pqi}\epsilon_{ijk}\partial_j E_k = - \epsilon_{pqi}  \frac1c \parttime{B_i},
+\end{equation*}
+або, за допомогою формули згортки:
+\begin{equation*}
+    \partial_pE_q -  \partial_qE_p = - \epsilon_{pqi}  \frac1c \parttime{B_i}.
+\end{equation*}
+
+Враховуючи це співвідношення, дістанемо:
+
+\begin{multline*}
+     4\pi\rho E_k =  \partial_i(E_iE_k) - E_i \partial_kE_i - \frac1c \epsilon_{kij} E_i \parttime{B_j} = \\
+    = \partial_i\left( E_kE_i - \frac12
+     \Efield^2\delta_{ik}\right) - \frac1c \left[ \Efield \times \parttime{\Bfield}\right]_k .
+\end{multline*}
+
+З останнього рівняння Максвелла\eqref{eq:M4D} $vect{j} = \frac{c}{4\pi} \Rot\Bfield - \frac1c \parttime{\Efield}$:
+\begin{multline*}
+    \frac1c \left[ \vect{j}\times\Bfield\right]_k = \epsilon_{kij} j_i B_j = \frac1c  \epsilon_{kij} \left[ \frac{c}{4\pi}\epsilon_{ipq}\partial_p B_q -
+    \frac1{4\pi}\parttime{E_i}
+    \right] B_j = \\
+    = \frac1{4\pi} \left( \delta_{kq}\delta_{jp} - \delta_{kp}\delta_{jq} \right) B_j\partial_p B_q - \frac1{4\pi c} \epsilon_{kij}\parttime{E_i} B_j =
+    \\
+    = \frac1{4\pi} \left( B_j \partial_j B_k - B_j \partial_k B_j \right) - \frac1{4\pi c} \left[ \parttime{\Efield}\times\Bfield\right]_k.
+\end{multline*}
+
+Це можна подати як:
+\begin{equation*}
+    \frac{4\pi}{c} \left[ \vect{j}\times\Bfield\right]_k = \partial_j \left( B_kB_j - \delta_{ij} \frac{\Bfield^2}{2}\right) - \frac1{4\pi c} \left[
+    \parttime{\Efield}\times\Bfield\right]_k.
+\end{equation*}
+
+Маємо результат для балансу імпульсу в одиниці об'єму:
+\begin{equation}
+    f_k + T_{kj, j}  + \parttime{\pi_k} = 0, \quad \vect{\pi} = \frac{\vect{\Pi}}{c^2},
+\end{equation}
+де
+\begin{equation*}
+    T_{kj} = \frac1{4\pi} (E_kE_j + B_kB_j) - \frac1{8\pi}\delta_{kj}(\Efield^2 + \Bfield^2)
+\end{equation*}
+максвеллівський тензор натягу.
+
+Інтегральне співвідношення:
+\begin{equation}
+    \iiint\limits_{\Omega} f_k dV + \oiint\limits_{\partial\Omega} T_{kj} n_j dS + \parttime{}  \iiint\limits_{\Omega} \pi_k dV = 0
+\end{equation}
+пов'язує зміну імпульсу в об'ємі $\Omega$ з дією зовнішніх зовнішніх сил та потоком
+через бічну поверхню; тут $\pi_k$ --- імпульс поля в одиниці об'єму.
+
+
+%% --------------------------------------------------------
+\subsection*{Закон збереження момента імпульсу}
+%% --------------------------------------------------------
+
+
+Виходимо з рівнянь:
+\begin{equation*}
+    \frac{d\vect{L}}{dt} = \vect{M},\quad \vect{M} = \left[\vect{r}\times\vect{f} \right].
+\end{equation*}
+Момент сили, що діє на заряди в одиниці об'єму, є, за означенням,
+\begin{equation*}
+    M_k = \epsilon_{kij}x_if_j.
+\end{equation*}
+Використовуючи співвідношення, отримані для баланса імпульсу, маємо:
+\begin{equation*}
+    \epsilon_{ijk}x_jf_k + \epsilon_{ijk}x_j T_{kj,j} + \parttime{L_i} = 0, \quad \text{де}\ L_i = \epsilon_{ijk}x_i\pi_k
+\end{equation*}
+можна інтерпретувати як густину момента імпульсу поля.
+
+Завдяки симетрії $T_{kl}$ по індексах:
+\begin{equation*}
+    \epsilon_{ijk} x_j T_{kl, l} = \partial_l( \epsilon_{ijk}  x_jT_{kl}) -  \epsilon_{ijk}\delta_{lj}T_{kl} = \partial_l ( \epsilon_{ijk} x_j T_{kl}).
+\end{equation*}
+
+Звідси дістаємо локальне співвідношення для зміни моменту імпульсу:
+\begin{equation}
+    M_i + \partial_l( \epsilon_{ijk}  x_jT_{kl}) + \parttime{L_i} = 0.
+\end{equation}
+Рівняння баланса моменту імпульсу в об'ємі Ω має вид:
+\begin{equation}
+    \iiint\limits_{\Omega} M_i dV + \oiint\limits_{\partial\Omega} \epsilon_{ijk}  x_jT_{kl} n_l dS +
+    \parttime{} \iiint\limits_{\Omega} L_i dV = 0.
+\end{equation}
+
+\Closesolutionfile{answer}
+

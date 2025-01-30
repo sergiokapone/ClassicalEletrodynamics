@@ -1,0 +1,38 @@
+			\begin{tikzpicture}[>=latex, scale=1.5]
+
+				\def\qp{1.2}
+				\def\qn{0.5}
+				\node [circle, ball color=red, inner sep=0pt, text=white,
+					font=\scriptsize] (q1) at
+				(-1,0.5)
+				{\mathstrut$+$};
+				\node [circle, ball color=blue, inner sep=0pt, text=white,
+					font=\scriptsize]
+				(q2) at
+				(2,0) {\mathstrut$-$};
+
+				\node[inner sep = 0.5pt, fill, circle] (P) at (0.2, 1) {};
+				\node[above] at (P) {$P$};
+
+
+				\draw (q1) -- (P) (q2) -- (P);
+
+				\draw[->, red] let \p1=(q1), \p2=(P) in (P) --
+				++({ atan((\y2 - \y1)/(\x2 - \x1) ) }:\qp) coordinate (E1)
+				node[above]
+					{$\Efield_1$};
+
+				\draw[->, blue] let \p1=(q2), \p2=(P) in (P) --
+				++({ atan((\y2 - \y1)/(\x2 - \x1) ) }:\qn) coordinate (E2)
+				node[below left]
+					{$\Efield_2$};
+
+				\draw[dashed]  let \p1=(q2), \p2=(P) in (E1) -- ++({ atan((\y2
+						- \y1)/(\x2 - \x1) ) }:\qn) coordinate (E);
+
+				\draw[dashed]  let \p1=(q1), \p2=(P) in (E2) -- ++({ atan((\y2
+						- \y1)/(\x2 - \x1) ) }:\qp);
+
+				\draw[->] (P) -- (E) node[right] {$\Efield$};
+
+			\end{tikzpicture}

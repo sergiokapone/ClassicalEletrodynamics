@@ -1,0 +1,55 @@
+
+\begin{tikzpicture}[surface/.pic = {
+				\path[pic actions]  plot[smooth
+						cycle, tension=.7]
+				coordinates {
+						(-1,0)
+						(-0.5,1)
+						(0.5,2)
+						(2.5,1.5)
+						(3,0.5)
+						(2,-1.5)
+						(0.5,-2)
+						(-0.5,-1)
+					};
+			},
+		>=latex,
+		scale=1,
+		transform shape
+	]
+
+
+	\node [circle, ball color=red, inner sep=0pt, text=white,
+		font=\scriptsize] (qp) at (0,0) {$+$};
+
+	\foreach \i in {0,20,...,360} {
+			\draw[->, red] (qp) -- (\i:3.5);
+		}
+
+
+%	\fill[rotate around={-35:(S)}, gray, draw] (A) arc[start
+%			angle = -180,
+%			delta
+%			angle=190, x radius= 0.25cm, y radius=0.1cm] -- (S) -- (A) --
+%	cycle;
+
+	\coordinate (S) at ($(qp) + ({(35+26)/2}:2.7)$);
+	\node[rotate around={55:(S)}, fill=gray, draw=gray, ellipse, minimum height=0.5cm, minimum width=0.2cm, inner sep=0] (Sf) at (S) {};
+
+	\draw[dash pattern = {on 1pt off 1pt}] (qp) -- (Sf.north);
+	\draw[dash pattern = {on 1pt off 1pt}] (qp) -- (Sf.south);
+
+%    \draw[red, dashed] (qp) -- (S);
+
+	%             \draw[->, red] (qp) -- (31:4);
+	\draw[->, thick] (S) -- ++(52:2) node[above] {$d\vect{S}$};
+	\draw[->, red] (S) -- ++(31:2) node[below] {$\Efield$};
+
+	\draw (S)  ++(52:1.5) arc[radius = 1.5cm, start angle=52, end
+			angle=31] node[pos=0.5, anchor=south west] {$\alpha$};
+
+	\node[below] at (2,-1.5) {$S$};
+%	\node[] at (2, -0.5) {$V$};
+
+	\pic[ball color=gray, opacity=0.7] at (0,0)  {surface};
+\end{tikzpicture}
