@@ -25,7 +25,7 @@
 \end{equation*}
 звідки випливає існування скалярного поля $\phi$, такого, що
 \begin{equation}\label{eq:potE}
-	\Efield = -\nabla \phi - \frac{1}{c} \frac{\partial \vect{A}}{\partial t}
+	\Efield = -\nabla \phi - \frac{1}{c} \frac{\partial \vect{A}}{\partial t}.
 \end{equation}
 
 Таким чином, якщо шукати електромагнітне поле у вигляді \eqref{eq:potB}, \eqref{eq:potE}, рівняння \eqref{eq:M2D}, \eqref{eq:M3D} виконуються
@@ -37,20 +37,21 @@
 
 Формули \eqref{eq:potB}, \eqref{eq:potE} не визначають потенціали однозначно. Розглянемо перетворення $(\phi, \vect{A}) \to (\phi', \vect{A}')$:
 \begin{equation}\label{eq:A'}
-	\vect{A}' = \vect{A} + \nabla \chi
+	\vect{A}' = \vect{A} + \nabla \chi,
 \end{equation}
 \begin{equation}\label{eq:phi'}
-	\phi' = \phi - \frac{1}{c} \frac{\partial \chi}{\partial t}
+	\phi' = \phi - \frac{1}{c} \frac{\partial \chi}{\partial t}.
 \end{equation}
 Підставляючи в \eqref{eq:potB}, \eqref{eq:potE}, бачимо, що напруженості електромагнітного
 поля виражаються через $\phi'$, $\vect{A}'$ подібно до $\phi$, $\vect{A}$:
 
 \begin{equation}
-	\Bfield = \Rot \vect{A}'
+	\Bfield = \Rot \vect{A}',
 \end{equation}
 \begin{equation}
-	\Efield = -\nabla \phi' - \frac{1}{c} \frac{\partial \vect{A}'}{\partial t}
+	\Efield = -\nabla \phi' - \frac{1}{c} \frac{\partial \vect{A}'}{\partial t}.
 \end{equation}
+
 Таким чином, потенціали $(\phi, \vect{A})$ містять деякі степені свободи, що ніяк не
 впливають на фізичну ситуацію. Цю обставину називають \emph{калібрувальною
 інваріантністю} рівнянь поля, а перетворення \eqref{eq:A'}, \eqref{eq:phi'}, або інші, що не
@@ -68,17 +69,17 @@
 
 Розглянемо умову Лоренца:
 \begin{equation}\label{eq:LorenzCondition}
-	\Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t} = 0
+	\Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t} = 0.
 \end{equation}
 Цю умову можна задовольнити за допомогою перетворень \eqref{eq:A'}, \eqref{eq:phi'}.
 Дійсно, припустимо, що:
 \begin{equation*}
-	\Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t} = f \neq 0
+	\Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t} = f \neq 0?
 \end{equation*}
 та перейдемо до нових потенціалів $(\phi', \vect{A}')$ за формулами \eqref{eq:A'}, \eqref{eq:phi'}. Тоді:
 \begin{equation*}
     \Div \vect{A}' + \frac{1}{c} \frac{\partial \phi'}{\partial t} =
-	f - \frac{1}{c^2} \pparttime{\chi} + \nabla^2\chi
+	f - \frac{1}{c^2} \pparttime{\chi} + \nabla^2\chi.
 \end{equation*}
 Підбираючи функцію $\chi$ таким чином, щоб $f = \mdlgwhtsquare\  \chi$
 (де $\mdlgwhtsquare\  = \nabla^2 - \frac{1}{c^2} \frac{\partial^2}{\partial t^2}$ – оператор Даламбера), бачимо, що нові потенціали $(\phi',
@@ -96,7 +97,7 @@
 \end{equation*}
 Тоді з рівняння \eqref{eq:M1D} маємо:
 \begin{equation}\label{eq:Dphi}
-	\mdlgwhtsquare\  \phi = -4\pi \rho
+	\mdlgwhtsquare\  \phi = -4\pi \rho.
 \end{equation}
 
 Підставимо \eqref{eq:potB} та \eqref{eq:potE} в \eqref{eq:M4D}:
@@ -106,7 +107,7 @@
 де враховано умову Лоренца \eqref{eq:LorenzCondition}. Оскільки члени з скалярним потенціалом
 $\phi$ в останній формулі скорочуються, отримуємо:
 \begin{equation}\label{eq:DA}
-	\mdlgwhtsquare\  \vect{A} = -\frac{4\pi}{c} \vect{j}
+	\mdlgwhtsquare\  \vect{A} = -\frac{4\pi}{c} \vect{j}.
 \end{equation}
 
 Перевіримо, чи сумісні рівняння \eqref{eq:Dphi} та \eqref{eq:DA} з умовою Лоренца \eqref{eq:LorenzCondition}.
@@ -118,11 +119,12 @@ $\phi$ в останній формулі скорочуються, отриму
 заряду є необхідною умовою існування розв’язку. Навпаки, якщо цей закон
 виконується, то:
 \begin{equation*}
-	\mdlgwhtsquare\ \left( \frac1c \parttime{\phi} + \Div\vect{A} \right) = 0
+	\mdlgwhtsquare\ \left( \frac1c \parttime{\phi} + \Div\vect{A} \right) = 0.
 \end{equation*}
+
 Останнє співвідношення, якщо його розглядати як рівняння для:
 \begin{equation}
-	f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t}
+	f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 \end{equation}
 само по собі не гарантує $f \equiv 0$, оскільки розв`язок
 рівняння:
@@ -142,17 +144,19 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 Розглянемо іншу калібрувальну умову Гамільтона:
 \begin{equation}\label{eq:HamiltonCondition}
-	\phi = 0
+	\phi = 0.
 \end{equation}
+
 Це співвідношення також завжди можна задовольнити за допомогою
 калібрувальних перетворень \eqref{eq:A'}, \eqref{eq:phi'}. Тоді за умови \eqref{eq:HamiltonCondition} рівняння
 поля \eqref{eq:M1D} перепишеться, з урахуванням \eqref{eq:potE}, так:
 \begin{equation}
-	-\frac1c \parttime{} (\Div \vect{A}) = -4\pi \rho
+	-\frac1c \parttime{} (\Div \vect{A}) = -4\pi \rho.
 \end{equation}
+
 Рівняння \eqref{eq:M4D} перепишеться, з урахуванням \eqref{eq:potB} та \eqref{eq:potE}, так:
 \begin{equation}\label{eq:DA_for_Hamilton1}
-	\mdlgwhtsquare\ \vect{A}  + \nabla \Div\vect{A} = -\frac{4\pi}{c} \vect{j}
+	\mdlgwhtsquare\ \vect{A}  + \nabla \Div\vect{A} = -\frac{4\pi}{c} \vect{j}.
 \end{equation}
 
 Перевіримо, чи сумісні рівняння ці рівняння. Застосування
@@ -166,7 +170,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 \end{equation}
 Якщо врахувати \eqref{eq:DA_for_Hamilton1}, маємо:
 \begin{equation*}
-	\Div \vect{j} + \frac{\partial \rho}{\partial t} = 0
+	\Div \vect{j} + \frac{\partial \rho}{\partial t} = 0,
 \end{equation*}
 тобто закон збереження заряду \eqref{eq:charge_conservation_low_diff} є необхідною умовою розв`язку
 \eqref{eq:DA_for_Hamilton1}, \eqref{eq:DA_for_Hamilton2} за умови \eqref{eq:HamiltonCondition}.
@@ -178,7 +182,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 Кулонівське калібрування накладає умову:
 \begin{equation}\label{eq:ColumbCondition}
-	\Div \vect{A} = 0
+	\Div \vect{A} = 0,
 \end{equation}
 також може бути виконана за допомогою підбору калібрувального
 перетворення.
@@ -495,11 +499,11 @@ $\Delta \varphi$. Тому асимптотика розв’язку за $r \t
 Еволюцію полів \( \Efield \) та \( \Bfield \) визначає інша пара рівнянь Максвелла, що містить похідні за часом:
 
 \begin{equation}
-\frac{\partial \Efield}{\partial t} = c \cdot \Rot \Bfield - 4\pi \cdot \vect{j} \label{eq:2.3.3}
+\frac{\partial \Efield}{\partial t} = c \Rot \Bfield - 4\pi \cdot \vect{j} \label{eq:2.3.3}
 \end{equation}
 
 \begin{equation}
-\frac{\partial \Bfield}{\partial t} = -c \cdot \Rot \Efield \label{eq:2.3.4}
+\frac{\partial \Bfield}{\partial t} = -c \Rot \Efield \label{eq:2.3.4}
 \end{equation}
 
 З будови системи рівнянь видно, що ми можемо задати електромагнітне поле при \( t = 0 \), яке задовольняє рівнянням (\ref{eq:2.3.1}) та
@@ -535,93 +539,77 @@ $\Delta \varphi$. Тому асимптотика розв’язку за $r \t
 \begin{equation}
 (x - x_0)^2 + (y - y_0)^2 + (z - z_0)^2 \leq c^2 T^2 \label{eq:2.3.5}
 \end{equation}
-
 однозначно визначають напруженості поля у точці \( \vect{r}_0 = (x_0, y_0, z_0) \) в момент \( t = T \). Припустимо, що існують два розв’язки рівнянь
 Максвелла \( \{\Efield(t, \vect{r}), \Bfield(t, \vect{r})\} \) та \( \{\Efield'(t, \vect{r}), \Bfield'(t, \vect{r})\} \) з однаковими початковими
 умовами в області (\ref{eq:2.3.5}) та розглянемо їхню різницю \( \Delta \Efield = \Efield - \Efield' \), \( \Delta \Bfield = \Bfield - \Bfield'
 \), яка, очевидно, задовольняє рівняння:
 
-\[
+\begin{equation*}
 \frac{\partial \Delta \Efield}{\partial t} = c \cdot \Rot(\Delta \Bfield), \quad \frac{\partial \Delta \Bfield}{\partial t} = -c \cdot
 \Rot(\Delta \Efield).
-\]
+\end{equation*}
 
 Обчислюючи похідну з урахуванням цих рівнянь:
 
-\[
-\frac{1}{8\pi} \frac{\partial}{\partial t} (\Delta \Efield^2 + \Delta \Bfield^2) = -\frac{c}{4\pi} \Div [\Delta \Efield \times \Delta
-\Bfield], \label{eq:2.3.6}
-\]
-
+\begin{multline}\label{eq:2.3.6},
+\frac{1}{8\pi} \frac{\partial}{\partial t} (\Delta \Efield^2 + \Delta \Bfield^2)
+= \\ = \frac{c}{4\pi}\left( \Delta\Efield\Rot(\Delta\Bfield - \Delta\Bfield\Rot(\Delta\Efield )\right)
+-\frac{c}{4\pi} \Div [\Delta \Efield \times \Delta
+\Bfield]
+\end{multline}
 маємо співвідношення, аналогічне закону збереження енергії в диференціальній формі:
 
-\[
+\begin{equation*}
 \frac{\partial W}{\partial t} = -\frac{c}{4\pi} \Div [\Delta \Efield \times \Delta \Bfield],
-\]
-
+\end{equation*}
 де \( W = \frac{1}{8\pi} (\Delta \Efield^2 + \Delta \Bfield^2) \).
 
 Розглянемо невід’ємну величину:
 
-\begin{equation}
-U(t) = \int_{K(t)} W \, dV, \label{eq:2.3.7}
+\begin{equation}\label{eq:2.3.7}
+    U(t) = \int\limits_{K(t)} W \, dV,
 \end{equation}
-
 де областю інтегрування \( K(t) \) є куля з центром у точці \( \{\vect{r}_0\} = \{x_0, y_0, z_0\} \):
 
-\[
-K(t) = \{\vect{r} : |\vect{r} - \vect{r}_0| \leq R(t)\}, \quad \text{де} \quad R(t) = c(T - t), \quad t \leq T.
-\]
+\begin{equation*}
+    K(t) = \{\vect{r} : |\vect{r} - \vect{r}_0| \leq R(t)\}, \quad \text{де} \quad R(t) = c(T - t), \quad t \leq T.
+\end{equation*}
 
 Перейдемо в інтегралі (\ref{eq:2.3.7}) до сферичних координат з центром у \( \vect{r}_0 \):
 
-\[
-U(t) = \int d\Omega \int_0^{R(t)} dr \, r^2 W(t, r, \theta, \varphi),
-\]
-
-де інтегрування по кутовій частині \( d\Omega = \sin \theta \, d\theta \, d\varphi \) виконується по усій одиничній сфері. Враховуючи (\ref{eq:2.3.6}),
+\begin{equation*}
+    U(t) = \int d\Omega \int_0^{R(t)}  \, r^2 W(t, r, \theta, \varphi) dr,
+\end{equation*}
+де інтегрування по кутовій частині \( d\Omega = \sin \theta \, d\theta \, d\varphi \) виконується по усій одиничній сфері. Враховуючи \eqref{eq:2.3.6},
 обчислимо:
 
-\[
-\frac{dU}{dt} = -c R^2(t) \int d\Omega \, W(t, R(t), \theta, \varphi) + \int_{K(t)} \frac{\partial W}{\partial t} \, dV =
-\]
-
-\[
-= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int_{K(t)} \Div [\Delta \Efield \times \Delta \Bfield] \, dV =
-\]
-
-(за формулою Остроградського-Гаусса)
-
-\[
-= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int_{\partial K(t)} (d\vect{S} \cdot [\Delta \Efield \times \Delta \Bfield]) =
-\]
-
-\[
-= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int d\Omega \, R^2(t) [\Delta \Efield \times \Delta \Bfield] \cdot \vect{n}, \label{eq:2.3.8}
-\]
-
+\begin{multline}\label{eq:2.3.8}
+\frac{dU}{dt} = -c R^2(t) \int d\Omega \, W(t, R(t), \theta, \varphi) + \int_{K(t)} \frac{\partial W}{\partial t} \, dV = \\
+= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int_{K(t)} \Div [\Delta \Efield \times \Delta \Bfield] \, dV = \\
+\text{(за формулою Остроградського-Гаусса)}\\
+= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int_{\partial K(t)} (d\vect{S} \cdot [\Delta \Efield \times \Delta \Bfield]) = \\
+= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int d\Omega \, R^2(t) [\Delta \Efield \times \Delta \Bfield] \cdot \vect{n},
+\end{multline}
 де \( \partial K(t) \) --- поверхня сфери \( r = R(t) \), \( \vect{n} = \vect{r} / r = \{\sin \theta \cos \varphi, \sin \theta \sin \varphi, \cos
 \theta\} \) --- одиничний вектор нормалі до цієї поверхні; \( d\vect{S} = \vect{n} R^2 d\Omega \).
 
 Оскільки:
 
-\[
-\| \Delta \Efield \times \Delta \Bfield \| \cdot \vect{n} \| \leq \| \Delta \Efield \| \cdot \| \Delta \Bfield \| \leq \frac{\Delta \Efield^2 +
+\begin{equation*}
+| \left[ \Delta \Efield \times \Delta \Bfield \right]  \cdot \vect{n} | \leq | \Delta \Efield | \cdot | \Delta \Bfield | \leq \frac{\Delta \Efield^2 +
 \Delta \Bfield^2}{2} \leq 4\pi W,
-\]
+\end{equation*}
+з \eqref{eq:2.3.8} випливає:
 
-з (\ref{eq:2.3.8}) випливає:
-
-\[
+\begin{equation}\label{eq:2.3.9}
 \frac{dU}{dt} = -c R^2 \int d\Omega \, W + \frac{c}{4\pi} \int d\Omega \, [\Delta \Efield \times \Delta \Bfield \cdot \vect{n}] \leq 0.
-\label{eq:2.3.9}
-\]
+\end{equation}
 
 Якщо початковий момент \( t = 0 \) поля збігаються:
 
-\[
+\begin{equation*}
 \Delta \Efield(0, \vect{r}) = \Delta \Bfield(0, \vect{r}) \equiv 0,
-\]
+\end{equation*}
 
 тому \( U(0) = 0 \). За означенням \( U(t) \geq 0 \), тому нерівність (\ref{eq:2.3.9}) означає, що \( U(t) \equiv 0 \), тобто \( \Efield = \Efield'
 \), \( \Bfield = \Bfield' \) у будь-якій кулі \( K(t) \), \( t \in [0, T] \).
@@ -634,8 +622,8 @@ U(t) = \int d\Omega \int_0^{R(t)} dr \, r^2 W(t, r, \theta, \varphi),
 встигають поширитися до точки \( \vect{r}_0 \) за час \( R(t)/c = T - t \). Чим ближче \( t \) до \( T \), тим меншою є область впливу на цю точку.
 
 Природно, що для визначення поля при \( t = T \) в усьому просторі треба задавати початкові умови також в усьому просторі. Поля, що задають у початковий
-момент, мають задовольнити рівнянням (\ref{eq:2.3.1}) та (\ref{eq:2.3.2}); тому стан поля та його майбутня еволюція визначаються чотирма функціями від
-трьох просторових змінних. Наприклад, можна незалежно задати дві компоненти електричного поля та дві --- магнітного.
+момент, мають задовольнити рівнянням (\ref{eq:2.3.1}) та (\ref{eq:2.3.2}); тому стан поля та його майбутня еволюція визначаються \emph{чотирма функціями
+від трьох просторових змінних}. Наприклад, можна незалежно задати дві компоненти електричного поля та дві --- магнітного.
 
 \section*{Задачі}
 
@@ -658,7 +646,11 @@ c^{-1} r^{-3} \int dV \, \vect{j}(\vect{r}')(\vect{r} \cdot \vect{r}') \). За�
 
 %=========================================================
 \begin{problem}%
-Знайти розв’язок \( \delta \equiv \delta(k, r) \) рівняння Гельмгольца \( \Delta \delta + k^2 \delta = -4\pi\rho \) у випадку сферичної симетрії \(
+Знайти розв’язок \( \delta \equiv \delta(k, r) \) рівняння Гельмгольца
+\begin{equation*}
+   \Delta \delta + k^2 \delta = -4\pi\rho
+\end{equation*}
+у випадку сферичної симетрії \(
 \rho \equiv \rho(k, r) \), за умови відсутності зовнішнього випромінювання. Функція \( \rho \equiv \rho(k, r) \) відмінна від нуля лише в області \( r <
 R \). Розв’язок подати у вигляді квадратур. Показати, що при \( R \to 0 \) за умови фіксованого \( \int dV \, \rho(k, r) = 4\pi \int_0^R dr \, r^2
 \rho(k, r) = q \), матимемо \( \delta(k, r) = q \exp(ikr) / r \).
