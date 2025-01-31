@@ -75,7 +75,6 @@
 	\setsansfont{Roboto}%{Arial}
 	\setmonofont{JetBrains Mono}%{Consolas}
 	\defaultfontfeatures{Ligatures={TeX}}
-	\newfontfamily\Annabelle{Annabelle}
     \newfontfamily\Alexander{Alexander}
 	\RequirePackage{luacolor}
 \else
