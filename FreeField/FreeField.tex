@@ -494,7 +494,7 @@ I = I_1 + I_2.
 |\phi|^2 \rangle - |\langle \psi \phi^{*} \rangle|^2 / \langle |\psi|^2 \rangle\), звідки й випливає потрібне.}, \(|\langle \phi_1 \phi_2^{*} \rangle|
 \leq |\phi_1||\phi_2|\), маємо \(|\gamma| \leq 1\).
 
-\subsection{Поляризація}
+\subsection*{Поляризація}
 
 При розгляді поляризації треба зважати на векторну природу польових функцій, зокрема, напруженості електричного поля. Зауважимо, що для фіксованого
 напрямку випромінювання досить розглядати лише електричне поле; воно визначає також і вектор напруженості магнітного поля.
@@ -794,7 +794,7 @@ x^2 \langle \Delta t^2 \rangle_{\phi} + \langle \Delta \omega^2 \rangle_{\phi} -
 \label{eq:div_A_zero}
 \end{equation}
 
-За цією умовою рівняння \eqref{eq:maxwell_wave} зводиться до однорідного хвильового рівняння:
+За цією умовою рівняння \eqref{eq:DA_for_Hamilton1} зводиться до однорідного хвильового рівняння:
 
 \begin{equation}
 \frac{1}{c^2} \frac{\partial^2 \vect{A}}{\partial t^2} - \nabla^2 \vect{A} = 0
@@ -814,8 +814,7 @@ x^2 \langle \Delta t^2 \rangle_{\phi} + \langle \Delta \omega^2 \rangle_{\phi} -
 \vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \cdot e^{i\vect{k} \cdot \vect{r}} \vect{A}_{\vect{k}}(t)
 \label{eq:inverse_fourier_transform_A}
 \end{equation}
-
-дозволяє знайти напруженості електромагнітного поля за формулами \eqref{eq:E_field} та \eqref{eq:B_field} за відомим \(\vect{A}_{\vect{k}}(t)\).
+дозволяє знайти напруженості електромагнітного поля за формулами \eqref{eq:potB} та \eqref{eq:potE} за відомим \(\vect{A}_{\vect{k}}(t)\).
 
 Дія оператора Лапласа:
 
@@ -928,7 +927,7 @@ e^{i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}}
 \label{eq:A_final_form_modified}
 \end{equation}
 
-Згідно з \eqref{eq:E_field}, \eqref{eq:B_field} та калібрувальною умовою \eqref{eq:phi_zero}:
+Згідно з \eqref{eq:potE}, \eqref{eq:potB} та калібрувальною умовою \eqref{eq:phi_zero}:
 
 \begin{equation}
 \Efield = -\frac{1}{c} \frac{\partial \vect{A}}{\partial t} = \frac{i}{(2\pi)^{3/2}} \int d^3k \, \omega_{\vect{k}} \left\{ \vect{a}(\vect{k})
