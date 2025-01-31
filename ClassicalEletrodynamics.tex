@@ -57,25 +57,15 @@ biblatex,
 %
 %========================================================================================================
 
-\newcommand{\ChaptersOne}{
-    Measures,
-	MaxwellEqns,
-    ELimits
-}
-\newcommand{\ChaptersTwo}{
-    Potentials,
-    IsolatedSystem
-}
-
-\pagestyle{main}
-\part{Базові поняття та рівняння}
 
 %\input{Additions/MaxwellEquation}
-\multiinclude{\ChaptersOne}[]
+\multiinclude{
+    Basics,
+    Solutions,
+    FreeField,
+    Radiation
+}[]
 
-\part{Розв'язки рівнянь Максвелла}
-
-\multiinclude{\ChaptersTwo}[]
 
 %========================================================================================================
 %
@@ -91,8 +81,8 @@ biblatex,
 %									             Додатки
 %
 %========================================================================================================
-\appendix
-\input{Additions/Vanaliz}
+%\appendix
+%\input{Additions/Vanaliz}
 %\input{Additions/PhysConstants}
 
 %%========================================================================================================

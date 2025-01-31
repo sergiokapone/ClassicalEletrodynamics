@@ -1,0 +1,666 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !TeX root =../ClassicalEletrodynamics.tex
+
+%=========================================================
+\chapter{Розв’язки рівнянь Максвелла}\label{\currfilebase}
+%=========================================================
+
+%% --------------------------------------------------------
+\section{Потенціали електромагнітного поля}
+%% --------------------------------------------------------
+
+Існує досить багато методів аналізу рівнянь Максвелла \eqref{eq:M1D} -- \eqref{eq:M4D}, серед яких одним з найбільш поширених є введення потенціалів, що
+дозволяють дещо
+зменшити число невідомих функцій.
+
+З умови соленоїдальності магнітного поля \eqref{eq:M2D} випливає, що існує деяке векторне поле $\vect{A}$, таке, що:
+\begin{equation}\label{eq:potB}
+	 \Bfield = \Rot\vect{A}
+\end{equation}
+Підставляючи це в \eqref{eq:M3D}, після елементарних перетворень маємо:
+\begin{equation*}
+	\Rot \left( \Efield + \frac{1}{c} \frac{\partial \vect{A}}{\partial t}\right)  = 0,
+\end{equation*}
+звідки випливає існування скалярного поля $\phi$, такого, що
+\begin{equation}\label{eq:potE}
+	\Efield = -\nabla \phi - \frac{1}{c} \frac{\partial \vect{A}}{\partial t}
+\end{equation}
+
+Таким чином, якщо шукати електромагнітне поле у вигляді \eqref{eq:potB}, \eqref{eq:potE}, рівняння \eqref{eq:M2D}, \eqref{eq:M3D} виконуються
+автоматично.
+
+%% --------------------------------------------------------
+\subsection*{Калібрувальна інваріантність}
+%% --------------------------------------------------------
+
+Формули \eqref{eq:potB}, \eqref{eq:potE} не визначають потенціали однозначно. Розглянемо перетворення $(\phi, \vect{A}) \to (\phi', \vect{A}')$:
+\begin{equation}\label{eq:A'}
+	\vect{A}' = \vect{A} + \nabla \chi
+\end{equation}
+\begin{equation}\label{eq:phi'}
+	\phi' = \phi - \frac{1}{c} \frac{\partial \chi}{\partial t}
+\end{equation}
+Підставляючи в \eqref{eq:potB}, \eqref{eq:potE}, бачимо, що напруженості електромагнітного
+поля виражаються через $\phi'$, $\vect{A}'$ подібно до $\phi$, $\vect{A}$:
+
+\begin{equation}
+	\Bfield = \Rot \vect{A}'
+\end{equation}
+\begin{equation}
+	\Efield = -\nabla \phi' - \frac{1}{c} \frac{\partial \vect{A}'}{\partial t}
+\end{equation}
+Таким чином, потенціали $(\phi, \vect{A})$ містять деякі степені свободи, що ніяк не
+впливають на фізичну ситуацію. Цю обставину називають \emph{калібрувальною
+інваріантністю} рівнянь поля, а перетворення \eqref{eq:A'}, \eqref{eq:phi'}, або інші, що не
+впливають на спостережувані величини $(\Efield, \Bfield)$, називають \emph{калібрувальними
+перетвореннями}.
+
+
+%% --------------------------------------------------------
+\subsection*{Калібрувальна умова Лоренца}
+%% --------------------------------------------------------
+
+Калібрувальна інваріантність дозволяє накладати додаткові умови на
+потенціали $(\phi, \vect{A})$, за допомогою яких можна привести рівняння до більш
+зручного вигляду.
+
+Розглянемо умову Лоренца:
+\begin{equation}\label{eq:LorenzCondition}
+	\Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t} = 0
+\end{equation}
+Цю умову можна задовольнити за допомогою перетворень \eqref{eq:A'}, \eqref{eq:phi'}.
+Дійсно, припустимо, що:
+\begin{equation*}
+	\Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t} = f \neq 0
+\end{equation*}
+та перейдемо до нових потенціалів $(\phi', \vect{A}')$ за формулами \eqref{eq:A'}, \eqref{eq:phi'}. Тоді:
+\begin{equation*}
+    \Div \vect{A}' + \frac{1}{c} \frac{\partial \phi'}{\partial t} =
+	f - \frac{1}{c^2} \pparttime{\chi} + \nabla^2\chi
+\end{equation*}
+Підбираючи функцію $\chi$ таким чином, щоб $f = \mdlgwhtsquare\  \chi$
+(де $\mdlgwhtsquare\  = \nabla^2 - \frac{1}{c^2} \frac{\partial^2}{\partial t^2}$ – оператор Даламбера), бачимо, що нові потенціали $(\phi',
+	\vect{A}')$
+задовольняють калібрувальній умові Лоренца \eqref{eq:LorenzCondition}.
+
+Отримаємо рівняння для $(\phi, \vect{A})$, припускаючи тепер, що умова \eqref{eq:LorenzCondition}
+виконана. З подальшого буде видно, що розв’язки рівнянь, з якими
+матимемо справу, дійсно задовольняють цій умові. З урахуванням
+співвідношень \eqref{eq:potE} та \eqref{eq:LorenzCondition} маємо:
+
+\begin{equation*}
+    \Div\Efield = \Div\left( -\nabla\phi - \frac1c \parttime{\vect{A}}\right) = - \nabla^2\phi - \frac1c \parttime{}\Div\vect{A} =
+    \frac1{c^2}\pparttime{\phi} - \nabla^2\phi.
+\end{equation*}
+Тоді з рівняння \eqref{eq:M1D} маємо:
+\begin{equation}\label{eq:Dphi}
+	\mdlgwhtsquare\  \phi = -4\pi \rho
+\end{equation}
+
+Підставимо \eqref{eq:potB} та \eqref{eq:potE} в \eqref{eq:M4D}:
+\begin{equation*}
+    \Rot\Rot\vect{A} = \nabla \Div\vect{A} - \nabla^2\vect{A} = -\frac1c \nabla \parttime\phi - \nabla^2\vect{A}.
+\end{equation*}
+де враховано умову Лоренца \eqref{eq:LorenzCondition}. Оскільки члени з скалярним потенціалом
+$\phi$ в останній формулі скорочуються, отримуємо:
+\begin{equation}\label{eq:DA}
+	\mdlgwhtsquare\  \vect{A} = -\frac{4\pi}{c} \vect{j}
+\end{equation}
+
+Перевіримо, чи сумісні рівняння \eqref{eq:Dphi} та \eqref{eq:DA} з умовою Лоренца \eqref{eq:LorenzCondition}.
+Комбінування рівнянь $\frac1c \parttime{} \eqref{eq:Dphi} + \Div\eqref{eq:DA}$ дає:
+\begin{equation}
+	\mdlgwhtsquare\ \left( \frac1c \parttime{\phi} + \Div\vect{A} \right) = \frac{4\pi}c \left( \parttime{\rho} + \Div\vect{j}\right)  .
+\end{equation}
+За умови Лоренца права частина дорівнює нулю, тобто закон збереження
+заряду є необхідною умовою існування розв’язку. Навпаки, якщо цей закон
+виконується, то:
+\begin{equation*}
+	\mdlgwhtsquare\ \left( \frac1c \parttime{\phi} + \Div\vect{A} \right) = 0
+\end{equation*}
+Останнє співвідношення, якщо його розглядати як рівняння для:
+\begin{equation}
+	f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t}
+\end{equation}
+само по собі не гарантує $f \equiv 0$, оскільки розв`язок
+рівняння:
+\begin{equation}\label{eq:Df}
+	\mdlgwhtsquare\ f = 0
+\end{equation}
+не є єдиним (воно має, наприклад, хвильові розв`язки). Але за умови
+відсутності зовнішнього випромінювання, коли розглядається обмежена
+система зарядів і струмів, рівняння \eqref{eq:Df} має тільки тривіальний розв'язок
+$f=0$. Ця ситуація відповідає запізнюючим розв`язкам рівнянь\eqref{eq:Dphi} та \eqref{eq:DA}, що
+розглядаються нижче.
+
+
+%% --------------------------------------------------------
+\subsection*{Калібрування Гамільтона}
+%% --------------------------------------------------------
+
+Розглянемо іншу калібрувальну умову Гамільтона:
+\begin{equation}\label{eq:HamiltonCondition}
+	\phi = 0
+\end{equation}
+Це співвідношення також завжди можна задовольнити за допомогою
+калібрувальних перетворень \eqref{eq:A'}, \eqref{eq:phi'}. Тоді за умови \eqref{eq:HamiltonCondition} рівняння
+поля \eqref{eq:M1D} перепишеться, з урахуванням \eqref{eq:potE}, так:
+\begin{equation}
+	-\frac1c \parttime{} (\Div \vect{A}) = -4\pi \rho
+\end{equation}
+Рівняння \eqref{eq:M4D} перепишеться, з урахуванням \eqref{eq:potB} та \eqref{eq:potE}, так:
+\begin{equation}\label{eq:DA_for_Hamilton1}
+	\mdlgwhtsquare\ \vect{A}  + \nabla \Div\vect{A} = -\frac{4\pi}{c} \vect{j}
+\end{equation}
+
+Перевіримо, чи сумісні рівняння ці рівняння. Застосування
+дивергенції до лівої частини останнього рівняння дає:
+\begin{equation*}
+	\Div(\mdlgwhtsquare\ \vect{A}  - \nabla \Div\vect{A}) = \frac1{c^2} \pparttime{} \Div\vect{A} - \nabla^2\Div\vect{A} + \nabla^2\Div\vect{A},
+\end{equation*}
+або
+\begin{equation}\label{eq:DA_for_Hamilton2}
+	-\frac1c \parttime{} \left[ \frac1c \parttime{} (\Div\vect{A})\right] + \frac{4\pi}c \Div\vect{j} = 0.
+\end{equation}
+Якщо врахувати \eqref{eq:DA_for_Hamilton1}, маємо:
+\begin{equation*}
+	\Div \vect{j} + \frac{\partial \rho}{\partial t} = 0
+\end{equation*}
+тобто закон збереження заряду \eqref{eq:charge_conservation_low_diff} є необхідною умовою розв`язку
+\eqref{eq:DA_for_Hamilton1}, \eqref{eq:DA_for_Hamilton2} за умови \eqref{eq:HamiltonCondition}.
+
+
+%% --------------------------------------------------------
+\subsection*{Калібрування Кулона}
+%% --------------------------------------------------------
+
+Кулонівське калібрування накладає умову:
+\begin{equation}\label{eq:ColumbCondition}
+	\Div \vect{A} = 0
+\end{equation}
+також може бути виконана за допомогою підбору калібрувального
+перетворення.
+
+За умовою \eqref{eq:ColumbCondition} з \eqref{eq:M1D} маємо рівняння Пуассона для потенціалу~$\phi$:
+\begin{equation}\label{eq:ColumbCondition_Puasson}
+	\nabla^2 \phi = -4\pi \rho
+\end{equation}
+аналогічно електростатиці.
+
+З іншого рівняння Максвелла \eqref{eq:M4D} дістаємо:
+\begin{equation}\label{eq:ColumbCondition_DA}
+	\mdlgwhtsquare\ \vect{A} = \frac{4\pi}c \vect{j} - \frac1c \nabla \parttime{\phi}.
+\end{equation}
+
+Для перевірки сумісності \eqref{eq:ColumbCondition_Puasson} та \eqref{eq:ColumbCondition_DA} обчислимо з останнього рівняння з
+урахуванням \eqref{eq:ColumbCondition}:
+\begin{equation*}
+	\mdlgwhtsquare\Div\vect{A} = \frac{4\pi}c \Div\vect{j} - \frac1c \nabla^2 \parttime{\phi} = \frac{4\pi}c\left( \Div\vect{j} +
+	\parttime{\phi}\right),
+\end{equation*}
+де підставлено $\nabla^2\phi$ з \eqref{eq:ColumbCondition_Puasson}. Знову рівняння неперервності --- закон збереження
+заряду --- виступає як необхідна умова існування розв’язку при заданій
+калібрувальній умові. Навпаки, якщо виконується рівняння неперервності, для
+розв’язку \eqref{eq:ColumbCondition_DA} маємо $\mdlgwhtsquare\Div\vect{A} = 0$ і за відповідних граничних умов
+дістанемо \eqref{eq:ColumbCondition}.
+
+%% --------------------------------------------------------
+\section{Потенціали ізольованої системи зарядів і струмів}
+%% --------------------------------------------------------
+
+
+
+В цьому розділі нас цікавитиме поле обмеженої системи, яка є ізольована. Це означає, що протягом усієї історії системи, починаючи з нескінченного
+минулого, зовнішніх впливів немає; тобто немає джерел на нескінченності чи якогось зовнішнього випромінювання. На відміну від задачі Коші , коли поля
+розглядають за $t >0$, а при $t =0$ задають початкові умови (разом з граничними умовами на нескінченності), у разі ізольованої системи будемо розглядати
+поля за усіх часів, припускаючи, що функції $\rho(t, \vect{r})$ та $\vect{j}(t, \vect{r})$ задані на усій дійсній осі $t$. Це, зокрема, дозволяє
+оперувати з перетворенням Фур’є цих функцій за часом. Для ізольованої системи буде отримано розв’язок рівнянь \eqref{eq:Dphi}, \eqref{eq:DA} у вигляді
+запізнюючих потенціалів, який застосовується для розгляду різноманітних задач теорії випромінювання.
+
+
+%% --------------------------------------------------------
+\subsection*{Перетворення Фур’є та рівняння Гельмгольца}
+%% --------------------------------------------------------
+
+Позначимо:
+\begin{equation}\label{eq:tilde_phi}
+	\tilde{\phi}(\omega, \vec{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \phi(t, \vect{r}).
+\end{equation}
+\begin{equation}\label{eq:tilde_A}
+	\tilde{\vect{A}}(\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \vect{A}(t, \vect{r}).
+\end{equation}
+--- перетворення Фур’є для потенціалів.
+Оскільки диференціювання за часом індукує множення фур’є-образів на \((-i \omega)\), аналог калібрувальної умови Лоренца \eqref{eq:LorenzCondition} має
+вигляд:
+\begin{equation}
+	-\frac{i \omega}{c} \tilde{\phi} + \Div \tilde{\vect{A}} = 0.
+\end{equation}
+
+З закону збереження заряду \eqref{eq:charge_conservation_low_diff} маємо:
+\begin{equation}
+	-i \omega \tilde{\rho} + \Div \tilde{\vect{j}} = 0,
+\end{equation}
+де
+\begin{equation}
+	\tilde{\rho}(\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \rho(t, \vect{r}),
+\end{equation}
+\begin{equation}
+	\tilde{\vect{j}}(\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \vect{j}(t, \vect{r}).
+\end{equation}
+
+Далі розглянемо рівняння для потенціалів саме за умови Лоренца \eqref{eq:LorenzCondition} або \eqref{eq:A'}. З рівнянь \eqref{eq:Dphi}, \eqref{eq:DA},
+де друга похідна за часом індукує множення на \( -\omega^2 \) фур’є-образів, отримаємо \emph{рівняння Гельмгольца}:
+\begin{equation}\label{eq:Dphi_Fourier}
+	\Delta \tilde{\phi} + k^2 \tilde{\varphi} = -4\pi \tilde{\rho}, \quad \text{де} \quad k = \frac{\omega}{c}.
+\end{equation}
+\begin{equation}\eqref{eq:DA_Fourier}
+	\Delta \tilde{\vect{A}} + k^2 \tilde{\vect{A}} = -\frac{4\pi}{c} \tilde{\vect{j}}.
+\end{equation}
+
+
+
+%% --------------------------------------------------------
+\subsection*{Умова випромінювання для ізольованої системи}
+%% --------------------------------------------------------
+
+
+Систему зарядів і струмів називатимемо ізольованою, якщо вона зосереджена в обмеженій області за відсутності зовнішнього випромінювання, що йде з
+нескінченності. Зосередимось на пошуку розв’язку рівняння \eqref{eq:Dphi} та його фур’є-образу \eqref{eq:Dphi_Fourier}для скалярного потенціалу $\phi$.
+Зараз ми зацікавлені у знаходженні розв’язку, що описує поле ізольованої системи джерел. Розглянемо спочатку розв’язок, що відповідає сферично
+симетричному точковому джерелу, та задовольняє рівнянню:
+\begin{equation*}
+	\mdlgwhtsquare\ \phi = \delta(\vect{r} - \vect{r}')\chi(t, \vect{r}'),
+\end{equation*}
+де $\chi(t, \vect{r}') = 4\pi\rho(t, \vect{r}_0)$. Очевидно, розв’язок \eqref{eq:Dphi} можна подати, як суперпозицію
+таких розв’язків з різними $\vect{r}'$.
+
+Нехай $\vect{r}' = 0$. Поле, що створюється точковим джерелом у точці $\vect{r}$, є сферично-симетричним $\phi = \phi(t, r)$, $r = |\vect{r}|$. Завдяки
+сферичній симетрії:
+\begin{equation*}
+	\mdlgwhtsquare\ \phi = \frac1{c^2}\pparttime{\phi} - \frac1{r^2} \diff{}{r}\left(r^2 \diff{\phi}{r} \right) .
+\end{equation*}
+Покладемо $\phi = \frac{\psi}{r}$, тоді за $r>0$:
+\begin{equation*}
+	\mdlgwhtsquare\ \phi = \frac1r \left( \frac1{c^2}\pparttime{\psi} - \ddiff{\psi}{r}\right) =0 .
+\end{equation*}
+Це одновимірне хвильове рівняння, яке має загальний розв’язок:
+\begin{equation*}
+	\psi = f_1\left( t - \frac{r}c \right) + f_2\left( t + \frac{r}c \right),
+\end{equation*}
+де $f_1$ та $f_2$ --- довільні функції однієї змінної. Тут $f_1$ описує хвилі, що
+випромінюються джерелом, а $f_2$ --- хвилі, що приходять з нескінченності. \emph{За
+	відсутності зовнішнього випромінювання} слід покласти $f_2=0$. Звідси:
+\begin{equation*}
+	\phi = \frac1r f_1\left( t - \frac{r}c \right).
+\end{equation*}
+
+Якщо джерело знаходиться у точці $\vect{r}' \neq 0$, очевидно:
+\begin{equation}\label{eq:rad_phi}
+	\phi(t, \vect{r}) = \frac1{|\vect{r} - \vect{r}'|} f_1\left( t - \frac{|\vect{r} - \vect{r}'|}c \right).
+\end{equation}
+
+%% --------------------------------------------------------
+\subsection*{Умова випромінювання і рівняння Гельмгольца}
+%% --------------------------------------------------------
+
+
+Для фур'є-образів розв’язку \eqref{eq:rad_phi} маємо:
+\begin{equation}
+	\tilde{\phi} (\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int dt \, e^{i\omega t} \frac{1}{|\vect{r} - \vect{r}_0|}
+	\exp \left[ i \frac{\omega}{c} |\vect{r} - \vect{r}_0| \right] \tilde{f}_1(\omega),
+\end{equation}
+де
+\begin{equation}
+	\tilde{f}_1 (\omega) \equiv \frac{1}{\sqrt{2\pi}} \int d\xi \, e^{i\omega \xi} f_1(\xi).
+\end{equation}
+
+На великих відстанях
+\begin{equation}
+	\tilde{\phi} (\omega, \vect{r}) \sim \frac{e^{i\omega (r - \vect{n} \vect{r}_0)/c}}{r} + O(r^{-2}).
+\end{equation}
+
+Очевидно, для будь-якого сферично-симетричного розв’язку рівняння Гельмгольца \eqref{eq:Dphi_Fourier} зовні області, де права частина цього рівняння
+відмінна від нуля, за
+умови відсутності зовнішнього випромінювання
+\begin{equation}\label{eq:rad_phi_sph}
+	\tilde{\phi} (\omega, \vect{r}) \sim \frac{e^{ikr}}{r}.
+\end{equation}
+
+Розв’язок рівняння Гельмгольца, що задовольняє умовам випромінювання, у випадку обмеженої системи джерел має бути суперпозицією розв’язків типу
+\eqref{eq:rad_phi_sph} з
+різними $\vect{r}'$ і мати асимптотику
+\begin{equation}
+	\tilde{\phi} (\omega, \vect{r}) \approx C(\vect{n}) \frac{e^{ikr}}{r} + O(r^{-2}),
+\end{equation}
+де амплітуда $C(\vect{n}) $ залежить лише від кутів.
+
+
+%% --------------------------------------------------------
+\subsection*{Запізнюючі потенціали}
+%% --------------------------------------------------------
+
+
+Умови випромінювання однозначно задають поля ізольованої системи струмів і розв’язки хвильових рівнянь \eqref{eq:Dphi}, \eqref{eq:DA} для потенціалів, а
+також рівнянь
+Гельмгольца \eqref{eq:Dphi_Fourier}, \eqref{eq:DA_Fourier} для їх Фур’є-перетворень. Розв’язки \eqref{eq:Dphi}, \eqref{eq:DA} можна отримати
+безпосередньо,
+використовуючи сферично-симетричний
+розв’язок \eqref{eq:rad_phi}. Але ми проведемо аналогічний розгляд з використанням сферично-симетричного розв’язку рівнянь Гельмгольца, а потім
+перейдемо до
+розв’язків \eqref{eq:Dphi}, \eqref{eq:DA} через перетворення Фур’є. Розглянемо рівняння для скалярного потенціалу \eqref{eq:Dphi_Fourier} і шукатимемо
+фундаментальний
+розв’язок
+оператора в лівій частині \eqref{eq:Dphi_Fourier}:
+\begin{equation}
+	\nabla^2\tilde{G} + k^2\tilde{G} = \delta(\vect{r})
+\end{equation}
+Поле, створюване сферично-симетричним точковим джерелом, також є сферично-симетричним, тому можна покласти
+\begin{equation}
+	\tilde{G} (\vect{r}) = \frac{g(r)}{r}
+\end{equation}
+
+Тоді з \eqref{eq:rad_phi_sph} за $r>0$ маємо
+
+\begin{equation}
+	\frac{d^2 g}{dr^2} + k^2 g = 0 \quad \Rightarrow \quad g = C_1(k) e^{ikr} + C_2(k) e^{-ikr}.
+\end{equation}
+
+Враховуючи умову випромінювання, слід покласти $C_2(k)=0$:
+\begin{equation}
+	\tilde{G}(r) = C_1(k) \frac{e^{ikr}}{r}, \quad \text{за} \quad r>0.
+\end{equation}
+
+Залишається визначити $C_1(k)$. Коли $r \to 0$, поведінку розв’язку визначає співмножник $C_1/r$, а в лівій частині рівняння \eqref{eq:rad_phi_sph}
+домінує доданок
+$\Delta \varphi$. Тому асимптотика розв’язку за $r \to 0$ повинна збігатися з розв’язком рівняння Пуассона для точкового заряду:
+\begin{equation}
+	\Delta \left( \frac{q}{r} \right) = -4\pi q \delta (\vect{r}).
+\end{equation}
+
+Співставлення за $r > 0$ дає:
+\begin{equation}\label{eq:tildeGr}
+	\tilde{G}(r) = \frac{e^{ikr}}{4\pi r}.
+\end{equation}
+
+Більш послідовний розгляд фундаментальних розв’язків операторів Даламбера та Гельмгольца з точки зору узагальнених функцій див. Додаток 1.
+
+З урахуванням \eqref{eq:tildeGr}, за принципом суперпозиції розв’язки рівнянь \eqref{eq:tilde_phi}, \eqref{eq:tilde_A} за умови випромінювання можна
+подати згортками:
+\begin{equation}\label{eq:tilde_phi_bundle}
+	\tilde{\varphi} (\omega, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \exp \left[ i \frac{\omega}{c} |\vect{r} - \vect{r}'| \right]
+	\tilde{\rho} (\omega, \vect{r}'),
+\end{equation}
+\begin{equation}\label{eq:tilde_A_bundle}
+	\tilde{\vect{A}}(\omega, \vect{r}) = \int \frac{dV'}{c|\vect{r} - \vect{r}'|} \exp \left[ i \frac{\omega}{c} |\vect{r} - \vect{r}'| \right]
+	\tilde{\vect{j}} (\omega, \vect{r}').
+\end{equation}
+
+За допомогою оберненого до \eqref{eq:tilde_phi},\eqref{eq:tilde_A} перетворення Фур'є маємо:
+\begin{equation}
+	\varphi (t, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int e^{-i\omega t} \tilde{\varphi} (\omega, \vect{r}) d\omega,
+\end{equation}
+\begin{equation}
+	\rho (t, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int e^{-i\omega t} \tilde{\rho} (\omega, \vect{r}) d\omega.
+\end{equation}
+
+Звідси та з \eqref{eq:tilde_phi_bundle}
+\begin{equation}
+	\phi (t, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \int \frac{d\omega}{\sqrt{2\pi}} e^{-i\omega t} \tilde{\rho} (\omega, \vect{r}')
+	= \int \frac{dV'}{|\vect{r} - \vect{r}'|} \rho (t_{\text{ret}}, \vect{r}'),
+\end{equation}
+де $t_{\text{ret}} = t - \frac{1}{c} |\vect{r} - \vect{r}'|$.
+
+Остаточно запишемо:
+\begin{equation}\label{eq:phi_ret}
+	\varphi (t, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \rho \left( t - \frac{1}{c} |\vect{r} - \vect{r}'|, \vect{r}' \right),
+\end{equation}
+а також, аналогічно, для розв’язку \eqref{eq:DA}:
+\begin{equation}\label{eq:A_ret}
+	\vect{A} (t, \vect{r}) = \frac{1}{c} \int \frac{dV'}{|\vect{r} - \vect{r}'|} \vect{j} \left( t - \frac{1}{c} |\vect{r} - \vect{r}'|,
+	\vect{r}' \right).
+\end{equation}
+
+Формули \eqref{eq:phi_ret}, \eqref{eq:A_ret} подають \textit{запізнюючі розв’язки} рівнянь \eqref{eq:Dphi}, \eqref{eq:DA}, що задовольняють умовам
+випромінювання в разі
+обмеженої
+ізольованої системи зарядів та струмів.
+
+Зауважимо, що \eqref{eq:phi_ret}, \eqref{eq:A_ret} можна записати у вигляді згортки фундаментального розв’язку оператора Даламбера з правими частинами
+рівнянь
+\eqref{eq:Dphi},
+\eqref{eq:DA} (див. Додаток 1). Цей фундаментальний розв’язок має вигляд:
+\begin{equation}\label{eq:D}
+	D(t, \vect{r}) = \frac{1}{2\pi c} \delta \left( t^2 - r^2 / c^2 \right) \theta(t).
+\end{equation}
+
+Згортка з правою частиною \eqref{eq:Dphi}:
+\begin{equation}\label{eq:2.2.18}
+	\phi (t, \vect{r}) = 4\pi \int dt' dV' D(t - t', \vect{r} - \vect{r}') \rho (t', \vect{r}').
+\end{equation}
+
+Підставимо \eqref{eq:D}:
+\begin{multline*}
+	\varphi (t, \vect{r}) = \frac{2}{c} \int dt' dV' \delta \left[ \left( t - t' \right)^2 - \frac{(r - r')^2}{c^2} \right] \theta (t - t') \rho (t',
+	\vect{r}') = \\
+	= \frac{1}{c} \int dV' \int \delta \left[ t - t' - \frac{|\vect{r} - \vect{r}'|}{c} \right] \rho (t', \vect{r}') dt',
+\end{multline*}
+що збігається з \eqref{eq:phi_ret} після інтегрування по $t'$.
+
+Аналогічно:
+\begin{equation}\label{eq:2.2.19}
+	\vect{A'} (t, \vect{r}) = \frac{4\pi}{c} \int dt' dV' G(t - t', \vect{r} - \vect{r}') \vect{j} (t', \vect{r}').
+\end{equation}
+
+Перевіримо виконання калібрувальної умови Лоренца для розв’язків \eqref{eq:2.2.18}, \eqref{eq:2.2.19}:
+
+\begin{multline*}
+\frac{1}{c} \frac{\partial \varphi}{\partial t} + \Div\vect{A} = \\
+= \frac{4\pi}{c} \int dt' dV' \left[ \left( \frac{\partial}{\partial t'} G(t - t', \vect{r} - \vect{r}') \right) \rho (t, \vect{r}) + \left(
+\frac{\partial}{\partial x_i} G(t - t', \vect{r} - \vect{r}') \right) J_i (t', \vect{r}') \right] = \\
+= \frac{4\pi}{c} \int dt' dV' \left[ - \left( \frac{\partial}{\partial t'} G(t - t', \vect{r} - \vect{r}') \right) \rho (t', \vect{r}') - \left(
+\frac{\partial}{\partial x_i} G(t - t', \vect{r} - \vect{r}') \right) J_i (t', \vect{r}') \right] = \\
+= \frac{4\pi}{c} \int dt' dV' \left[ G(t - t', \vect{r} - \vect{r}') \frac{\partial}{\partial t'} \rho (t', \vect{r}') + G(t - t', \vect{r} -
+\vect{r}') \frac{\partial}{\partial x_i} J_i (t', \vect{r}') \right] = \\
+= \frac{4\pi}{c} \int dt' dV' G(t - t', \vect{r} - \vect{r}') \left[ \frac{\partial}{\partial t'} \rho (t', \vect{r}') + \Div\vect{j}
+(t', \vect{r}') \right] = 0
+\end{multline*}
+де \( \vect{r} = \{ x_i \} \), \( \vect{r}' = \{ x'_i \} \), в останньому перетворенні проведено інтегрування частинами по \( t' \) та по \( x'_i \) з
+урахуванням обмеженості області, де густини зарядів та струмів відмінні від нуля.
+
+Таким чином, виконання умови Лоренца для \eqref{eq:2.2.18}, \eqref{eq:2.2.19} забезпечено законом збереження заряду.
+
+%% --------------------------------------------------------
+\section{Задача Коші для рівнянь Максвелла}\label{sec:Cauchi}
+%% --------------------------------------------------------
+
+Як зазначено на початку попереднього розділу, задача Коші, на відміну від розгляду ізольованої системи, оперує лише з полями \( t \geq t_0 \). Поведінка
+джерел та полів за \( t < t_0 \), яка може впливати на стан системи за \( t \geq t_0 \), є невідомою. Тому, на відміну від п. 2.2, окрім задання функцій
+\( \rho(t, \vect{r}) \), \( \vect{j}(t, \vect{r}) \) за \( t \geq t_0 \) необхідно задавати певні початкові умови.
+
+Далі для простоти виберемо відлік часу так, що початковий момент \( t_0 = 0 \). Поля \( \Efield \), \( \Bfield \) визначають стан електромагнітного
+поля, якщо вони задані в усьому просторі. З’ясуємо, чи дозволяють рівняння Максвелла однозначно передбачати стан поля при \( t > 0 \), якщо цей стан
+відомий за \( t = 0 \). Розподіли густини заряду \( \rho(t, \vect{r}) \) та густини струму \( \vect{j}(t, \vect{r}) \) за \( t \geq 0 \) вважаємо
+заданими, причому при \( t = 0 \) задаємо поля \( \Efield \), \( \Bfield \), причому вони мають задовольняти рівняння:
+
+\begin{equation}
+\Div \Efield = 4\pi\rho \label{eq:2.3.1}
+\end{equation}
+
+\begin{equation}
+\Div \Bfield = 0 \label{eq:2.3.2}
+\end{equation}
+
+Еволюцію полів \( \Efield \) та \( \Bfield \) визначає інша пара рівнянь Максвелла, що містить похідні за часом:
+
+\begin{equation}
+\frac{\partial \Efield}{\partial t} = c \cdot \Rot \Bfield - 4\pi \cdot \vect{j} \label{eq:2.3.3}
+\end{equation}
+
+\begin{equation}
+\frac{\partial \Bfield}{\partial t} = -c \cdot \Rot \Efield \label{eq:2.3.4}
+\end{equation}
+
+З будови системи рівнянь видно, що ми можемо задати електромагнітне поле при \( t = 0 \), яке задовольняє рівнянням (\ref{eq:2.3.1}) та
+(\ref{eq:2.3.2}), і розв’язувати потім рівняння (\ref{eq:2.3.3}) та (\ref{eq:2.3.4}) при \( t > 0 \). Однак виникає питання, чи зберігаються при цьому
+рівняння (\ref{eq:2.3.1}) та (\ref{eq:2.3.2}) також і при \( t > 0 \)?
+
+Покажемо, що це дійсно так. З рівняння (\ref{eq:2.3.3}) маємо:
+
+\[
+\frac{\partial}{\partial t} \Div \Efield = -4\pi \cdot \Div \vect{j} = 4\pi \frac{\partial \rho}{\partial t},
+\]
+
+де враховано закон збереження заряду, або:
+
+\[
+\frac{\partial}{\partial t} \left\{ \Div \Efield - 4\pi\rho \right\} = 0.
+\]
+
+Звідси видно, що співвідношення (\ref{eq:2.3.1}) справедливо при \( t > 0 \), якщо воно має місце при \( t = 0 \).
+
+З рівняння (\ref{eq:2.3.4}) маємо:
+
+\[
+\frac{\partial}{\partial t} \Div \Bfield = 0,
+\]
+
+звідки видно, що рівняння (\ref{eq:2.3.2}) також зберігається при \( t > 0 \).
+
+\subsection*{Єдиність розв’язків}
+
+Покажемо, що початкові умови, задані при \( t = 0 \) всередині кулі
+
+\begin{equation}
+(x - x_0)^2 + (y - y_0)^2 + (z - z_0)^2 \leq c^2 T^2 \label{eq:2.3.5}
+\end{equation}
+
+однозначно визначають напруженості поля у точці \( \vect{r}_0 = (x_0, y_0, z_0) \) в момент \( t = T \). Припустимо, що існують два розв’язки рівнянь
+Максвелла \( \{\Efield(t, \vect{r}), \Bfield(t, \vect{r})\} \) та \( \{\Efield'(t, \vect{r}), \Bfield'(t, \vect{r})\} \) з однаковими початковими
+умовами в області (\ref{eq:2.3.5}) та розглянемо їхню різницю \( \Delta \Efield = \Efield - \Efield' \), \( \Delta \Bfield = \Bfield - \Bfield'
+\), яка, очевидно, задовольняє рівняння:
+
+\[
+\frac{\partial \Delta \Efield}{\partial t} = c \cdot \Rot(\Delta \Bfield), \quad \frac{\partial \Delta \Bfield}{\partial t} = -c \cdot
+\Rot(\Delta \Efield).
+\]
+
+Обчислюючи похідну з урахуванням цих рівнянь:
+
+\[
+\frac{1}{8\pi} \frac{\partial}{\partial t} (\Delta \Efield^2 + \Delta \Bfield^2) = -\frac{c}{4\pi} \Div [\Delta \Efield \times \Delta
+\Bfield], \label{eq:2.3.6}
+\]
+
+маємо співвідношення, аналогічне закону збереження енергії в диференціальній формі:
+
+\[
+\frac{\partial W}{\partial t} = -\frac{c}{4\pi} \Div [\Delta \Efield \times \Delta \Bfield],
+\]
+
+де \( W = \frac{1}{8\pi} (\Delta \Efield^2 + \Delta \Bfield^2) \).
+
+Розглянемо невід’ємну величину:
+
+\begin{equation}
+U(t) = \int_{K(t)} W \, dV, \label{eq:2.3.7}
+\end{equation}
+
+де областю інтегрування \( K(t) \) є куля з центром у точці \( \{\vect{r}_0\} = \{x_0, y_0, z_0\} \):
+
+\[
+K(t) = \{\vect{r} : |\vect{r} - \vect{r}_0| \leq R(t)\}, \quad \text{де} \quad R(t) = c(T - t), \quad t \leq T.
+\]
+
+Перейдемо в інтегралі (\ref{eq:2.3.7}) до сферичних координат з центром у \( \vect{r}_0 \):
+
+\[
+U(t) = \int d\Omega \int_0^{R(t)} dr \, r^2 W(t, r, \theta, \varphi),
+\]
+
+де інтегрування по кутовій частині \( d\Omega = \sin \theta \, d\theta \, d\varphi \) виконується по усій одиничній сфері. Враховуючи (\ref{eq:2.3.6}),
+обчислимо:
+
+\[
+\frac{dU}{dt} = -c R^2(t) \int d\Omega \, W(t, R(t), \theta, \varphi) + \int_{K(t)} \frac{\partial W}{\partial t} \, dV =
+\]
+
+\[
+= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int_{K(t)} \Div [\Delta \Efield \times \Delta \Bfield] \, dV =
+\]
+
+(за формулою Остроградського-Гаусса)
+
+\[
+= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int_{\partial K(t)} (d\vect{S} \cdot [\Delta \Efield \times \Delta \Bfield]) =
+\]
+
+\[
+= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int d\Omega \, R^2(t) [\Delta \Efield \times \Delta \Bfield] \cdot \vect{n}, \label{eq:2.3.8}
+\]
+
+де \( \partial K(t) \) --- поверхня сфери \( r = R(t) \), \( \vect{n} = \vect{r} / r = \{\sin \theta \cos \varphi, \sin \theta \sin \varphi, \cos
+\theta\} \) --- одиничний вектор нормалі до цієї поверхні; \( d\vect{S} = \vect{n} R^2 d\Omega \).
+
+Оскільки:
+
+\[
+\| \Delta \Efield \times \Delta \Bfield \| \cdot \vect{n} \| \leq \| \Delta \Efield \| \cdot \| \Delta \Bfield \| \leq \frac{\Delta \Efield^2 +
+\Delta \Bfield^2}{2} \leq 4\pi W,
+\]
+
+з (\ref{eq:2.3.8}) випливає:
+
+\[
+\frac{dU}{dt} = -c R^2 \int d\Omega \, W + \frac{c}{4\pi} \int d\Omega \, [\Delta \Efield \times \Delta \Bfield \cdot \vect{n}] \leq 0.
+\label{eq:2.3.9}
+\]
+
+Якщо початковий момент \( t = 0 \) поля збігаються:
+
+\[
+\Delta \Efield(0, \vect{r}) = \Delta \Bfield(0, \vect{r}) \equiv 0,
+\]
+
+тому \( U(0) = 0 \). За означенням \( U(t) \geq 0 \), тому нерівність (\ref{eq:2.3.9}) означає, що \( U(t) \equiv 0 \), тобто \( \Efield = \Efield'
+\), \( \Bfield = \Bfield' \) у будь-якій кулі \( K(t) \), \( t \in [0, T] \).
+
+Таким чином, розв’язки з однаковими початковими умовами співпадають, тобто ці умови, задані в області (\ref{eq:2.3.5}), однозначно задають поле у
+будь-якій кулі \( K(t) \), \( 0 \leq t \leq T \).
+
+Як видно з наведених міркувань, зміни початкових умов за \( t = 0 \) поза областю (\ref{eq:2.3.5}) не впливають на поле у точці \( \vect{r}_0 \). Це
+очевидний наслідок скінченої швидкості поширення взаємодій. Аналогічно, збурення поля, що відбуваються в момент \( t \) поза кулею \( K(t) \), не
+встигають поширитися до точки \( \vect{r}_0 \) за час \( R(t)/c = T - t \). Чим ближче \( t \) до \( T \), тим меншою є область впливу на цю точку.
+
+Природно, що для визначення поля при \( t = T \) в усьому просторі треба задавати початкові умови також в усьому просторі. Поля, що задають у початковий
+момент, мають задовольнити рівнянням (\ref{eq:2.3.1}) та (\ref{eq:2.3.2}); тому стан поля та його майбутня еволюція визначаються чотирма функціями від
+трьох просторових змінних. Наприклад, можна незалежно задати дві компоненти електричного поля та дві --- магнітного.
+
+\section*{Задачі}
+
+%=========================================================
+\begin{problem}%
+Вектор-потенціал стаціонарного магнітного поля обмеженої системи струмів на великих відстанях можна наближено подати як \( \vect{A}(\vect{r}) =
+c^{-1} r^{-3} \int dV \, \vect{j}(\vect{r}')(\vect{r} \cdot \vect{r}') \). Записати цей вираз через магнітний момент \( \vect{m} = (2c)^{-1} \int dV \,
+\vect{r} \times \vect{j} \). Відповідь: \( \vect{A}(\vect{r}) = \vect{m} \times \vect{r} / r^3 \).
+\end{problem}
+
+
+%=========================================================
+\begin{problem}%
+Знайти загальний сферично симетричний розв’язок \( \delta \equiv \delta(k, r) \) рівняння Гельмгольца в вакуумі:
+\[
+\Delta \delta + k^2 \delta = 0 \quad \text{в області} \quad r \geq R > 0.
+\]
+Що в цьому розв’язку залишиться після врахування умови випромінювання (тобто за відсутності зовнішніх хвиль, що приходять до центру)?
+\end{problem}
+
+%=========================================================
+\begin{problem}%
+Знайти розв’язок \( \delta \equiv \delta(k, r) \) рівняння Гельмгольца \( \Delta \delta + k^2 \delta = -4\pi\rho \) у випадку сферичної симетрії \(
+\rho \equiv \rho(k, r) \), за умови відсутності зовнішнього випромінювання. Функція \( \rho \equiv \rho(k, r) \) відмінна від нуля лише в області \( r <
+R \). Розв’язок подати у вигляді квадратур. Показати, що при \( R \to 0 \) за умови фіксованого \( \int dV \, \rho(k, r) = 4\pi \int_0^R dr \, r^2
+\rho(k, r) = q \), матимемо \( \delta(k, r) = q \exp(ikr) / r \).
+\end{problem}
+
