@@ -89,7 +89,6 @@ d\omega
 \left[ \Efield \times \Bfield \right] dtdS = \\
 = \frac{c}{4\pi} \oint\limits_{\Omega} dS \left[ \int\limits_{-\infty}^{\infty} \Efield(\omega) \times \Bfield^{*}(\omega) \right] d\omega
 \end{multline*}
-
 де \( \Efield(\omega), \Bfield(\omega) \) --- спектральні характеристики дійсних полів \( \Efield(t), \Bfield(t) \).
 
 Аналогічно \eqref{eq:conjugate_frequency}:
@@ -106,7 +105,6 @@ d\omega
 d\omega
 \left\{ \ldots \right\},
 \end{equation*}
-
 кожне з яких є комплексним спряженням іншого, аналогічно \eqref{eq:positive_frequencies}, маємо:
 
 \begin{equation}
@@ -125,7 +123,7 @@ d\omega
 Тоді з \eqref{eq:energy_positive_frequencies}:
 
 \begin{equation}
-\mathcal{E} = \int \frac{dg}{d\omega} d\omega
+\mathcal{E} = \int \frac{d\mathcal{E}}{d\omega} d\omega
 \label{eq:total_energy_integral}
 \end{equation}
 
@@ -292,7 +290,6 @@ k^2 = \frac{\omega^2}{c^2}
 \begin{equation*}
 \frac{\partial^2 \Efield}{\partial U \partial V} = 0,
 \end{equation*}
-
 загальним розв’язком якого є \(\Efield = \vect{F}_1(U) + \vect{F}_2(V)\), де \(\vect{F}_1\) та \(\vect{F}_2\) --- довільні вектор-функції одної
 змінної. Розв’язок є суперпозицією двох хвиль, що рухаються в протилежних напрямках.
 
@@ -339,7 +336,6 @@ k^2 = \frac{\omega^2}{c^2}
 \begin{equation*}
 w(\phi_1, \phi_2, \dots, \phi_N; t_1, t_2, \dots, t_N)
 \end{equation*}
-
 величин \(\phi(t_1), \phi(t_2), \dots, \phi(t_N)\). Процес називають стаціонарним, якщо спільний розподіл
 
 \begin{equation*}
@@ -367,7 +363,6 @@ A(\tau) = \langle \phi^{*}(t) \phi(t + \tau) \rangle
 \begin{equation*}
 A(-\tau) = \langle \phi^{*}(t) \phi(t - \tau) \rangle = \langle \phi^{*}(t + \tau) \phi(t) \rangle = A^{*}(\tau)
 \end{equation*}
-
 не залежить від \(t\).
 
 Розглянемо формально перетворення Фур'є випадкової функції:
@@ -399,7 +394,6 @@ e^{i\omega(t - t')} \langle \phi^{*}(t') \phi(t) \rangle
 \begin{equation*}
 \lim_{T \to \infty} \int\limits_{-T}^{T} dt \, e^{i(\omega - \omega')t} = 2\pi \delta(\omega - \omega')
 \end{equation*}
-
 дістанемо:
 
 \begin{equation}
@@ -426,7 +420,7 @@ A(\tau) = \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} d\omega \, e^{-i\omega \
 \begin{equation*}
 I = |\phi_1 + \phi_2|^2 = |\phi_1|^2 + |\phi_2|^2 + 2 \Re(\phi_1 \phi_2^{*})
 \end{equation*}
-
+%
 а для середніх:
 
 \begin{equation}
@@ -473,7 +467,7 @@ I = |\phi_1 + \phi_2|^2 = |\phi_1|^2 + |\phi_2|^2 + 2 \Re(\phi_1 \phi_2^{*})
 \begin{equation*}
 \langle \phi_1 \rangle = \langle \phi_2 \rangle = 0,
 \end{equation*}
-
+%
 тому \(\langle \phi_1 \phi_2^{*} \rangle = 0\), і загальна інтенсивність є сумою інтенсивностей окремих випромінювачів:
 
 \begin{equation*}
@@ -499,7 +493,7 @@ I = I_1 + I_2.
 \gamma = \frac{\langle \phi_1 \phi_2^{*} \rangle}{|\phi_1||\phi_2|}, \quad \text{де } |\phi_i| \equiv \sqrt{\langle \phi_i \phi_i^{*} \rangle}, \quad i
 = 1, 2,
 \end{equation*}
-
+%
 називають степінню взаємної когерентності. Саме ця величина визначає контрастність смуг в інтерференційній картині від двох пучків світла.
 
 Оскільки, за нерівністю Коші-Буняковського\footnote{Для будь-якого комплексного \(\lambda\) величина \(Z = \langle (\phi + \lambda \psi)(\phi^{*} +
@@ -566,7 +560,7 @@ I = I_1 + I_2.
 \det \rho = \frac{1}{4} \left( 1 - p^2 \right), \quad 0 \leq p \leq 1
 \label{eq:polarization_degree}
 \end{equation}
-
+%
 де параметр \(p\) називають ступінню поляризації; він приймає значення від 0 (неполяризоване світло) до 1.
 
 Завдяки властивості ермітовості, власні числа \(\lambda_1, \lambda_2\) матриці \(\rho_{ij}\) є дійсними, причому \(\det \rho = \lambda_1 \lambda_2\),
@@ -956,7 +950,7 @@ W_E = \frac{1}{8\pi} \int dV \, \Efield^2 = \frac{1}{8\pi c^2} \int d^3k \, \ome
 маємо:
 
 \begin{equation}
-W_E = \frac{1}{4\pi c^2} \int d^3k \, \omega_{\vect{k}}^2 \left\{ \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) - \text{Re} \left[ \vect{a}(\vect{k})
+W_E = \frac{1}{4\pi c^2} \int d^3k \, \omega_{\vect{k}}^2 \left\{ \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) - \Re \left[ \vect{a}(\vect{k})
 \cdot \vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right] \right\}
 \label{eq:W_E_final}
 \end{equation}

@@ -609,6 +609,16 @@ postaction={ decorate,
 
 %===============================================================================
 %
+%									 INDEX
+%
+%===============================================================================
+
+\usepackage[]{imakeidx}
+\makeindex[intoc, columns=2, title=Алфавітний покажчик] % Включить в оглавление
+
+
+%===============================================================================
+%
 %									 HYPERREF
 %
 %===============================================================================
@@ -618,13 +628,14 @@ postaction={ decorate,
 	bookmarksnumbered=true,
 	unicode,
 	linktocpage = true,
-	hypertexnames=false,
+	hypertexnames=true,
 	pdftoolbar=true,
 	pdfpagelayout=TwoPageRight,
 	pdfauthor={Ponomarenko S.M.},
 	pdfdisplaydoctitle=true,
 	pdfkeywords={Electrostatics, Magnetostatics, Electrodynamics, Current, Field},
-	pdfencoding=auto
+	pdfencoding=auto,
+    hyperindex=true
 ]%
 {hyperref}
 \RequirePackage[all]{hypcap}

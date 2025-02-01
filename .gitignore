@@ -15,4 +15,7 @@ _minted*/
 *.fls
 *.vrb
 *.fdb_latexmk
+*.ind
+*.idx
+*.ilg
 /!Save
