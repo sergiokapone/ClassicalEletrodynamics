@@ -11,45 +11,31 @@ biblatex,
 
 \begin{document}
 
-\section*{§ 6. Функция Грина для волнового уравнения}
+\begin{tikzpicture}[scale=1.5]
 
-Волновые уравнения (6.37), (6.38) и (6.52) имеют одинаковую структуру
-\begin{equation}
-\label{eq:wave_equation}
-\nabla^2 \psi - \frac{1}{c^2} \frac{\partial^2 \psi}{\partial t^2} = -4\pi f(\vect{r}, t),
-\end{equation}
-где \( f(\vect{r}, t) \) задает распределение источников, а \( c \) представляет собой скорость распространения волн в пространстве.
+    % Координатні осі
+    \draw[->] (0,0,0) -- (4,0,0) node[right]{$y$};
+    \draw[->] (0,0,0) -- (0,4,0) node[above]{$z$};
+    \draw[->] (0,0,0) -- (0,0,4) node[below left]{$x$};
 
-Для решения уравнения \eqref{eq:wave_equation}, так же как в электростатике, полезно найти сначала функцию Грина. Поскольку теперь поля зависят и от
-времени, функция Грина будет зависеть от переменных \((\vect{r}, \vect{r}', t, t')\) и должна удовлетворять уравнению
-\begin{equation}
-\label{eq:green_function}
-\left( \nabla_{\vect{r}}^2 - \frac{1}{c^2} \frac{\partial^2}{\partial t^2} \right) G(\vect{r}, t; \vect{r}', t') = -4\pi \delta (\vect{r} -
-\vect{r}') \delta (t - t').
-\end{equation}
+    % Центр кулі
+    \node[circle, inner sep=0] (r0) at (2,3,2) {};
+    \node[circle, inner sep=0] (r) at (3,2,2) {};
 
-Решение уравнения \eqref{eq:wave_equation} в неограниченном пространстве без граничных поверхностей выражается через \( G \) интегралом
-\begin{equation}
-\label{eq:solution}
-\psi(\vect{r}, t) = \int G(\vect{r}, t; \vect{r}', t') f(\vect{r}', t') \, d^3 \vect{r}' \, dt'.
-\end{equation}
+    % Кулі для різних моментів часу
+    \def\t{1}
+        \pgfmathsetmacro{\R}{2*\t} % Радіус R(t) = c * t (c = 2 для наочності)
+        \draw[opacity=0.5, fill=blue!10] (r0) circle (\R);
+        \draw[opacity=0.5, dashed] (r0) ellipse[x radius=\R, y radius=\R/3];
 
-Нужно, конечно, потребовать, чтобы функция Грина удовлетворяла определенным граничным условиям, которые задаются физическими требованиями.
+    \draw[->] (0,0,0) -- node[left] {$\vect{r}_0$} (r0);
+    \draw[->] (0,0,0) -- node[below] {$\vect{r}$} (r);
+    \draw[->] (r0) -- node[above, sloped] {$|\vect{r} - \vect{r}_0|$} (r);
 
-Основная функция Грина, удовлетворяющая уравнению \eqref{eq:green_function}, зависит только от разностей координат \((\vect{r} - \vect{r}')\)
-и времен \((t - t')\). Для нахождения \( G \) представим обе части уравнения \eqref{eq:green_function} в виде интегралов Фурье. Дельта-функцию в правой
-части можно представить следующим образом:
-\begin{equation}
-\label{eq:delta_fourier}
-\delta (\vect{r} - \vect{r}') \delta (t - t') = \frac{1}{(2\pi)^4} \int d^3 \vect{k} \int d\omega \, e^{i \vect{k} \cdot (\vect{r} -
-\vect{r}')} e^{-i \omega (t - t')}.
-\end{equation}
+    \coordinate (surface) at ($(r0) + ({\R*cos(45)}, {\R*sin(45)}, 0)$); % Точка на поверхні сфери
+    \draw[->] (r0) -- node[left] {$\vect{R}$} (surface);
 
-Соответственно запишем функцию \( G \) в виде
-\begin{equation}
-\label{eq:green_fourier}
-G(\vect{r}, t; \vect{r}', t') = \int d^3 \vect{k} \int d\omega \, g(\vect{k}, \omega) e^{i \vect{k} \cdot (\vect{r} - \vect{r}')} e^{-i
-\omega (t - t')}.
-\end{equation}
+
+\end{tikzpicture}
 
 \end{document}
