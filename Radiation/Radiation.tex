@@ -16,7 +16,7 @@
 визначаються експоненціальним співмножинком. Зокрема:
 
 \begin{equation}
-	\left( \frac{e^{i(kr - \omega t)}}{r} \right) \approx \left( \frac{e^{i(kr - \omega t)}}{r} \right) \left( 1 + \frac{1}{r^2} \right),
+	\left( \frac{e^{i(kr - \omega t)}}{r} \right) \approx i\vect{k}  \frac{e^{i(kr - \omega t)}}{r} +O \left(\frac{1}{r^2} \right),
 	\label{eq:wave_field}
 \end{equation}
 
@@ -101,7 +101,6 @@
 	\varphi(t, \vect{r}) = \frac{q}{R_q - (\vect{R}_q \cdot \vect{v}_q)/c},
 	\label{eq:compact_potential}
 \end{equation}
-
 тут і далі позначено \( \vect{v}_q = \dot{\vect{r}}_q (t_q) \).
 
 Аналогічно отримуємо вектор-потенціал:
@@ -171,9 +170,9 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 
 де позначено:
 
-\[
+\begin{equation*}
 	Z_q = 1 - (\vect{n}_q \cdot \vect{v}_q), \quad \vect{n}_q = \frac{\vect{R}_q}{R_q}.
-\]
+\end{equation*}
 
 На великих відстанях, відкидаючи члени порядку \( \sim \frac{1}{r^2} \), дістанемо:
 
@@ -190,7 +189,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 	dI = \vect{\Pi} \cdot \vect{n} R_q^2 d\Omega = \frac{c}{4\pi} |\Bfield|^2 R_q^2 d\omega, \quad R_q \to \infty.
 \end{equation*}
 
-Після дещо громіздких обчислень з використанням (\ref{eq:magnetic_field}) отримуємо потужність випромінювання в тілесний кут \( d\Omega \) в напрямку \(
+Після дещо громіздких обчислень з використанням (\ref{eq:magnetic_field}) отримуємо потужність випромінювання в тілесний кут \( d\Omega \) в напрямку~\(
 \vect{n}_q \):
 
 \begin{equation}
@@ -312,7 +311,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 \begin{equation*}
 	\left\langle dI \right\rangle  = \frac{q^2 B^2 v_q}{8\pi m^2c^5}\left( 1 - \frac{v_q^2}{c^2}\right)  \left[
 		\frac{2-\cos^2\theta - \frac{v_q^2}{4c^2}\left( 1 + \frac{3v_q^2}{c^2}\right)\cos^4\theta  }{ \left( 1- \frac{v_q^2}{c^2}\cos^2\theta\right)^{7/2} }
-		\right] d\omega.
+		\right] do.
 \end{equation*}
 
 

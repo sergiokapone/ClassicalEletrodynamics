@@ -174,7 +174,8 @@ d\omega
 \langle \vect{\Pi} \rangle_t = \frac{c}{8\pi} \Re\left(\Efield \times \Bfield^{*}\right)
 \label{eq:time_averaged_poynting}
 \end{equation}
-де символ \(\langle F(t) \rangle_t = \lim_{T \to \infty} \left\{ \frac{1}{T} \int_{-T}^{T} F(t) dt \right\}\) означає усереднення за часом. Фактично,
+де символ \(\langle F(t) \rangle_t = \lim_{T \to \infty} \left\{ \frac{1}{T} \int\limits_{-T}^{T} F(t) dt \right\}\) означає усереднення за часом.
+Фактично,
 \eqref{eq:time_averaged_poynting} --- це вираз для середньої за часом густини потоку енергії через амплітуди монохроматичних електричного та магнітного
 полів.
 
@@ -372,30 +373,31 @@ A(-\tau) = \langle \phi^{*}(t) \phi(t - \tau) \rangle = \langle \phi^{*}(t + \ta
 Розглянемо формально перетворення Фур'є випадкової функції:
 
 \begin{equation*}
-\Phi(\omega) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} dt \, e^{i\omega t} \phi(t)
+\Phi(\omega) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{\infty} dt \, e^{i\omega t} \phi(t)
 \end{equation*}
 
 Щоб надати змісту цьому невласному інтегралу в разі стаціонарного випадкового процесу, для кожної реалізації можна розглядати вираз:
 
 \begin{equation*}
-\Phi_T(\omega) = \frac{1}{\sqrt{2\pi}} \int_{-T}^{T} dt \, e^{i\omega t} \phi(t)
+\Phi_T(\omega) = \frac{1}{\sqrt{2\pi}} \int\limits_{-T}^{T} dt \, e^{i\omega t} \phi(t)
 \end{equation*}
 
 Обчислимо для стаціонарного процесу:
 
 \begin{equation*}
-\langle \Phi(\omega) \Phi^{*}(\omega') \rangle = \frac{1}{2\pi} \int_{-\infty}^{\infty} dt \, e^{i(\omega - \omega')t} \int_{-\infty}^{\infty} dt' \,
+\langle \Phi(\omega) \Phi^{*}(\omega') \rangle = \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} dt \, e^{i(\omega - \omega')t}
+\int\limits_{-\infty}^{\infty} dt' \,
 e^{i\omega(t - t')} \langle \phi^{*}(t') \phi(t) \rangle
 \end{equation*}
 
 \begin{equation*}
-= \frac{1}{2\pi} \int_{-\infty}^{\infty} dt \, e^{i(\omega - \omega')t} \int_{-\infty}^{\infty} dt' \, e^{i\omega(t - t')} A(t - t')
+= \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} dt \, e^{i(\omega - \omega')t} \int\limits_{-\infty}^{\infty} dt' \, e^{i\omega(t - t')} A(t - t')
 \end{equation*}
 
 Користуючись відомим співвідношенням:
 
 \begin{equation*}
-\lim_{T \to \infty} \int_{-T}^{T} dt \, e^{i(\omega - \omega')t} = 2\pi \delta(\omega - \omega')
+\lim_{T \to \infty} \int\limits_{-T}^{T} dt \, e^{i(\omega - \omega')t} = 2\pi \delta(\omega - \omega')
 \end{equation*}
 
 дістанемо:
@@ -407,12 +409,12 @@ e^{i\omega(t - t')} \langle \phi^{*}(t') \phi(t) \rangle
 де
 
 \begin{equation*}
-S(\omega) = \int_{-\infty}^{\infty} d\tau \, e^{i\omega \tau} A(\tau)
+S(\omega) = \int\limits_{-\infty}^{\infty} d\tau \, e^{i\omega \tau} A(\tau)
 \end{equation*}
 називають спектральною густиною (чи спектром потужності) випадкового процесу. Очевидно
 
 \begin{equation*}
-A(\tau) = \frac{1}{2\pi} \int_{-\infty}^{\infty} d\omega \, e^{-i\omega \tau} S(\omega)
+A(\tau) = \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} d\omega \, e^{-i\omega \tau} S(\omega)
 \end{equation*}
 
 %% --------------------------------------------------------
@@ -597,9 +599,7 @@ P = \xi_1^2 + \xi_2^2 + \xi_3^2, \quad 0 \leq \xi_1^2 + \xi_2^2 + \xi_3^2 \leq 1
 
 \begin{itemize}
 
-\item Лінійна поляризація під кутом $45^{\circ}$
-
-Тобто \(E_1 = \pm E_2\):
+\item Лінійна поляризація під кутом $45^{\circ}$, тобто \(E_1 = \pm E_2\):
 
 \begin{equation*}
 \rho_{11} = \rho_{22} = \frac{1}{2} \rightarrow \xi_3 = 0; \quad \text{Im} \, \rho_{12} = 0 \rightarrow \xi_2 = 0;
@@ -613,9 +613,9 @@ P = \xi_1^2 + \xi_2^2 + \xi_3^2, \quad 0 \leq \xi_1^2 + \xi_2^2 + \xi_3^2 \leq 1
 
 
 
-\item  Кутова поляризація
+\item  Кутова поляризація \(E_1 = A e^{-i\omega t}, \quad E_2 = \pm i E_1\).
 
-\(E_1 = A e^{-i\omega t}, \quad E_2 = \pm i E_1\). Як видно з поведінки дійсних частин компонент, вектор \(\Efield\) обертається в площині \(X_1 -
+Як видно з поведінки дійсних частин компонент, вектор \(\Efield\) обертається в площині \(X_1 -
 X_2\). Маємо:
 
 \begin{equation*}
@@ -628,9 +628,7 @@ X_2\). Маємо:
 \xi_1 = \xi_3 = 0, \quad \xi_2 = \pm 1
 \end{equation*}
 
-\item Лінійна поляризація вздовж однієї з осей
-
-\(E_1 \neq 0, E_2 = 0\) або \(E_2 \neq 0, E_1 = 0\):
+\item Лінійна поляризація вздовж однієї з осей \(E_1 \neq 0, E_2 = 0\) або \(E_2 \neq 0, E_1 = 0\):
 
 \begin{equation*}
 \rho_{11} = 1, \quad \rho_{22} = 0 \rightarrow \xi_3 = 1,
@@ -686,7 +684,6 @@ X_2\). Маємо:
 \begin{equation*}
 \langle F \rangle_{\phi} = \int dt \cdot F(t) |\phi(t)|^2,
 \end{equation*}
-
 а для \( F(\omega) \) в \( \omega \)-просторі:
 
 \begin{equation*}
@@ -724,9 +721,8 @@ X_2\). Маємо:
 
 \begin{equation*}
 t \phi(t) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot i \frac{d e^{-i\omega t}}{d\omega} \phi(\omega) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot
-e^{-i\omega t} \left\{ -i \frac{d\phi}{d\omega} \right\},
+e^{-i\omega t} \left[ -i \frac{d\phi}{d\omega} \right],
 \end{equation*}
-
 тобто помноження на \( t \) індукує диференціювання у просторі частот. Тоді формулу \eqref{eq:time_duration} можна переписати так:
 
 \begin{equation}
@@ -765,10 +761,9 @@ x^2 \langle \Delta t^2 \rangle_{\phi} + \langle \Delta \omega^2 \rangle_{\phi} -
 Це співвідношення має виконуватися для будь-яких \( x \), тому дискримінант квадратного тричлена має бути від’ємний. Звідси маємо нерівність:
 
 \begin{equation}
-\langle \Delta t^2 \rangle_{\phi} \langle \Delta \omega^2 \rangle_{\phi} \geq \frac{1}{4}
+\langle \Delta t^2 \rangle_{\phi} \langle \Delta \omega^2 \rangle_{\phi} \geq \frac{1}{4},
 \label{eq:uncertainty_relation}
 \end{equation}
-
 яку називають співвідношенням невизначеностей.
 
 Зауважимо, що в квантовій механіці це дає зв’язок між тривалістю процесу та невизначеністю енергії.
@@ -835,14 +830,12 @@ x^2 \langle \Delta t^2 \rangle_{\phi} + \langle \Delta \omega^2 \rangle_{\phi} -
 \nabla^2 \vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \, \nabla^2 \left( e^{i\vect{k} \cdot \vect{r}} \right) \vect{A}_{\vect{k}}(t) =
 \frac{1}{(2\pi)^{3/2}} \int d^3k \, e^{i\vect{k} \cdot \vect{r}} (-k^2) \vect{A}_{\vect{k}}(t)
 \end{equation*}
-
 індукує домноження Фур’є-образу на \((-k^2)\). Тому з рівняння \eqref{eq:wave_equation_A} дістаємо:
 
 \begin{equation}
 \frac{\partial^2 \vect{A}_{\vect{k}}(t)}{\partial t^2} + \omega_{\vect{k}}^2 \vect{A}_{\vect{k}}(t) = 0
 \label{eq:oscillator_equation}
 \end{equation}
-
 де \(\omega_{\vect{k}} = ck = c|\vect{k}|\).
 
 Рівняння \eqref{eq:div_A_zero} дає умову поперечності:
@@ -858,7 +851,6 @@ x^2 \langle \Delta t^2 \rangle_{\phi} + \langle \Delta \omega^2 \rangle_{\phi} -
 \vect{A}_{\vect{k}}(t) = \vect{C}_1(\vect{k}) e^{i\omega_{\vect{k}} t} + \vect{C}_2(\vect{k}) e^{-i\omega_{\vect{k}} t},
 \label{eq:general_solution_Ak}
 \end{equation}
-
 де в силу \eqref{eq:transverse_condition}:
 
 \begin{equation*}
@@ -886,7 +878,6 @@ e^{-i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}}
 \vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \, \left\{ \vect{C}_1^*(-\vect{k}) e^{-i\omega_{\vect{k}} t} + \vect{C}_2^*(-\vect{k})
 e^{i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}},
 \end{equation*}
-
 де враховано \(\omega(\vect{k}) = c|\vect{k}| = \omega(-\vect{k})\).
 
 Порівнюючи це з \eqref{eq:general_solution_A} і приймаючи до уваги незалежність \(\exp(-i\omega_{\vect{k}} t)\) та \(\exp(i\omega_{\vect{k}} t)\),
@@ -929,8 +920,9 @@ e^{i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}},
 Кожному \(\vect{k}\) відповідає плоска хвиля \(\vect{a}(\vect{k}) \exp[i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})]\) --- частковий розв’язок
 рівняння \eqref{eq:wave_equation_A}, причому напрямок вектора \(\vect{a}(\vect{k})\) задає поляризацію.
 
-
+%% --------------------------------------------------------
 \subsection*{Розклад поля на осцилятори}
+%% --------------------------------------------------------
 
 За допомогою заміни \(\vect{k} \rightarrow -\vect{k}\) у від’ємно-частотній частині перепишемо \eqref{eq:A_final_form} у вигляді:
 
@@ -961,7 +953,6 @@ W_E = \frac{1}{8\pi} \int dV \, \Efield^2 = \frac{1}{8\pi c^2} \int d^3k \, \ome
 \begin{equation*}
 \int d^3k \, \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) = \int d^3k \, \vect{a}^*(-\vect{k}) \cdot \vect{a}(-\vect{k}),
 \end{equation*}
-
 маємо:
 
 \begin{equation}
@@ -977,7 +968,6 @@ W_E = \frac{1}{4\pi c^2} \int d^3k \, \omega_{\vect{k}}^2 \left\{ \vect{a}^*(\ve
 \vect{a}^*(-\vect{k}) e^{i\omega_{\vect{k}} t} \right) \right] e^{i\vect{k} \cdot \vect{r}}
 \label{eq:B_field_fourier}
 \end{equation}
-
 а енергія магнітного поля:
 
 \begin{equation}
@@ -991,7 +981,6 @@ W_B = \frac{1}{8\pi} \int dV \, \Bfield^2 = \frac{1}{8\pi} \int d^3k \, \left| \
 \begin{equation*}
 \left| \vect{k} \times \vect{a}(\vect{k}) \right|^2 = k^2 \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}),
 \end{equation*}
-
 а також:
 
 \begin{equation*}
