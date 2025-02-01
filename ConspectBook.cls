@@ -184,6 +184,7 @@
 \def\ddiff#1#2{\frac{\partial^2 #1}{\partial #2^2}}
 \def\parttime#1{\frac{\partial{#1}}{\partial t}}
 \def\pparttime#1{\frac{\partial^2{#1}}{\partial t^2}}
+\def\Dalambertian{\mdlgwhtsquare\ }
 
 \AtBeginDocument{%
 %	\let\phi\varphi
@@ -464,6 +465,7 @@ postaction={ decorate,
 	{\thesection.\@arabic\c@table}
 	\setcounter{chapter}{0}%
 	\setcounter{section}{0}%
+    \setcounter{equation}{0}
 	\renewcommand{\theequation}{\thesection.\arabic{equation}}
 	\clearpage\pagestyle{appendix}
 	\def\@sectiontitlemark{\appendixname}

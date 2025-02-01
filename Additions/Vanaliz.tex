@@ -1,33 +1,19 @@
 % !TeX program = lualatex
 % !TeX encoding = utf8
 % !TeX spellcheck = uk_UA
-% !TeX root =../FTProblems.tex
+% !TeX root =../ClassicalEletrodynamics.tex
 
+%% --------------------------------------------------------
 \section{Основні формули векторного аналізу}\label{Vanaliz}
+%% --------------------------------------------------------
 
-\subsection{Тривимірний символ Леві-Чівіти}\label{Levi-Chiv}
-
-Тривимірний символ Леві-Чівіти визначений співвідношеннями
-\begin{equation}\label{eq:Levi-Chiv}
-\epsilon_{ijk} =  - \epsilon_{jik} =  - \epsilon_{ikj}.
-\end{equation}
-
-Деякі співвідношення з цим символом:
-\begin{align}
-    \epsilon_{ijk}\epsilon_{kpq} &= \delta_{ip}\delta_{jq} - \delta_{iq}\delta_{jp}, \\
-    \epsilon_{iqk}\epsilon_{pqk} &= 2\delta _{ip}.
-\end{align}
-
-Ротор та векторний добуток у декартових координатах $\{x,y,z\} = \{x_1, x_2, x_3\}$:
-\begin{align}
-\left[\rot\vect{A} \right]_i &= \epsilon_{ijk}{\partial_j}{A_k}, \\
-\left[ \vect{A} \times \vect{B} \right]_i &= \epsilon_{ijk}{A_j}{B_k},
-\end{align}
-всі індекси пробігають значення $1$, $2$, $3$.
-
+%% --------------------------------------------------------
 \subsection{Диференціальні операції в різних системах координат}
+%% --------------------------------------------------------
 
+%% --------------------------------------------------------
 \subsubsection{Декартова система координат}
+%% --------------------------------------------------------
 
 \begin{align}\label{cartesian}
 	\mathrm{grad}\,\psi \equiv \vect{\nabla}\psi & = \frac{\partial \psi}{\partial x} \vect{e}_x + \frac{\partial \psi}{\partial y} \vect{e}_y +
@@ -39,7 +25,9 @@
 	\left( \frac{\partial A_y}{\partial x}  - \frac{\partial A_x}{\partial y}\right)  \vect{e}_z
 \end{align}
 
+%% --------------------------------------------------------
 \subsubsection{Циліндрична система координат}
+%% --------------------------------------------------------
 
 \begin{align}\label{cylindric}
 		\vect{\nabla}\psi & = \frac{\partial \psi}{\partial \rho} \vect{e}_{\rho} + \frac{1}{\rho}\frac{\partial \psi}{\partial \phi} \vect{e}_{\phi} + \frac{\partial \psi}{\partial z} \vect{e}_{z}                                                                                       \\
@@ -56,7 +44,9 @@
     \vect{e}_{z} &= \vect{e}_z.
 \end{align}
 
+%% --------------------------------------------------------
 \subsubsection{Сферична система координат}
+%% --------------------------------------------------------
 
 \begin{align}\label{spheric}
     \vect{\nabla}\psi & = \frac{\partial \psi}{\partial r} \vect{e}_{r} + \frac{1}{r}\frac{\partial \psi}{\partial \theta} \vect{e}_{\theta} + \frac{1}{r\sin\theta}\frac{\partial \psi}{\partial \phi} \vect{e}_{\phi}                                                                                                            \\
@@ -79,7 +69,11 @@
     \vect{e}_{\phi} &= -\sin\phi\, \vect{e}_x + \cos\phi\, \vect{e}_y. \\
 \end{align}
 
+
+
+%% --------------------------------------------------------
 \subsection{Другі похідні}
+%% --------------------------------------------------------
 
 \begin{align}
 	\mathrm{rot}\,\mathrm{grad}\,\phi    & = \rot(\vect{\nabla}\phi)  = 0                                             \\
@@ -87,8 +81,9 @@
 	\mathrm{rot}\,\mathrm{rot}\,\vect{A} & = \rot(\rot\vect{A})  = \vect{\nabla}(\divg\vect{A}) - \Laplasian \vect{A}
 \end{align}
 
-
+%% --------------------------------------------------------
 \subsection{Похідні від добутків}
+%% --------------------------------------------------------
 
 \begin{align}
 	\mathrm{grad}\,(\phi \psi)             & = \psi\,\mathrm{grad}\,\phi +\phi\, \mathrm{grad}\,\psi                                                                                                                           \\
@@ -101,9 +96,198 @@
 \end{align}
 
 
-\subsection{Інтегральні характеристики та теореми}
 
-Теорема Остроградського-Гаусса:
+%% --------------------------------------------------------
+\subsection{Індексна нотація формул векторного аналізу}
+%% --------------------------------------------------------
+
+Нагадаємо співвідношення з векторного аналізу, що будуть потрібні далі.
+Латинські індекси $i$, $j$, $k$ пробігатимуть допустимі значення $1$,$2$,$3$. Якщо індекси
+у виразі повторюються, це означатиме суму по цих індексах (правило
+Ейнштейна).
+
+%% --------------------------------------------------------
+\subsubsection{Тривимірний символ Леві-Чівіти}\label{Levi-Chiv}
+%% --------------------------------------------------------
+
+Тривимірний символ Леві-Чівіти визначений співвідношеннями
+\begin{equation}\label{eq:Levi-Chiv}
+\epsilon_{ijk} =  - \epsilon_{jik} =  - \epsilon_{ikj}.
+\end{equation}
+
+Деякі співвідношення з цим символом:
+\begin{align}
+    \epsilon_{ijk}\epsilon_{kpq} &= \delta_{ip}\delta_{jq} - \delta_{iq}\delta_{jp}, \\
+    \epsilon_{iqk}\epsilon_{pqk} &= 2\delta _{ip}.
+\end{align}
+
+Ротор та векторний добуток у декартових координатах $\{x,y,z\} = \{x_1, x_2, x_3\}$:
+\begin{align}
+\left[\rot\vect{A} \right]_i &= \epsilon_{ijk}{\partial_j}{A_k}, \\
+\left[ \vect{A} \times \vect{B} \right]_i &= \epsilon_{ijk}{A_j}{B_k},
+\end{align}
+всі індекси пробігають значення $1$, $2$, $3$.
+
+%% --------------------------------------------------------
+\subsubsection{Диференціальні операції в декартових координатах}
+%% --------------------------------------------------------
+
+
+У декартових координатах \( x_1, x_2, x_3 \) дивергенція:
+
+\begin{equation*}
+\Div \vect{A} \equiv \partial_j A_j;
+\end{equation*}
+
+градієнт:
+
+\begin{equation*}
+(\grad F)_i \equiv \partial_i F,
+\end{equation*}
+
+тут і надалі \((X)_i = X_i\) означає \(i\)-ту компоненту вектора \(\vect{X}\);
+
+та оператор Лапласа:
+
+\begin{equation*}
+\Delta F \equiv \partial_j \partial_j F.
+\end{equation*}
+
+
+
+За допомогою \eqref{eq:Levi-Chiv} можна записати \(i\)-ту компоненту векторного добутку:
+
+\begin{equation*}
+[\vect{A} \times \vect{B}]_i = \varepsilon_{ijk} A_j B_k
+\end{equation*}
+
+\((A_i, B_i\) --- компоненти векторів \(\vect{A}\) та \(\vect{B})\), а також ротор:
+
+\begin{equation*}
+\Rot(\vect{A})_i = \varepsilon_{ijk} \partial_j A_k.
+\end{equation*}
+
+%% --------------------------------------------------------
+\subsubsection{Добуток скалярної та векторної функцій}
+%% --------------------------------------------------------
+
+Легко перевірити такі співвідношення для добутку скалярної функції \( F(\vect{r}) \) та векторної \( \vect{A}(\vect{r}) \):
+
+\begin{equation*}
+\Div(F \vect{A}) = \partial_i (F A_i) = A_i \partial_i F + F \partial_i A_i = \vect{A} \cdot \grad F + F \Div \vect{A};
+\end{equation*}
+
+\begin{equation*}
+\Rot(F \vect{A})_i = \varepsilon_{ijk} \partial_j (F A_k) = \varepsilon_{ijk} (\grad F)_j A_k + F \varepsilon_{ijk} \partial_j A_k,
+\end{equation*}
+
+або
+
+\begin{equation*}
+\Rot(F \vect{A}) = [\grad F \times \vect{A}] + F \Rot \vect{A}.
+\end{equation*}
+
+\subsubsection{Дивергенція векторного добутку}
+
+Дивергенція векторного добутку:
+
+\begin{multline*}
+\Div[\vect{A} \times \vect{B}] = \partial_i (\varepsilon_{ijk} A_j B_k) = B_k \varepsilon_{ijk} \partial_i A_j + A_j \varepsilon_{ijk} \partial_i B_k =
+B_k \varepsilon_{kij} \partial_i A_j - A_j \varepsilon_{ijk} \partial_i B_k = \\ = \vect{B} \cdot \Rot \vect{A} - \vect{A} \cdot \Rot \vect{B}.
+\end{multline*}
+
+%% --------------------------------------------------------
+\subsubsection{Згортка символів \texorpdfstring{\(\epsilon_{ijk}\)}{}}
+%% --------------------------------------------------------
+
+Далі будуть потрібні формули для \emph{згортки двох символів} \(\varepsilon_{ijk}\). Користуючись властивостями визначника, легко перевірити, що:
+
+\begin{equation*}
+\varepsilon_{ijk} =
+\begin{vmatrix}
+\delta_{i1} & \delta_{i2} & \delta_{i3} \\
+\delta_{j1} & \delta_{j2} & \delta_{j3} \\
+\delta_{k1} & \delta_{k2} & \delta_{k3}
+\end{vmatrix},
+\end{equation*}
+
+де \(\delta_{ij}\) --- символ Кронекера, а також:
+
+\begin{equation*}
+\varepsilon_{ijk} \varepsilon_{pqr} =
+\begin{vmatrix}
+\delta_{ip} & \delta_{iq} & \delta_{ir} \\
+\delta_{jp} & \delta_{jq} & \delta_{jr} \\
+\delta_{kp} & \delta_{kq} & \delta_{kr}
+\end{vmatrix}
+\end{equation*}
+
+Якщо в останньому співвідношенні розкрити визначник за правилом трикутників:
+
+\begin{equation*}
+\varepsilon_{ijk} \varepsilon_{pqr} = \delta_{ip} \delta_{jq} \delta_{kr} + \delta_{iq} \delta_{jr} \delta_{kp} + \delta_{ir} \delta_{jp} \delta_{kq} -
+\delta_{ip} \delta_{jr} \delta_{kq} - \delta_{iq} \delta_{jp} \delta_{kr} - \delta_{ir} \delta_{jq} \delta_{kp},
+\end{equation*}
+
+та взяти суму по \( k = r \), отримаємо формулу згортки:
+
+\begin{equation}
+\varepsilon_{ijk} \varepsilon_{pqk} = \delta_{ip} \delta_{jq} - \delta_{iq} \delta_{jp}.
+\label{eq:epsilon_contraction}
+\end{equation}
+
+%% --------------------------------------------------------
+\subsubsection{Подвійний векторний добуток}
+%% --------------------------------------------------------
+
+Отримаємо за допомогою \eqref{eq:epsilon_contraction} правило для подвійного векторного добутку:
+
+\begin{equation*}
+([\vect{A} \times [\vect{B} \times \vect{C}]])_i \equiv \varepsilon_{ijk} A_j ([\vect{B} \times \vect{C}])_k \equiv \varepsilon_{ijk} A_j
+\varepsilon_{kpq} B_p C_q.
+\end{equation*}
+
+Завдяки \eqref{eq:epsilon_contraction}:
+
+\begin{equation*}
+([\vect{A} \times [\vect{B} \times \vect{C}]])_i \equiv (\delta_{ip} \delta_{jq} - \delta_{iq} \delta_{jp}) A_j B_p C_q = B_i A_q C_q - C_i A_p B_p,
+\end{equation*}
+
+тобто маємо відому формулу:
+
+\begin{equation*}
+[\vect{A} \times [\vect{B} \times \vect{C}]] = \vect{B}(\vect{A} \cdot \vect{C}) - \vect{C}(\vect{A} \cdot \vect{B}).
+\end{equation*}
+
+
+%% --------------------------------------------------------
+\subsubsection{Подвійний ротор}
+%% --------------------------------------------------------
+
+Обчислимо за допомогою \eqref{eq:epsilon_contraction} подвійний ротор:
+
+\begin{equation*}
+(\Rot \Rot \vect{A})_i = \varepsilon_{ijk} \partial_j (\Rot \vect{A})_k = \varepsilon_{ijk} \partial_j \varepsilon_{kpq} \partial_p A_q.
+\end{equation*}
+
+Завдяки \eqref{eq:epsilon_contraction}:
+
+\begin{equation*}
+(\Rot \Rot \vect{A})_i = (\delta_{ip} \delta_{jq} - \delta_{iq} \delta_{jp}) \partial_j \partial_p A_q = \partial_i \partial_j A_j - \partial_j
+\partial_j A_i.
+\end{equation*}
+
+За означенням, \(\partial_j A_j \equiv \Div \vect{A}\) та \(\partial_j \partial_j A_i \equiv \Delta A_i\). Звідси маємо:
+
+\begin{equation*}
+\Rot \Rot \vect{A} = \grad \Div \vect{A} - \Delta \vect{A}.
+\end{equation*}
+
+%% --------------------------------------------------------
+\subsection{Інтегральні характеристики та теореми}
+%% --------------------------------------------------------
+
+Теорема Ос\-тро\-град\-сько\-го-Гаусса:
 \begin{equation}\label{OGTheorem}
 	\oiint\limits_{\partial \Omega} \vect{A}\cdot d\vect{S} = \iiint\limits_{\Omega} \divg\vect{A} dV,
 \end{equation}
@@ -121,8 +305,9 @@
 	\phi )\cdot d\vect{S}.
 \end{equation}
 
-
+%% --------------------------------------------------------
 \section{Поліноми Лежандра}\label{Polinoms}
+%% --------------------------------------------------------
 
 Поліноми Лежандра застосовуються у теорії потенціалу при розкладанні виразу в околі точки $\vect{r}$:
 \begin{equation*}\label{}
@@ -138,8 +323,9 @@ P_{0}(\cos\chi)  = 1, &\quad P_{1}(\cos\chi)  = \cos\chi, \\
 P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac {1}{2}(5\cos^2\chi-3\cos\chi).
 \end{align*}
 
-
+%% --------------------------------------------------------
 \section{Сферичні гармоніки}\label{Spherical_Harmonics}
+%% --------------------------------------------------------
 
 Сферичні функції, що залежать від полярних кутів визначаються формулою:
 \begin{equation*}
@@ -162,7 +348,9 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
 	Y_{2,\pm 2}(\theta,\phi) & =\sqrt{15\over 32\pi} \, \sin^{2}\theta \, e^{\pm2i\phi}.
 \end{align*}
 
+%% --------------------------------------------------------
 \section{Циліндричні функції}\setcounter{equation}{0}
+%% --------------------------------------------------------
 
 Рівняння, що виникають в задачах з циліндричною симетрією, мають вигляд:
 	\begin{equation}\label{eq:Bessel_eq}
@@ -272,19 +460,22 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
     e^{ix\sin\theta} = \sum\limits_{m= - \infty}^{\infty} J_m(x)e^{im\theta}. \\
 \end{equation}
 
-\section{Дельта-функція Дірака}\setcounter{equation}{0}
+%% --------------------------------------------------------
+\section{Узагальнені функції}\setcounter{equation}{0}
+%% --------------------------------------------------------
 
-Дельта-функція Дірака (або $\delta$-функція) є узагальненою функцією і була введена фізиком Полем Діраком для моделювання густини ідеалізованої точкової маси або точкового заряду.
-
-На <<фізичному рівні строгості>> можна визначити $\delta$-функцію формальним співвідношенням:
-\begin{equation}
-    \int\limits_{-\infty}^{+\infty}f(x)\delta(x-x_0)\,dx=f(x_0),
-\end{equation}
-У випадку інтегрування по скінченному об'єму $V$:
-\begin{equation}\label{eq:delta3D}
-    \int\limits_{V}f(\vect{r})\delta(\vect{r} - \vect{r}_0) dV=f(\vect{r}_0),
-\end{equation}
-де точка $\vect{r}_0$ знаходиться всередині об'єму $V$.
+%Дельта-функція Дірака (або $\delta$-функція) є узагальненою функцією і була введена фізиком Полем Діраком для моделювання густини ідеалізованої
+%точкової маси або точкового заряду.
+%
+%На <<фізичному рівні строгості>> можна визначити $\delta$-функцію формальним співвідношенням:
+%\begin{equation}
+%    \int\limits_{-\infty}^{+\infty}f(x)\delta(x-x_0)\,dx=f(x_0),
+%\end{equation}
+%У випадку інтегрування по скінченному об'єму $V$:
+%\begin{equation}\label{eq:delta3D}
+%    \int\limits_{V}f(\vect{r})\delta(\vect{r} - \vect{r}_0) dV=f(\vect{r}_0),
+%\end{equation}
+%де точка $\vect{r}_0$ знаходиться всередині об'єму $V$.
 
 %$\delta$-функцію однієї дійсної змінної можна визначити як функцію, що задовольняє наступним умовам:
 %\begin{equation}\label{eq:delta}
@@ -302,50 +493,262 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
 %\begin{equation}\label{eq:deltaanalit}
 %    \delta(x) = \frac{1}{2\pi}\int\limits_{-\infty}^{\infty} e^{ikx}dk.
 %\end{equation}
-\bigskip\noindent%
-\textbf{Властивості дельта-функції}
-\bigskip
-
-\begin{enumerate}[label=\alph*)]
-\item Дельта-функція парна $\delta(-x) = \delta(x)$,
-\item $x\delta(x) = 0$,
-\item $\delta(ax) = \frac{1}{|a|}\delta(x)$,
-\item  $x\delta^\prime(x)=-\delta(x)$,
-\item $\delta(f(x))=\sum\limits_k\frac{\delta(x-x_k)}{|f'(x_k)|}$, де $x_k$~--- нулі функції $f(x)$,
-
-\end{enumerate}
-
-%\subsection{Розкладання дельта-функції в ряд Фур'є}
+%\bigskip\noindent%
+%\textbf{Властивості дельта-функції}
+%\bigskip
 %
-%$\delta$-Функцію можна представити у вигляді ряду Фур'є на деякому проміжку $x \in (-l,l)$:
-%\begin{equation}\label{eq:deltacos}
-%    \delta(x) = \frac{1}{2l} +  \frac1l \sum\limits_{m=1}^{\infty}\cos\frac{m\pi}{l}x,
-%\end{equation}
-%або в комплексній формі
-%\begin{equation}\label{eq:deltae}
-%    \delta(x) =  \frac{1}{2l} \sum\limits_{m=-\infty}^{\infty}e^{i\frac{2m\pi}{l}x}.
-%\end{equation}
-%У випадку, якщо ми маємо періодичну функцію у вигляді $\delta$-<<частоколу>>~--- $\sum\limits_{k=-\infty}^{\infty}\delta(x-ka)$~--- відстань між піками якого дорівнює $a=2l$, то для нього розкладання також матиме вигляд~\eqref{eq:deltacos} (або \eqref{eq:deltae}):
-%\begin{equation}\label{eq:deltalll}
-%    \sum\limits_{k=-\infty}^{\infty}\delta(x-ka)  = \frac{1}{a} +  \frac2a \sum\limits_{m=1}^{\infty}\cos\frac{2m\pi}{a}x
-%\end{equation}
-% і буде справедливе на всій числовій прямій $x \in (-\infty,\infty)$.
+%\begin{enumerate}[label=\alph*)]
+%\item Дельта-функція парна $\delta(-x) = \delta(x)$,
+%\item $x\delta(x) = 0$,
+%\item $\delta(ax) = \frac{1}{|a|}\delta(x)$,
+%\item  $x\delta^\prime(x)=-\delta(x)$,
+%\item $\delta(f(x))=\sum\limits_k\frac{\delta(x-x_k)}{|f'(x_k)|}$, де $x_k$~--- нулі функції $f(x)$,
 %
-%\subsection{Тривимірна дельта-функція}
-%
-%Тривимірна $\delta$-функція визначається співвідношеннями:
-%\begin{equation}\label{eq:delta3D}
-%    \delta(\vect{r} - \vect{r}_0) = \delta(x-x_0)\delta(y-y_0)\delta(z-z_0),
-%\end{equation}
-%\begin{equation}\label{eq:delta3D}
-%    \int\limits_{V}f(\vect{r})\delta(\vect{r} - \vect{r}_0) dV=f(\vect{r}_0),
-%\end{equation}
-%де точка $\vect{r}_0$ знаходиться в середині об'єму $V$.
-%
-%Аналітичне представлення тривимірної $\delta$-функції:
-%\begin{equation}\label{eq:deltaanalit3В}
-%    \delta(\vect{r}) = \frac{1}{(2\pi)^3}\int\limits_{-\infty}^{\infty} e^{i\vect{k}\cdot\vect{r}}d\vect{k},
-%\end{equation}
-%де $d\vect{k}=dk_xdk_ydk_z$.
+%\end{enumerate}
 
+
+
+В задачах електродинаміки часто виникає необхідність розглядати заряджені тіла, розміри яких дуже малі у порівнянні з іншими просторовими масштабами. З
+цим пов’язана модель точкового (сферичного) заряду, густину якого подають у вигляді:
+
+\begin{equation}
+\rho(\vect{r}) = q \delta(\vect{r} - \vect{r}_0),
+\end{equation}
+
+де \( q \) --- величина заряду, \( \vect{r} \) --- його положення, \( \delta \) --- функція Дірака, що визначається умовою:
+
+\begin{equation}
+\int dV \, \delta(\vect{r} - \vect{r}_0) \chi(\vect{r}) = \chi(\vect{r}_0)
+\label{eq:dirac_definition}
+\end{equation}
+
+для будь-якої неперервної функції \( \chi \).
+
+Очевидно, що визначення \eqref{eq:dirac_definition} \(\delta\)-функції не є математично коректним, якщо вважати, що в \eqref{eq:dirac_definition} маємо
+справу із звичайним інтегруванням, наприклад, за Лебегом. Цьому співвідношенню можна надати математичний зміст, якщо розглядати \(\delta\)-функцію як
+слабку границю деякої послідовності звичайних функцій. Якщо покласти (в одновимірному варіанті):
+
+\begin{equation}
+\delta_{\varepsilon}(x) = \frac{1}{\varepsilon \sqrt{\pi}} e^{-x^2 / \varepsilon^2},
+\label{eq:delta_sequence}
+\end{equation}
+
+то границя:
+
+\begin{equation}
+\lim_{\varepsilon \to 0} \int dx \, \delta_{\varepsilon}(x) \chi(x) = \chi(0)
+\label{eq:delta_limit}
+\end{equation}
+існує для будь-якої послідовності \( \varepsilon_n \to 0 \), \( n \to \infty \) та будь-якої функції \( \chi(x) \), що задовольняє досить широким умовам
+(наприклад, якщо \( \chi(x) \) --- гладка та обмежена). На практиці більш зручно розглядати подібні границі за більш жорстких обмежень на \( \chi(x) \).
+
+Таке визначення цілком відповідає фізичним уявленням про точковий заряд, зосереджений в нескінченно малій області. Насправді, для багатьох застосувань
+істотно лише те, що розміри заряду значно менші за відстань до нього. Разом із тим треба пам’ятати, що ці міркування не проходять, коли треба розглядати
+співвідношення, нелінійні за густиною заряду або за напруженостями полів; наприклад, в формулах для енергії.
+
+\subsubsection{Узагальнені та основні функції (\( x \in \mathbb{R}^n \))}
+
+Узагальнену \(\delta\)-функцію можна визначити за допомогою іншої, відмінної від \eqref{eq:delta_sequence}, послідовності, тобто означення
+\eqref{eq:delta_sequence}, \eqref{eq:delta_limit} не є єдиним (див. приклади далі). Але усі подібні співвідношення визначають лінійний неперервний
+функціонал, що зіставляє функції \( \chi(x) \) число \( \chi(0) \). Далі розглянемо лінійні неперервні функціонали на деякій множині функцій, які будемо
+називати \textit{основними}.
+
+Нехай множина основних функцій --- це множина \( D \) фінітних (тобто відмінних від нуля у деяких обмежених областях) нескінченно диференційовних
+функцій. Збіжність в \( D \) визначають так: послідовність \( \{\phi_k\} \subset D \) збігається до \( \phi \in D \), якщо всі \( \phi_k \) можуть бути
+відмінними від нуля лише у деякій спільній обмеженій області та усі похідні рівномірно збігаються до відповідних похідних від \( \phi \).
+
+Узагальнена функція --- це лінійний неперервний функціонал, означений на \( D \). Множину таких узагальнених функцій позначають через \( D' \).
+
+Існує багато способів регуляризації дельта-функції Дірака; зокрема, використовуються наступні наближення:
+
+\begin{equation}
+\delta_{\varepsilon}(x) = \frac{1}{\pi} \frac{\sin(x/\varepsilon)}{x},
+\label{eq:delta_sin}
+\end{equation}
+
+\begin{equation}
+\delta_{\varepsilon}(x) = \frac{1}{\pi} \frac{\varepsilon}{x^2 + \varepsilon^2},
+\label{eq:delta_lorentz}
+\end{equation}
+
+\begin{equation}
+\delta_{\varepsilon}(x) = \frac{1}{\pi} \frac{\sin^2(x/\varepsilon)}{x^2},
+\label{eq:delta_sin2}
+\end{equation}
+де \( x \in \mathbb{R} \).
+
+Далі будемо позначати значення функціоналу, що відповідає узагальненій функції \( F \in D' \) на основній функції \( \chi \in D \), як \( (F, \chi) \).
+Наприклад, співвідношення \( (\delta, \chi) = \chi(0) \) визначає \(\delta\)-функцію Дірака. Узагальнену функцію \( F(x) \) (\( x \in \mathbb{R}^n \))
+називають \textit{регулярною}, якщо існує інтегровна функція \( f(x) \), така, що відповідний функціонал можна подати у вигляді звичайного інтегралу
+Лебега:
+
+\begin{equation}
+(F, \chi) = \int dx \, f(x) \chi(x).
+\label{eq:regular_functional}
+\end{equation}
+
+Якщо це неможливо, \( F \) називають \textit{сингулярною узагальненою функцією}. Прикладом такої функції є \(\delta\)-функція Дірака. Тим не менш, в
+фізичній літературі для сингулярних функцій також використовують запис \eqref{eq:regular_functional}, маючи на увазі певний граничний перехід --- типу
+\eqref{eq:delta_limit} або інший. Можна показати, що будь-яку узагальнену функцію можна подати як слабку границю послідовності основних функцій з~\( D
+\).
+
+Далі ми також будемо застосовувати формальний запис \eqref{eq:regular_functional}, пам’ятаючи про вказані застереження.
+
+\subsubsection{Диференціювання і фундаментальні розв’язки}
+
+Визначимо похідну \( \partial_i F(x) \) від узагальненої функції \( F \) співвідношенням:
+
+\begin{equation}
+(\partial_i F, \chi) = - (F, \partial_i \chi), \quad x \in \mathbb{R}^n.
+\label{eq:derivative_definition}
+\end{equation}
+
+Для регулярної диференційовної функції \( F \) це співвідношення є очевидним наслідком інтегрування за частинами:
+
+\begin{equation*}
+\int dx \, \partial_i F(x) \chi(x) = - \int dx \, F(x) \partial_i \chi(x)
+\end{equation*}
+
+з урахуванням того, що \( \chi(x) \) є фінітною.
+
+Нехай \( A \) --- диференціальний оператор скінченого порядку із сталими коефіцієнтами, \( x \in \mathbb{R}^n \).
+
+\emph{Фундаментальним розв’язком оператора \( \hat{L} \)} називають узагальнену функцію \( G \), таку, що:
+
+\begin{equation}
+\hat{L} G = \delta(x).
+\label{eq:fundamental_solution}
+\end{equation}
+
+
+\subsubsection{Фундаментальний розв’язок оператора Лапласа}
+
+Нехай  \( x = \vect{r} = (x_1, x_2, x_3) \in \mathbb{R}^3 \), покажемо, що:
+
+\begin{equation}
+\Delta \left( -\frac{1}{r} \right) = -4\pi \delta(\vect{r}),
+\label{eq:laplace_fundamental}
+\end{equation}
+
+де в правій частині фігурує тривимірна \(\delta\)-функція,
+
+\begin{equation*}
+r = |\vect{r}| = \sqrt{x_1^2 + x_2^2 + x_3^2}.
+\end{equation*}
+
+За означенням похідної:
+
+\begin{equation*}
+\int \Delta \left( \frac{1}{r} \right) \chi(\vect{r}) dV = \int \frac{1}{r} \Delta \chi dV
+\end{equation*}
+
+Права частина означена як звичайний невласний інтеграл, який можна обчислювати в сферичних координатах:
+
+\begin{multline*}
+\int \frac{\Delta \chi}{r}  r^2 \sin \theta \, d\theta \, d\varphi \, dr = \\
+=
+\int \frac{1}{r} \left[ \frac{\partial}{\partial r} \left( r^2
+\frac{\partial \chi}{\partial r} \right) + \frac{1}{\sin \theta} \frac{\partial}{\partial \theta} \left( \sin \theta \frac{\partial \chi}{\partial
+\theta} \right) + \frac{1}{\sin^2 \theta} \frac{\partial^2 \chi}{\partial \varphi^2} \right] \sin \theta \, d\theta \, d\varphi =
+\\=
+\int \frac{1}{r}
+\frac{\partial}{\partial r} \left( r^2 \frac{\partial \chi}{\partial r} \right) dr d\Omega, \quad d\Omega = \sin \theta \, d\theta \, d\varphi.
+\end{multline*}
+
+Тут враховано, що:
+
+\begin{equation*}
+\int\limits_0^\pi d\theta \, \frac{\partial}{\partial \theta} \left( \sin \theta \frac{\partial \chi}{\partial \theta} \right) = \left( \sin \theta
+\frac{\partial \chi}{\partial \theta} \right)_0^\pi = 0, \quad \int\limits_0^{2\pi} d\varphi \, \frac{\partial^2 \chi}{\partial \varphi^2} =
+\frac{\partial
+\chi}{\partial \varphi} \bigg|_0^{2\pi} = 0.
+\end{equation*}
+
+Залишається інтеграл, що береться по \( r \) при фіксованих \( \varphi \), \( \theta \):
+
+\begin{multline*}
+\int\limits_0^\infty d\Omega \int\limits_0^r dr \, \frac{1}{r} \frac{\partial}{\partial r} \left( r^2 \frac{\partial \chi}{\partial r} \right) =
+\int\limits_0^\infty d\Omega
+\int\limits_0^r dr \, \frac{\partial}{\partial r} \left( r \frac{\partial \chi}{\partial r} + \chi \right) = \left.\left( r \frac{\partial
+\chi}{\partial r} +
+\chi
+\right)\right|_0^\infty = \\ =- \int d\Omega \, \chi(0) = -4\pi \chi(0).
+\end{multline*}
+
+Отриманий вираз доводить співвідношення \eqref{eq:laplace_fundamental}.
+
+\subsubsection{Фундаментальний розв’язок оператора Даламбера}
+
+Нехай \( c = 1 \), \( \Dalambertian = \frac{\partial^2}{\partial t^2} - \Delta \), \( x = (t, x_1, x_2, x_3) \in \mathbb{R}^4 \).
+
+Визначимо функцію \( G(x) \) співвідношенням:
+
+\begin{equation}
+G(x) = \frac{1}{2\pi} \delta \left[ t^2 - x^2 \right] \theta(t) = \frac{1}{4\pi r} \delta \left( t - r \right),
+\label{eq:dalambert_fundamental}
+\end{equation}
+
+де \( r = |\vect{x}| = \sqrt{x_1^2 + x_2^2 + x_3^2} \).
+
+%Покажіть, що \( (\Dalambertian G, \chi) = \chi(0) \).
+%
+%Вказівка: \( (\Dalambertian G, \chi) = (\Dalambertian G, \nabla) \). Перейдіть до сферичних координат і покажіть, що внесок кутової частини оператора
+%Лапласа дає
+%нуль; потім врахуйте тотожність
+%
+%\begin{equation*}
+%r (\chi_{tt}(r, r) - \chi_{rr}(r, r)) - 2 \chi_r(r, r) = \frac{d}{dr} \left\{ r (\chi_t(r, r) - \chi_r(r, r)) - \chi(r, r) \right\},
+%\end{equation*}
+%де \( \chi = \chi(t, r) \).
+
+\subsubsection{Фундаментальний розв’язок оператора Гельмгольца}
+
+Покажіть, що:
+
+\begin{equation}
+\left( \Delta + k^2 \right) \frac{e^{ikr}}{r}, \quad \chi = \int \frac{e^{ikr}}{r} (\Delta + k^2) \chi \, dV = -4\pi \chi(0).
+\label{eq:helmholtz_fundamental}
+\end{equation}
+
+\subsubsection{Згортка}
+
+Згортка \( \zeta = F * \chi \) узагальненої функції \( F \) з основною \( \chi \) є за визначенням:
+
+\begin{equation}
+\zeta(y) = \int dx \, F(x) \chi(y - x).
+\label{eq:convolution}
+\end{equation}
+
+За допомогою згортки та фундаментального розв’язку можна будувати розв’язки рівнянь виду:
+
+\begin{equation}
+\hat{L} \phi = f, \quad f \in D.
+\end{equation}
+
+Дійсно, якщо покласти \( \varphi = G * f \), де \( \hat{L} G = \delta(x) \), маємо:
+
+\begin{equation*}
+\hat{L}\phi(y) = \int dx \, G(x) \hat{L}_y f(y - x) = \int dx \, \hat{L}_x G(x) f(y - x) = (\delta(x), f(y - x)) = f(y)
+\end{equation*}
+(тут введено індекси, щоб підкреслити, що \( \hat{L}_x \) діє на змінну \( x \), \( \hat{L}_y \) --- на \( y \)). Цей результат за певних умов можна
+розширити на
+випадок \( f \in D \).
+
+Звідси маємо такі розв’язки рівнянь:
+
+\begin{equation}
+\Delta \phi = -4\pi \rho \implies \phi = \int dV' \, \frac{\rho(\vect{r}')}{|\vect{r} - \vect{r}'|}, \quad \phi = \varphi(\vect{r}),
+\end{equation}
+
+\begin{equation}
+\Dalambertian \phi = 4\pi \rho \implies \phi = \int \frac{\rho(t - |\vect{r} - \vect{r}'|, \vect{r}')}{|\vect{r} - \vect{r}'|} dV' ,
+\quad
+\phi = \phi(t, \vect{r}'),
+\end{equation}
+
+\begin{equation}
+\Delta \phi + k^2 \phi = -4\pi \rho \implies \varphi(\vect{r}) = \int \frac{e^{ik|\vect{r} - \vect{r}'|}}{|\vect{r} - \vect{r}'|}
+\rho{\vect{r}'}
+dV'.
+\end{equation}
 
