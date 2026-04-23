@@ -613,8 +613,14 @@ postaction={ decorate,
 %
 %===============================================================================
 
-\usepackage[]{imakeidx}
-\makeindex[intoc, columns=2, title=Алфавітний покажчик] % Включить в оглавление
+\usepackage[]{indextools}
+% Налаштування для upmendex
+\makeindex[
+    program=upmendex,
+    intoc,
+    title={Алфавітний покажчик},
+    noautomatic=false
+]
 
 
 %===============================================================================
