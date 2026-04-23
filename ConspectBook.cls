@@ -749,7 +749,14 @@ hbox,
   drop fuzzy shadow,#1}
 
 
-
+\newtcolorbox{postulate}[1]{
+  colback=blue!5!white,
+  colframe=blue!75!black,
+  fonttitle=\bfseries,
+  title=#1,
+  arc=2mm,
+  boxrule=0.5mm
+}
 
 
 % Define a background layer, in which the parchment shape is drawn
