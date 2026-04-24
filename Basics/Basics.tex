@@ -207,9 +207,9 @@
 введемо функцію $\rho$, що може залежати від координат та від часу і дозволяє
 обчислити заряд в будь-якій області $\Omega$ за формулою:
 \begin{equation}\label{eq:q}
-    q_{\Omega} = \iiint\limits_{\Omega} \rho(t, \vect{r}) dV
+    q_{\Omega} = \int\limits_{\Omega} \rho(t, \vect{r}) \ d^3\vect{r}
 \end{equation}
-де $\vect{r} = x\vect{e}_x + y\vect{e}_y + z\vect{e}_z$, $dV=dx\ dy\ dz$.
+де $\vect{r} = \left\{x, y, z\right\}$, $d^2\vect{r} \equiv dV=dx\ dy\ dz$.
 
 Інакше, елемент заряду в об’ємі $dV$ --- це $dq = \rho(t, \vect{r}) dV$.
 
@@ -231,7 +231,7 @@
 \item \textbf{Густина струму}\index{Густина струму}. Цю величину можна визначити формулою для сили
 струму через поверхню $S$:
 \begin{equation}
-    I_S(t) = \iint\limits_S \vect{j}(t, \vect{r})\cdot d\vect{S},
+    I_S(t) = \int\limits_S \vect{j}(t, \vect{r})\cdot d\vect{S},
 \end{equation}
 де $\vect{j}$ --- вектор густини струму\index{Вектор густини струму}, що не залежить від $S$, $d\vect{S} = \vect{n} dS$, $\vect{n}$ --- нормаль до
 елемента поверхні $dS$. Густина сили струму дає напрям руху зарядів в даному
@@ -256,7 +256,7 @@
 \item \textbf{Поверхневі заряди та струми}\index{Поверхневий заряд}\index{Поверхневий струм}.  Якщо електричні заряди зосереджені у
 тонкому прошарку поблизу деякої поверхні, доцільно ввести поверхневу густину заряду\index{Поверхнева густина заряду} σ. Аналогічно \eqref{eq:q}, покладемо:
 \begin{equation}
-    q_S(t) = \iint\limits_S \sigma(t, \xi, \eta) dS(\xi, \eta).
+    q_S(t) = \int\limits_S \sigma(t, \xi, \eta) dS(\xi, \eta).
 \end{equation}
 де $q_S$ --- заряд на ділянці S цієї поверхні, $\xi$ та $\eta$ --- координати на поверхні; $\sigma$ --- заряд на одиниці площі.
 
@@ -315,24 +315,24 @@ $L$ (див. рис.~\ref{surface_current}) на цій поверхні:
 $\rho(t, \vect{r})$ та густини об'ємного струму $\vect{j}(t, \vect{r})$ . Використовуючи визначення \eqref{eq:q}
 для нерухомого об'єму:
 \begin{equation*}
-    \frac{dq_{\Omega}}{dt} = \frac{d}{dt} \iiint\limits_{\Omega} \rho(t, \vect{r}) dV = \iiint\limits_{\Omega} \frac{\partial\rho(t, \vect{r})}{\partial
-    t} dV.
+    \frac{dq_{\Omega}}{dt} = \frac{d}{dt} \int\limits_{\Omega} \rho(t, \vect{r}) \ d^3\vect{r} = \int\limits_{\Omega} \frac{\partial\rho(t, \vect{r})}{\partial
+    t} \ d^3\vect{r}.
 \end{equation*}
 
 Тоді з \eqref{eq:charge_conservation_low_int}  та за визначенням густини струму \eqref{eq:I_S}:
 \begin{equation*}
-    \iiint\limits_{\Omega} \frac{\partial\rho(t, \vect{r})}{\partial
-    t} dV + \iint\limits_{\partial\Omega} \vect{j}\cdot d\vect{S} = 0.
+    \int\limits_{\Omega} \frac{\partial\rho(t, \vect{r})}{\partial
+    t} \ d^3\vect{r} + \int\limits_{\partial\Omega} \vect{j}\cdot d\vect{S} = 0.
 \end{equation*}
 Перетворимо iнтеграл по замкненiй поверхнi $\partial\Omega$, що оточує об'єм $\Omega$, за
 теоремою Остроградського-Гаусcа\index{Теорема Остроградського-Гаусса}:
 \begin{equation*}
-    \iint\limits_{\partial\Omega} \vect{j}\cdot d\vect{S} = \iiint\limits_{\Omega}\Div\vect{j} dV,
+    \int\limits_{\partial\Omega} \vect{j}\cdot d\vect{S} = \int\limits_{\Omega}\Div\vect{j} \ d^3\vect{r},
 \end{equation*}
 звідки
 \begin{equation*}
-    \iiint\limits_{\Omega} \left(\frac{\partial\rho(t, \vect{r})}{\partial
-    t}  +  \Div\vect{j} \right) dV =0.
+    \int\limits_{\Omega} \left(\frac{\partial\rho(t, \vect{r})}{\partial
+    t}  +  \Div\vect{j} \right) \ d^3\vect{r} =0.
 \end{equation*}
 
 Це співвідношення виконується для будь-якого об'єму $\Omega$, тому
@@ -364,18 +364,18 @@ $\rho(t, \vect{r})$ та густини об'ємного струму $\vect{j}
 мікроскопічних рівнянь має вид:
 
 \begin{align}
-	\oiint\limits_{\partial\Omega} \Efield\cdot d\vect{S} & = 4\pi q_{\Omega}   \label{Int
+	\oint\limits_{\partial\Omega} \Efield\cdot d\vect{S} & = 4\pi q_{\Omega}   \label{Int
 	I},                                                                                                         \\
-	\oiint\limits_{\partial\Omega} \Bfield\cdot d\vect{S} & = 0   \label{Int
+	\oint\limits_{\partial\Omega} \Bfield\cdot d\vect{S} & = 0   \label{Int
 	II},                                                                                                                                   \\
 \end{align}
 де $\Omega$ --- довільний нерухомий об'єм, $\partial\Omega$ --- його межа; $S$ --- довільна нерухома орієнтована поверхня, $\partial S$ --- замкнений
 контур, що її обмежує, $q_{\Omega}$ --- повний заряд в області $\Omega$.
 
 \begin{align}
-	\oint\limits_{\partial S} \Efield\cdot d\vect{r}  & = - \frac1c \iint\limits_S \frac{\partial\Bfield}{\partial t}\cdot d\vect{S}  \label{Int
+	\oint\limits_{\partial S} \Efield\cdot d\vect{r}  & = - \frac1c \int\limits_S \frac{\partial\Bfield}{\partial t}\cdot d\vect{S}  \label{Int
 	III},                                                          \\
-	\oint\limits_{\partial S} \Bfield\cdot d\vect{r}  & =\dfrac{4\pi}{c} I_S +\frac{1}{c} \iint\limits_S
+	\oint\limits_{\partial S} \Bfield\cdot d\vect{r}  & =\dfrac{4\pi}{c} I_S +\frac{1}{c} \int\limits_S
 	\frac{\partial\Efield}{\partial t}\cdot d\vect{S}  \label{Int IV},
 \end{align}
 де $S$ --- довільна нерухома орієнтована поверхня, $\partial S$ --- замкнений
@@ -434,15 +434,15 @@ $S_2$, що мають спільну межу $\partial S$ (рис.~\ref{tikz:s
 
 Тоді з рівняння \eqref{Int IV} легко отримати:
 \begin{equation}\label{eq:diff4}
-    \frac{4\pi}c(I_{S_1} - I_{S_2}) +\frac1c \left( \iint\limits_{S_1}
-	\frac{\partial\Efield}{\partial t}\cdot d\vect{S}  - \iint\limits_{S_2}
+    \frac{4\pi}c(I_{S_1} - I_{S_2}) +\frac1c \left( \int\limits_{S_1}
+	\frac{\partial\Efield}{\partial t}\cdot d\vect{S}  - \int\limits_{S_2}
 	\frac{\partial\Efield}{\partial t}\cdot d\vect{S}  \right) = 0
 \end{equation}
 Чи суперечить це іншим рівнянням? Виявляється, ні, якщо врахувати закон збереження заряду. Нехай $\Omega$ --- це область, оточена поверхнями $S_1$ та
 $S_2$. Межа $\partial\Omega$ має орієнтацію, спільну з однією з цих поверхонь і протилежну до іншої на відповідних ділянках. Тоді рівняння
 \eqref{eq:diff4} можна переписати так:
 \begin{equation}
-    4\pi I_{\partial\Omega} + \frac{d}{dt} \iint\limits_{\partial\Omega} \Efield\cdot d\vect{S} = 0,
+    4\pi I_{\partial\Omega} + \frac{d}{dt} \int\limits_{\partial\Omega} \Efield\cdot d\vect{S} = 0,
 \end{equation}
 де похідну винесено за знак інтегралу. Оскільки поверхневий інтеграл тут в силу \eqref{Int I} пов’язаний із зарядом $q_{\Omega}$ в області $\Omega$,
 звідси:
@@ -464,11 +464,11 @@ $S_2$. Межа $\partial\Omega$ має орієнтацію, спільну з 
 
 В рівнянні \eqref{Int I} за означенням:
 \begin{equation}
-    q_{\Omega} = \iiint\limits_{\Omega} \rho dV
+    q_{\Omega} = \int\limits_{\Omega} \rho \ d^3\vect{r}
 \end{equation}
 де $\rho$ ---  об′ємна густина заряду. За теоремою Остроградського-Гаусса ліва частина \eqref{Int I} також зводиться до об′ємного інтегралу, звідки:
 \begin{equation*}
-     \iiint\limits_{\Omega} \Div\Efield dV = \iiint\limits_{\Omega} \rho dV
+     \int\limits_{\Omega} \Div\Efield\ d^3\vect{r} = \int\limits_{\Omega} \rho\ d^3\vect{r}
 \end{equation*}
 зважаючи на довільність області $\Omega$:
 \begin{equation}\label{eq:M1D}
@@ -480,7 +480,7 @@ $S_2$. Межа $\partial\Omega$ має орієнтацію, спільну з 
 \end{equation}
 В рівнянні \eqref{Int III} перетворимо ліву частину за теоремою Стокса:
 \begin{equation*}
-    \iint\limits_{S} \Rot\Efield\cdot d\vect{S} = - \frac1c \iint\limits_S \frac{\partial\Bfield}{\partial t}\cdot d\vect{S}
+    \int\limits_{S} \Rot\Efield\cdot d\vect{S} = - \frac1c \int\limits_S \frac{\partial\Bfield}{\partial t}\cdot d\vect{S}
 \end{equation*}
 звідки, з урахуванням довільності $S$:
 \begin{equation}\label{eq:M3D}
@@ -541,32 +541,32 @@ $\vect{n}$ напрямлена з $1$ в $2$
 паралельними $S$, причому $S_1$ лежить у
 середовищі $1$, $S_2$ --- в $2$, а висота циліндра дорівнює $h$.
 
-Застосуємо рівняння \eqref{Int I} розбиваючи інтеграл по $\partial\Omega$ на частини, що відповідають $S_1$, $S_2$ та боковій поверхні
+Застосуємо рівняння \eqref{Int I} розбиваючи інтеграл по $\partial\Omega$ на частини, що відповідають $S_1$, $S_2$ та бічній поверхні
 циліндра $\partial\Omega'$:
 \begin{equation*}
-    	\iint\limits_{S_1} \Efield\cdot d\vect{S} +  \iint\limits_{S_2} \Efield\cdot d\vect{S} + \iint\limits_{\partial\Omega'} \Efield\cdot
+    	\int\limits_{S_1} \Efield\cdot d\vect{S} +  \int\limits_{S_2} \Efield\cdot d\vect{S} + \int\limits_{\partial\Omega'} \Efield\cdot
     	d\vect{S} = 4\pi q_{\Omega},
 \end{equation*}
 де повний заряд всередині $\Omega$ складається в загальному випадку з неперервно розподіленого об′ємного заряду iз інтегрованою об’ємною
 густиною $\rho$ та поверхневого заряду з поверхневою густиною $\sigma$ на $S$:
 \begin{equation*}
-    q_{\Omega} = \iiint\limits_{\Omega} \rho dV + \iint\limits_S \sigma dS.
+    q_{\Omega} = \int\limits_{\Omega} \rho \ d^3\vect{r} + \int\limits_S \sigma dS.
 \end{equation*}
 
 
-Якщо висота $h  \to 0$, об'єм та бокова поверхня циліндра також прямують до нуля, а з ними й інтеграли по об′єму та по бічній поверхні. Відкидаючи ці
+Якщо висота $h  \to 0$, об'єм та бічна поверхня циліндра також прямують до нуля, а з ними й інтеграли по об′єму та по бічній поверхні. Відкидаючи ці
 інтеграли, отримаємо:
 \begin{equation*}
-    	\iint\limits_{S_1} \Efield_1\cdot d\vect{S} +  \iint\limits_{S_2} \Efield_2\cdot d\vect{S}  = 4\pi q_{\Omega}.
+    	\int\limits_{S_1} \Efield_1\cdot d\vect{S} +  \int\limits_{S_2} \Efield_2\cdot d\vect{S}  = 4\pi q_{\Omega}.
 \end{equation*}
 Оскільки:
 \begin{equation*}
-    \iint\limits_{S_1} \Efield_1\cdot d\vect{S}  = - \iint\limits_{S} \Efield_1\cdot \vect{n}\ dS, \quad \\
-    \iint\limits_{S_2} \Efield_2\cdot d\vect{S} = \iint\limits_{S} \Efield_1\cdot \vect{n}\ dS,
+    \int\limits_{S_1} \Efield_1\cdot d\vect{S}  = - \int\limits_{S} \Efield_1\cdot \vect{n}\ dS, \quad \\
+    \int\limits_{S_2} \Efield_2\cdot d\vect{S} = \int\limits_{S} \Efield_1\cdot \vect{n}\ dS,
 \end{equation*}
 де враховано напрямки нормалей до $\partial\Omega$ на $S_1$ та $S_2$, звідки:
 \begin{equation*}
-    \iint\limits_{S} (\Efield_2 - \Efield_1)\cdot\vect{n}\ dS = 4\pi \iint\limits_S \sigma dS.
+    \int\limits_{S} (\Efield_2 - \Efield_1)\cdot\vect{n}\ dS = 4\pi \int\limits_S \sigma dS.
 \end{equation*}
 Завдяки довільності $S$, дістаємо співвідношення в будь-якій точці поверхні
 розриву:
@@ -720,15 +720,15 @@ $BC$ і $AD$, можна записати:
 Проінтегруємо його по деякій області $\Omega$, перетворюючи інтеграл з
 дивергентним членом в інтеграл по (замкненій) поверхні $\partial\Omega$, що оточує $\Omega$:
 \begin{equation}\label{eq:energy_balance_int}
-    \iiint\limits_{\Omega} \vect{j}\cdot\vect{E} dV + \oiint\limits_{\partial\Omega} \vect{\Pi}\cdot d\vect{S} +  \parttime{} \iiint\limits_{\Omega}
-    \frac{\Efield^2 + \Bfield^2}{8\pi} dV  = 0.
+    \int\limits_{\Omega} \vect{j}\cdot\vect{E} \ d^3\vect{r} + \oint\limits_{\partial\Omega} \vect{\Pi}\cdot d\vect{S} +  \parttime{} \int\limits_{\Omega}
+    \frac{\Efield^2 + \Bfield^2}{8\pi} \ d^3\vect{r}  = 0.
 \end{equation}
 
 Перший в доданок в \eqref{eq:energy_balance_int} --- це робота, яку виконує поле за одиницю часу
 в об’ємі $\Omega$, другий --- потік енергії через поверхню $\partial\Omega$, останній доданок ---
 швидкість зміни енергії електромагнітного поля в об’ємі Ω. Величина:
 \begin{equation}
-    W = \iiint\limits_{\Omega}     \frac{\Efield^2 + \Bfield^2}{8\pi} dV
+    W = \int\limits_{\Omega}     \frac{\Efield^2 + \Bfield^2}{8\pi} \ d^3\vect{r}
 \end{equation}
 являє собою енергію поля в області $\Omega$,а підінтегральний вираз – це густина енергії електромагнітного поля.
 
@@ -801,7 +801,7 @@ $BC$ і $AD$, можна записати:
 
 Інтегральне співвідношення:
 \begin{equation}
-    \iiint\limits_{\Omega} f_k dV + \oiint\limits_{\partial\Omega} T_{kj} n_j dS + \parttime{}  \iiint\limits_{\Omega} \pi_k dV = 0
+    \int\limits_{\Omega} f_k \ d^3\vect{r} + \oint\limits_{\partial\Omega} T_{kj} n_j dS + \parttime{}  \int\limits_{\Omega} \pi_k \ d^3\vect{r} = 0
 \end{equation}
 пов'язує зміну імпульсу в об'ємі $\Omega$ з дією зовнішніх зовнішніх сил та потоком
 через бічну поверхню; тут $\pi_k$ --- імпульс поля в одиниці об'єму.
@@ -837,8 +837,8 @@ $BC$ і $AD$, можна записати:
 \end{equation}
 Рівняння баланс моменту імпульсу в об'ємі Ω має вид:
 \begin{equation}
-    \iiint\limits_{\Omega} M_i dV + \oiint\limits_{\partial\Omega} \epsilon_{ijk}  x_jT_{kl} n_l dS +
-    \parttime{} \iiint\limits_{\Omega} L_i dV = 0.
+    \int\limits_{\Omega} M_i \ d^3\vect{r} + \oint\limits_{\partial\Omega} \epsilon_{ijk}  x_jT_{kl} n_l dS +
+    \parttime{} \int\limits_{\Omega} L_i \ d^3\vect{r} = 0.
 \end{equation}
 
 

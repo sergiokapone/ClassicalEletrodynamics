@@ -1,7 +1,7 @@
 % !TeX program = lualatex
 % !TeX encoding = utf8
 % !TeX spellcheck = uk_UA
-% !TeX root =../ClassicalEletrodynamics.tex
+% !TeX root =../ClassicalElectrodynamics.tex
 
 %=========================================================
 \chapter{Вільне електромагнітне поле}\label{\currfilebase}
@@ -34,12 +34,12 @@
 \label{eq:inverse_fourier_transform}
 \end{equation}
 
-Для функцій $f(t)$, $g(t)$ та їх образів Фур’є $\tilde{f}(\omega)$, $\tilde{g}(\omega)$ має місце рівність Пареєваля:
+Для функцій $f(t)$, $g(t)$ та їх образів Фур’є $\tilde{f}(\omega)$, $\tilde{g}(\omega)$ має місце рівність Парсеваля:
 
-\begin{equation}
+\begin{equation*}
 \int\limits_{-\infty}^{\infty} f(t)g^{*}(t)dt = \int\limits_{-\infty}^{\infty} \tilde{f}(\omega)\tilde{g}^{*}(\omega)d\omega
 \label{eq:parseval}
-\end{equation}
+\end{equation*}
 
 Практично будь-який реальний сигнал можна подати у вигляді суперпозиції монохроматичних сигналів. За допомогою технічних пристроїв можна виділяти,
 підсилювати чи послабляти певні ділянки спектру сигналу, що відповідають певній області частот. При цьому формальний запис гармонічних сигналів,
@@ -61,7 +61,7 @@ e^{-i\omega t}
 = \frac{1}{\sqrt{2\pi}} \int\limits_{0}^{\infty} d\omega \left( \hat{\varphi}(\omega) e^{-i\omega t} + \hat{\phi}^{*}(\omega) e^{i\omega t} \right)
 \end{multline*}
 
-В цю формулу входять значення \( \tilde{\phi}'(\omega) \) лише з додатними частотами, які можна задавати незалежно на відміну від \( \phi(-\omega) \)
+В цю формулу входять значення \( \tilde{\phi}(\omega) \) лише з додатними частотами, які можна задавати незалежно на відміну від \( \phi(-\omega) \)
 при \(
 \omega > 0 \), які пов’язані з \( \phi(\omega) \) формулою \eqref{eq:conjugate_frequency}. Формулу зведення до додатних частот можна переписати так:
 
@@ -72,11 +72,11 @@ e^{-i\omega t}
 
 З урахуванням \eqref{eq:conjugate_frequency} для дійсної функції \( f(t) \) можна записати:
 
-\begin{equation}
-\int\limits_{-\infty}^{\infty} f^2(t) dt = \int\limits_{-\infty}^{\infty} |\hat{f}(\omega)|^2 d\omega = 2\int\limits_{0}^{\infty} |\hat{f}(\omega)|^2
+\begin{equation*}
+\int\limits_{-\infty}^{\infty} f^2(t) dt = \int\limits_{-\infty}^{\infty} |\tilde{f}(\omega)|^2 d\omega = 2\int\limits_{0}^{\infty} |\tilde{f}(\omega)|^2
 d\omega
 \label{eq:energy_relation}
-\end{equation}
+\end{equation*}
 
 %% --------------------------------------------------------
 \subsection*{Енергетичні співвідношення}
@@ -85,94 +85,95 @@ d\omega
 Повна енергія, що проходить через поверхню, що оточує об’єм \( \Omega \) за весь час випромінювання:
 
 \begin{multline*}
-\mathcal{E} = \int\limits_{-\infty}^{\infty} \oint\limits_{\Omega} \Pi dS dt = \frac{c}{4\pi} \oint\limits_{\Omega} \int\limits_{-\infty}^{\infty}
-\left[ \Efield \times \Bfield \right] dtdS = \\
-= \frac{c}{4\pi} \oint\limits_{\Omega} dS \left[ \int\limits_{-\infty}^{\infty} \Efield(\omega) \times \Bfield^{*}(\omega) \right] d\omega
+\mathcal{E} = \int\limits_{-\infty}^{\infty} \oint\limits_{\Omega} \vect{\Pi} \cdot d\vect{S} dt = \frac{c}{4\pi} \oint\limits_{\Omega} \int\limits_{-\infty}^{\infty}
+\left[ \Efield \times \Bfield \right] \cdot dtd\vect{S} = \\
+= \frac{c}{4\pi} \oint\limits_{\Omega} d\vect{S} \cdot \int\limits_{-\infty}^{\infty} \left[ \tilde{\Efield}(\omega) \times \tilde{\Bfield}^{*}(\omega) \right] d\omega
 \end{multline*}
-де \( \Efield(\omega), \Bfield(\omega) \) --- спектральні характеристики дійсних полів \( \Efield(t), \Bfield(t) \).
+де \( \tilde{\Efield}(\omega), \tilde{\Bfield}(\omega) \) --- спектральні характеристики дійсних полів \( \Efield(t), \Bfield(t) \).
 
 Аналогічно \eqref{eq:conjugate_frequency}:
 
 \begin{equation*}
-\Efield(-\omega) = \Efield^{*}(\omega), \quad \Bfield(-\omega) = \Bfield^{*}(\omega).
+\tilde{\Efield}(-\omega) = \tilde{\Efield}^{*}(\omega), \quad \tilde{\Bfield}(-\omega) = \tilde{\Bfield}^{*}(\omega).
 \end{equation*}
 
 Тоді, розбиваючи інтеграл по \( d\omega \) на два додатки:
 
 \begin{equation*}
-\int\limits_{-\infty}^{\infty} d\omega \left\{ \ldots \right\} = \int\limits_{-\infty}^{\infty} d\omega \left\{ \ldots \right\} +
-\int\limits_{-\infty}^{\infty}
+\int\limits_{-\infty}^{\infty} d\omega \left\{ \ldots \right\} = \int\limits_{0}^{\infty} d\omega \left\{ \ldots \right\} +
+\int\limits_{-\infty}^{0}
 d\omega
 \left\{ \ldots \right\},
 \end{equation*}
 кожне з яких є комплексним спряженням іншого, аналогічно \eqref{eq:positive_frequencies}, маємо:
 
 \begin{equation}
-\mathcal{E} = \frac{c}{2\pi} \oint_{\Omega} dS \left[ \int\limits_{0}^{\infty} \Efield(\omega) \times \Bfield^{*}(\omega) \right] d\omega
+\mathcal{E} = \frac{c}{2\pi} \oint\limits_{\partial\Omega} d\vect{S} \cdot  \Re\int\limits_{0}^{\infty} \left[\tilde{\Efield}(\omega) \times \tilde{\Bfield}^{*}(\omega) \right] d\omega
 \label{eq:energy_positive_frequencies}
 \end{equation}
 де фігурують вже тільки додатні частоти.
 
 Якщо експериментальна техніка дає змогу виділяти внесок окремих інтервалів частот, доцільно ввести спектральну густину енергії випромінювання.
 
-\begin{equation}
-\frac{d\mathcal{E}}{d\omega} = \frac{c}{2\pi} \int dS \, \Re\left(\Efield(\omega) \times \Bfield^{*}(\omega)\right), \quad \omega > 0
+\begin{equation*}
+\frac{d\mathcal{E}}{d\omega} = \frac{c}{2\pi} \oint\limits_{\partial\Omega} d\vect{S} \cdot \Re\left[ \tilde{\Efield}(\omega) \times \tilde{\Bfield}^{*}(\omega)\right], \quad \omega > 0
 \label{eq:energy_density}
-\end{equation}
+\end{equation*}
 
 Тоді з \eqref{eq:energy_positive_frequencies}:
 
-\begin{equation}
-\mathcal{E} = \int \frac{d\mathcal{E}}{d\omega} d\omega
+\begin{equation*}
+\mathcal{E} = \int\limits_0^{\infty} \frac{d\mathcal{E}}{d\omega} d\omega
 \label{eq:total_energy_integral}
-\end{equation}
+\end{equation*}
 
 %% --------------------------------------------------------
 \subsection*{Комплексний формалізм та енергетичні співвідношення для монохроматичних полів}
 %% --------------------------------------------------------
 
-В попередніх співвідношеннях комплексні величини \(\Efield\), \(\Bfield\) --- це образи Фур’є відповідних дійсних полів. Доцільно розглядати також
+В попередніх співвідношеннях комплексні величини \(\tilde{\Efield}\), \(\tilde{\Bfield}\) --- це образи Фур’є відповідних дійсних полів. Доцільно розглядати також
 комплексні поля, які є розв’язками рівнянь Максвелла. Завдяки лінійності рівнянь, дійсні та уявні частини комплексних розв’язків також є розв’язками,
 але розрахунки з комплексними величинами часто є більш зручними. При розгляді ж спостережних величин або нелінійних (наприклад, енергетичних)
-співвідношень слід повернутися до дійсних частин розв’язків, які саме мають фізичний зміст.
+співвідношень слід повернутися до дійсних частин розв’язків, які мають фізичний зміст.
 
-Проілюструємо це на прикладі комплексних монохроматичних полів, тобто таких, що залежать від часу як \(\exp(-i\omega t)\), \(\omega \neq 0\). Нехай
-електричне та магнітне поля монохроматичними, тобто
+Проілюструємо це на прикладі комплексних монохроматичних полів, тобто таких, що залежать від часу як \(E^{-i\omega t}\), \(\omega \neq 0\). Нехай
+електричне та магнітне поля є монохроматичними, тобто
 
-\begin{equation}
+\begin{equation*}
 \Efield_{\text{real}}(t, \vect{r}) = \Efield'_0(\vect{r}) \cos(\omega t + \alpha), \quad \Bfield_{\text{real}}(t, \vect{r}) = \Bfield'_0(\vect{r})
 \cos(\omega t + \alpha)
 \label{eq:real_fields}
-\end{equation}
+\end{equation*}
 
 Ми зіставляємо їм комплексні поля
 
-\begin{equation}
+\begin{equation*}
 \Efield(t, \vect{r}) = \Efield_0(\vect{r}) e^{-i\alpha} \exp(-i\omega t), \quad \Bfield(t, \vect{r}) = \Bfield_0(\vect{r}) e^{-i\alpha}
 \exp(-i\omega t)
 \label{eq:complex_fields}
-\end{equation}
+\end{equation*}
 
 \begin{equation*}
 \Efield_0(\vect{r}) = \Efield'_0(\vect{r}) e^{-i\alpha}, \quad \Bfield_0(\vect{r}) = \Bfield'_0(\vect{r}) e^{-i\alpha},
 \end{equation*}
 дійсні частини яких збігаються з полями \(\Efield_{\text{real}}\), \(\Bfield_{\text{real}}\).
 
-Вектор Пойнгінга густини потоку енергії виражаємо, як звичайно, через дійсні частини полів:
+Вектор Пойнтінга густини потоку енергії виражаємо, як звичайно, через дійсні частини полів\footnote{%
+Дійсна частина комплексного числа $z$ є $\Re{(z)} = \frac{z + z^*}2$ (зірочка означає комплексне спряження).}:
 
 \begin{multline*}
-\vect{\Pi} = \frac{c}{4\pi} \left( \frac{\Efield + \Efield^{*}}{2} \times \frac{\Bfield + \Bfield^{*}}{2} \right) = \\
-= \frac{c}{8\pi} \left( \Efield \times \Bfield^{*} + \Efield^{*} \times \Bfield \right) + \frac{c}{16\pi} \left( \Efield \times \Bfield +
-\Efield^{*} \times \Bfield^{*} \right).
+\vect{\Pi} = \frac{c}{4\pi} \left[ \frac{\Efield + \Efield^{*}}{2} \times \frac{\Bfield + \Bfield^{*}}{2} \right] = \\
+= \frac{c}{8\pi} \left( \frac{[\Efield \times \Bfield^{*}]}2 + \frac{[\Efield^{*} \times \Bfield]}2 \right) + \frac{c}{16\pi} \left( [\Efield \times \Bfield] +
+[\Efield^{*} \times \Bfield^{*}] \right).
 \end{multline*}
 
-Складові другого доданку осцилюють як \(\exp(\pm 2i\omega t)\); їх середнє за часом дорівнює нулю. Усереднюючи за часом, маємо:
+Складові другого доданку осцилюють як \(e^{\pm 2i\omega t}\); їх середнє за часом дорівнює нулю. Усереднюючи за часом, маємо:
 
 \begin{equation}
-\langle \vect{\Pi} \rangle_t = \frac{c}{8\pi} \Re\left(\Efield \times \Bfield^{*}\right)
+\langle \vect{\Pi} \rangle_t = \frac{c}{8\pi} \Re\left[\Efield \times \Bfield^{*}\right]
 \label{eq:time_averaged_poynting}
 \end{equation}
-де символ \(\langle F(t) \rangle_t = \lim_{T \to \infty} \left\{ \frac{1}{T} \int\limits_{-T}^{T} F(t) dt \right\}\) означає усереднення за часом.
+де символ \(\langle F(t) \rangle_t = \lim\limits_{T \to \infty} \left\{ \frac{1}{T} \int\limits_{-T}^{T} F(t) dt \right\}\) означає усереднення за часом.
 Фактично,
 \eqref{eq:time_averaged_poynting} --- це вираз для середньої за часом густини потоку енергії через амплітуди монохроматичних електричного та магнітного
 полів.
@@ -184,10 +185,10 @@ d\omega
 \label{eq:energy_density_average}
 \end{equation}
 
-Зауважимо, що формули \eqref{eq:time_averaged_poynting}, \eqref{eq:energy_density_average} не змінять свого вигляду у разі суперпозиції монохроматичних
+Зауважимо, що формули \eqref{eq:time_averaged_poynting}, \eqref{eq:energy_density_average} не змінять свого вигляду у випадку суперпозиції монохроматичних
 хвиль з різними частотами. Це очевидно, коли врахувати, що \(\langle \exp[i(\omega_1 - \omega_2)t] \rangle_t = 0\), \(\omega_1 \neq \omega_2\).
 
-Розглянемо монохроматичні плоскі хвилі
+Розглянемо \emph{монохроматичні плоскі хвилі}:
 
 \begin{equation*}
 \Efield = \Efield_0 \exp[i(\vect{k} \cdot \vect{r} - \omega t)], \quad \Bfield = \Bfield_0 \exp[i(\vect{k} \cdot \vect{r} - \omega t)]
@@ -217,7 +218,7 @@ d\omega
 Завдяки умові поперечності маємо:
 
 \begin{equation*}
-k^2 = \frac{\omega^2}{c^2}
+\vect{k}^2 = \frac{\omega^2}{c^2}
 \label{eq:dispersion_relation}
 \end{equation*}
 --- зв’язок між хвильовим вектором та частотою, який називають дисперсійним рівнянням.
@@ -236,27 +237,24 @@ k^2 = \frac{\omega^2}{c^2}
 
 Монохроматичні плоскі хвилі є частковим видом плоских хвиль, що визначаються, як розв’язки рівнянь електродинаміки, параметри яких не
 змінюються при переміщеннях вздовж деякої площини --- фронту хвилі, нормаль до якої \(\vect{n}\) не змінюється з часом. Інакше, просторова залежність
-цих розв’язків зводиться до залежності від деякої змінної \((\vect{n} \cdot \vect{r})\), \(\vect{n}^2 = 1\). Тоді
+цих розв’язків зводиться до залежності від деякої змінної \(\zeta = (\vect{n} \cdot \vect{r})\), \(\vect{n}^2 = 1\). Тоді $\Efield = \Efield(\zeta, t)$, $\Bfield = \Bfield(\zeta, t)$.
 
-\begin{equation*}
-\Efield = \Efield(\vect{n} \cdot \vect{r}, t), \quad \Bfield = \Bfield(\vect{n} \cdot \vect{r}, t)
-\end{equation*}
 
 Підставляючи в рівняння Максвелла, маємо:
 
 \begin{equation}
-\Rot\Efield = \vect{n} \times \frac{\partial \Efield}{\partial (\vect{n} \cdot \vect{r})} = -\frac{1}{c} \frac{\partial \Bfield}{\partial t}
+\Rot\Efield = \vect{n} \times \frac{\partial \Efield}{\partial \zeta } = -\frac{1}{c} \frac{\partial \Bfield}{\partial t}
 \label{eq:maxwell_rotE}
 \end{equation}
 
 \begin{equation}
-\Rot\Bfield = \vect{n} \times \frac{\partial \Bfield}{\partial (\vect{n} \cdot \vect{r})} = \frac{1}{c} \frac{\partial \Efield}{\partial t}
+\Rot\Bfield = \vect{n} \times \frac{\partial \Bfield}{\partial\zeta} = \frac{1}{c} \frac{\partial \Efield}{\partial t}
 \label{eq:maxwell_rotB}
 \end{equation}
 
 \begin{equation}
-\Div\Efield = \vect{n} \cdot \frac{\partial \Efield}{\partial (\vect{n} \cdot \vect{r})} = 0, \quad \Div\Bfield = \vect{n} \cdot
-\frac{\partial \Bfield}{\partial (\vect{n} \cdot \vect{r})} = 0
+\Div\Efield = \vect{n} \cdot \frac{\partial \Efield}{\partial\zeta} = 0, \quad \Div\Bfield = \vect{n} \cdot
+\frac{\partial \Bfield}{\partial \zeta} = 0
 \label{eq:maxwell_div}
 \end{equation}
 
@@ -269,23 +267,23 @@ k^2 = \frac{\omega^2}{c^2}
 З \eqref{eq:maxwell_rotE}:
 
 \begin{equation*}
--\Rot\left( \frac{1}{c} \frac{\partial \Bfield}{\partial t} \right) = -\frac{1}{c^2} \frac{\partial^2 \Efield}{\partial t^2}
+-\Rot\left( \frac{1}{c} \frac{\partial \Bfield}{\partial t} \right) = -\frac{1}{c^2} \frac{\partial^2 \Efield}{\partial t^2},
 \end{equation*}
-
-Тобто:
+%
+тобто:
 
 \begin{equation}
 \nabla^2 \Efield = \frac{1}{c^2} \frac{\partial^2 \Efield}{\partial t^2}
 \label{eq:wave_equation_E}
 \end{equation}
 
-Підставляючи сюди вираз для плоских хвиль \(\Efield = \Efield(\vect{n} \cdot \vect{r}, t)\):
+Підставляючи сюди вираз для плоских хвиль \(\Efield = \Efield(\zeta, t)\):
 
 \begin{equation*}
-\frac{\partial^2 \Efield}{\partial (\vect{n} \cdot \vect{r})^2} = \frac{1}{c^2} \frac{\partial^2 \Efield}{\partial t^2}
+\frac{\partial^2 \Efield}{\partial\zeta^2} = \frac{1}{c^2} \frac{\partial^2 \Efield}{\partial t^2}
 \end{equation*}
 
-Заміна \(U = \vect{n} \cdot \vect{r} - ct\), \(V = \vect{n} \cdot \vect{r} + ct\) приводить до рівняння:
+Заміна \(U =\zeta - ct\), \(V =\zeta + ct\) приводить до рівняння:
 
 \begin{equation*}
 \frac{\partial^2 \Efield}{\partial U \partial V} = 0,
@@ -293,10 +291,10 @@ k^2 = \frac{\omega^2}{c^2}
 загальним розв’язком якого є \(\Efield = \vect{F}_1(U) + \vect{F}_2(V)\), де \(\vect{F}_1\) та \(\vect{F}_2\) --- довільні вектор-функції одної
 змінної. Розв’язок є суперпозицією двох хвиль, що рухаються в протилежних напрямках.
 
-Якщо \(\Efield = \Efield(\vect{n} \cdot \vect{r}, t)\), \(\Bfield = \Bfield(\vect{n} \cdot \vect{r}, t)\), з рівняння \eqref{eq:maxwell_rotE} маємо:
+Якщо \(\Efield = \Efield(\zeta, t)\), \(\Bfield = \Bfield(\zeta, t)\), з рівняння \eqref{eq:maxwell_rotE} маємо:
 
 \begin{equation*}
-\vect{n} \times \frac{\partial \Efield}{\partial (\vect{n} \cdot \vect{r})} = -\frac{1}{c} \frac{\partial \Bfield}{\partial t}
+\vect{n} \times \frac{\partial \Efield}{\partial \zeta} = \frac{\partial \Bfield}{\partial \zeta}
 \end{equation*}
 
 Якщо перед фронтом \(\Efield = \Bfield = 0\), звідси \(\Bfield = [\vect{n} \times \Efield]\), як і в плоскій монохроматичній хвилі.
@@ -325,6 +323,8 @@ k^2 = \frac{\omega^2}{c^2}
 ситуації.}. Цей підхід добре відомий з статистичної механіки. Його можна застосовувати також при обчисленні електричних та магнітних величин, що
 вимірюють за допомогою макроскопічних приладів.
 
+
+
 Розглянемо спочатку електромагнітне поле, для простоти не звертаючи уваги на ефекти, пов’язані з поляризацією. Тоді це поле можна описувати за допомогою
 скалярної функції \(\phi(t)\), що представляє, наприклад, одну з компонент електричного чи магнітного поля, маючи на увазі, що інші компоненти можна
 розглянути аналогічно. Будемо користуватися комплексним формалізмом (див.~\ref{sec:spectral}); нагадаємо, що при цьому в виразі для густини енергії
@@ -341,16 +341,16 @@ w(\phi_1, \phi_2, \dots, \phi_N; t_1, t_2, \dots, t_N)
 \begin{equation*}
 w(\phi_1, \phi_2, \dots, \phi_N; t_1 + \tau, t_2 + \tau, \dots, t_N + \tau)
 \end{equation*}
-
+%
 величин \(\phi(t_1 + \tau), \phi(t_2 + \tau), \dots, \phi(t_N + \tau)\) не залежить від часового зсуву \(\tau\). Знаючи розподіл ймовірностей значень
 поля для будь-яких часів \(\{t_1, t_2, \dots, t_N\}\), можна обчислювати середні від лінійних, квадратичних за полем величин тощо. Ці середні в цьому
 підрозділі ми позначаємо знаком \(\langle \dots \rangle\). З фізичної точки зору процедуру усереднення можна інтерпретувати, як обчислення
 середньоарифметичних величин за даними великої кількості експериментів-реалізацій. Така інтерпретація часто є цілком достатньою для проведення обчислень.
 
-Для стаціонарного процесу середнє \(\langle \phi(t) \rangle = \langle \phi \rangle\). При розгляді випадкових полів випромінювання вважають \(\langle
+Для стаціонарного процесу середнє \(\langle \phi(t) \rangle \equiv \langle \phi \rangle\). При розгляді випадкових полів випромінювання вважають \(\langle
 \phi \rangle = 0\).
 
-Важливою характеристикою випадкового процесу є кореляційна (автокореляційна) функція\footnote{У деяких підручниках у визначенні
+Важливою характеристикою випадкового процесу є кореляційна (автокореляційна) функція\refstepcounter{footnote}\footnote{У деяких підручниках у визначенні
 \eqref{eq:autocorrelation} від правої частини віднімають \(\langle \phi(t) \rangle \langle \phi^{*}(t + \tau) \rangle\).}:
 
 \begin{equation}
@@ -368,36 +368,33 @@ A(-\tau) = \langle \phi^{*}(t) \phi(t - \tau) \rangle = \langle \phi^{*}(t + \ta
 Розглянемо формально перетворення Фур'є випадкової функції:
 
 \begin{equation*}
-\Phi(\omega) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{\infty} dt \, e^{i\omega t} \phi(t)
+\tilde\phi(\omega) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{\infty} dt \, e^{i\omega t} \phi(t)
 \end{equation*}
 
 Щоб надати змісту цьому невласному інтегралу в разі стаціонарного випадкового процесу, для кожної реалізації можна розглядати вираз:
 
 \begin{equation*}
-\Phi_T(\omega) = \frac{1}{\sqrt{2\pi}} \int\limits_{-T}^{T} dt \, e^{i\omega t} \phi(t)
+\tilde\phi_T(\omega) = \frac{1}{\sqrt{2\pi}} \int\limits_{-T}^{T} dt \, e^{i\omega t} \phi(t)
 \end{equation*}
 
 Обчислимо для стаціонарного процесу:
 
-\begin{equation*}
-\langle \Phi(\omega) \Phi^{*}(\omega') \rangle = \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} dt \, e^{i(\omega - \omega')t}
-\int\limits_{-\infty}^{\infty} dt' \,
-e^{i\omega(t - t')} \langle \phi^{*}(t') \phi(t) \rangle
-\end{equation*}
-
-\begin{equation*}
-= \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} dt \, e^{i(\omega - \omega')t} \int\limits_{-\infty}^{\infty} dt' \, e^{i\omega(t - t')} A(t - t')
-\end{equation*}
+\begin{multline*}
+\langle \tilde\phi(\omega) \tilde\phi^{*}(\omega') \rangle = \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} dt' \, e^{i(\omega - \omega')t'}
+\int\limits_{-\infty}^{\infty} dt \,
+e^{i\omega(t - t')} \langle \phi^{*}(t') \phi(t) \rangle =\\
+= \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} dt' \, e^{i(\omega - \omega')t'} \int\limits_{-\infty}^{\infty} dt \, e^{i\omega(t - t')} A(t - t')
+\end{multline*}
 
 Користуючись відомим співвідношенням:
 
 \begin{equation*}
-\lim_{T \to \infty} \int\limits_{-T}^{T} dt \, e^{i(\omega - \omega')t} = 2\pi \delta(\omega - \omega')
+\lim_{T \to \infty} \int\limits_{-T}^{T} dt' \, e^{i(\omega - \omega')t'} = 2\pi \delta(\omega - \omega')
 \end{equation*}
 дістанемо:
 
 \begin{equation}
-\langle \Phi(\omega) \Phi^{*}(\omega') \rangle = \delta(\omega - \omega') S(\omega)
+\langle \tilde\phi(\omega) \tilde\phi^{*}(\omega') \rangle = \delta(\omega - \omega') S(\omega)
 \label{eq:spectral_density}
 \end{equation}
 де
@@ -408,7 +405,7 @@ S(\omega) = \int\limits_{-\infty}^{\infty} d\tau \, e^{i\omega \tau} A(\tau)
 називають спектральною густиною (чи спектром потужності) випадкового процесу. Очевидно
 
 \begin{equation*}
-A(\tau) = \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} d\omega \, e^{-i\omega \tau} S(\omega)
+A(\tau) = \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} d\omega \, e^{-i\omega \tau} S(\omega).
 \end{equation*}
 
 %% --------------------------------------------------------
@@ -418,7 +415,7 @@ A(\tau) = \frac{1}{2\pi} \int\limits_{-\infty}^{\infty} d\omega \, e^{-i\omega \
 Для суперпозиції двох хвильових полів \(\phi_1\) та \(\phi_2\) сумарна інтенсивність визначається квадратичною величиною:
 
 \begin{equation*}
-I = |\phi_1 + \phi_2|^2 = |\phi_1|^2 + |\phi_2|^2 + 2 \Re(\phi_1 \phi_2^{*})
+I = |\phi_1 + \phi_2|^2 = |\phi_1|^2 + |\phi_2|^2 + 2 \Re(\phi_1 \phi_2^{*}),
 \end{equation*}
 %
 а для середніх:
@@ -427,36 +424,29 @@ I = |\phi_1 + \phi_2|^2 = |\phi_1|^2 + |\phi_2|^2 + 2 \Re(\phi_1 \phi_2^{*})
 \langle I \rangle = \langle I_1 \rangle + \langle I_2 \rangle + 2 \Re \langle \phi_1 \phi_2^{*} \rangle
 \label{eq:intensity}
 \end{equation}
-
+%
 де \( I_i = \langle |\phi_i|^2 \rangle \) --- інтенсивності окремих полів, \( i = 1, 2 \).
 
 Розглянемо дві протилежних ситуації --- повної когерентності та некогерентності двох полів.
 
-%% --------------------------------------------------------
-\subsection*{Повна когерентність}
-%% --------------------------------------------------------
-
-Суперпозиція двох полів, що пов’язані умовою:
+\begin{enumerate}
+\item \emph{Суперпозиція двох полів, що пов’язані умовою}:
 
 \begin{equation*}
-\phi_2 = \alpha \phi_1 = |\alpha| \phi_1 e^{i\delta}, \quad \text{де } \delta = \text{Arg} \alpha.
+\phi_2 = \alpha \phi_1 = |\alpha| \phi_1 e^{i\delta}, \quad \text{де } \delta = \text{Arg}(\alpha).
 \end{equation*}
 
-В цьому разі:
+В цьому випадку:
 
 \begin{equation*}
 \langle \phi_1 \phi_2^{*} \rangle = \phi_1 \phi_2^{*} = 2\sqrt{I_1 I_2} \cos \delta
 \end{equation*}
 
-Умова зв’язку між \(\phi_1\) та \(\phi_2\) є випадком ідеальної корельованості, або когерентності цих полів. Такі поля можна отримати при розділенні
+Умова зв’язку між \(\phi_1\) та \(\phi_2\) є випадком ідеальної корельованості, або \emph{когерентності} цих полів. Такі поля можна отримати при розділенні
 світлового пучка в інтерферометрі, або, наприклад, у разі двох монохроматичних радіо-джерел, що мають однакову частоту.
 
 
-%% --------------------------------------------------------
-\subsection*{Некогерентність}
-%% --------------------------------------------------------
-
-Суперпозиція двох незалежних полів, генерованих двома незалежними випадковими випромінювачами:
+\item Суперпозиція двох незалежних полів, генерованих двома незалежними випадковими випромінювачами:
 
 \begin{equation*}
 \langle \phi_1 \phi_2^{*} \rangle = \langle \phi_1 \rangle \langle \phi_2^{*} \rangle
@@ -474,14 +464,13 @@ I = |\phi_1 + \phi_2|^2 = |\phi_1|^2 + |\phi_2|^2 + 2 \Re(\phi_1 \phi_2^{*})
 I = I_1 + I_2.
 \end{equation*}
 
-Випромінювання двох різних природних джерел світла є некогерентним.
+\emph{Випромінювання двох різних природних джерел світла є некогерентним}.
 
-%% --------------------------------------------------------
-\subsection*{Функція взаємної когерентності}
-%% --------------------------------------------------------
+\end{enumerate}
 
-Величину \(I' = \langle \phi_1 \phi_2^{*} \rangle\), яку можна вимірювати за допомогою радіофізичних та оптичних пристроїв, називають функцією взаємної
-когерентності. Тут \(\phi_1\) та \(\phi_2\) можуть бути двома різними полями, або значеннями одного й того ж поля у різних точках:
+Величину \(\Gamma = \langle \phi_1 \phi_2^{*} \rangle\), яку можна вимірювати за допомогою радіофізичних та оптичних пристроїв, називають \emph{функцією взаємної
+когерентності}\index{Функція взаємної
+когерентності}. Тут \(\phi_1\) та \(\phi_2\) можуть бути двома різними полями, або значеннями одного й того ж поля у різних точках:
 
 \begin{equation*}
 \phi_1 = \phi(t_1, \vect{r}_1), \quad \phi_2 = \phi(t_2, \vect{r}_2)
@@ -490,18 +479,23 @@ I = I_1 + I_2.
 Величину
 
 \begin{equation*}
-\gamma = \frac{\langle \phi_1 \phi_2^{*} \rangle}{|\phi_1||\phi_2|}, \quad \text{де } |\phi_i| \equiv \sqrt{\langle \phi_i \phi_i^{*} \rangle}, \quad i
+\gamma = \frac{\langle \phi_1 \phi_2^{*} \rangle}{|\phi_1\|\phi_2|}, \quad \text{де } |\phi_i| \equiv \sqrt{\langle \phi_i \phi_i^{*} \rangle}, \quad i
 = 1, 2,
 \end{equation*}
 %
-називають степінню взаємної когерентності. Саме ця величина визначає контрастність смуг в інтерференційній картині від двох пучків світла.
+називають \emph{ступенем взаємної когерентності}\index{ступеінь взаємної когерентності}. Саме ця величина визначає контрастність смуг в інтерференційній картині від двох пучків світла.
 
 Оскільки, за нерівністю Коші-Буняковського\footnote{Для будь-якого комплексного \(\lambda\) величина \(Z = \langle (\phi + \lambda \psi)(\phi^{*} +
 \lambda^{*} \psi^{*}) \rangle\) --- невід’ємна. Покладемо \(\lambda = -\langle \psi \phi^{*} \rangle / \langle |\psi|^2 \rangle\), тоді \(Z = \langle
 |\phi|^2 \rangle - |\langle \psi \phi^{*} \rangle|^2 / \langle |\psi|^2 \rangle\), звідки й випливає потрібне.}, \(|\langle \phi_1 \phi_2^{*} \rangle|
-\leq |\phi_1||\phi_2|\), маємо \(|\gamma| \leq 1\).
+\leqslant |\phi_1\|\phi_2|\), маємо \(|\gamma| \leqslant 1\).
 
-\subsection*{Поляризація}
+
+
+%% --------------------------------------------------------
+\subsection*{Поляризація випромінювання}
+%% --------------------------------------------------------
+
 
 При розгляді поляризації треба зважати на векторну природу польових функцій, зокрема, напруженості електричного поля. Зауважимо, що для фіксованого
 напрямку випромінювання досить розглядати лише електричне поле; воно визначає також і вектор напруженості магнітного поля.
@@ -515,64 +509,67 @@ I = I_1 + I_2.
 \label{eq:polarization_tensor}
 \end{equation}
 
-Очевидно, матриця \(\rho\) є ермітовою, а її шпур дорівнює одиниці:
+Очевидно, матриця \( \|\rho\|\) є ермітовою, а її шпур (слід) дорівнює одиниці:
 
-\begin{equation*}
+\begin{equation}\label{eq:hermitian}
 \rho_{ji} = \rho_{ij}^{*}, \quad \rho_{11} + \rho_{22} = 1
-\end{equation*}
+\end{equation}
 
 Для цілком поляризованого випромінювання маємо \(E_i = N_i f(t)\), де \(f\) може бути випадковою функцією, але вектор \(N_i\), що визначає напрямок
-поля, є фіксованим. В цьому разі \(\rho_{ij}\) пропорційне \(N_i N_j^{*}\) і:
+поля, є фіксованим. В цьому випадку \(\rho_{ij}\) пропорційне \(N_i N_j^{*}\) і:
 
-\begin{equation*}
-\det \rho = 0
-\end{equation*}
+\begin{equation}
+\det \|\rho\| = 0
+\end{equation}
 
-У разі природного світла присутні усі можливі поляризації, що є рівноправними, причому \(\langle E_1 E_2^{*} \rangle = 0\), \(\langle |E_1|^2 \rangle =
+У випадку природного світла присутні усі можливі поляризації, що є рівноправними, причому \(\langle E_1 E_2^{*} \rangle = 0\), \(\langle |E_1|^2 \rangle =
 \langle |E_2|^2 \rangle\). В цьому разі:
 
 \begin{equation*}
 \rho_{ij} = \frac{1}{2} \delta_{ij}
 \end{equation*}
 
-В загальному випадку визначник матриці \(\rho\) є:
+В загальному випадку визначник матриці \(\|\rho\|\) є:
 
 \begin{equation*}
-\det \rho = \rho_{11} \rho_{22} - |\rho_{12}|^2 = \frac{\langle |E_1|^2 \rangle \langle |E_2|^2 \rangle - |\langle E_1 E_2^{*} \rangle|^2}{\left(
-\langle |E_1|^2 \rangle + \langle |E_2|^2 \rangle \right)^2}
+\det \|\rho\| = \rho_{11} \rho_{22} - |\rho_{12}|^2 = \frac{\langle |E_1|^2 \rangle \langle |E_2|^2 \rangle - |\langle E_1 E_2^{*} \rangle|^2}{
+\langle |E_1|^2 \rangle + \langle |E_2|^2 \rangle}
 \end{equation*}
 
-Оскільки \(|\langle E_1 E_2^{*} \rangle|^2 \leq \langle |E_1|^2 \rangle \langle |E_2|^2 \rangle\), цей визначник додатний:
+Оскільки \(|\langle E_1 E_2^{*} \rangle|^2 \leqslant  \langle |E_1|^2 \rangle \langle |E_2|^2 \rangle\), цей визначник додатний:
 
 \begin{equation*}
-\det \rho \geq 0
+\det \|\rho\| \geqslant 0
 \end{equation*}
 
 З іншого боку, очевидно:
 
 \begin{equation*}
-\det \rho \leq \frac{1}{4}
+\det \|\rho\| \leqslant
+\frac{\langle |E_1|^2 \rangle \, \langle |E_2|^2 \rangle}
+{\left(\langle |E_1|^2 \rangle + \langle |E_2|^2 \rangle\right)^2}
+\leqslant \frac{1}{4}
 \end{equation*}
 
-Оскільки область значень \(\det \rho\) є відрізком \([0, 1/4]\), можна записати:
+Оскільки область значень \(\det \|\rho\| \) є відрізком \([0, 1/4]\), можна записати:
 
 \begin{equation}
-\det \rho = \frac{1}{4} \left( 1 - p^2 \right), \quad 0 \leq p \leq 1
+\det \|\rho\| = \frac{1}{4} \left( 1 - p^2 \right),\quad  \text{де}\  0 \leqslant  p \leqslant 1
 \label{eq:polarization_degree}
 \end{equation}
 %
-де параметр \(p\) називають ступінню поляризації; він приймає значення від 0 (неполяризоване світло) до 1.
+де параметр \(p\) називають \emph{ступінню поляризації}\index{Ступінь поляризації}; він приймає значення від 0 (неполяризоване світло) до 1.
 
-Завдяки властивості ермітовості, власні числа \(\lambda_1, \lambda_2\) матриці \(\rho_{ij}\) є дійсними, причому \(\det \rho = \lambda_1 \lambda_2\),
+Завдяки властивості~\eqref{eq:hermitian} (ермітовості), власні числа \(\lambda_1, \lambda_2\) матриці \(\rho_{ij}\) є дійсними, причому \(\det \|\rho\| = \lambda_1 \lambda_2\),
 \(\lambda_1 + \lambda_2 = 1\). Зважаючи на \eqref{eq:polarization_degree}, добуток власних чисел додатний, тобто вони мають один знак. Звідси легко
-бачити, що ці числа є додатними. Величину \(\lambda_{\min}/\lambda_{\max}\) називають коефіцієнтом деполяризації.
+бачити, що ці числа є додатними. Якщо матриця $\|\rho \|$ --- дійсна, її можна привести до діагонального виду  $\| \rho \| = \mathrm{diag}(\lambda_{\min}, \lambda_{\max})$ за допомогою просторових поворотів. Частку \(\lambda_{\min}/\lambda_{\max}\) називають \emph{коефіцієнтом деполяризації}\index{Коефіцієнт деполяризації}.
 
 %% --------------------------------------------------------
 \subsection*{Параметри Стокса}
 %% --------------------------------------------------------
 
 Виходячи з властивостей тензора поляризації, поданих формулою \eqref{eq:polarization_tensor}, його компоненти \(\rho_{ij}\) можна виразити через три
-незалежні дійсні параметри Стокса \(\xi_1, \xi_2, \xi_3\), які приймають значення від -1 до 1:
+незалежні дійсні \emph{параметри Стокса}\index{Параметри Стокса} \(\xi_1, \xi_2, \xi_3\), які приймають значення від -1 до 1:
 
 \begin{equation*}
 \rho_{11} = \frac{1}{2} \left( 1 + \xi_3 \right), \quad \rho_{22} = \frac{1}{2} \left( 1 - \xi_3 \right), \quad \rho_{12} = \frac{1}{2} \left( \xi_1 -
@@ -582,11 +579,11 @@ i\xi_2 \right) = \rho_{21}^{*}
 Очевидно:
 
 \begin{equation*}
-\det \rho = \frac{1}{4} \left( 1 - \xi_1^2 - \xi_2^2 - \xi_3^2 \right)
+\det \|\rho\| = \frac{1}{4} \left( 1 - \xi_1^2 - \xi_2^2 - \xi_3^2 \right)
 \end{equation*}
 
 \begin{equation*}
-P = \xi_1^2 + \xi_2^2 + \xi_3^2, \quad 0 \leq \xi_1^2 + \xi_2^2 + \xi_3^2 \leq 1
+p = \xi_1^2 + \xi_2^2 + \xi_3^2, \quad 0 \leqslant \xi_1^2 + \xi_2^2 + \xi_3^2 \leqslant 1
 \end{equation*}
 
 Розглянемо стани поляризації для деяких полів, що відповідають різним параметрам Стокса.
@@ -607,13 +604,13 @@ P = \xi_1^2 + \xi_2^2 + \xi_3^2, \quad 0 \leq \xi_1^2 + \xi_2^2 + \xi_3^2 \leq 1
 
 
 
-\item  Кутова поляризація \(E_1 = A e^{-i\omega t}, \quad E_2 = \pm i E_1\).
+\item  Колова поляризація \(E_1 = A e^{-i\omega t}, \quad E_2 = \pm i E_1\).
 
 Як видно з поведінки дійсних частин компонент, вектор \(\Efield\) обертається в площині \(X_1 -
 X_2\). Маємо:
 
 \begin{equation*}
-\rho_{11} = \frac{1}{2}, \quad \rho_{22} = \frac{1}{2}, \quad \rho_{12} = \mp \frac{i}{2}
+\rho_{11} = \frac{1}{2}, \quad \rho_{22} = \frac{1}{2}, \quad \rho_{12} = \mp i
 \end{equation*}
 
 Звідси:
@@ -651,16 +648,16 @@ X_2\). Маємо:
 Міркування цього розділу застосовні до будь-яких процесів, що можна аналізувати за допомогою перетворення Фур’є, зокрема, до хвильових пакетів, які є
 суперпозицією плоских хвиль з різними частотами.
 
-Нехай маємо деякий процес, що можна описати за допомогою функції (взагалі кажучи, комплексної) від дійсної змінної \( t \):
+Нехай маємо деякий процес, що можна описати за допомогою функції (взагалі кажучи, комплексної) від дійсної змінної \( t \), причому для цієї функції існує перетворення Фур’є:
 
 \begin{equation*}
-\phi(t) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot e^{-i\omega t} \phi(\omega)
+\phi(t) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot e^{-i\omega t} \tilde\phi(\omega)
 \end{equation*}
 
-Вважатимемо, що \( |\phi(t)| \) та \( |\phi(\omega)| \) досить швидко спадають, якщо відповідно \( |t| \to \infty \) та \( |\omega| \to \infty \).
+Вважатимемо, що \( |\phi(t)| \) та \( |\phi(\omega)| \) досить швидко спадають, якщо відповідно \( |t| \to \infty \) та \( |\omega| \to \infty \). Також вважаємо, що середнє за ансамблем\footnote{Як і раніше, середні за ансамблем позначаємо $\langle\ldots\rangle$ (без індексу), на відміну, наприклад, від $\langle\ldots\rangle_{\phi}$. } від зазначеного поля дорівнює нулю $\langle \phi(t) \rangle = 0 $,  $\langle \tilde\phi(t) \rangle = 0 $.
 
-Введемо величини, що характеризують тривалість процесу, що відповідає функції \( \phi(t) \), та ширину його спектру відповідно до \( \phi(\omega) \).
-Середні значення в \( t \)-просторі обчислюватимемо з вагою \( |\phi(t)|^2 \), а в \( \omega \)-просторі --- з вагою \( |\phi(\omega)|^2 \), причому, не
+Введемо величини, що характеризують тривалість процесу, що відповідає функції \( \phi(t) \), та ширину його спектру відповідно до \( \tilde\phi(\omega) \).
+Середні значення фізичних величин, що відповідають для окремої реалізації обчислюватимемо з вагою \( |\phi(t)|^2 \) в $t$-просторі, а в \( \omega \)-просторі --- з вагою \( |\tilde\phi(\omega)|^2 \), причому, не
 зменшуючи загальності, приймемо умову нормування:
 
 \begin{equation*}
@@ -670,21 +667,27 @@ X_2\). Маємо:
 Звідси, за рівністю Парсеваля, в \( \omega \)-просторі також:
 
 \begin{equation*}
-\int d\omega \cdot |\phi(\omega)|^2 = 1
+\int d\omega \cdot |\tilde\phi(\omega)|^2 = 1
 \end{equation*}
 
-Відповідно, середнє значення деякої величини \( F(t) \) у \( t \)-просторі буде:
+Відповідно, введемо (за означенням) середнє значення деякої величини \( F(t) \) у \( t \)-просторі для реалізації $\phi$, яке позначимо:
 
 \begin{equation*}
 \langle F \rangle_{\phi} = \int dt \cdot F(t) |\phi(t)|^2,
 \end{equation*}
-а для \( F(\omega) \) в \( \omega \)-просторі:
+а для \( \tilde{F}(\omega) \) в \( \omega \)-просторі:
 
 \begin{equation*}
-\langle F \rangle_{\phi} = \int d\omega \cdot F(\omega) |\phi(\omega)|^2
+\langle \tilde{F} \rangle_{\phi} = \int d\omega \cdot \tilde{F}(\omega) |\phi(\omega)|^2.
 \end{equation*}
 
-Виберемо відлік часу таким чином, щоби:
+Очевидно, усі ці співвідношення зберігаються при усередненні за ансамблем :
+\begin{equation*}
+    \langle F \rangle = \int dt \cdot F(t) |\phi(t)|^2,\ \langle \tilde{F} \rangle = \int d\omega \cdot \tilde{F}(\omega) |\phi(\omega)|^2.
+\end{equation*}
+
+
+Виберемо відлік часу таким чином, щоб:
 
 \begin{equation*}
 \int dt \cdot t |\phi(t)|^2 = 0
@@ -693,78 +696,100 @@ X_2\). Маємо:
 Тоді тривалість процесу \( \phi(t) \) можна описати середньоквадратичним значенням:
 
 \begin{equation}
-\langle \Delta t^2 \rangle_{\phi} = \int dt \cdot t^2 |\phi(t)|^2
+\langle \Delta t^2 \rangle_{\phi} = \int dt \cdot t^2 \langle |\phi(t)|^2 \rangle
 \label{eq:time_duration}
 \end{equation}
 
 Відповідно, в \( \omega \)-просторі середнє значення частоти є:
 
 \begin{equation*}
-\omega_a = \langle \omega \rangle_{\phi} = \int d\omega \cdot \omega |\phi(\omega)|^2,
+\omega_a = \langle \omega \rangle = \int d\omega \cdot \omega \langle |\tilde\phi(\omega)|^2 \rangle,
 \end{equation*}
 а ширину спектру частот можна описати величиною:
 
 \begin{equation}
-\langle \Delta \omega^2 \rangle_{\phi} = \langle (\omega - \omega_a)^2 \rangle_{\phi} = \int d\omega \cdot (\omega - \omega_a)^2 |\phi(\omega)|^2
+\langle \Delta \omega^2 \rangle = \langle (\omega - \omega_a)^2 \rangle = \int d\omega \cdot (\omega - \omega_a)^2 \langle |\tilde\phi(\omega)|^2 \rangle
 \label{eq:frequency_width}
 \end{equation}
 
-Покажемо, що існує спільне обмеження на ці величини. Для цього перепишемо \eqref{eq:time_duration} через перетворення Фур’є.
+Покажемо, що існує спільне обмеження на величини $\langle \Delta \omega^2 \rangle$ та $\langle \Delta t^2 \rangle$. Для цього перепишемо \eqref{eq:time_duration} через перетворення Фур’є.
 
 Маємо:
 
 \begin{equation*}
-t \phi(t) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot i \frac{d e^{-i\omega t}}{d\omega} \phi(\omega) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot
-e^{-i\omega t} \left[ -i \frac{d\phi}{d\omega} \right],
+t \phi(t) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot i \frac{d e^{-i\omega t}}{d\omega} \tilde\phi(\omega) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot
+e^{-i\omega t} \left[ -i \frac{d\tilde\phi}{d\omega} \right],
 \end{equation*}
 тобто помноження на \( t \) індукує диференціювання у просторі частот. Тоді формулу \eqref{eq:time_duration} можна переписати так:
 
 \begin{equation}
-\langle \Delta t^2 \rangle_{\phi} = \int dt \cdot |t \phi(t)|^2 = \int d\omega \left| \frac{d\phi}{d\omega} \right|^2
+\langle \Delta t^2 \rangle =
+%
+\left\langle \int dt \cdot t |\phi(t)|^2 \right\rangle =
+%
+\left\langle
+\int d\omega
+\left|
+\frac{d\tilde\phi}{d\omega}
+\right|^2
+\right\rangle
+=
+%
+ \int d\omega
+\left\langle
+\left| \frac{d\tilde{\phi}}{d\omega} \right|^2
+\right\rangle
+%
 \label{eq:time_duration_fourier}
 \end{equation}
-
+%
 де застосовано рівність Парсеваля.
 
 Для будь-якого дійсного \( x \):
 
 \begin{equation*}
-0 \leq \int d\omega \left| x \frac{d\phi}{d\omega} + (\omega - \omega_a) \phi \right|^2 \equiv \int d\omega \left| x \frac{d\phi}{d\omega} + (\omega -
-\omega_a) \phi \right| \left[ x \frac{d\phi^{*}}{d\omega} + (\omega - \omega_a) \phi^{*} \right].
+0 \leqslant \int d\omega \left| x \frac{d\tilde\phi}{d\omega} + (\omega - \omega_a) \tilde\phi \right|^2
+\equiv
+\int d\omega \left( x \frac{d\tilde\phi}{d\omega} + (\omega -
+\omega_a) \tilde\phi \right) \left( x \frac{d\tilde\phi^{*}}{d\omega} + (\omega - \omega_a) \tilde\phi^{*} \right).
 \end{equation*}
 
-Звідси, за допомогою \eqref{eq:frequency_width} та \eqref{eq:time_duration_fourier}, маємо:
+Звідси, після застосування усереднення за ансамблем, за допомогою \eqref{eq:frequency_width} та \eqref{eq:time_duration_fourier}, маємо:
 
 \begin{equation*}
-0 \leq x^2 \langle \Delta t^2 \rangle_{\phi} + \langle \Delta \omega^2 \rangle_{\phi} + x \int d\omega (\omega - \omega_a) \left[ \frac{d\phi}{d\omega}
-\phi^{*} + \frac{d\phi^{*}}{d\omega} \phi \right].
+0 \leqslant  x^2 \langle \Delta t^2 \rangle
++
+\langle \Delta \omega^2 \rangle
++
+\left\langle x \int d\omega (\omega - \omega_a) \left[ \frac{d\tilde\phi}{d\omega}
+\tilde\phi^{*} + \frac{d\tilde\phi^{*}}{d\omega} \tilde\phi \right] \right\rangle.
 \end{equation*}
 
 Вираз у квадратних дужках в останньому доданку є повною похідною, тому інтеграл у правій частині нерівності перетворимо так:
 
 \begin{equation*}
-\int d\omega (\omega - \omega_a) \frac{d}{d\omega} (\phi \phi^{*}) = -\int d\omega |\phi|^2 \frac{d}{d\omega} (\omega - \omega_a) = -1.
+\int d\omega (\omega - \omega_a) \frac{d}{d\omega} (\tilde\phi \tilde\phi^{*}) = -\int d\omega |\tilde\phi|^2 \frac{d}{d\omega} (\omega - \omega_a) = - \int d\omega \left| \tilde\phi\right|^2 =  -1.
 \end{equation*}
 
 Таким чином:
 
 \begin{equation*}
-x^2 \langle \Delta t^2 \rangle_{\phi} + \langle \Delta \omega^2 \rangle_{\phi} - x \geq 0.
+x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 \end{equation*}
 
 Це співвідношення має виконуватися для будь-яких \( x \), тому дискримінант квадратного тричлена має бути від’ємний. Звідси маємо нерівність:
 
 \begin{equation}
-\langle \Delta t^2 \rangle_{\phi} \langle \Delta \omega^2 \rangle_{\phi} \geq \frac{1}{4},
+\langle \Delta t^2 \rangle \langle \Delta \omega^2 \rangle \geqslant\frac{1}{4},
 \label{eq:uncertainty_relation}
 \end{equation}
-яку називають співвідношенням невизначеностей.
+яку називають \emph{співвідношенням невизначеностей}\index{Співвідношення невизначеностей}.
 
-Зауважимо, що в квантовій механіці це дає зв’язок між тривалістю процесу та невизначеністю енергії.
+Зауважимо, що в квантовій механіці це дає зв’язок між тривалістю процесу та невизначеністю енергії. Зрозуміло, що усі міркування і співвідношення \eqref{eq:uncertainty_relation}  можна застосовувати і до невипадкового процесу, що представлений однією реалізацією.
 
 З \eqref{eq:uncertainty_relation} випливає, що сигнал, що близький до монохроматичного, тобто такий, що має малий розкид частот, має бути досить
 тривалим. Навпаки, короткочасний імпульсний сигнал має широкий спектр частот. Нерівність, аналогічну \eqref{eq:uncertainty_relation}, можна отримати для
-довжини хвильового пакету та ширини інтервалу хвильових векторів у певному напрямі. Квантовий відповідник --- співвідношення невизначеностей для
+довжини хвильового пакету та ширини інтервалу хвильових векторів у певному напрямі. Квантовий відповідник  \eqref{eq:uncertainty_relation} --- співвідношення невизначеностей для
 імпульсу та координати.
 
 %% --------------------------------------------------------
