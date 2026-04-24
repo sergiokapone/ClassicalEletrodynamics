@@ -642,7 +642,7 @@ X_2\). Маємо:
 \end{itemize}
 
 %% --------------------------------------------------------
-\section{Співвідношення невизначеностей}
+\section{Співвідношення невизначеностей}\label{sec:uncert_principle}
 %% --------------------------------------------------------
 
 Міркування цього розділу застосовні до будь-яких процесів, що можна аналізувати за допомогою перетворення Фур’є, зокрема, до хвильових пакетів, які є
@@ -831,14 +831,14 @@ x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 Шукатимемо розв’язок рівняння \eqref{eq:wave_equation_A} в усьому просторі за допомогою просторового перетворення Фур’є:
 
 \begin{equation}
-\vect{A}_{\vect{k}}(t) = \frac{1}{(2\pi)^{3/2}} \int d^3r \cdot e^{-i\vect{k} \cdot \vect{r}} \vect{A}(t, \vect{r})
+\vect{A}_{\vect{k}}(t) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{r} \cdot e^{-i\vect{k} \cdot \vect{r}} \vect{A}(t, \vect{r})
 \label{eq:fourier_transform_A}
 \end{equation}
 
 Обернене перетворення:
 
 \begin{equation}
-\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \cdot e^{i\vect{k} \cdot \vect{r}} \vect{A}_{\vect{k}}(t)
+\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \cdot e^{i\vect{k} \cdot \vect{r}} \vect{A}_{\vect{k}}(t)
 \label{eq:inverse_fourier_transform_A}
 \end{equation}
 дозволяє знайти напруженості електромагнітного поля за формулами \eqref{eq:potB} та \eqref{eq:potE} за відомим \(\vect{A}_{\vect{k}}(t)\).
@@ -846,10 +846,10 @@ x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 Дія оператора Лапласа:
 
 \begin{equation*}
-\nabla^2 \vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \, \nabla^2 \left( e^{i\vect{k} \cdot \vect{r}} \right) \vect{A}_{\vect{k}}(t) =
-\frac{1}{(2\pi)^{3/2}} \int d^3k \, e^{i\vect{k} \cdot \vect{r}} (-k^2) \vect{A}_{\vect{k}}(t)
+\nabla^2 \vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, \nabla^2 \left( e^{i\vect{k} \cdot \vect{r}} \right) \vect{A}_{\vect{k}}(t) =
+\frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, e^{i\vect{k} \cdot \vect{r}} (-k^2) \vect{A}_{\vect{k}}(t)
 \end{equation*}
-індукує домноження Фур’є-образу на \((-k^2)\). Тому з рівняння \eqref{eq:wave_equation_A} дістаємо:
+індукує домноження Фур’є-образу на \((-\vect{k}^2)\). Тому з рівняння \eqref{eq:wave_equation_A} дістаємо:
 
 \begin{equation}
 \frac{\partial^2 \vect{A}_{\vect{k}}(t)}{\partial t^2} + \omega_{\vect{k}}^2 \vect{A}_{\vect{k}}(t) = 0
@@ -879,64 +879,70 @@ x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 Звідси розв’язок хвильового рівняння \eqref{eq:wave_equation_A} має вигляд:
 
 \begin{equation}
-\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \, \left\{ \vect{C}_1(\vect{k}) e^{i\omega_{\vect{k}} t} + \vect{C}_2(\vect{k})
-e^{-i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}}
+\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, \left( \vect{C}_1(\vect{k}) e^{i\omega_{\vect{k}} t} + \vect{C}_2(\vect{k})
+e^{-i\omega_{\vect{k}} t} \right) e^{i\vect{k} \cdot \vect{r}}
 \label{eq:general_solution_A}
 \end{equation}
 
 Оскільки вихідне поле \(\vect{A}(t, \vect{r})\) є дійсним, функції \(\vect{C}_1(\vect{k})\) та \(\vect{C}_2(\vect{k})\) не є незалежні. Маємо:
 
 \begin{equation*}
-\vect{A}(t, \vect{r}) = \vect{A}^*(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \, \left\{ \vect{C}_1^*(\vect{k}) e^{-i\omega_{\vect{k}} t} +
-\vect{C}_2^*(\vect{k}) e^{i\omega_{\vect{k}} t} \right\} e^{-i\vect{k} \cdot \vect{r}}
+\vect{A}(t, \vect{r}) = \vect{A}^*(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, \left( \vect{C}_1^*(\vect{k}) e^{-i\omega_{\vect{k}} t} +
+\vect{C}_2^*(\vect{k}) e^{i\omega_{\vect{k}} t} \right) e^{-i\vect{k} \cdot \vect{r}}
 \end{equation*}
 
 Після заміни \(\vect{k} \rightarrow -\vect{k}\) легко отримати:
 
 \begin{equation*}
-\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \, \left\{ \vect{C}_1^*(-\vect{k}) e^{-i\omega_{\vect{k}} t} + \vect{C}_2^*(-\vect{k})
+\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, \left\{ \vect{C}_1^*(-\vect{k}) e^{-i\omega_{\vect{k}} t} + \vect{C}_2^*(-\vect{k})
 e^{i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}},
 \end{equation*}
 де враховано \(\omega(\vect{k}) = c|\vect{k}| = \omega(-\vect{k})\).
 
-Порівнюючи це з \eqref{eq:general_solution_A} і приймаючи до уваги незалежність \(\exp(-i\omega_{\vect{k}} t)\) та \(\exp(i\omega_{\vect{k}} t)\),
+Порівнюючи це з \eqref{eq:general_solution_A} і беручи до уваги незалежність \(e^{-i\omega_{\vect{k}} t}\) та \(e^{i\omega_{\vect{k}} t}\),
 отримаємо:
 
 \begin{equation}
 \vect{C}_1^*(-\vect{k}) = \vect{C}_2(\vect{k}) \quad \text{або} \quad \vect{C}_1(\vect{k}) = \vect{C}_2^*(-\vect{k}),
 \label{eq:C1_C2_relation}
 \end{equation}
-
+%
 причому \(\vect{C}_1(\vect{k}) \cdot \vect{k} = 0\).
 
 Подамо цей розв’язок у дещо іншій формі, виділивши лоренц-інваріантні комбінації \(\omega_{\vect{k}} - \vect{k} \cdot \vect{r}\).
 
 У першому доданку в \eqref{eq:general_solution_A} за допомогою заміни \(\vect{k} \rightarrow -\vect{k}\) зробимо очевидні перетворення:
 
-\begin{multline*}
-\int \vect{C}_1(\vect{k}) \exp[i(\omega_{\vect{k}} t + \vect{k} \cdot \vect{r})] d^3k = \int \vect{C}_1(-\vect{k}) \exp[i(\omega_{\vect{k}} t - \vect{k}
-\cdot \vect{r})] d^3k = \\ =\int \vect{C}_2^*(\vect{k}) \exp[i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})] d^3k.
-\end{multline*}
+\begin{equation*}
+\int \vect{C}_1(\vect{k})
+e^{i(\omega_{\vect{k}} t +
+\vect{k} \cdot \vect{r})} d^3\vect{k}
+=
+\int \vect{C}_1(-\vect{k}) e^{i(\omega_{\vect{k}} t -  \vect{k} \cdot \vect{r})} d^3\vect{k}
+=
+\int \vect{C}_2^*(\vect{k}) e^{i(\omega_{\vect{k}} t -  \vect{k} \cdot \vect{r})}
+d^3\vect{k}.
+\end{equation*}
 
 Позначаючи \(\vect{a}(\vect{k}) = \vect{C}_2(\vect{k}) = \vect{C}_1^*(-\vect{k})\), маємо представлення розв’язку у вигляді:
 
 \begin{equation}
-\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \, \left\{ \vect{a}(\vect{k}) e^{-i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})} +
-\vect{a}^*(\vect{k}) e^{i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})} \right\}
+\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int \left( \vect{a}(\vect{k}) e^{-i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})} +
+\vect{a}^*(\vect{k}) e^{i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})} \right) d^3\vect{k}
 \label{eq:A_final_form}
 \end{equation}
 
 Формула \eqref{eq:A_final_form} з умовою поперечності \(\vect{k} \cdot \vect{a}(\vect{k}) = 0\) подає загальний розв’язок хвильового рівняння
 \eqref{eq:wave_equation_A} з умовою \eqref{eq:div_A_zero}.
 
-Доданок, що містить \(\exp[-i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})]\), називають додатно-частотною частиною поля, а комплексно-спряжений йому
-доданок --- від’ємно-частотною частиною. Представлення \eqref{eq:A_final_form} називають розбиттям на додатно-частотні та від’ємно-частотні компоненти.
+Доданок, що містить \(e^{-i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})}\), називають додатно-частотною частиною поля, а комплексно-спряжений йому
+доданок --- від’ємно-частотною частиною. Представлення \eqref{eq:A_final_form} називають \emph{розбиттям на додатно-частотні та від’ємно-частотні компоненти}.
 
 Як бачимо з \eqref{eq:A_final_form}, стан вільного електромагнітного поля визначається, з огляду на умову поперечності \(\vect{k} \cdot \vect{a} = 0\),
 двома комплексними функціями від трьох змінних \(\vect{k}\), або --- еквівалентно --- чотирма дійсними функціями від \(\vect{k}\). Кількість цих
 незалежних функцій (яка відповідає степеням вільності поля) така ж, як у задачі Коші згідно з п. \ref{sec:Cauchi}.
 
-Кожному \(\vect{k}\) відповідає плоска хвиля \(\vect{a}(\vect{k}) \exp[i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})]\) --- частковий розв’язок
+Кожному \(\vect{k}\) відповідає плоска хвиля \(\vect{a}(\vect{k}) e^{i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})}\) --- частковий розв’язок
 рівняння \eqref{eq:wave_equation_A}, причому напрямок вектора \(\vect{a}(\vect{k})\) задає поляризацію.
 
 %% --------------------------------------------------------
@@ -946,93 +952,106 @@ e^{i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}},
 За допомогою заміни \(\vect{k} \rightarrow -\vect{k}\) у від’ємно-частотній частині перепишемо \eqref{eq:A_final_form} у вигляді:
 
 \begin{equation}
-\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3k \, \left\{ \vect{a}(\vect{k}) e^{-i\omega_{\vect{k}} t} + \vect{a}^*(-\vect{k})
-e^{i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}}
+\vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, \left( \vect{a}(\vect{k}) e^{-i\omega_{\vect{k}} t} + \vect{a}^*(-\vect{k})
+e^{i\omega_{\vect{k}} t} \right) e^{i\vect{k} \cdot \vect{r}}
 \label{eq:A_final_form_modified}
 \end{equation}
 
 Згідно з \eqref{eq:potE}, \eqref{eq:potB} та калібрувальною умовою \eqref{eq:phi_zero}:
 
 \begin{equation}
-\Efield = -\frac{1}{c} \frac{\partial \vect{A}}{\partial t} = \frac{i}{(2\pi)^{3/2}} \int d^3k \, \omega_{\vect{k}} \left\{ \vect{a}(\vect{k})
-e^{-i\omega_{\vect{k}} t} - \vect{a}^*(-\vect{k}) e^{i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}}
+\Efield = -\frac{1}{c} \frac{\partial \vect{A}}{\partial t} = \frac{i}{(2\pi)^{3/2}} \int d^3\vect{k} \, \omega_{\vect{k}} \left( \vect{a}(\vect{k})
+e^{-i\omega_{\vect{k}} t} - \vect{a}^*(-\vect{k}) e^{i\omega_{\vect{k}} t} \right) e^{i\vect{k} \cdot \vect{r}}
 \label{eq:E_field_fourier}
 \end{equation}
 
 Обчислимо енергію електричного поля за допомогою формули Парсеваля:
 
-\begin{equation}
-W_E = \frac{1}{8\pi} \int dV \, \Efield^2 = \frac{1}{8\pi c^2} \int d^3k \, \omega_{\vect{k}}^2 \left\{ \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) -
-\Re \left[ \vect{a}(\vect{k}) \cdot \vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right] \right\}
+\begin{multline*}
+W_E =
+\frac{1}{8\pi} \int \Efield^2\ dV
+= \\ =
+ \frac{1}{8\pi c^2} \int d^3\vect{k} \, \omega_{\vect{k}}^2 \left|
+\vect{a}(\vect{k})e^{-i\omega_{\vect{k}} t} -
+\vect{a}^*(-\vect{k})e^{i\omega_{\vect{k}} t}
+\right|^2
+= \\ =
+%
+ \frac{1}{8\pi c^2} \int d^3\vect{k} \, \omega_{\vect{k}}^2 \left(
+\vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) -
+ \vect{a}^*(-\vect{k}) \cdot \vect{a}(-\vect{k})
+\right.
+- \\ -
+%
+\left. 2\Re \left( \vect{a}(\vect{k}) \cdot \vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right)
+\right)
 \label{eq:W_E}
-\end{equation}
+\end{multline*}
 
 Оскільки:
 
 \begin{equation*}
-\int d^3k \, \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) = \int d^3k \, \vect{a}^*(-\vect{k}) \cdot \vect{a}(-\vect{k}),
+\int d^3\vect{k}\ \omega^2_{\vect{k}} \, \vect{a}^*(-\vect{k}) \cdot \vect{a}(-\vect{k}) = \int d^3\vect{k} \ \omega^2_{\vect{k}}  \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}),
 \end{equation*}
 маємо:
 
 \begin{equation}
-W_E = \frac{1}{4\pi c^2} \int d^3k \, \omega_{\vect{k}}^2 \left\{ \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) - \Re \left[ \vect{a}(\vect{k})
+W_E = \frac{1}{4\pi c^2} \int d^3\vect{k} \, \omega_{\vect{k}}^2 \left\{ \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) - \Re \left[ \vect{a}(\vect{k})
 \cdot \vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right] \right\}
 \label{eq:W_E_final}
 \end{equation}
 
 Аналогічно:
 
-\begin{equation}
-\Bfield = \nabla \times \vect{A} = \frac{1}{(2\pi)^{3/2}} \int d^3k \, \left[ \vect{k} \times \left( \vect{a}(\vect{k}) e^{-i\omega_{\vect{k}} t} +
+\begin{equation*}
+\Bfield = \Rot\vect{A} = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, \left[ \vect{k} \times \left( \vect{a}(\vect{k}) e^{-i\omega_{\vect{k}} t} +
 \vect{a}^*(-\vect{k}) e^{i\omega_{\vect{k}} t} \right) \right] e^{i\vect{k} \cdot \vect{r}}
 \label{eq:B_field_fourier}
-\end{equation}
+\end{equation*}
 а енергія магнітного поля:
 
-\begin{equation}
-W_B = \frac{1}{8\pi} \int dV \, \Bfield^2 = \frac{1}{8\pi} \int d^3k \, \left| \vect{k} \times \left( \vect{a}(\vect{k}) e^{-i\omega_{\vect{k}} t} +
-\vect{a}^*(-\vect{k}) e^{i\omega_{\vect{k}} t} \right) \right|^2
+\begin{equation*}
+W_B = \frac{1}{8\pi} \int \Bfield^2 dV  = \frac{1}{8\pi} \int \left| \vect{k} \times \left( \vect{a}(\vect{k}) e^{-i\omega_{\vect{k}} t} +
+\vect{a}^*(-\vect{k}) e^{i\omega_{\vect{k}} t} \right) \right|^2 d^3\vect{k}
 \label{eq:W_B}
-\end{equation}
+\end{equation*}
 
 Оскільки \(\vect{k} \cdot \vect{a}(\vect{k}) = 0\), маємо:
 
 \begin{equation*}
-\left| \vect{k} \times \vect{a}(\vect{k}) \right|^2 = k^2 \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}),
+\left| \vect{k} \times \vect{a}(\vect{k}) \right|^2 = \vect{k}^2 \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}),
 \end{equation*}
 а також:
 
 \begin{equation*}
-\left[ \vect{k} \times \vect{a}(\vect{k}) \right] \cdot \left[ \vect{k} \times \vect{a}(-\vect{k}) \right] = k^2 \vect{a}(\vect{k}) \cdot
+\left[ \vect{k} \times \vect{a}(\vect{k}) \right] \cdot \left[ \vect{k} \times \vect{a}(-\vect{k}) \right] = \vect{k}^2\  \vect{a}(\vect{k}) \cdot
 \vect{a}(-\vect{k}).
 \end{equation*}
 
 Звідси, аналогічно \eqref{eq:W_E_final}:
 
 \begin{equation}
-W_B = \frac{1}{4\pi} \int d^3k \, k^2 \left\{ \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) + \Re \left[ \vect{a}(\vect{k}) \cdot
-\vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right] \right\}
+W_B = \frac{1}{4\pi} \int d^3\vect{k} \, \vect{k}^2\  \left( \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) + \Re \left[ \vect{a}(\vect{k}) \cdot
+\vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right] \right)
 \label{eq:W_B_final}
 \end{equation}
 
-Оскільки \(\omega_{\vect{k}} = ck\), загальна енергія вільного електромагнітного поля:
+Оскільки \(\omega_{\vect{k}} = c|\vect{k}|\), загальна енергія вільного електромагнітного поля:
 
 \begin{equation}
-W = W_E + W_B = \frac{1}{2\pi c^2} \int d^3k \, \omega_{\vect{k}}^2 \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k})
+W = W_E + W_B = \frac{1}{2\pi c^2} \int d^3\vect{k} \, \omega_{\vect{k}}^2 \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k})
 \label{eq:total_energy}
 \end{equation}
 
 Подамо цей вираз через нові змінні:
 
-\begin{equation}
+\begin{equation}\label{eq:Pk}
 \vect{P}_{\vect{k}} = \frac{\omega_{\vect{k}}}{2c\sqrt{\pi}} \left[ \vect{a}^*(\vect{k}) e^{i\omega_{\vect{k}} t} + \vect{a}(\vect{k})
 e^{-i\omega_{\vect{k}} t} \right]
-\label{eq:P_k}
 \end{equation}
 
-\begin{equation}
+\begin{equation}\label{eq:Qk}
 \vect{Q}_{\vect{k}} = \frac{1}{2ic\sqrt{\pi}} \left[ \vect{a}^*(\vect{k}) e^{i\omega_{\vect{k}} t} - \vect{a}(\vect{k}) e^{-i\omega_{\vect{k}} t} \right]
-\label{eq:Q_k}
 \end{equation}
 
 Звідси:
@@ -1046,5 +1065,50 @@ e^{-i\omega_{\vect{k}} t} \right]
 \end{equation*}
 
 \begin{equation*}
-\vect{P}_{\vect{k}} \cdot \vect{k} = 0, \quad \vect{Q}_{\vect{k}} \cdot \vect{k} = 0
+\vect{P}_{\vect{k}} \cdot \vect{k} = 0, \quad \vect{Q}_{\vect{k}} \cdot \vect{k} = 0.
 \end{equation*}
+
+За допомогою цих співвідношень отримаємо такий вираз для загальної енергії поля \eqref{eq:total_energy}:
+\begin{equation}
+    W = \frac12 \int d^3\vect{k} \left( \vect{P}^2_{\vect{k}} + \omega^2_{\vect{k}}\vect{Q}^2_{\vect{k}}\right),
+\end{equation}
+що має вигляд гамільтоніану континуальної системи осциляторів з частотою $\omega_{\vect{k}}$. Цю формулу називають розкладом поля на осцилятори. Зауважимо, що для кожного $\vect{k}$:
+\begin{equation*}
+    \dot{\vect{Q}}_{\vect{k}} = \vect{P}_{\vect{k}}, \quad
+    \dot{\vect{P}}_{\vect{k}} = - \omega^2_{\vect{k}} \vect{Q}_{\vect{k}}.
+\end{equation*}
+що випливає як з гамільтонової форми рівнянь руху відповідно до  \eqref{eq:total_energy}, так і безпосередньо з рівнянь \eqref{eq:Pk},\eqref{eq:Qk}. <<Координати>> задовольняють рівнянням:
+ \begin{equation*}
+    \ddot{\vect{Q}}_{\vect{k}} + \omega^2_{\vect{k}}\vect{Q}_{\vect{k}} = 0
+\end{equation*}
+та описують коливання поля з частотою $\omega_{\vect{k}}$.
+Розклад поля на осцилятори та гамільтонова форма рівнянь важливий для побудови квантової теорії випромінювання. В стандартній процедурі квантування гамільтонові змінні стають операторами і для них вводять певні комутаційні співвідношення.
+
+%% --------------------------------------------------------
+\section*{Задачі}
+%% --------------------------------------------------------
+
+\begin{problem}
+    У хвильовому полі
+    \[
+    \varphi(t, \vect{r}) = \int d^3 \vect{k} \, \Phi(\mathbf{k}) e^{i(\vect{k} \cdot \vect{r} - \omega(\vect{k}) t)}
+    \]
+    закон дисперсії заданий рівнянням
+    \[
+    \omega(\vect{k}) = \omega_0 + \mathbf{V} \cdot (\vect{k} - \vect{k}_0).
+    \]
+    Покажіть, що модуль поля має вид
+    \[
+    |\varphi(t, \mathbf{r})| = F(\vect{r} - \vect{V}t).
+    \]
+\end{problem}
+
+\begin{problem}
+    Знайти умову на поле \( \varphi(t) \) (див. п.~\ref{sec:uncert_principle}), коли співвідношення невизначеностей \eqref{eq:uncertainty_relation} перетворюється на точну рівність:
+    \[
+    \left\langle \Delta t^2 \right\rangle_{\varphi} \left\langle \Delta \omega^2 \right\rangle_{\varphi} = \frac14.
+    \]
+\end{problem}
+
+
+
