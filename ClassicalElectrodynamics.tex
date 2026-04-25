@@ -22,7 +22,7 @@ biblatex,
 
 %======================================== Бібліографія ===================================================
 %
-\addbibresource{d:/Projects/LaTeX/MyPackages/bib/MyBase.bib}
+\addbibresource{./bibliography/books.bib}
 %\addbibresource{Kvant.bib}
 %
 %=================================================================================
@@ -68,7 +68,7 @@ biblatex,
 	Basics,
 	Solutions,
 	FreeField,
-%	Radiation
+	Radiation
 }[]
 
 %\part{}
@@ -105,63 +105,16 @@ biblatex,
 %=================================================================================
 \clearpage\pagestyle{bibliography}
 
-\nocite{%
-	%	ZhdanovFT,
-	%	ZhdanovESS,
-	ZhdanovRelativity,
-	TerletskyElectroDyn,
-	Jackson,
-	GriffithsElectro,
-	PennerUgarov,
-	Tamm,
-	GreinerElectrodynamics,
-	LL2,
-	LL8,
-	Vlasov,
-	% ==========================
-	BatyginElectroRus,
-	Grechko,
-	Kramm,
-	Zhyrnov,
-	AlekseevElectro,
-	VekshteinElectro,
-	Ginldenburg,
-	ZangwillElectro,
-}
+\nocite{*}
 
-\printbibheading[heading=bibintoc]
+%\printbibheading[]
+%
+%\defbibheading{subheading}[\bibname]{%
+%	\section*{#1\label{BibPage}}
+%}
 
-\defbibheading{subheading}[\bibname]{%
-	\section*{#1\label{BibPage}}
-}
+\printbibliography[heading=bibintoc]
 
-\printbibliography[category=Textbooks, heading=subheading, title={Підручники та посібники}]
-\addtocategory{Textbooks}{%
-	%	ZhdanovFT,
-	%	ZhdanovESS,
-	ZhdanovRelativity,
-	Jackson,
-	GriffithsElectro,
-	PennerUgarov,
-	Tamm,
-	GreinerElectrodynamics,
-	LL2,
-	TerletskyElectroDyn,
-	Vlasov,
-	LL8,
-	ZangwillElectro,
-}
-
-\printbibliography[category=Problems, heading=subheading, title={Задачники}]
-\addtocategory{Problems}{%
-	BatyginElectroRus,
-	Grechko,
-	Kramm,
-	Zhyrnov,
-	AlekseevElectro,
-	VekshteinElectro,
-	Ginldenburg,
-}
 
 \printindex
 

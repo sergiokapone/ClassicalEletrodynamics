@@ -36,10 +36,9 @@
 
 Для функцій $f(t)$, $g(t)$ та їх образів Фур’є $\tilde{f}(\omega)$, $\tilde{g}(\omega)$ має місце рівність Парсеваля:
 
-\begin{equation*}
+\begin{equation}\label{eq:Parseval}
 \int\limits_{-\infty}^{\infty} f(t)g^{*}(t)dt = \int\limits_{-\infty}^{\infty} \tilde{f}(\omega)\tilde{g}^{*}(\omega)d\omega
-\label{eq:parseval}
-\end{equation*}
+\end{equation}
 
 Практично будь-який реальний сигнал можна подати у вигляді суперпозиції монохроматичних сигналів. За допомогою технічних пристроїв можна виділяти,
 підсилювати чи послабляти певні ділянки спектру сигналу, що відповідають певній області частот. При цьому формальний запис гармонічних сигналів,
@@ -148,8 +147,8 @@ d\omega
 Ми зіставляємо їм комплексні поля
 
 \begin{equation*}
-\Efield(t, \vect{r}) = \Efield_0(\vect{r}) e^{-i\alpha} \exp(-i\omega t), \quad \Bfield(t, \vect{r}) = \Bfield_0(\vect{r}) e^{-i\alpha}
-\exp(-i\omega t)
+\Efield(t, \vect{r}) = \Efield_0(\vect{r}) e^{-i\alpha} e^{-i\omega t)} \quad \Bfield(t, \vect{r}) = \Bfield_0(\vect{r}) e^{-i\alpha}
+e^{-i\omega t},
 \label{eq:complex_fields}
 \end{equation*}
 
@@ -186,12 +185,12 @@ d\omega
 \end{equation}
 
 Зауважимо, що формули \eqref{eq:time_averaged_poynting}, \eqref{eq:energy_density_average} не змінять свого вигляду у випадку суперпозиції монохроматичних
-хвиль з різними частотами. Це очевидно, коли врахувати, що \(\langle \exp[i(\omega_1 - \omega_2)t] \rangle_t = 0\), \(\omega_1 \neq \omega_2\).
+хвиль з різними частотами. Це очевидно, коли врахувати, що \(\langle e^{i(\omega_1 - \omega_2)t} \rangle_t = 0\), \(\omega_1 \neq \omega_2\).
 
 Розглянемо \emph{монохроматичні плоскі хвилі}:
 
 \begin{equation*}
-\Efield = \Efield_0 \exp[i(\vect{k} \cdot \vect{r} - \omega t)], \quad \Bfield = \Bfield_0 \exp[i(\vect{k} \cdot \vect{r} - \omega t)]
+\Efield = \Efield_0 e^{i(\vect{k} \cdot \vect{r} - \omega t)}, \quad \Bfield = \Bfield_0 e^{i(\vect{k} \cdot \vect{r} - \omega t)}
 \label{eq:monochromatic_waves}
 \end{equation*}
 
@@ -641,109 +640,94 @@ X_2\). Маємо:
 
 \end{itemize}
 
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+
 %% --------------------------------------------------------
-\section{Співвідношення невизначеностей}\label{sec:uncert_principle}
+\section{Співвідношення між тривалістю сигналу та шириною його спектру}\label{sec:signal_spectrum}
 %% --------------------------------------------------------
 
-Міркування цього розділу застосовні до будь-яких процесів, що можна аналізувати за допомогою перетворення Фур’є, зокрема, до хвильових пакетів, які є
-суперпозицією плоских хвиль з різними частотами.
+Міркування цього розділу застосовні до будь-яких сигналів чи хвильових
+полів, що можна аналізувати за допомогою перетворення Фур'є\index{Перетворення Фур'є}, зокрема,
+до хвильових пакетів\index{Хвильовий пакет}, які є суперпозицією плоских хвиль з різними
+частотами.
 
-Нехай маємо деякий процес, що можна описати за допомогою функції (взагалі кажучи, комплексної) від дійсної змінної \( t \), причому для цієї функції існує перетворення Фур’є:
-
-\begin{equation*}
-\phi(t) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot e^{-i\omega t} \tilde\phi(\omega)
-\end{equation*}
-
-Вважатимемо, що \( |\phi(t)| \) та \( |\phi(\omega)| \) досить швидко спадають, якщо відповідно \( |t| \to \infty \) та \( |\omega| \to \infty \). Також вважаємо, що середнє за ансамблем\footnote{Як і раніше, середні за ансамблем позначаємо $\langle\ldots\rangle$ (без індексу), на відміну, наприклад, від $\langle\ldots\rangle_{\phi}$. } від зазначеного поля дорівнює нулю $\langle \phi(t) \rangle = 0 $,  $\langle \tilde\phi(t) \rangle = 0 $.
-
-Введемо величини, що характеризують тривалість процесу, що відповідає функції \( \phi(t) \), та ширину його спектру відповідно до \( \tilde\phi(\omega) \).
-Середні значення фізичних величин, що відповідають для окремої реалізації обчислюватимемо з вагою \( |\phi(t)|^2 \) в $t$-просторі, а в \( \omega \)-просторі --- з вагою \( |\tilde\phi(\omega)|^2 \), причому, не
-зменшуючи загальності, приймемо умову нормування:
-
-\begin{equation*}
-\int dt \cdot |\phi(t)|^2 = 1
-\end{equation*}
-
-Звідси, за рівністю Парсеваля, в \( \omega \)-просторі також:
-
-\begin{equation*}
-\int d\omega \cdot |\tilde\phi(\omega)|^2 = 1
-\end{equation*}
-
-Відповідно, введемо (за означенням) середнє значення деякої величини \( F(t) \) у \( t \)-просторі для реалізації $\phi$, яке позначимо:
-
-\begin{equation*}
-\langle F \rangle_{\phi} = \int dt \cdot F(t) |\phi(t)|^2,
-\end{equation*}
-а для \( \tilde{F}(\omega) \) в \( \omega \)-просторі:
-
-\begin{equation*}
-\langle \tilde{F} \rangle_{\phi} = \int d\omega \cdot \tilde{F}(\omega) |\phi(\omega)|^2.
-\end{equation*}
-
-Очевидно, усі ці співвідношення зберігаються при усередненні за ансамблем :
-\begin{equation*}
-    \langle F \rangle = \int dt \cdot F(t) |\phi(t)|^2,\ \langle \tilde{F} \rangle = \int d\omega \cdot \tilde{F}(\omega) |\phi(\omega)|^2.
-\end{equation*}
-
-
-Виберемо відлік часу таким чином, щоб:
-
-\begin{equation*}
-\int dt \cdot t |\phi(t)|^2 = 0
-\end{equation*}
-
-Тоді тривалість процесу \( \phi(t) \) можна описати середньоквадратичним значенням:
-
-\begin{equation}
-\langle \Delta t^2 \rangle_{\phi} = \int dt \cdot t^2 \langle |\phi(t)|^2 \rangle
-\label{eq:time_duration}
+Нехай маємо деякий сигнал (чи хвильове поле у деякій фіксованій точці),
+який описуємо за допомогою функції $\phi(t)$ (взагалі кажучи, комплексної) від
+дійсної змінної $t$, причому для цієї функції існує перетворення Фур'є:
+\begin{equation}\label{eq:Fourier}
+    {\phi}(t) = \frac1{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} \tilde\phi(\omega)\, e^{-i\omega t}\, dt.
 \end{equation}
 
-Відповідно, в \( \omega \)-просторі середнє значення частоти є:
+Вважатимемо, що $\phi(t)$ та $\tilde{\phi}(\omega)$ досить швидко спадають, якщо
+відповідно $|t| \to \infty$ та $|\omega| \to \infty$.
 
-\begin{equation*}
-\omega_a = \langle \omega \rangle = \int d\omega \cdot \omega \langle |\tilde\phi(\omega)|^2 \rangle,
-\end{equation*}
-а ширину спектру частот можна описати величиною:
-
-\begin{equation}
-\langle \Delta \omega^2 \rangle = \langle (\omega - \omega_a)^2 \rangle = \int d\omega \cdot (\omega - \omega_a)^2 \langle |\tilde\phi(\omega)|^2 \rangle
-\label{eq:frequency_width}
+Введемо величини, що характеризують тривалість сигналу $\Delta t$ та ширину
+його спектру $\Delta\omega$. Середні значення фізичних величин, що відповідають
+$\phi(t)$, обчислюватимемо з вагою $|\phi(t)|^2$ в $t$-просторі, а в
+$\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, причому, не зменшуючи
+загальності, приймемо умову нормування\footnote{%
+    Умова~\eqref{eq:norm} не зменшує загальності. Якщо її не накладати, усі
+    міркування проводяться аналогічно, але у визначеннях середніх потрібно
+    було б ділити на $\displaystyle\int\limits_{-\infty}^{+\infty}|\phi(t)|^2\,dt$.}:
+\begin{equation}\label{eq:norm}
+    \int\limits_{-\infty}^{+\infty} |\phi(t)|^2\, dt = 1.
 \end{equation}
 
-Покажемо, що існує спільне обмеження на величини $\langle \Delta \omega^2 \rangle$ та $\langle \Delta t^2 \rangle$. Для цього перепишемо \eqref{eq:time_duration} через перетворення Фур’є.
+Звідси, за рівністю Парсеваля~\eqref{eq:Parseval} маємо
+\begin{equation*}
+    \int\limits_{-\infty}^{+\infty} |{\phi}(t)|^2\, dt =  \int\limits_{-\infty}^{+\infty} |\tilde{\phi}(\omega)|^2\, d\omega = 1,
+\end{equation*}
+тобто спектр $\tilde{\phi}(\omega)$ також є нормованим.
 
-Маємо:
+Означимо середнє значення часу процесу:
+\begin{equation*}
+    \langle t \rangle = \int\limits_{-\infty}^{+\infty} t\, |\phi(t)|^2\, dt.
+\end{equation*}
+Зручно вибрати відлік часу таким чином, щоб $\langle t \rangle = 0$.
+
+Природно оцінити тривалість процесу $\phi(t)$ через середньоквадратичне
+відхилення $\sqrt{\langle t^2 \rangle}$, де
+\begin{equation}\label{eq:Delta_t}
+    \langle \Delta t^2 \rangle
+ = \int\limits_{-\infty}^{+\infty} (t - \langle t \rangle^2 )\, |\phi(t)|^2\, dt
+ = \int_{-\infty}^{+\infty} t^2\, |\phi(t)|^2\, dt.
+\end{equation}
+
+У $\omega$-просторі середнє значення частоти є:
+\begin{equation*}
+    \langle \omega \rangle = \int\limits_{-\infty}^{+\infty}
+        \omega\, |\tilde{\phi}(\omega)|^2\, d\omega,
+\end{equation*}
+а ширину спектру частот опишемо величиною
+\begin{equation}\label{eq:Delta_omega}
+    \langle \Delta\omega^2 \rangle
+    = \int\limits_{-\infty}^{+\infty}
+        (\omega - \langle\omega\rangle)^2\, |\tilde{\phi}(\omega)|^2\, d\omega.
+\end{equation}
+
+Покажемо, що існує спільне обмеження на величини $\langle \Delta t^2 \rangle$ та $\langle \Delta\omega^2 \rangle$.
+Для цього перепишемо~\eqref{eq:Delta_t} через перетворення Фур'є.
 
 \begin{equation*}
-t \phi(t) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot i \frac{d e^{-i\omega t}}{d\omega} \tilde\phi(\omega) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot
-e^{-i\omega t} \left[ -i \frac{d\tilde\phi}{d\omega} \right],
+t \phi(t) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot i \left(\frac{d}{d\omega}e^{-i\omega t}\right) \tilde\phi(\omega) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot
+e^{-i\omega t} \left( -i \frac{d\tilde\phi}{d\omega} \right),
 \end{equation*}
-тобто помноження на \( t \) індукує диференціювання у просторі частот. Тоді формулу \eqref{eq:time_duration} можна переписати так:
+тобто помноження на \( t \) індукує диференціювання у просторі частот. Тоді формулу \eqref{eq:Delta_t} можна переписати так:
 
 \begin{equation}
 \langle \Delta t^2 \rangle =
 %
-\left\langle \int dt \cdot t |\phi(t)|^2 \right\rangle =
-%
-\left\langle
-\int d\omega
-\left|
-\frac{d\tilde\phi}{d\omega}
-\right|^2
-\right\rangle
-=
+ \int dt \cdot t |\phi(t)|^2  =
 %
  \int d\omega
-\left\langle
 \left| \frac{d\tilde{\phi}}{d\omega} \right|^2
-\right\rangle
 %
 \label{eq:time_duration_fourier}
 \end{equation}
 %
-де застосовано рівність Парсеваля.
+де застосовано рівність Парсеваля~\eqref{eq:Parseval}.
 
 Для будь-якого дійсного \( x \):
 
@@ -751,18 +735,18 @@ e^{-i\omega t} \left[ -i \frac{d\tilde\phi}{d\omega} \right],
 0 \leqslant \int d\omega \left| x \frac{d\tilde\phi}{d\omega} + (\omega - \omega_a) \tilde\phi \right|^2
 \equiv
 \int d\omega \left( x \frac{d\tilde\phi}{d\omega} + (\omega -
-\omega_a) \tilde\phi \right) \left( x \frac{d\tilde\phi^{*}}{d\omega} + (\omega - \omega_a) \tilde\phi^{*} \right).
+\omega_a) \tilde\phi \right) \left( x \frac{d\tilde\phi^{*}}{d\omega} + (\omega - \omega_a) \tilde\phi^{*} \right).7
 \end{equation*}
 
-Звідси, після застосування усереднення за ансамблем, за допомогою \eqref{eq:frequency_width} та \eqref{eq:time_duration_fourier}, маємо:
+Звідси, після застосування усереднення, за допомогою \eqref{eq:Delta_omega} та \eqref{eq:time_duration_fourier}, маємо:
 
 \begin{equation*}
 0 \leqslant  x^2 \langle \Delta t^2 \rangle
 +
 \langle \Delta \omega^2 \rangle
 +
-\left\langle x \int d\omega (\omega - \omega_a) \left[ \frac{d\tilde\phi}{d\omega}
-\tilde\phi^{*} + \frac{d\tilde\phi^{*}}{d\omega} \tilde\phi \right] \right\rangle.
+ x \int d\omega (\omega - \omega_a) \left[ \frac{d\tilde\phi}{d\omega}
+\tilde\phi^{*} + \frac{d\tilde\phi^{*}}{d\omega} \tilde\phi \right].
 \end{equation*}
 
 Вираз у квадратних дужках в останньому доданку є повною похідною, тому інтеграл у правій частині нерівності перетворимо так:
@@ -777,20 +761,22 @@ e^{-i\omega t} \left[ -i \frac{d\tilde\phi}{d\omega} \right],
 x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 \end{equation*}
 
-Це співвідношення має виконуватися для будь-яких \( x \), тому дискримінант квадратного тричлена має бути від’ємний. Звідси маємо нерівність:
-
-\begin{equation}
-\langle \Delta t^2 \rangle \langle \Delta \omega^2 \rangle \geqslant\frac{1}{4},
-\label{eq:uncertainty_relation}
+Це співвідношення має виконуватися для будь-яких $x$, тому дискримінант
+квадратного тричлена має бути від'ємним. Звідси маємо нерівність:
+\begin{equation}\label{eq:uncertainty}
+    \langle \Delta t^2 \rangle \cdot \langle \Delta \omega^2 \rangle\geqslant \frac14,
 \end{equation}
-яку називають \emph{співвідношенням невизначеностей}\index{Співвідношення невизначеностей}.
+яку часто називають \emph{співвідношенням невизначеностей}\index{Співвідношення невизначеностей}\footnote{У квантовій механіці співвідношення~\eqref{eq:uncertainty} має аналог у вигляді зв'язку між тривалістю процесу та невизначеністю енергії. У разі довжини пакету та розкиду хвильових векторів квантовий відповідник~\eqref{eq:uncertainty} --- співвідношення невизначеностей для імпульсу та координати.
+}.
 
-Зауважимо, що в квантовій механіці це дає зв’язок між тривалістю процесу та невизначеністю енергії. Зрозуміло, що усі міркування і співвідношення \eqref{eq:uncertainty_relation}  можна застосовувати і до невипадкового процесу, що представлений однією реалізацією.
+Слід підкреслити, що співвідношення невизначеностей~\eqref{eq:uncertainty} було отримано для конкретних
+оцінок~тривалості процесу~\eqref{eq:Delta_t} та ширини спектру частот~\eqref{eq:Delta_omega}. З~цього співвідношення
+випливає, що сигнал, близький до монохроматичного\index{Монохроматичний сигнал}, тобто такий, що має малий
+розкид частот, має бути досить тривалим. Навпаки, короткочасний
+сигнал має широкий спектр частот. Нерівність, аналогічну~\eqref{eq:uncertainty},
+можна отримати для довжини хвильового пакету у певному напрямі та ширини
+інтервалу відповідних хвильових векторів.
 
-З \eqref{eq:uncertainty_relation} випливає, що сигнал, що близький до монохроматичного, тобто такий, що має малий розкид частот, має бути досить
-тривалим. Навпаки, короткочасний імпульсний сигнал має широкий спектр частот. Нерівність, аналогічну \eqref{eq:uncertainty_relation}, можна отримати для
-довжини хвильового пакету та ширини інтервалу хвильових векторів у певному напрямі. Квантовий відповідник  \eqref{eq:uncertainty_relation} --- співвідношення невизначеностей для
-імпульсу та координати.
 
 %% --------------------------------------------------------
 \section{Загальний розв’язок рівнянь вільного поля}
@@ -1072,7 +1058,7 @@ e^{-i\omega_{\vect{k}} t} \right]
 \begin{equation}
     W = \frac12 \int d^3\vect{k} \left( \vect{P}^2_{\vect{k}} + \omega^2_{\vect{k}}\vect{Q}^2_{\vect{k}}\right),
 \end{equation}
-що має вигляд гамільтоніану континуальної системи осциляторів з частотою $\omega_{\vect{k}}$. Цю формулу називають розкладом поля на осцилятори. Зауважимо, що для кожного $\vect{k}$:
+що має вигляд гамільтоніану континуальної системи осциляторів з частотою $\omega_{\vect{k}}$. Цю формулу називають \textit{розкладом поля на осцилятори}. Зауважимо, що для кожного $\vect{k}$:
 \begin{equation*}
     \dot{\vect{Q}}_{\vect{k}} = \vect{P}_{\vect{k}}, \quad
     \dot{\vect{P}}_{\vect{k}} = - \omega^2_{\vect{k}} \vect{Q}_{\vect{k}}.
@@ -1081,7 +1067,13 @@ e^{-i\omega_{\vect{k}} t} \right]
  \begin{equation*}
     \ddot{\vect{Q}}_{\vect{k}} + \omega^2_{\vect{k}}\vect{Q}_{\vect{k}} = 0
 \end{equation*}
-та описують коливання поля з частотою $\omega_{\vect{k}}$.
+та описують коливання поля з частотою $\omega_{\vect{k}}$\footnote{
+Ці рівняння повністю збігаються з рівняннями гармонічного осцилятора з класичної механіки:
+\[
+\dot{q} = p, \quad \dot{p} = -\omega^2 q, \quad \ddot{q} + \omega^2 q = 0.
+\]
+Таким чином, кожна мода поля з хвильовим вектором $\vect{k}$ поводиться як незалежний гармонічний осцилятор з частотою $\omega_{\vect{k}}$, де роль узагальненої координати та імпульсу відіграють $\vect{Q}_{\vect{k}}$ та $\vect{P}_{\vect{k}}$ відповідно.
+}.
 Розклад поля на осцилятори та гамільтонова форма рівнянь важливий для побудови квантової теорії випромінювання. В стандартній процедурі квантування гамільтонові змінні стають операторами і для них вводять певні комутаційні співвідношення.
 
 %% --------------------------------------------------------
@@ -1091,22 +1083,22 @@ e^{-i\omega_{\vect{k}} t} \right]
 \begin{problem}
     У хвильовому полі
     \[
-    \varphi(t, \vect{r}) = \int d^3 \vect{k} \, \Phi(\mathbf{k}) e^{i(\vect{k} \cdot \vect{r} - \omega(\vect{k}) t)}
+    \phi(t, \vect{r}) = \int d^3 \vect{k} \, \Phi(\vect{k}) e^{i(\vect{k} \cdot \vect{r} - \omega(\vect{k}) t)}
     \]
     закон дисперсії заданий рівнянням
     \[
-    \omega(\vect{k}) = \omega_0 + \mathbf{V} \cdot (\vect{k} - \vect{k}_0).
+    \omega(\vect{k}) = \omega_0 + \vect{V} \cdot (\vect{k} - \vect{k}_0).
     \]
     Покажіть, що модуль поля має вид
     \[
-    |\varphi(t, \mathbf{r})| = F(\vect{r} - \vect{V}t).
+    |\phi(t, \vect{r})| = F(\vect{r} - \vect{V}t).
     \]
 \end{problem}
 
 \begin{problem}
-    Знайти умову на поле \( \varphi(t) \) (див. п.~\ref{sec:uncert_principle}), коли співвідношення невизначеностей \eqref{eq:uncertainty_relation} перетворюється на точну рівність:
+    Знайти умову на поле \( \varphi(t) \) (див. п.~\ref{sec:signal_spectrum}), коли співвідношення невизначеностей \eqref{eq:uncertainty} перетворюється на точну рівність:
     \[
-    \left\langle \Delta t^2 \right\rangle_{\varphi} \left\langle \Delta \omega^2 \right\rangle_{\varphi} = \frac14.
+    \left\langle \Delta t^2 \right\rangle \left\langle \Delta \omega^2 \right\rangle = \frac14.
     \]
 \end{problem}
 
