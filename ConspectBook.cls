@@ -253,11 +253,14 @@
 %===============================================================================
 
 \RequirePackage{tikz, pgfplots, tikz-3dplot}
+
+
 %---------------------------------------------------
 %\usetikzlibrary{external}
 %\usepgfplotslibrary{external}
 %\tikzexternalize[optimize=false, prefix=figures/]
 %---------------------------------------------------
+\usetikzlibrary{calc, bending}
 \usetikzlibrary{decorations.text, decorations.markings}
 \usetikzlibrary{intersections, backgrounds}
 \usetikzlibrary{arrows.meta}

@@ -11,31 +11,8 @@ biblatex,
 
 \begin{document}
 
-\begin{tikzpicture}[scale=1.5]
-
-    % Координатні осі
-    \draw[->] (0,0,0) -- (4,0,0) node[right]{$y$};
-    \draw[->] (0,0,0) -- (0,4,0) node[above]{$z$};
-    \draw[->] (0,0,0) -- (0,0,4) node[below left]{$x$};
-
-    % Центр кулі
-    \node[circle, inner sep=0] (r0) at (2,3,2) {};
-    \node[circle, inner sep=0] (r) at (3,2,2) {};
-
-    % Кулі для різних моментів часу
-    \def\t{1}
-        \pgfmathsetmacro{\R}{2*\t} % Радіус R(t) = c * t (c = 2 для наочності)
-        \draw[opacity=0.5, fill=blue!10] (r0) circle (\R);
-        \draw[opacity=0.5, dashed] (r0) ellipse[x radius=\R, y radius=\R/3];
-
-    \draw[->] (0,0,0) -- node[left] {$\vect{r}_0$} (r0);
-    \draw[->] (0,0,0) -- node[below] {$\vect{r}$} (r);
-    \draw[->] (r0) -- node[above, sloped] {$|\vect{r} - \vect{r}_0|$} (r);
-
-    \coordinate (surface) at ($(r0) + ({\R*cos(45)}, {\R*sin(45)}, 0)$); % Точка на поверхні сфери
-    \draw[->] (r0) -- node[left] {$\vect{R}$} (surface);
+\input{FreeField/polarisation.tex}
 
 
-\end{tikzpicture}
 
 \end{document}

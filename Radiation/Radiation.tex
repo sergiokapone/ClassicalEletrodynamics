@@ -4,7 +4,7 @@
 % !TeX root =../ClassicalElectrodynamics.tex
 
 %=========================================================
-\Opensolutionfile{answer}[\currfilebase/\currfilebase-Answers]
+%\Opensolutionfile{answer}[\currfilebase/\currfilebase-Answers]
 \chapter{Випромінювання}\label{\currfilebase}
 %=========================================================
 
@@ -281,7 +281,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 Для колового руху в магнітному полі \( \Bfield \) частота обертання:
 
 \begin{equation*}
-	\omega_H = \frac{v_q}{r_q} = \frac{eB}{\gamma m c}\sqrt{1 - \frac{v_q^2}{c^2}},
+	\omega_H = \frac{v_q}{r_q} = \frac{eB}{m c}\sqrt{1 - \frac{v_q^2}{c^2}},
 \end{equation*}
 прискорення:
 \begin{equation*}
@@ -440,7 +440,7 @@ r' \) маємо:
 частоти:
 
 \begin{equation*}
-	\left\langle \frac{d\epsilon}{dt} \right\rangle_t = \frac{\omega^4 \vect{d}_0^2}{3c^3}.
+	\left\langle \frac{d\mathcal{E}}{dt} \right\rangle_t = \frac{\omega^4 \vect{d}_0^2}{3c^3}.
 \end{equation*}
 
 \subsection*{Квадрупольне і магнітодипольне випромінювання}
@@ -580,7 +580,7 @@ X_{ijkl} = \frac{4\pi}{15} (\delta_{ij}\delta_{kl} + \delta_{ik}\delta_{jl} + \d
 Для перевірки відзначимо, що подвійна згортка дає:
 
 \begin{equation*}
-X_{iijj} = 4\pi = \int d\Omega \cdot 1.
+X_{iijj} = 4\pi = \int do \cdot 1.
 \end{equation*}
 
 Обчислимо потік через сферу великого радіусу \( r \), виходячи з \eqref{eq:4.2.12}. Квадрат першого (дипольного) доданку в \eqref{eq:4.2.12} дає внесок,
@@ -639,7 +639,7 @@ X_{iijj} = 4\pi = \int d\Omega \cdot 1.
 d\sigma = \frac{dI}{\Pi},
 \label{eq:differential_cross_section}
 \end{equation}
-де \( dI \) --- середня (за часом) енергія вторинного випромінювання за одиницю часу в тілесний кут \( d\Omega \), \( \Pi \) — середня густина потоку
+де \( dI \) --- середня (за часом) енергія вторинного випромінювання за одиницю часу в тілесний кут \( do \), \( \Pi \) — середня густина потоку
 енергії хвилі, що падає, яка визначається вектором Пойнтінга.
 
 \textit{Повний переріз розсіювання} є:
@@ -726,7 +726,7 @@ dI = \frac{q^4 E^2}{4\pi m^2 c^3} \sin^2 \theta \, d\theta.
 де \( \vect{n}_0 \) --- напрямок хвилі, що падає, за визначенням перерізу \eqref{eq:differential_cross_section} маємо:
 
 \begin{equation}
-d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, d\Omega.
+d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
 \label{eq:differential_cross_section_thomson}
 \end{equation}
 

@@ -1,0 +1,284 @@
+
+%% --------------------------------------------------------
+\subsection*{Поляризація випромінювання}
+%% --------------------------------------------------------
+
+
+При розгляді поляризації треба зважати на векторну природу польових функцій, зокрема, напруженості електричного поля. Зауважимо, що для фіксованого
+напрямку випромінювання досить розглядати лише електричне поле; воно визначає також і вектор напруженості магнітного поля.
+
+Розглянемо поле випромінювання, що поширюється в напрямку осі \(x_3\), з напруженістю електричного поля \(\Efield = (E_1, E_2, 0)\), причому будемо
+вважати, що поле є суперпозицією монохроматичних хвиль \(\sim e^{-i\omega t}\) з близькими частотами. Напрямок вектора \(\Efield\), що є ортогональним
+напрямку поширення хвилі, визначає поляризацію (рис.~\ref{pic:E-direction}).
+
+%---------------------------------------------------------
+\begin{SCfigure}[][h!]\centering
+	\begin{tikzpicture}[scale=1.5]
+    	      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
+          ({-1.55*1},0)--({1.55*1},0)
+          node[right,font=\tiny,inner sep=1pt]{$X_1$};
+      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
+          (0,{-1.55*1})--(0,{1.55*1})
+          node[above,font=\tiny,inner sep=1pt]{$X_2$};
+            \def\a{45}
+            \def\l{1.45}
+        \draw[-{Latex[length=6pt]}, red, thick] (0,0) -- ++(\a:\l) coordinate (E) node[pos=1, anchor=south] {$\Efield$};
+        \draw[densely dashed] (E) -- node[anchor={180}] {$E_2$} ++(0,{-\l*sin(\a)});
+        \draw[densely dashed] (E) --  node[anchor={south}] {$E_1$}  ++({-\l*cos(\a)}, 0);
+	\end{tikzpicture}
+\caption{Напрямок вектора \(\Efield\) визначає поляризацію хвилі.}
+\label{pic:E-direction}
+\end{SCfigure}
+%---------------------------------------------------------
+
+
+Для випадкового поля \(\Efield\) введемо тензор поляризації:
+
+\begin{equation}
+\rho_{ij} = \frac{\langle E_i E_j^{*} \rangle}{\langle |E_1|^2 \rangle + \langle |E_2|^2 \rangle}, \quad i, j = 1, 2
+\label{eq:polarization_tensor}
+\end{equation}
+
+Очевидно, матриця \( \|\rho\|\) є ермітовою, а її шпур (слід) дорівнює одиниці:
+
+\begin{equation}\label{eq:hermitian}
+\rho_{ji} = \rho_{ij}^{*}, \quad \rho_{11} + \rho_{22} = 1
+\end{equation}
+
+Для цілком поляризованого випромінювання маємо \(E_i = N_i f(t)\), де \(f\) може бути випадковою функцією, але вектор \(N_i\), що визначає напрямок
+поля, є фіксованим. В цьому випадку \(\rho_{ij}\) пропорційне \(N_i N_j^{*}\) і:
+
+\begin{equation}
+\det \|\rho\| = 0
+\end{equation}
+
+У випадку природного світла присутні усі можливі поляризації, що є рівноправними, причому \(\langle E_1 E_2^{*} \rangle = 0\), \(\langle |E_1|^2 \rangle =
+\langle |E_2|^2 \rangle\). В цьому разі:
+
+\begin{equation*}
+\rho_{ij} = \frac{1}{2} \delta_{ij}
+\end{equation*}
+
+В загальному випадку визначник матриці \(\|\rho\|\) є:
+
+\begin{equation*}
+\det \|\rho\| = \rho_{11} \rho_{22} - |\rho_{12}|^2 = \frac{\langle |E_1|^2 \rangle \langle |E_2|^2 \rangle - |\langle E_1 E_2^{*} \rangle|^2}{
+\langle |E_1|^2 \rangle + \langle |E_2|^2 \rangle}
+\end{equation*}
+
+Оскільки \(|\langle E_1 E_2^{*} \rangle|^2 \leqslant  \langle |E_1|^2 \rangle \langle |E_2|^2 \rangle\), цей визначник додатний:
+
+\begin{equation*}
+\det \|\rho\| \geqslant 0
+\end{equation*}
+
+З іншого боку, очевидно:
+
+\begin{equation*}
+\det \|\rho\| \leqslant
+\frac{\langle |E_1|^2 \rangle \, \langle |E_2|^2 \rangle}
+{\left(\langle |E_1|^2 \rangle + \langle |E_2|^2 \rangle\right)^2}
+\leqslant \frac{1}{4}
+\end{equation*}
+
+Оскільки область значень \(\det \|\rho\| \) є відрізком \([0, 1/4]\), можна записати:
+
+\begin{equation}
+\det \|\rho\| = \frac{1}{4} \left( 1 - p^2 \right),\quad  \text{де}\  0 \leqslant  p \leqslant 1
+\label{eq:polarization_degree}
+\end{equation}
+%
+де параметр \(p\) називають \emph{ступінню поляризації}\index{Ступінь поляризації}; він приймає значення від 0 (неполяризоване світло) до 1.
+
+Завдяки властивості~\eqref{eq:hermitian} (ермітовості), власні числа \(\lambda_1, \lambda_2\) матриці \(\rho_{ij}\) є дійсними, причому \(\det \|\rho\| = \lambda_1 \lambda_2\),
+\(\lambda_1 + \lambda_2 = 1\). Зважаючи на \eqref{eq:polarization_degree}, добуток власних чисел додатний, тобто вони мають один знак. Звідси легко
+бачити, що ці числа є додатними. Якщо матриця $\|\rho \|$ --- дійсна, її можна привести до діагонального виду  $\| \rho \| = \mathrm{diag}(\lambda_{\min}, \lambda_{\max})$ за допомогою просторових поворотів. Частку \(\lambda_{\min}/\lambda_{\max}\) називають \emph{коефіцієнтом деполяризації}\index{Коефіцієнт деполяризації}.
+
+%% --------------------------------------------------------
+\subsection*{Параметри Стокса}
+%% --------------------------------------------------------
+
+Виходячи з властивостей тензора поляризації, поданих формулою \eqref{eq:polarization_tensor}, його компоненти \(\rho_{ij}\) можна виразити через три
+незалежні дійсні \emph{параметри Стокса}\index{Параметри Стокса} \(\xi_1, \xi_2, \xi_3\), які приймають значення від $-1$ до $1$:
+
+\begin{equation*}
+\rho_{11} = \frac{1}{2} \left( 1 + \xi_3 \right), \quad \rho_{22} = \frac{1}{2} \left( 1 - \xi_3 \right), \quad \rho_{12} = \frac{1}{2} \left( \xi_1 -
+i\xi_2 \right) = \rho_{21}^{*}
+\end{equation*}
+
+Очевидно:
+
+\begin{equation*}
+\det \|\rho\| = \frac{1}{4} \left( 1 - \xi_1^2 - \xi_2^2 - \xi_3^2 \right)
+\end{equation*}
+
+\begin{equation*}
+p^2 = \xi_1^2 + \xi_2^2 + \xi_3^2, \quad 0 \leqslant \xi_1^2 + \xi_2^2 + \xi_3^2 \leqslant 1
+\end{equation*}
+
+Розглянемо стани поляризації для деяких полів, що відповідають різним параметрам Стокса.
+
+\begin{itemize}
+
+\item Лінійна поляризація під кутом $45^{\circ}$, тобто \(E_1 = \pm E_2\):
+
+\begin{equation*}
+\rho_{11} = \rho_{22} = \frac{1}{2} \rightarrow \xi_3 = 0; \quad \text{Im} \, \rho_{12} = 0 \rightarrow \xi_2 = 0;
+\end{equation*}
+
+Таким чином:
+
+\begin{equation*}
+\xi_1 = \pm 1, \quad \xi_3 = \xi_2 = 0
+\end{equation*}
+
+%---------------------------------------------------------
+\begin{SCfigure}[][h!]\centering
+	\begin{tikzpicture}[scale=1.5]
+    	      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
+          ({-1.55*1},0)--({1.55*1},0)
+          node[right,font=\tiny,inner sep=1pt]{$X_1$};
+      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
+          (0,{-1.55*1})--(0,{1.55*1})
+          node[above,font=\tiny,inner sep=1pt]{$X_2$};
+            \def\a{45}
+            \def\l{1.45}
+        \draw[-{Latex[length=6pt]}, red, thick] (0,0) -- ++(\a:\l) ;
+        \draw[-{Latex[length=6pt]},dashed,  red, thick] (0,0) -- ++(180+\a:\l) ;
+        \draw[densely dashed] (E) -- node[anchor={180}] {$E_2$} ++(0,{-\l*sin(\a)});
+        \draw[densely dashed] (E) --  node[anchor={south}] {$E_1$}  ++({-\l*cos(\a)}, 0);
+	\end{tikzpicture}
+\caption{Лінійна поляризація під кутом $45^{\circ}$ (випадок $E_1 = E_2$).}
+\label{pic:E-lin45}
+\end{SCfigure}
+%---------------------------------------------------------
+
+\item  Колова поляризація \(E_1 = A e^{-i\omega t}, \quad E_2 = \pm i E_1\).
+
+Як видно з поведінки дійсних частин компонент, вектор \(\Efield\) обертається в площині \(X_1 -
+X_2\). Маємо:
+
+\begin{equation*}
+\rho_{11} = \frac{1}{2}, \quad \rho_{22} = \frac{1}{2}, \quad \rho_{12} = \mp i
+\end{equation*}
+
+Звідси:
+
+\begin{equation*}
+\xi_1 = \xi_3 = 0, \quad \xi_2 = \pm 1
+\end{equation*}
+
+%---------------------------------------------------------
+\begin{SCfigure}[1.5][h!]\centering
+	\begin{tikzpicture}[scale=1.5]
+    	      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
+          ({-1.55*1},0)--({1.55*1},0)
+          node[right,font=\tiny,inner sep=1pt]{$X_1$};
+            \def\a{45}
+            \def\l{1.2}
+        \draw[-{Latex[length=6pt]}, red, thick] (0,0) -- ++(\a:\l) coordinate (E) node[pos=1, anchor=south] {$\Efield$};
+      \draw[-{Stealth[length=2.8pt, bend]},black!55]
+          (0,{-1.55*1})--(0,{1.55*1})
+          node[above,font=\tiny,inner sep=1pt]{$X_2$};
+          \draw[-{Stealth[length=4.5pt, bend]},thick, red]
+              (\l,0)arc[start angle=0,end angle=360,
+                         radius=\l];
+	\end{tikzpicture}
+\caption{Колова поляризація (випадок $E_2 = iE_1$, обертання вектора $\Efield$ проти годинникової стрілки).}
+\label{pic:E-circle}
+\end{SCfigure}
+%---------------------------------------------------------
+
+\item Лінійна поляризація вздовж однієї з осей \(E_1 \neq 0, E_2 = 0\) або \(E_2 \neq 0, E_1 = 0\):
+
+\begin{equation*}
+\rho_{11} = 1, \quad \rho_{22} = 0 \rightarrow \xi_3 = 1,
+\end{equation*}
+
+або
+
+\begin{equation*}
+\rho_{11} = 0, \quad \rho_{22} = 1 \rightarrow \xi_3 = -1,
+\end{equation*}
+
+при цьому \(\rho_{12} = 0 \rightarrow \xi_1 = \xi_2 = 0\).
+
+%---------------------------------------------------------
+\begin{SCfigure}[][h!]\centering
+	\begin{tikzpicture}[scale=1.5]
+    	      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
+          ({-1.55*1},0)--({1.55*1},0)
+          node[right,font=\tiny,inner sep=1pt]{$X_1$};
+      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
+          (0,{-1.55*1})--(0,{1.55*1})
+          node[above,font=\tiny,inner sep=1pt]{$X_2$};
+            \def\a{0}
+            \def\l{1.4}
+        \draw[-{Latex[length=6pt]}, red, thick] (0,0) -- ++(\a:\l) ;
+        \draw[-{Latex[length=6pt]},dashed,  red, thick] (0,0) -- ++(180+\a:\l) ;
+	\end{tikzpicture}
+\caption{Лінійна поляризація вздовж $X_1$ (випадок $E_2 = 0$).}
+\label{pic:E-lin0}
+\end{SCfigure}
+%---------------------------------------------------------
+
+Таким чином:
+
+\begin{equation*}
+\xi_1 = \xi_2 = 0, \quad \xi_3 = \pm 1
+\end{equation*}
+
+
+\item Еліптична поляризація --- загальний випадок: \(E_2 = A e^{i\delta} E_1\)
+з довільною амплітудою \(A\) та зсувом фаз \(\delta\). Тоді кінець вектора
+\(\Efield\) описує еліпс у площині \(X_1\!-\!X_2\), а компоненти тензора
+поляризації є нетривіальними:
+
+\begin{equation*}
+\rho_{11} = \frac{1}{1 + A^2}, \quad \rho_{22} = \frac{A^2}{1 + A^2}, \quad
+\rho_{12} = \frac{A e^{-i\delta}}{1 + A^2}
+\end{equation*}
+
+Звідси всі три параметри Стокса, взагалі кажучи, відмінні від нуля:
+
+\begin{equation*}
+\xi_3 = \frac{1 - A^2}{1 + A^2}, \quad
+\xi_1 = \frac{2A\cos\delta}{1 + A^2}, \quad
+\xi_2 = \frac{2A\sin\delta}{1 + A^2}
+\end{equation*}
+
+причому \(\xi_1^2 + \xi_2^2 + \xi_3^2 = 1\). Лінійна (\(\delta = 0,\, \pi\))
+та кругова (\(A = 1,\, \delta = \pm\pi/2\)) поляризації є граничними випадками.
+%---------------------------------------------------------
+\begin{SCfigure}[][h!]\centering
+	\begin{tikzpicture}[scale=1.5]
+    	      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
+          ({-1.55*1},0)--({1.55*1},0)
+          node[right,font=\tiny,inner sep=1pt]{$X_1$};
+            \def\a{45}
+            \def\l{1.2}
+            \draw[-{Latex[length=6pt]}, red, thick] (0,0) -- ({\l*cos(\a)},{0.65*\l*sin(\a)}) coordinate (E) node[pos=1, anchor=south] {$\Efield$};
+      \draw[-{Stealth[length=2.8pt, bend]},black!55]
+          (0,{-1.55*1})--(0,{1.55*1})
+          node[above,font=\tiny,inner sep=1pt]{$X_2$};
+          \draw[-{Stealth[length=4.5pt, bend]},thick, red]
+              (\l,0)arc[start angle=0,end angle=360,
+                         x radius=\l, y radius=0.65*\l];
+	\end{tikzpicture}
+\caption{Еліптична поляризація.}
+\label{pic:E-ellipse}
+\end{SCfigure}
+%---------------------------------------------------------
+
+\end{itemize}
+
+
+Параметри Стокса \((\xi_1, \xi_2, \xi_3)\) зручно інтерпретувати як декартові координати точки на сфері радіуса \(p = 1\) (ступінь поляризації). Стан поляризації цілком поляризованого випромінювання (\(p = 1\)) однозначно задається точкою на одиничній сфері \(\xi_1^2 + \xi_2^2 + \xi_3^2 = 1\) --- \emph{сфері Пуанкаре}\index{Сфера Пуанкаре} (рис.~\ref{pic:Stoke})\footnote{Сфера Пуанкаре перетворює задачу про поляризацію на \emph{задачу обертань цієї сфери}: дія кожного поляризаційного елемента (фазова пластинка, обертач тощо) описується поворотом сфери на певний кут навколо певної осі. Це дозволяє наочно й без громіздких обчислень передбачати результат дії будь-якої оптичної системи на поляризоване світло.}. Лінійні та кругові поляризації займають на ній особливі положення (полюси і точки екватора), тоді як еліптична поляризація відповідає всім решта точкам поверхні. Частково поляризоване світло зображується точкою \emph{всередині} сфери, а неполяризоване --- її центром.
+
+%---------------------------------------------------------
+\begin{figure}[ht!]\centering
+\input{FreeField/tikz/StokeParams.tikz}
+\caption{Сфера Пуанкаре: геометричне представлення параметрів Стокса. Координати \((\xi_1, \xi_2, \xi_3)\) визначають точку на сфері для повністю поляризованого світла (\(p=1\)). Екватор --- лінійна поляризація, полюси --- колова, проміжні точки --- еліптична.}
+\label{pic:Stoke}
+\end{figure}
+%---------------------------------------------------------
