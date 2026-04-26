@@ -1,4 +1,4 @@
-\documentclass[border=14pt]{standalone}
+\documentclass[border=1cm]{standalone}
 \usepackage{tikz}
 \usepackage{tikz-3dplot}
 \usetikzlibrary{arrows.meta, calc, bending, shadows}
@@ -109,11 +109,13 @@
 % ================================================================
 \begin{document}
 
+
 \tdplotsetmaincoords{68}{115}
 
 \begin{tikzpicture}[tdplot_main_coords, scale=3.6, >=Stealth,
                     every node/.style={font=\small}]
 
+    \draw (-7, -7) rectangle (7,7);
   % ---------------------------------------------------------- СФЕРА
   \shadedraw[tdplot_screen_coords, ball color=blue!12!white, opacity=0.60]
       (0,0) circle (1);
@@ -163,9 +165,9 @@
   %                     ±45 -> кругова
   % ==========================================================
 \def\myPsi{45}
-\foreach   \myChi in {0, 15,..., 360} {
-  \addpointangles{Smy}{\myPsi}{\myChi}{45}{2}{orange}
-}
+\def\myChi{15}
+ \addpointangles{Smy}{\myPsi}{\myChi}{45}{2}{orange}
+
 
 \end{tikzpicture}
 \end{document}
