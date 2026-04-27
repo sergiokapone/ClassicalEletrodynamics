@@ -253,6 +253,8 @@
 %===============================================================================
 
 \RequirePackage{tikz, pgfplots, tikz-3dplot}
+\RequirePackage[outline]{contour} % glow around text
+\contourlength{1.1pt}
 
 
 %---------------------------------------------------
