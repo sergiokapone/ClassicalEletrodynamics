@@ -1,22 +1,260 @@
 % !TeX program = lualatex
 % !TeX encoding = utf8
 % !TeX spellcheck = uk_UA
-% !TeX root =../ClassicalEletrodynamics.tex
+% !TeX root = ../ClassicalElectrodynamics.tex
 
 %=========================================================
 \chapter{Тензор енергії-імпульсу і закони збереження}\label{\currfilebase}
 %=========================================================
 
-
+В цьому розділі будуть отримані закони збереження енергії-ім\-пуль\-су та моменту імпульсу як наслідок рівнянь електродинаміки в коваріантній формі та введено тензор енергії-імпульсу\index{Тензор енергії-імпульсу} електромагнітного поля.
 
 %% --------------------------------------------------------
 \section{Чотири-імпульс системи тіл}
 %% --------------------------------------------------------
 
+Перепишемо рівняння руху частинки в зовнішньому електромагнітному полі за допомогою вектора чотири-імпульсу\index{Чотиривектор!імпульсу}, який означимо так:
+\begin{equation*}
+    p^{\mu} = mc\,u^{\mu}.
+\end{equation*}
+Очевидно, завдяки співвідношенню $u^{\mu}u_{\mu}=1$, маємо
+\begin{equation}\label{eq:p_invariant}
+    p^{\mu}p_{\mu} = m^2c^2.
+\end{equation}
+Рівняння руху мають вид
+\begin{equation*}
+    \frac{dp^{\mu}}{ds} = \frac{q}{c}F^{\mu}{}_{\nu}\frac{dx^{\nu}}{ds}.
+\end{equation*}
+Вибираючи час системи відліку в якості незалежної змінної, перепишемо це співвідношення у вигляді
+\begin{equation}\label{eq:EOM_p}
+    \frac{dp^{\mu}}{dt} = \frac{q}{c}F^{\mu}{}_{\nu}\frac{dx^{\nu}}{dt},
+\end{equation}
+з якого випливає фізичний зміст компонент $p^{\mu}$. Дійсно, при $\mu=0$, враховуючи представлення $F^{\mu\nu}$ через електричне і магнітне поля, маємо
+\begin{equation*}
+    \frac{d\mathcal{E}}{dt} = q(\vect{E}\cdot\vect{v}),
+\end{equation*}
+де $\mathcal{E}=cp^0=mc^2/\sqrt{1-v^2/c^2}$, $\vect{v}=d\vect{x}/dt$ --- звичайна швидкість, або $d\mathcal{E}=q(\vect{E}\cdot d\vect{x})$.
+
+Права частина цього рівняння --- робота електромагнітного поля, яке діє на частинку з зарядом $q$ й передає їй певну енергію, зміна якої $d\mathcal{E}$ фігурує в лівій частині.
+
+При $\mu=i=1,2,3$ з~\eqref{eq:EOM_p} у тривимірних позначеннях дістанемо
+\begin{equation*}
+    \frac{d\vect{p}}{dt} = q\!\left\{\vect{E}
+    + \frac{1}{c}\vect{v}\times\vect{B}\right\},
+\end{equation*}
+де $\vect{p}=m\vect{v}(1-v^2/c^2)^{-1/2}$ --- тривимірна частина чотири-імпульсу. Це рівняння описує обмін імпульсом між зарядженим тілом та електромагнітним полем, причому права частина рівняння дає значення сили\index{Сила Лоренца}, що діє на тіло. Таким чином, $\vect{p}$ має сенс імпульсу рухомого тіла.
+
+З рівняння~\eqref{eq:p_invariant} випливає зв'язок між енергією та імпульсом:
+\begin{equation*}
+    \mathcal{E}^2 = m^2c^4 + \vect{p}^2c^2.
+\end{equation*}
+
+Узагальнимо енергетичні співвідношення на випадок неперервного розподілу зарядів. Обмін чотири-імпульсом між полем та системою $N$ точкових тіл в області\footnote{Тут вважаємо, що частинки не перетинають меж цієї області. Якщо це не виконується, в рівняннях збереження треба враховувати потік частинок через межу області.} $\Omega_3$ звичайного тривимірного простору описується рівнянням, яке випливає з~\eqref{eq:EOM_p}:
+\begin{equation*}
+    \frac{dP^{\mu}}{dt} = \sum_{k=1}^{N}\frac{q_k}{c}F^{\mu}{}_{\nu}(x_k)
+    \frac{dx_k^{\nu}}{dt},
+\end{equation*}
+де $P^{\mu}=\sum_{k=1}^{N}p_k^{\mu}$ --- чотири-імпульс системи тіл.
+
+У випадку неперервного розподілу перейдемо від сум до інтегрування:
+\begin{equation}\label{eq:dPdt}
+    \frac{dP^{\mu}}{dt}
+    = \frac{1}{c}\int dq\cdot F^{\mu}{}_{\nu}\frac{dx^{\nu}}{dt}
+    = \frac{1}{c}\int d^3x\,\rho\,F^{\mu}{}_{\nu}\frac{dx^{\nu}}{dt}
+    = \frac{1}{c}\int d^3x\,F^{\mu}{}_{\nu}j^{\nu}.
+\end{equation}
+Права частина~\eqref{eq:dPdt} визначає чотири-імпульс, який поле передає системі частинок за одиницю часу.
+
 %% --------------------------------------------------------
 \section{Енергія-імпульс електромагнітного поля}
 %% --------------------------------------------------------
 
+Введемо, за означенням, \emph{тензор енергії-імпульсу електромагнітного поля\index{Тензор енергії-імпульсу}}:
+\begin{equation}\label{eq:EMT}
+    T^{\mu}{}_{\nu} = \frac{1}{4\pi}\!\left(
+    -F^{\mu\alpha}F_{\nu\alpha} + \frac{1}{4}\delta^{\mu}_{\nu}F_{\alpha\beta}F^{\alpha\beta}
+    \right).
+\end{equation}
+Знайдемо величину $\partial_{\mu}T^{\mu}{}_{\nu}$, з урахуванням рівнянь Максвелла для $F_{\mu\nu}$. Обчислимо спочатку допоміжне співвідношення, яке випливає з другої групи рівнянь Максвелла з урахуванням антисиметрії $F_{\mu\nu}$:
+\begin{align*}
+F^{\alpha\beta} F_{\alpha\beta,\nu}
+= - F^{\alpha\beta} \left( F_{\beta\nu,\alpha} + F_{\nu\alpha,\beta} \right)
+&= - F^{\alpha\beta} \left( - F_{\nu\beta,\alpha} + F_{\nu\alpha,\beta} \right) = \\
+= - F^{\alpha\beta} \left( F_{\nu\alpha,\beta} + F_{\nu\alpha,\beta} \right)
+= -2 F^{\alpha\beta} F_{\nu\alpha,\beta}.
+\end{align*}
+
+Звідси
+\begin{equation*}
+\frac{\partial}{\partial x^\nu}\!\left(F^{\alpha\beta} F_{\alpha\beta}\right)
+= 2 F^{\alpha\beta} F_{\alpha\beta,\nu}
+= -4 F^{\alpha\beta} F_{\nu\alpha,\beta}.
+\end{equation*}
+Враховуючи це співвідношення та беручи до уваги першу групу рівнянь Максвелла~\eqref{eq:Maxwell_4D_1}, дістаємо:
+\begin{align*}
+    \partial_{\mu}T^{\mu}{}_{\nu}
+    = \frac{1}{4\pi}\!\left(
+    -\partial_{\mu}F^{\mu\alpha}F_{\nu\alpha}
+    - F^{\mu\alpha}F_{\nu\alpha,\mu}
+    - F^{\alpha\beta}F_{\nu\alpha,\beta}
+    \right).
+\end{align*}
+Завдяки антисиметрії $F_{\mu\nu}$ другий та останній доданки скорочуються, звідси:
+\begin{equation}\label{eq:divT}
+    \partial_{\mu}T^{\mu}{}_{\nu}
+    = -\frac{1}{4\pi}\partial_{\mu}F^{\mu\alpha}F_{\nu\alpha}
+    = -\frac{1}{c}F_{\nu\alpha}j^{\alpha}.
+\end{equation}
+Права частина цього рівняння, згідно до~\eqref{eq:dPdt}, визначає 4-імпульс, що переходить від поля до зарядів в одиниці об'єму за одиницю часу. Проінтегруємо~\eqref{eq:divT} по тривимірному об'єму $\Omega_3$, тоді права частина дасть втрати енергії поля всередині об'єму $\Omega_3$ за одиницю часу. Ліва частина дає змогу отримати явний вираз для втрат 4-імпульсу (або його збільшення --- залежно від знаку) через польові функції:
+\begin{align*}
+\int\limits_{\Omega_3} d^3 x \, (\partial_\nu T^{\mu\nu})
+&= \frac{1}{c}\,\frac{d}{dt} \int\limits_{\Omega_3} T^{\mu 0}\, d^3 x
++ \int\limits_{\Omega_3} d^3 x \, \frac{\partial T^{\mu i}}{\partial x^i} \\
+&= \frac{1}{c}\,\frac{d}{dt} \int_{\Omega_3} T^{\mu 0}\, d^3 x
++ \oint_{\partial \Omega_3} T^{\mu i}\, d\sigma_i \, .
+\end{align*}
+де $d\sigma_i$ --- елемент площини поверхні $\partial\Omega_3$, що обмежує просторову область $\Omega_3$ (з $d\sigma_1=dy\,dz$, $d\sigma_2=dx\,dz$, $d\sigma_3=dx\,dy$), причому інтеграл по $\partial\Omega_3$ описує потік 4-імпульсу через межу цієї області. Інтегральний \emph{закон збереження енергії та імпульсу\index{Закон збереження!енергії-імпульсу}} усієї системи «поле + частинки» в цій області має такий вигляд:
+\begin{equation}\label{eq:conservation_integral}
+    \frac{dP^{\mu}}{dt}
+    + \frac{1}{c}\frac{d}{dt}\int\limits_{\Omega_3}T^{\mu 0}\,d^3x
+    + \oint\limits_{\partial\Omega_3}T^{\mu j}\,d\sigma_j = 0,
+\end{equation}
+де враховано~\eqref{eq:dPdt}, \eqref{eq:divT}, причому тут вважаємо, що частинки не перетинають межі області $\Omega_3$. Звідси $T^{00}$ можна інтерпретувати як густину енергії електромагнітного поля\index{Густина енергії поля}, $T^{i0}/c$ --- як густину імпульсу. Останній доданок в~\eqref{eq:conservation_integral} описує потік чотири-імпульсу через поверхню $\partial\Omega_3$; відповідно $cT^{0i}=\Pi^i$ описує компоненти тривимірного вектора густини потоку енергії, де $\vect{\Pi}$ --- вектор Пойнтінга\index{Вектор Пойнтінга}.
+
+Запишемо явні вирази для \emph{густини енергії поля}:
+\begin{equation}\label{eq:T00}
+    T^{00} = \frac{1}{8\pi}\!\left(\vect{E}^2 + \vect{B}^2\right),
+\end{equation}
+та для \emph{густини потоку енергії}:
+\begin{equation}\label{eq:Poynting}
+    \vect{\Pi} = \frac{c}{4\pi}\vect{E}\times\vect{B}.
+\end{equation}
+Як видно з~\eqref{eq:conservation_integral} при $\mu=0$, $\oint\limits_{\partial\Omega_3}\vect{\Pi}\cdot d\vect{\Sigma}$ --- це енергія, що витікає через $\partial\Omega_3$ за одиницю часу. Одночасно $T^{0i}/c = T^{i0}/c = \Pi^i/c^2$ --- густина імпульсу поля, причому рівняння~\eqref{eq:conservation_integral} при $\mu=i$ описує збереження імпульсу. Доданок $\oint_{\partial\Omega_3}d\sigma_j T^{ij}$ описує потік імпульсу (імпульс, що витікає за одиницю часу через поверхню $\partial\Omega_3$). Відповідно, $T^{k1}, T^{k2}, T^{k3}$ можна інтерпретувати як густину потоку $k$-тої компоненти імпульсу. Для просторової частини тензора енергії-імпульсу маємо $T^{ij}=-t^{ij}$, де тривимірний тензор
+\begin{equation}\label{eq:Maxwell_stress}
+    t^{ij} = \frac{1}{4\pi}\!\left(
+    E^i E^j + B^i B^j - \frac{1}{2}\delta^{ij}(\vect{E}^2+\vect{B}^2)
+    \right)
+\end{equation}
+називають \emph{максвелівським тензором натягів\index{Тензор натягів Максвелла}}.
+
+Наведемо також співвідношення, що випливає з явного виду~\eqref{eq:EMT} тензора енергії-імпульсу електромагнітного поля:
+\begin{equation*}
+    T^{\mu\nu}\eta_{\mu\nu} = 0.
+\end{equation*}
+
 %% --------------------------------------------------------
 \section{Тензор моменту імпульсу електромагнітної системи}
 %% --------------------------------------------------------
+
+У нерелятивістській теорії компоненти векторного добутку $\vect{r}\times\vect{p}$, що складають момент імпульсу, можна записати як $x^i p^j - x^j p^i$. Розглянемо узагальнення цього виразу
+\begin{equation}\label{eq:M_particle}
+    M^{\mu\nu} = x^{\mu}p^{\nu} - x^{\nu}p^{\mu},
+\end{equation}
+яке називають \emph{чотири-тензором моменту імпульсу\index{Тензор моменту імпульсу}}. Обчислимо, як змінюється ця величина вздовж траєкторії зарядженої частинки:
+\begin{align*}
+    \frac{d}{dt}M^{\mu\nu}
+    &= \left(\frac{dx^{\mu}}{dt}p^{\nu} - \frac{dx^{\nu}}{dt}p^{\mu}\right)
+    + x^{\mu}\frac{dp^{\nu}}{dt} - x^{\nu}\frac{dp^{\mu}}{dt} \\
+    &= \frac{q}{c}\!\left(
+    x^{\mu}F^{\nu}{}_{\alpha}\frac{dx^{\alpha}}{dt}
+    - x^{\nu}F^{\mu}{}_{\alpha}\frac{dx^{\alpha}}{dt}
+    \right),
+\end{align*}
+де враховані співвідношення $p^{\nu}=mc\,u^{\nu}$, $dx^{\mu}/dt=u^{\mu}\,ds/dt$, а також рівняння руху~\eqref{eq:EOM_p}. Для системи частинок:
+\begin{equation*}
+    \frac{d}{dt}\sum_{\Omega}M^{\mu\nu}
+    = \sum_{\Omega}\frac{q}{c}\!\left(
+    x^{\mu}F^{\nu}{}_{\alpha} - x^{\nu}F^{\mu}{}_{\alpha}
+    \right)\frac{dx^{\alpha}}{dt},
+\end{equation*}
+де індекс під сумою означає, що вона береться за усіма частинками в області $\Omega$.
+
+При переході до неперервного розподілу обмін чотири-моментом між системою частинок і полем можна записати так:
+\begin{equation}\label{eq:dM_particles}
+    \frac{d}{dt}\int_{\Omega}M^{\mu\nu}\,dV
+    = \frac{1}{c}\int\!\left(
+    x^{\mu}F^{\nu}{}_{\alpha} - x^{\nu}F^{\mu}{}_{\alpha}
+    \right)j^{\alpha}\,dV,
+\end{equation}
+де враховано, що для частинок в деякому об'ємі $\Delta V$: $\sum\limits_{\Delta V} q\,dx^{\alpha}/dt \to \rho\,(dx^{\alpha}/dt)\,\Delta V = j^{\alpha}\Delta V$.
+
+Перейдемо до визначення моменту імпульсу електромагнітного поля. Розглянемо вираз:
+\begin{equation}\label{eq:divM_field}
+    \partial_{\alpha}\!\left(x^{\mu}T^{\nu\alpha} - x^{\nu}T^{\mu\alpha}\right)
+    = \delta^{\mu}_{\alpha}T^{\nu\alpha} - \delta^{\nu}_{\alpha}T^{\mu\alpha}
+    + x^{\mu}T^{\nu\alpha}{}_{,\alpha} - x^{\nu}T^{\mu\alpha}{}_{,\alpha}.
+\end{equation}
+Використовуючи рівняння~\eqref{eq:divT} з урахуванням симетрії $T^{\alpha\beta}$, дістанемо:
+\begin{equation}\label{eq:divM_result}
+    \partial_{\alpha}\!\left(x^{\mu}T^{\nu\alpha} - x^{\nu}T^{\mu\alpha}\right)
+    = -\frac{1}{c}\!\left(
+    x^{\mu}F^{\nu}{}_{\alpha} - x^{\nu}F^{\mu}{}_{\alpha}
+    \right)j^{\alpha}.
+\end{equation}
+Проінтегруємо це співвідношення по області $\Omega_3$ із застосуванням формули Остроградського--Гаусса:
+\begin{multline*}
+\frac{1}{c} \int\limits_{\Omega_3} d^3 x \,
+\frac{\partial}{\partial t}
+\left( x^\mu T^{\nu 0} - x^\nu T^{\mu 0} \right)
++ \int\limits_{\Omega_3} d^3 x \,
+\frac{\partial}{\partial x^i}
+\left( x^\mu T^{\nu i} - x^\nu T^{\mu i} \right) = \\
+=\frac{d\mathcal{M}_{\text{emf}}^{\mu\nu}}{dt}
+    + \oint\limits_{\partial\Omega_3}d\sigma_i\!\left(x^{\mu}T^{\nu i} - x^{\nu}T^{\mu i}\right)
+    = -\frac{1}{c}\int\limits_{\Omega_3}d^3x\,
+    \!\left(x^{\mu}F^{\nu}{}_{\alpha} - x^{\nu}F^{\mu}{}_{\alpha}\right)j^{\alpha},
+\end{multline*}
+де величину
+\begin{equation*}
+    \mathcal{M}_{\text{emf}}^{\mu\nu}
+    = \frac{1}{c}\int_{\Omega_3}\!\left(x^{\mu}T^{\nu 0} - x^{\nu}T^{\mu 0}\right)d^3x
+\end{equation*}
+назвемо \emph{моментом імпульсу поля\index{Момент імпульсу!поля}}\footnote{Відповідно, підінтегральний вираз --- тензор густини моменту імпульсу.}. Враховуючи~\eqref{eq:dM_particles}, дістанемо:
+\begin{equation}\label{eq:angular_conservation}
+    \frac{d\mathcal{M}_{\text{emf}}^{\mu\nu}}{dt}
+    + \oint\limits_{\partial\Omega_3}d\sigma_i\!\left(x^{\mu}T^{\nu i} - x^{\nu}T^{\mu i}\right)
+    + \frac{d}{dt}\int_{\Omega_3}M^{\mu\nu}\,dV = 0.
+\end{equation}
+Це співвідношення виражає збереження 4-моменту імпульсу\index{Закон збереження!моменту імпульсу}, причому $(x^{\mu}T^{\nu 0}-x^{\nu}T^{\mu 0})$ дає густину цієї величини, а другий доданок в~\eqref{eq:angular_conservation} --- її потік через $\partial\Omega_3$. При просторових значеннях індексів $\mu,\nu$ це співвідношення подає закон збереження компонент звичайного моменту імпульсу.
+
+%=========================================================
+\begin{problem}
+$\pi^0$-Мезон, що рухається зі швидкістю $v<c$, розпадається на два $\gamma$-кванти. Знайти мінімальний кут $\theta_{\min}$ між напрямками розлітання квантів.
+
+\textit{Вказівка}: з законів збереження енергії та імпульсу отримати
+\[
+    \sin^2\!\frac{\theta_{\min}}{2}
+    = \frac{m^2c^4}{4\hbar^2\omega_1\omega_2}
+    \cdot\frac{v^2}{c^2},
+\]
+де $\omega_1,\omega_2$ --- частоти фотонів.
+
+\textit{Відповідь}: $\sin^2(\theta_{\min}/2) = (1-v^2/c^2)/2$.
+\end{problem}
+
+%=========================================================
+\begin{problem}
+Дві елементарні частинки перетворюються на дві інші за схемою $a+b\to c+d$. Позначимо
+\begin{equation*}
+    s = (p_a^{\mu}+p_b^{\mu})(p_{a\mu}+p_{b\mu}), \quad
+    t = (p_a^{\mu}-p_c^{\mu})(p_{a\mu}-p_{c\mu}), \quad
+    u = (p_a^{\mu}-p_d^{\mu})(p_{a\mu}-p_{d\mu}),
+\end{equation*}
+де $p_i^{\mu}$ --- 4-імпульси частинок ($i=a,b,c,d$). Доведіть, що
+\[
+    s + t + u = (m_a^2 + m_b^2 + m_c^2 + m_d^2)c^2,
+\]
+де $m_i$ --- маси частинок.
+\end{problem}
+
+%=========================================================
+\begin{problem}
+При зіткненні частинки з масою спокою $m$ із нерухомою частинкою з масою спокою $m_1$ відбувається реакція, після якої залишаються частинки із загальною масою спокою $M$. Знайдіть мінімальне значення кінетичної енергії частинки, що налітає (енергетичний поріг реакції).
+
+\textit{Вказівка}: Покажіть, що за умов задачі кінетична енергія частинок в системі центру мас є монотонною функцією енергії та імпульсу частинки, що налітає. В цій системі мінімальне значення енергії відповідає випадку, коли продукти реакції покояться. В лабораторній системі усі частинки мають однакову швидкість.
+
+\textit{Відповідь}:
+\[
+    T_{\min} = \frac{[M^2-(m+m_1)^2]c^2}{2m_1}.
+\]
+\end{problem}

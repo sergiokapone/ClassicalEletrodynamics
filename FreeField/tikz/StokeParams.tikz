@@ -1,75 +1,115 @@
+% ================================================================
+%  ТЕОРІЯ (з тексту):
+%    E2 = A*exp(i*delta)*E1
+%    xi3 = (1-A^2)/(1+A^2)
+%    xi1 = 2A*cos(delta)/(1+A^2)
+%    xi2 = 2A*sin(delta)/(1+A^2)
+%
+%  Еліпс у площині X1-X2:
+%    кут нахилу великої осі:  psi = 0.5 * atan2(xi1, xi3)
+%    кут еліптичності:        chi = 0.5 * asin(xi2 / p)
+%    p = sqrt(xi1^2+xi2^2+xi3^2)  -- ступінь поляризації
+%    велика піввісь ~ cos(chi),  мала ~ |sin(chi)|
+%    напрямок обертання = sign(xi2)
+% ================================================================
+
+\newcommand{\pR}{0.30}   % радіус нормування вставок (cm)
 
 % ================================================================
-%  pic: polplot  —  syntax:  {polplot=TYPE SENSE COLOR}
+%  \polplotStokes{xi1}{xi2}{xi3}{color}
 %
-%  TYPE  = circ | ell | line
-%  SENSE = ccw | cw | <angle in degrees for linear>
-%  COLOR = any TikZ color (wrap in braces if it contains !)
-%
-%  The pic is drawn in cm.  Named anchor:  <picname>-c  (centre).
+%  Малює осі X1-X2 і правильний еліпс поляризації
+%  для точки (xi1, xi2, xi3) на сфері Пуанкаре.
 % ================================================================
+\newcommand{\polplotStokes}[4]{%
+  \begin{scope}
+    \pgfmathsetmacro{\pp}{sqrt(#1*#1 + #2*#2 + #3*#3)}
+    \pgfmathsetmacro{\ppSafe}{max(\pp, 0.001)}
+    \pgfmathsetmacro{\psiDeg}{0.5*atan2(#1,#3)}
+    \pgfmathsetmacro{\chiDeg}{0.5*asin(#2/\ppSafe)}
+    \pgfmathsetmacro{\sma}{\pR*\ppSafe*cos(\chiDeg)}
+    \pgfmathsetmacro{\smb}{\pR*\ppSafe*abs(sin(\chiDeg))}
+    % осі
+    \draw[-{Stealth[length=2.2pt,bend]},thin,black!50]
+        ({-1.6*\pR},0)--({1.6*\pR},0)
+        node[right,font=\tiny,inner sep=0.5pt]{$X_1$};
+    \draw[-{Stealth[length=2.2pt,bend]},thin,black!50]
+        (0,{-1.6*\pR})--(0,{1.6*\pR})
+        node[above,font=\tiny,inner sep=0.5pt]{$X_2$};
+    % еліпс, повернутий на psi
+    \begin{scope}[rotate=\psiDeg]
+      \pgfmathsetmacro{\isLine}{(\smb < 0.013) ? 1 : 0}
+      \ifnum\isLine=1
+        \draw[#4, line width=1.2pt](-\sma,0)--(\sma,0);
+      \else
+        \draw[#4, thick](0,0)ellipse(\sma cm and \smb cm);
+        \pgfmathsetmacro{\sensesign}{(#2 >= 0) ? 1 : -1}
+        \draw[-{Stealth[length=3.5pt,bend]},#4,thick]
+            (\sma,0) arc[start angle=0,
+                         end angle={\sensesign*65},
+                         x radius=\sma, y radius=\smb];
+      \fi
+    \end{scope}
+  \end{scope}
+}
 
-\newcommand{\pA}{0.42}     % semi-major  (cm)
-\newcommand{\pBe}{0.18}    % semi-minor for ellipse (cm)
-
-\def\picTcirc{circ}
-\def\picTell{ell}
-\def\picTccw{ccw}
-
+% ================================================================
 \tikzset{
-  pics/polplot/.style args={#1 #2 #3}{
-    code={
-      % x/y axes
-      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
-          ({-1.55*\pA},0)--({1.55*\pA},0)
-          node[right,font=\tiny,inner sep=1pt]{$X_1$};
-      \draw[-{Stealth[length=2.8pt, bend]},thin,black!55]
-          (0,{-1.55*\pA})--(0,{1.55*\pA})
-          node[above,font=\tiny,inner sep=1pt]{$X_2$};
-      % save tokens for comparison
-      \edef\Ttype{#1}\edef\Tsense{#2}%
-      % ---- circle ----
-      \ifx\Ttype\picTcirc
-        \draw[#3,thick](0,0)circle(\pA);
-        \ifx\Tsense\picTccw
-          \draw[-{Stealth[length=3.5pt, bend]},#3,thick]
-              (\pA,0)arc[start angle=0,end angle=65,radius=\pA];
-        \else
-          \draw[-{Stealth[length=4.5pt, bend]},#3,thick]
-              (\pA,0)arc[start angle=0,end angle=-65,radius=\pA];
-        \fi
-      \else
-      % ---- ellipse ----
-      \ifx\Ttype\picTell
-        \draw[#3,thick](0,0)ellipse(\pA cm and \pBe cm);
-        \ifx\Tsense\picTccw
-          \draw[-{Stealth[length=4.5pt, bend]},#3,thick]
-              (\pA,0)arc[start angle=0,end angle=65,
-                         x radius=\pA,y radius=\pBe];
-        \else
-          \draw[-{Stealth[length=4.5pt, bend]},#3,thick]
-              (\pA,0)arc[start angle=0,end angle=-65,
-                         x radius=\pA,y radius=\pBe];
-        \fi
-      \else
-      % ---- linear: #2 is the tilt angle ----
-        \draw[#3,line width=1.5pt]
-            ({-\pA*cos(#2)},{-\pA*sin(#2)})--
-            ({\pA*cos(#2)},{\pA*sin(#2)});
-      \fi\fi
-      \coordinate(-c)at(0,0);
-    }
+  spyglass/.style={
+    circle, draw=blue!50, line width=0.7pt,
+    inner sep=0pt, fill=white,
+    drop shadow={opacity=0.25,
+                 shadow xshift=0pt, shadow yshift=-0pt}
   }
 }
 
 % ================================================================
+%  \addpoint{nodename}{xi1}{xi2}{xi3}{direction}{distance}{color}
+%  (викликати всередині scope tdplot_screen_coords)
+% ================================================================
+\newcommand{\addpoint}[7]{%
+  \node[] (#1-lens) at ($(#1)+(#5:#6)$) {%
+    \tikz[baseline=0]{\polplotStokes{#2}{#3}{#4}{#7}}%
+  };
+  \draw[dashed, thin, gray!70, -{Stealth[length=10pt]}] (#1-lens) -- (#1);
+}
+
+% ================================================================
+%  \addpointangles{nodename}{psi}{chi}{direction}{distance}{color}
+%
+%  Задаєш точку через фізичні кути еліпса поляризації:
+%
+%    psi  (-90..90 градусів) -- кут нахилу великої осі
+%    chi  (-45..45 градусів) -- кут еліптичності
+%                               0   -> лінійна поляризація
+%                               ±45 -> кругова поляризація
+%
+%  Координати точки на сфері (автоматично):
+%    xi1 = cos(2*chi) * cos(2*psi)
+%    xi2 = sin(2*chi)
+%    xi3 = cos(2*chi) * sin(2*psi)
+% ================================================================
+\newcommand{\addpointangles}[6]{%
+  % #1=nodename  #2=psi  #3=chi  #4=direction  #5=distance  #6=color
+  \pgfmathsetmacro{\xxi} {cos(2*#3)*cos(2*#2)}
+  \pgfmathsetmacro{\xxii} {sin(2*#3)}
+  \pgfmathsetmacro{\xxiii}{cos(2*#3)*sin(2*#2)}
+  \node[fill=#6!80!black, circle, inner sep=1.5pt]
+      (#1) at (\xxi,\xxii,\xxiii){};
+  \begin{scope}[tdplot_screen_coords, x=1cm, y=1cm]
+    \addpoint{#1}{\xxi}{\xxii}{\xxiii}{#4}{#5}{#6}
+  \end{scope}
+}
+
+% ================================================================
+
 
 \tdplotsetmaincoords{68}{115}
 
 \begin{tikzpicture}[tdplot_main_coords, scale=3.6, >=Stealth,
                     every node/.style={font=\small}]
 
-  % ----------------------------------------------------------------  SPHERE
+  % ---------------------------------------------------------- СФЕРА
   \shadedraw[tdplot_screen_coords, ball color=blue!12!white, opacity=0.60]
       (0,0) circle (1);
 
@@ -86,47 +126,53 @@
   \tdplotdrawarc[dashed,black,thin,tdplot_rotated_coords]{(0,0,0)}{1}{0}{360}{}{}
   \tdplotdrawarc[black,thin,tdplot_rotated_coords]{(0,0,0)}{1}{-35}{140}{}{}
 
-  % ----------------------------------------------------------------  AXES
+  % ---------------------------------------------------------- ОСІ
   \draw[thick,->](-1.2,0,0)--(2.5,0,0) node[anchor=north east]{$\xi_1$};
   \draw[thick,->](0,-1.1,0)--(0,1.5,0) node[anchor=north west]{$\xi_2$};
   \draw[thick,->](0,0,-1.1)--(0,0,1.5) node[anchor=south]     {$\xi_3$};
 
-  % ----------------------------------------------------------------  POLE NODES
-  \node[fill=red!80!black, circle,inner sep=1.5pt](S3p) at (0,0, 1){};
-  \node[fill=red!80!black, circle,inner sep=1.5pt](S3m) at (0,0,-1){};
-  \node[fill=blue!70!black,circle,inner sep=1.5pt](S1p) at (1,0,0) {};
-  \node[fill=blue!70!black,circle,inner sep=1.5pt](S1m) at (-1,0,0){};
-  \node[fill=blue!70!black,circle,inner sep=1.5pt](S2p) at (0,1,0) {};
-  \node[fill=blue!70!black,circle,inner sep=1.5pt](S2m) at (0,-1,0){};
 
-  % ----------------------------------------------------------------  PICS + LEADERS
-  \begin{scope}[tdplot_screen_coords, x=1cm, y=1cm]
+  % ==========================================================
+  %  ДОВІЛЬНА ТОЧКА
+  %  Міняй тільки \myPsi і \myChi -- решта автоматично.
+  %
+  %  \myPsi (-90..90):  кут нахилу великої осі еліпса
+  %  \myChi (-45..45):  кут еліптичності
+  %                     0   -> лінійна
+  %                     ±45 -> кругова
+  % ==========================================================
 
-    % +S2  top-left   ->  left circular CCW, red
-    \pic (iS2p) at ($(S2p)+(-45:0.5)$) {polplot=circ ccw red};
-    \draw[dash dot, thin,blue](iS2p-c)--(S2p);
+\begin{pgfonlayer}{background}
+\def\myPsi{0}
+\foreach \myChi in {0, 11.25, 22.5, ..., {168.75}}
+{
+ \addpointangles{Sp1}{0}{\myChi}{90}{1.5}{red}
+}
 
-    % +S2  top-right  ->  right circular CW, red
-    \pic (iS2m) at ($(S2m)+(135:0.5)$) {polplot=circ cw red};
-    \draw[dash dot,thin,blue](iS2m-c)--(S2m);
+%\def\myChi{0}
 
+%\foreach \myPsi in {0, 22.5, 45, ..., 135}
+%{
+% \addpointangles{Smy}{\myPsi}{\myChi}{0}{1.5}{orange}
+%}
 
-    % +S2  mid-right  ->  linear 45 deg, black
-    \pic (iS2p) at ($(S1p)+(190:0.75)$) {polplot=line 45 red};
-    \draw[dash dot,thin,blue](iS2p-c)--(S1p);
+\end{pgfonlayer}
 
-    % -S2  mid-right  ->  linear -45 deg, black
-    \pic (iS2m) at ($(S1m)+(15:0.75)$) {polplot=line -45 red};
-    \draw[dash dot,thin,blue](iS2m-c)--(S1m);
+%\addpointangles{Sp2}{0}{45}{0}{0.75}{red}
+%
+%\addpointangles{Sm1}{0}{90}{0}{0.75}{red}
+%
+%\addpointangles{Sm2}{0}{135}{180}{0.75}{red}
 
-    % -S3  mid-left   ->  linear 90 deg, black
-    \pic (iS3m) at ($(S3m)+(220:0.5)$) {polplot=line 90 red};
-    \draw[dash dot,thin,blue](iS3m-c)--(S3m);
+% ----------
+%\addpointangles{Sp3}{45}{0}{135}{0.75}{red}
+%
+%\addpointangles{Sm3}{45}{90}{-45}{0.75}{red}
 
-    % +S3  mid-left   ->  linear 0 deg, black
-    \pic (iS3p) at ($(S3p)+(-220:0.5)$) {polplot=line 0 red};
-    \draw[dash dot,thin,blue](iS3p-c)--(S3p);
-
-  \end{scope}
-
+%\def\myChi{0}
+%%\def\myPsi{0}
+%\foreach \myPsi in {45, 135}
+%{
+% \addpointangles{Smy}{\myPsi}{\myChi}{30}{0.5}{orange}
+%}
 \end{tikzpicture}
