@@ -66,7 +66,7 @@
 де \( \delta^3 \) --- тривимірна \( \delta \)-функція.
 
 
-За загальними формулами \eqref{eq:D}, \eqref{eq:2.2.18}, \eqref{eq:2.2.19} для потенціалів:
+За загальними формулами~\eqref{eq:D},~\eqref{eq:2.2.18},~\eqref{eq:2.2.19} для потенціалів:
 
 \begin{equation*}
 	\phi(t, \vect{r}) = \frac{2}{c} \int dt' \int d^3\vect{r}' \delta \left[ (t - t')^2 - \frac{1}{c^2} (\vect{r} - \vect{r}')^2 \right] \theta (t - t')
@@ -74,7 +74,7 @@
 	\label{eq:general_potential}
 \end{equation*}
 
-Враховуючи \eqref{eq:charge_density}, дістанемо:
+Враховуючи~\eqref{eq:charge_density}, дістанемо:
 
 \begin{equation*}
 	\phi(t, \vect{r}) = \frac{2q}{c} \int dt' \delta \left[ (t - t')^2 - \frac{1}{c^2} (\vect{r} - \vect{r}_q (t'))^2 \right] \theta (t - t').
@@ -96,7 +96,7 @@
     = \frac{q}{c} \left[ \left( t - t') - \frac{1}{c^2} \dot{\vect{r}}_q (t') \cdot (\vect{r} - \vect{r}_q (t')) \right) \right]_{t' = t_q}^{-1}.
 \end{multline}
 
-Перепишемо це у більш компактному виді, врахувавши зв'язок \eqref{eq:retarded_time}:
+Перепишемо це у більш компактному виді, врахувавши зв'язок~\eqref{eq:retarded_time}:
 
 \begin{equation}
 	\varphi(t, \vect{r}) = \frac{q}{R_q - (\vect{R}_q \cdot \vect{v}_q)/c},
@@ -111,10 +111,10 @@
 	\label{eq:vector_potential}
 \end{equation}
 
-Формули \eqref{eq:compact_potential}, \eqref{eq:vector_potential} подають \textit{потенціали Лієнара-Віхерта} точкового заряду. Звідси, за формулами
-\eqref{eq:potB}, \eqref{eq:potE} отримуємо напруженості полів.
+Формули~\eqref{eq:compact_potential},~\eqref{eq:vector_potential} подають \textit{потенціали Лієнара-Віхерта} точкового заряду. Звідси, за формулами
+\eqref{eq:potB},~\eqref{eq:potE} отримуємо напруженості полів.
 
-Якщо заряд рухається зі сталою швидкістю \( \vect{v}_q = \text{const} \), обчислення напруженостей полів виходячи з \eqref{eq:compact_potential},
+Якщо заряд рухається зі сталою швидкістю \( \vect{v}_q = \text{const} \), обчислення напруженостей полів виходячи з~\eqref{eq:compact_potential},
 \eqref{eq:vector_potential} дає нульовий потік на нескінченності, оскільки поля спадають, як \( 1/r^2 \). Це найбільш очевидно в системі спокою заряду.
 Таким чином, випромінювання можливе лише для прискореного руху заряду.
 
@@ -149,7 +149,7 @@
 %% --------------------------------------------------------
 
 Нас цікавить лише та частина напруженостей полів, що спадає як \( \frac{1}{r} \) на нескінченності. Це значно полегшує обчислення за формулами
-\eqref{eq:potB}, \eqref{eq:potE}. Але обчислювати \( \Efield \) за формулою \eqref{eq:potE} немає необхідності, оскільки в хвильовій зоні:
+\eqref{eq:potB},~\eqref{eq:potE}. Але обчислювати \( \Efield \) за формулою~\eqref{eq:potE} немає необхідності, оскільки в хвильовій зоні:
 
 \begin{equation*}
 	\Efield = [\Bfield \times \vect{n}], \quad \vect{\Pi} = \frac{c}{4\pi} B^2 \vect{n},
@@ -163,7 +163,7 @@
 \end{equation*}
 
 Ненульовий внесок в члени \( \sim \frac{1}{r} \) дає лише величина \( \vect{v}(t_q) \), яка залежить від \( \vect{r} \) через час запізнення \( t_q =
-t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з рівняння \eqref{eq:retarded_time}, що задає цю функцію неявно:
+t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з рівняння~\eqref{eq:retarded_time}, що задає цю функцію неявно:
 
 \begin{equation}
 	\nabla t_q = \frac{\vect{n}_q}{c Z_q},
@@ -190,7 +190,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 	dI = (\vect{\Pi} \cdot \vect{n}) R_q^2 do = \frac{c}{4\pi} B^2 R_q^2 do, \quad R_q \to \infty.
 \end{equation*}
 
-Після дещо громіздких обчислень з використанням \eqref{eq:magnetic_field} отримуємо потужність випромінювання в тілесний кут \( do \) в напрямку~\(
+Після дещо громіздких обчислень з використанням~\eqref{eq:magnetic_field} отримуємо потужність випромінювання в тілесний кут \( do \) в напрямку~\(
 \vect{n}_q \):
 
 \begin{equation}
@@ -205,7 +205,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 
 Нагадаємо, що всі величини на траєкторії частинки (що входять з індексом \( q \)) обчислюються в момент часу запізнення \( t_q \).
 
-Як було зазначено вище, випромінює лише прискорений заряд. Це також очевидно з формули \eqref{eq:radiation_power}.
+Як було зазначено вище, випромінює лише прискорений заряд. Це також очевидно з формули~\eqref{eq:radiation_power}.
 
 У випадку \emph{нерелятивістських} рухів \( |\vect{v}_q/c| \ll 1 \):
 
@@ -222,7 +222,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 \end{equation}
 
 В \emph{ультрарелятивістському} випадку, коли швидкість частинки, що випромінює, близька до швидкості світла, значну роль відіграє вираз \( 1 -
-\frac{\vect{v}_q \cdot \vect{n}}{c} \) в знаменнику формули \eqref{eq:radiation_power}. Якщо \( 1 - \frac{v_q}{c} \ll 1 \), завдяки цьому виразу
+\frac{\vect{v}_q \cdot \vect{n}}{c} \) в знаменнику формули~\eqref{eq:radiation_power}. Якщо \( 1 - \frac{v_q}{c} \ll 1 \), завдяки цьому виразу
 інтенсивність зосереджена в області малих кутів \( \theta \) між напрямком швидкості \( \vect{v}_q(t_q) \) і напрямком випромінювання \( \vect{n}_q \).
 Якщо записати:
 
@@ -248,7 +248,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 	\label{eq:radiation_power_parallel}
 \end{equation}
 
-В області малих кутів \eqref{eq:effective_angle} маємо:
+В області малих кутів~\eqref{eq:effective_angle} маємо:
 
 \begin{equation*}
 	dI \approx \frac{q^2}{4\pi c^3} \dot{\vect{v}}_q^2 \left( 1 - \frac{v_q}{c} + \frac{\theta^2}{2} \right)^{-6} \theta^2 do.
@@ -272,9 +272,9 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 \subsection*{Коловий рух}
 %% --------------------------------------------------------
 
-Формулу \eqref{eq:radiation_power} можна застосувати у разі руху частинки в одній площині по колу під дією однорідного магнітного поля. В цьому разі
+Формулу~\eqref{eq:radiation_power} можна застосувати у разі руху частинки в одній площині по колу під дією однорідного магнітного поля. В цьому разі
 випромінювання
-концентрується у площині руху в межах кутів, що визначаються формулою \eqref{eq:effective_angle}. Внаслідок того, що релятивістська частинка випромінює
+концентрується у площині руху в межах кутів, що визначаються формулою~\eqref{eq:effective_angle}. Внаслідок того, що релятивістська частинка випромінює
 переважно в
 напрямку руху, випромінювання складатиметься з дуже коротких імпульсів, період повторення яких дорівнює періоду обертання.
 
@@ -296,13 +296,13 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 \end{equation*}
 і зафіксуємо напрямок \( \vect{n}_q = \{\sin \theta, 0, \cos \theta\} \).
 
-Середнє значення інтенсивності випромінювання можна отримати за допомогою інтегрування формули \eqref{eq:4.1.14} по \( dt \), причому слід перейти до
+Середнє значення інтенсивності випромінювання можна отримати за допомогою інтегрування формули~\eqref{eq:4.1.14} по \( dt \), причому слід перейти до
 інтегрування по часу запізнення:
 
 \begin{equation*}
 	dt_q = \left(1 - \frac{\vect{n}\vect{v}_q}{c}\right)dt,
 \end{equation*}
-де \( t_q = t_q(t) \) неявно задано формулою \eqref{eq:potential-1}.
+де \( t_q = t_q(t) \) неявно задано формулою~\eqref{eq:potential-1}.
 
 Після тривалих обчислень дістанемо середнє (за часом) значення інтенсивності в тілесний кут \( do \) в напрямку під кутом \( \theta \) до площини
 орбіти:
@@ -391,7 +391,7 @@ r' \) маємо:
 	\vect{A}_1 = \frac{1}{c r} \int \vect{j}(t_r, \vect{r}')(\vect{n} \cdot \vect{r}') \, dV'.
 \end{equation}
 
-Перетворимо \eqref{eq:vector_potential_zero_order}, користуючись тотожністю \( \Div(x_j \vect{j}) = J_j + x_j \Div \vect{j} \) і
+Перетворимо~\eqref{eq:vector_potential_zero_order}, користуючись тотожністю \( \Div(x_j \vect{j}) = J_j + x_j \Div \vect{j} \) і
 законом збереження заряду \( \Div \vect{j} = -\frac{\partial \rho}{\partial t} \). Звідси:
 
 \begin{equation*}
@@ -404,7 +404,7 @@ r' \) маємо:
 	\int {j}_i \, dV = \int x_i\frac{\partial\rho}{\partial t}\, dV,
 \end{equation*}
 %
-де враховано, що поза межами системи, що розглядається, \( \vect{j} = 0 \),  і на межі області, де струми відмінні від нуля, $\vect{j}\cdot d\vect{S} = 0$. Підстановка цього співвідношення в \eqref{eq:vector_potential_zero_order}
+де враховано, що поза межами системи, що розглядається, \( \vect{j} = 0 \),  і на межі області, де струми відмінні від нуля, $\vect{j}\cdot d\vect{S} = 0$. Підстановка цього співвідношення в~\eqref{eq:vector_potential_zero_order}
 дає:
 
 \begin{equation}
@@ -420,7 +420,7 @@ r' \) маємо:
 	\Bfield = \Rot\vect{A}_\text{дип} = -\frac{[\vect{n} \times \ddot{\vect{d}}(t_r)]}{c r}.
 \end{equation*}
 
-З урахуванням \eqref{eq:poynting_vector_far_field} дістанемо потік енергії системи через сферу радіусу \( r \gg \lambda \):
+З урахуванням~\eqref{eq:poynting_vector_far_field} дістанемо потік енергії системи через сферу радіусу \( r \gg \lambda \):
 
 \begin{equation*}	\label{eq:energy_flux}
 	\frac{d\mathcal{E}}{dt} = \int \vect{\Pi} \cdot d\vect{S} = \frac{1}{4\pi c^3} \int\limits_0^{2\pi} d\varphi \int\limits_0^\pi d\theta \, \ddot{\vect{d}}^2
@@ -445,8 +445,8 @@ r' \) маємо:
 
 \subsection*{Квадрупольне і магнітодипольне випромінювання}
 
-Якщо дипольний момент системи відсутній, основний внесок у вектор-потенціал \eqref{eq:vector_potential_expansion} дає наступний після дипольного член
-розкладу \eqref{eq:A1}.
+Якщо дипольний момент системи відсутній, основний внесок у вектор-потенціал~\eqref{eq:vector_potential_expansion} дає наступний після дипольного член
+розкладу~\eqref{eq:A1}.
 
 Скористаємося співвідношенням:
 
@@ -473,7 +473,7 @@ r' \) маємо:
 	\vect{m} = \frac{1}{2c} \int [\vect{r} \times \vect{j}] \, dV.
 \end{equation*}
 
-З отриманих співвідношень та формули \eqref{eq:A1} випливає:
+З отриманих співвідношень та формули~\eqref{eq:A1} випливає:
 
 \begin{equation*}
 	\vect{A} = \vect{A}_\text{маг.-дип.} + \vect{A}_\text{квадруп.},
@@ -511,7 +511,7 @@ D_i = Q_{ij} n_j, \quad \vect{D} = \{D_i\}.
 \label{eq:quadrupole_vector}
 \end{equation}
 
-Другий доданок в \eqref{eq:Quadrupole_potential} має вигляд \( \vect{r} f(r) \), тобто це градієнт від деякої функції; він не впливає на обчислення
+Другий доданок в~\eqref{eq:Quadrupole_potential} має вигляд \( \vect{r} f(r) \), тобто це градієнт від деякої функції; він не впливає на обчислення
 напруженості \( \Bfield = \Rot\vect{A} \). Цей доданок можна знищити за допомогою калібрувального перетворення, тоді:
 
 \begin{equation}
@@ -519,15 +519,15 @@ D_i = Q_{ij} n_j, \quad \vect{D} = \{D_i\}.
 \label{eq:quadrupole_potential_simplified}
 \end{equation}
 
-Повний вектор-потенціал \eqref{eq:vector_potential_zero_order} є сумою дипольної, магніто-дипольної і квадрупольної складової:
+Повний вектор-потенціал~\eqref{eq:vector_potential_zero_order} є сумою дипольної, магніто-дипольної і квадрупольної складової:
 
 \begin{equation*}
 \vect{A} = \vect{A}_\text{дип} + \vect{A}_\text{маг.-дип.} + \vect{A}_\text{квадруп.},
 \end{equation*}
 %
-де відповідні співвідношення подано формулами \eqref{eq:dipole_potential}, \eqref{eq:magnetic_dipole_potential}, \eqref{eq:Quadrupole_potential}.
+де відповідні співвідношення подано формулами~\eqref{eq:dipole_potential},~\eqref{eq:magnetic_dipole_potential},~\eqref{eq:Quadrupole_potential}.
 
-Нехтуючи членами більш високого порядку по  $\frac1r$ при обчисленні $\Rot\vect{A}$, з \eqref{eq:dipole_potential}, \eqref{eq:magnetic_dipole_potential},
+Нехтуючи членами більш високого порядку по  $\frac1r$ при обчисленні $\Rot\vect{A}$, з~\eqref{eq:dipole_potential},~\eqref{eq:magnetic_dipole_potential},
 \eqref{eq:Quadrupole_potential}, маємо:
 
 \begin{equation}\label{eq:4.2.12}
@@ -583,12 +583,12 @@ X_{ijkl} = \frac{4\pi}{15} (\delta_{ij}\delta_{kl} + \delta_{ik}\delta_{jl} + \d
 X_{iijj} = 4\pi = \int do \cdot 1.
 \end{equation*}
 
-Обчислимо потік через сферу великого радіусу \( r \), виходячи з \eqref{eq:4.2.12}. Квадрат першого (дипольного) доданку в \eqref{eq:4.2.12} дає внесок,
+Обчислимо потік через сферу великого радіусу \( r \), виходячи з~\eqref{eq:4.2.12}. Квадрат першого (дипольного) доданку в~\eqref{eq:4.2.12} дає внесок,
 що вже обчислено
-і подано формулою \eqref{eq:energy_flux}. При обчисленні \( \vect{B}^2 \) добуток першого (дипольного) доданку в \eqref{eq:4.2.12} на інші в кінцевому
+і подано формулою~\eqref{eq:energy_flux}. При обчисленні \( \vect{B}^2 \) добуток першого (дипольного) доданку в~\eqref{eq:4.2.12} на інші в кінцевому
 результаті
 дасть нуль в
-силу \eqref{eq:4.2.14}, оскільки тут під інтегралом з’являються лише непарні комбінації компонент \( n_i \) (нагадаємо, що квадрупольний доданок в
+силу~\eqref{eq:4.2.14}, оскільки тут під інтегралом з’являються лише непарні комбінації компонент \( n_i \) (нагадаємо, що квадрупольний доданок в
 \eqref{eq:4.2.12}
 містить квадратичні комбінації цих компонент).
 
@@ -600,7 +600,7 @@ X_{iijj} = 4\pi = \int do \cdot 1.
 \frac{4\pi}c \epsilon_{ipq} n_p \dddot{Q}_{qp}\dddot{m}_i = 0
 \end{multline*}
 %
-де враховано симетрію \( Q_{qp} \) та формули \eqref{eq:4.2.13} та \eqref{eq:4.2.16}. Таким чином, потужність є сумою окремих потужностей дипольного,
+де враховано симетрію \( Q_{qp} \) та формули~\eqref{eq:4.2.13} та~\eqref{eq:4.2.16}. Таким чином, потужність є сумою окремих потужностей дипольного,
 магнітодипольного та
 квадрупольного внесків.
 
@@ -611,7 +611,7 @@ X_{iijj} = 4\pi = \int do \cdot 1.
 \frac{8\pi}{3} \ddot{\vect{m}}^2.
 \end{equation*}
 
-За допомогою \eqref{eq:4.2.13} та \eqref{eq:4.2.16}  дістанемо:
+За допомогою~\eqref{eq:4.2.13} та~\eqref{eq:4.2.16}  дістанемо:
 
 \begin{equation*}
 \int [\vect{n} \times \dddot{\vect{D}}]^2 \, do = \int [\dddot{\vect{D}}^2 - (\vect{n} \cdot \dddot{\vect{D}})^2] \, do = \frac{4\pi}{5}
@@ -680,7 +680,7 @@ d\sigma = \frac{dI}{\Pi},
 r \sim \frac{v}{\omega} \ll \frac{c}{\omega} = \frac{\lambda}{2\pi}.
 \end{equation*}
 
-Ця умова дозволяє відкинути доданок \( \vect{k} \cdot \vect{r} \ll 1 \) під аргументом косинуса в \eqref{eq:incident_wave}. Звідси з рівнянь руху:
+Ця умова дозволяє відкинути доданок \( \vect{k} \cdot \vect{r} \ll 1 \) під аргументом косинуса в~\eqref{eq:incident_wave}. Звідси з рівнянь руху:
 
 \begin{equation*}
 m \ddot{\vect{r}} = q \vect{E},
@@ -712,7 +712,7 @@ m \ddot{\vect{r}} = q \vect{E},
 dI =\frac1{4\pi c^3}\left[\ddot{\vect{d}\times\vect{n}}\right]^2do = \frac{\ddot{\vect{d}}^2}{4\pi c^3}  \sin^2 \theta \, d\theta,
 \label{eq:intensity_dipole}
 \end{equation}
-де \( \theta \) --- кут між \( \ddot{\vect{d}} \) та напрямком спостереження \( \vect{n} \). Враховуючи \eqref{eq:dipole_moment}:
+де \( \theta \) --- кут між \( \ddot{\vect{d}} \) та напрямком спостереження \( \vect{n} \). Враховуючи~\eqref{eq:dipole_moment}:
 
 \begin{equation*}
 dI = \frac{q^4 E^2}{4\pi m^2 c^3} \sin^2 \theta \, d\theta.
@@ -723,14 +723,14 @@ dI = \frac{q^4 E^2}{4\pi m^2 c^3} \sin^2 \theta \, d\theta.
 \begin{equation*}
 \vect{\Pi} = \frac{c}{4\pi} [\vect{E} \times \vect{B}],
 \end{equation*}
-де \( \vect{n}_0 \) --- напрямок хвилі, що падає, за визначенням перерізу \eqref{eq:differential_cross_section} маємо:
+де \( \vect{n}_0 \) --- напрямок хвилі, що падає, за визначенням перерізу~\eqref{eq:differential_cross_section} маємо:
 
 \begin{equation}
 d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
 \label{eq:differential_cross_section_thomson}
 \end{equation}
 
-Цікаво, що цей вираз не залежить від частоти. Повний переріз отримаємо, інтегруючи \eqref{eq:differential_cross_section_thomson} по усіх напрямках:
+Цікаво, що цей вираз не залежить від частоти. Повний переріз отримаємо, інтегруючи~\eqref{eq:differential_cross_section_thomson} по усіх напрямках:
 
 \begin{equation}
 \sigma_T = \frac{8\pi}{3} \left( \frac{q^2}{mc^2} \right)^2.
@@ -743,9 +743,9 @@ d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
 \subsection*{Неполяризована хвиля}
 %% --------------------------------------------------------
 
-Формула \eqref{eq:intensity} дає диференціальний переріз розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі присутні
-усі напрямки \( \vect{E} \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з \eqref{eq:dipole_moment}, рівноймовірними є усі
-напрямки дипольного моменту з \eqref{eq:intensity}.
+Формула~\eqref{eq:intensity} дає диференціальний переріз розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі присутні
+усі напрямки \( \vect{E} \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з~\eqref{eq:dipole_moment}, рівноймовірними є усі
+напрямки дипольного моменту з~\eqref{eq:intensity}.
 
 Зафіксуємо напрямки спостереження:
 
@@ -776,7 +776,7 @@ d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
  1 - \frac12 \sin^2 \theta_0 = \frac12 (1 + \cos^2 \theta_0).
 \end{multline*}
 
-Звідси з \eqref{eq:intensity} та за визначенням \eqref{eq:differential_cross_section}:
+Звідси з~\eqref{eq:intensity} та за визначенням~\eqref{eq:differential_cross_section}:
 
 \begin{equation*}
 \left\langle d\sigma \right\rangle = \frac{1}{2} \left( \frac{q^2}{mc^2} \right)^2 (1 + \cos^2 \theta_0) \, do,

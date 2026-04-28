@@ -51,7 +51,7 @@
 \tilde{\phi}^{*}(\omega) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{\infty} dt \, e^{-i\omega t} \phi(t) = \tilde{\phi}(-\omega)
 \end{equation}
 
-Завдяки цьому формулу \eqref{eq:inverse_fourier_transform} можна переписати так:
+Завдяки цьому формулу~\eqref{eq:inverse_fourier_transform} можна переписати так:
 
 \begin{multline*}
 \phi(t) = \frac{1}{\sqrt{2\pi}} \left\{ \int\limits_{0}^{\infty} d\omega \, e^{-i\omega t} \tilde{\phi}(\omega) + \int\limits_{-\infty}^{0} d\omega \,
@@ -62,14 +62,14 @@ e^{-i\omega t}
 
 В цю формулу входять значення \( \tilde{\phi}(\omega) \) лише з додатними частотами, які можна задавати незалежно на відміну від \( \phi(-\omega) \)
 при \(
-\omega > 0 \), які пов’язані з \( \phi(\omega) \) формулою \eqref{eq:conjugate_frequency}. Формулу зведення до додатних частот можна переписати так:
+\omega > 0 \), які пов’язані з \( \phi(\omega) \) формулою~\eqref{eq:conjugate_frequency}. Формулу зведення до додатних частот можна переписати так:
 
 \begin{equation}
 \phi(t) = \sqrt{\frac{2}{\pi}} \Re \int\limits_{0}^{\infty} d\omega e^{-i\omega t} \tilde{\varphi}(\omega)
 \label{eq:positive_frequencies}
 \end{equation}
 
-З урахуванням \eqref{eq:conjugate_frequency} для дійсної функції \( f(t) \) можна записати:
+З урахуванням~\eqref{eq:conjugate_frequency} для дійсної функції \( f(t) \) можна записати:
 
 \begin{equation*}
 \int\limits_{-\infty}^{\infty} f^2(t) dt = \int\limits_{-\infty}^{\infty} |\tilde{f}(\omega)|^2 d\omega = 2\int\limits_{0}^{\infty} |\tilde{f}(\omega)|^2
@@ -90,7 +90,7 @@ d\omega
 \end{multline*}
 де \( \tilde{\Efield}(\omega), \tilde{\Bfield}(\omega) \) --- спектральні характеристики дійсних полів \( \Efield(t), \Bfield(t) \).
 
-Аналогічно \eqref{eq:conjugate_frequency}:
+Аналогічно~\eqref{eq:conjugate_frequency}:
 
 \begin{equation*}
 \tilde{\Efield}(-\omega) = \tilde{\Efield}^{*}(\omega), \quad \tilde{\Bfield}(-\omega) = \tilde{\Bfield}^{*}(\omega).
@@ -104,7 +104,7 @@ d\omega
 d\omega
 \left\{ \ldots \right\},
 \end{equation*}
-кожне з яких є комплексним спряженням іншого, аналогічно \eqref{eq:positive_frequencies}, маємо:
+кожне з яких є комплексним спряженням іншого, аналогічно~\eqref{eq:positive_frequencies}, маємо:
 
 \begin{equation}
 \mathcal{E} = \frac{c}{2\pi} \oint\limits_{\partial\Omega} d\vect{S} \cdot  \Re\int\limits_{0}^{\infty} \left[\tilde{\Efield}(\omega) \times \tilde{\Bfield}^{*}(\omega) \right] d\omega
@@ -119,7 +119,7 @@ d\omega
 \label{eq:energy_density}
 \end{equation*}
 
-Тоді з \eqref{eq:energy_positive_frequencies}:
+Тоді з~\eqref{eq:energy_positive_frequencies}:
 
 \begin{equation*}
 \mathcal{E} = \int\limits_0^{\infty} \frac{d\mathcal{E}}{d\omega} d\omega
@@ -184,7 +184,7 @@ e^{-i\omega t},
 \label{eq:energy_density_average}
 \end{equation}
 
-Зауважимо, що формули \eqref{eq:time_averaged_poynting}, \eqref{eq:energy_density_average} не змінять свого вигляду у випадку суперпозиції монохроматичних
+Зауважимо, що формули~\eqref{eq:time_averaged_poynting},~\eqref{eq:energy_density_average} не змінять свого вигляду у випадку суперпозиції монохроматичних
 хвиль з різними частотами. Це очевидно, коли врахувати, що \(\langle e^{i(\omega_1 - \omega_2)t} \rangle_t = 0\), \(\omega_1 \neq \omega_2\).
 
 Розглянемо \emph{монохроматичні плоскі хвилі}:
@@ -263,7 +263,7 @@ e^{-i\omega t},
 \Rot(\Rot\Efield) = \grad (\Div\Efield) - \nabla^2 \Efield = -\nabla^2 \Efield
 \end{equation*}
 
-З \eqref{eq:maxwell_rotE}:
+З~\eqref{eq:maxwell_rotE}:
 
 \begin{equation*}
 -\Rot\left( \frac{1}{c} \frac{\partial \Bfield}{\partial t} \right) = -\frac{1}{c^2} \frac{\partial^2 \Efield}{\partial t^2},
@@ -290,7 +290,7 @@ e^{-i\omega t},
 загальним розв’язком якого є \(\Efield = \vect{F}_1(U) + \vect{F}_2(V)\), де \(\vect{F}_1\) та \(\vect{F}_2\) --- довільні вектор-функції одної
 змінної. Розв’язок є суперпозицією двох хвиль, що рухаються в протилежних напрямках.
 
-Якщо \(\Efield = \Efield(\zeta, t)\), \(\Bfield = \Bfield(\zeta, t)\), з рівняння \eqref{eq:maxwell_rotE} маємо:
+Якщо \(\Efield = \Efield(\zeta, t)\), \(\Bfield = \Bfield(\zeta, t)\), з рівняння~\eqref{eq:maxwell_rotE} маємо:
 
 \begin{equation*}
 \vect{n} \times \frac{\partial \Efield}{\partial \zeta} = \frac{\partial \Bfield}{\partial \zeta}
@@ -298,7 +298,7 @@ e^{-i\omega t},
 
 Якщо перед фронтом \(\Efield = \Bfield = 0\), звідси \(\Bfield = [\vect{n} \times \Efield]\), як і в плоскій монохроматичній хвилі.
 
-Аналогічно, з \eqref{eq:maxwell_rotB}:
+Аналогічно, з~\eqref{eq:maxwell_rotB}:
 
 \begin{equation*}
 \Efield = [\Bfield \times \vect{n}], \quad (\Bfield \cdot \vect{n}) = (\Efield \cdot \vect{n}) = 0
@@ -584,14 +584,14 @@ I = I_1 + I_2.
 де параметр \(p\) називають \emph{ступінню поляризації}\index{Ступінь поляризації}; він приймає значення від 0 (неполяризоване світло) до 1.
 
 Завдяки властивості~\eqref{eq:hermitian} (ермітовості), власні числа \(\lambda_1, \lambda_2\) матриці \(\rho_{ij}\) є дійсними, причому \(\det \|\rho\| = \lambda_1 \lambda_2\),
-\(\lambda_1 + \lambda_2 = 1\). Зважаючи на \eqref{eq:polarization_degree}, добуток власних чисел додатний, тобто вони мають один знак. Звідси легко
+\(\lambda_1 + \lambda_2 = 1\). Зважаючи на~\eqref{eq:polarization_degree}, добуток власних чисел додатний, тобто вони мають один знак. Звідси легко
 бачити, що ці числа є додатними. Якщо матриця $\|\rho \|$ --- дійсна, її можна привести до діагонального виду  $\| \rho \| = \mathrm{diag}(\lambda_{\min}, \lambda_{\max})$ за допомогою просторових поворотів. Частку \(\lambda_{\min}/\lambda_{\max}\) називають \emph{коефіцієнтом деполяризації}\index{Коефіцієнт деполяризації}.
 
 %% --------------------------------------------------------
 \subsection*{Параметри Стокса}
 %% --------------------------------------------------------
 
-Виходячи з властивостей тензора поляризації, поданих формулою \eqref{eq:polarization_tensor}, його компоненти \(\rho_{ij}\) можна виразити через три
+Виходячи з властивостей тензора поляризації, поданих формулою~\eqref{eq:polarization_tensor}, його компоненти \(\rho_{ij}\) можна виразити через три
 незалежні дійсні \emph{параметри Стокса}\index{Параметри Стокса} \(\xi_1, \xi_2, \xi_3\), які приймають значення від $-1$ до $1$:
 
 \begin{equation*}
@@ -868,7 +868,7 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 t \phi(t) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot i \left(\frac{d}{d\omega}e^{-i\omega t}\right) \tilde\phi(\omega) = \frac{1}{\sqrt{2\pi}} \int d\omega \cdot
 e^{-i\omega t} \left( -i \frac{d\tilde\phi}{d\omega} \right),
 \end{equation*}
-тобто помноження на \( t \) індукує диференціювання у просторі частот. Тоді формулу \eqref{eq:Delta_t} можна переписати так:
+тобто помноження на \( t \) індукує диференціювання у просторі частот. Тоді формулу~\eqref{eq:Delta_t} можна переписати так:
 
 \begin{equation}
 \langle \Delta t^2 \rangle =
@@ -892,7 +892,7 @@ e^{-i\omega t} \left( -i \frac{d\tilde\phi}{d\omega} \right),
 \omega_a) \tilde\phi \right) \left( x \frac{d\tilde\phi^{*}}{d\omega} + (\omega - \omega_a) \tilde\phi^{*} \right).7
 \end{equation*}
 
-Звідси, після застосування усереднення, за допомогою \eqref{eq:Delta_omega} та \eqref{eq:time_duration_fourier}, маємо:
+Звідси, після застосування усереднення, за допомогою~\eqref{eq:Delta_omega} та~\eqref{eq:time_duration_fourier}, маємо:
 
 \begin{equation*}
 0 \leqslant  x^2 \langle \Delta t^2 \rangle
@@ -940,14 +940,14 @@ x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 може бути побудований як суперпозиція \textit{загального розв’язку однорідних рівнянь вільного поля} та \textit{часткового розв’язку неоднорідних
 рівнянь}.
 
-Скористуємось калібруванням Гамільтона \eqref{eq:HamiltonCondition}:
+Скористуємось калібруванням Гамільтона~\eqref{eq:HamiltonCondition}:
 
 \begin{equation}
 \phi = 0
 \label{eq:phi_zero}
 \end{equation}
 
-З рівняння \eqref{eq:maxwell_div} за умови \(\rho = 0\) маємо:
+З рівняння~\eqref{eq:maxwell_div} за умови \(\rho = 0\) маємо:
 
 \begin{equation*}
 \frac{\partial}{\partial t} (\Div\vect{A}) = 0
@@ -960,14 +960,14 @@ x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 \label{eq:div_A_zero}
 \end{equation}
 
-За цією умовою рівняння \eqref{eq:DA_for_Hamilton1} зводиться до однорідного хвильового рівняння:
+За цією умовою рівняння~\eqref{eq:DA_for_Hamilton1} зводиться до однорідного хвильового рівняння:
 
 \begin{equation}
 \frac{1}{c^2} \frac{\partial^2 \vect{A}}{\partial t^2} - \nabla^2 \vect{A} = 0
 \label{eq:wave_equation_A}
 \end{equation}
 
-Шукатимемо розв’язок рівняння \eqref{eq:wave_equation_A} в усьому просторі за допомогою просторового перетворення Фур’є:
+Шукатимемо розв’язок рівняння~\eqref{eq:wave_equation_A} в усьому просторі за допомогою просторового перетворення Фур’є:
 
 \begin{equation}
 \vect{A}_{\vect{k}}(t) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{r} \cdot e^{-i\vect{k} \cdot \vect{r}} \vect{A}(t, \vect{r})
@@ -980,7 +980,7 @@ x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 \vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \cdot e^{i\vect{k} \cdot \vect{r}} \vect{A}_{\vect{k}}(t)
 \label{eq:inverse_fourier_transform_A}
 \end{equation}
-дозволяє знайти напруженості електромагнітного поля за формулами \eqref{eq:potB} та \eqref{eq:potE} за відомим \(\vect{A}_{\vect{k}}(t)\).
+дозволяє знайти напруженості електромагнітного поля за формулами~\eqref{eq:potB} та~\eqref{eq:potE} за відомим \(\vect{A}_{\vect{k}}(t)\).
 
 Дія оператора Лапласа:
 
@@ -988,7 +988,7 @@ x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 \nabla^2 \vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, \nabla^2 \left( e^{i\vect{k} \cdot \vect{r}} \right) \vect{A}_{\vect{k}}(t) =
 \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, e^{i\vect{k} \cdot \vect{r}} (-k^2) \vect{A}_{\vect{k}}(t)
 \end{equation*}
-індукує домноження Фур’є-образу на \((-\vect{k}^2)\). Тому з рівняння \eqref{eq:wave_equation_A} дістаємо:
+індукує домноження Фур’є-образу на \((-\vect{k}^2)\). Тому з рівняння~\eqref{eq:wave_equation_A} дістаємо:
 
 \begin{equation}
 \frac{\partial^2 \vect{A}_{\vect{k}}(t)}{\partial t^2} + \omega_{\vect{k}}^2 \vect{A}_{\vect{k}}(t) = 0
@@ -996,26 +996,26 @@ x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
 \end{equation}
 де \(\omega_{\vect{k}} = ck = c|\vect{k}|\).
 
-Рівняння \eqref{eq:div_A_zero} дає умову поперечності:
+Рівняння~\eqref{eq:div_A_zero} дає умову поперечності:
 
 \begin{equation}
 \vect{k} \cdot \vect{A}_{\vect{k}}(t) = 0
 \label{eq:transverse_condition}
 \end{equation}
 
-Загальний розв’язок рівняння \eqref{eq:oscillator_equation} запишемо у вигляді:
+Загальний розв’язок рівняння~\eqref{eq:oscillator_equation} запишемо у вигляді:
 
 \begin{equation}
 \vect{A}_{\vect{k}}(t) = \vect{C}_1(\vect{k}) e^{i\omega_{\vect{k}} t} + \vect{C}_2(\vect{k}) e^{-i\omega_{\vect{k}} t},
 \label{eq:general_solution_Ak}
 \end{equation}
-де в силу \eqref{eq:transverse_condition}:
+де в силу~\eqref{eq:transverse_condition}:
 
 \begin{equation*}
 \vect{C}_1(\vect{k}) \cdot \vect{k} = \vect{C}_2(\vect{k}) \cdot \vect{k} = 0
 \end{equation*}
 
-Звідси розв’язок хвильового рівняння \eqref{eq:wave_equation_A} має вигляд:
+Звідси розв’язок хвильового рівняння~\eqref{eq:wave_equation_A} має вигляд:
 
 \begin{equation}
 \vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, \left( \vect{C}_1(\vect{k}) e^{i\omega_{\vect{k}} t} + \vect{C}_2(\vect{k})
@@ -1038,7 +1038,7 @@ e^{i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}},
 \end{equation*}
 де враховано \(\omega(\vect{k}) = c|\vect{k}| = \omega(-\vect{k})\).
 
-Порівнюючи це з \eqref{eq:general_solution_A} і беручи до уваги незалежність \(e^{-i\omega_{\vect{k}} t}\) та \(e^{i\omega_{\vect{k}} t}\),
+Порівнюючи це з~\eqref{eq:general_solution_A} і беручи до уваги незалежність \(e^{-i\omega_{\vect{k}} t}\) та \(e^{i\omega_{\vect{k}} t}\),
 отримаємо:
 
 \begin{equation}
@@ -1050,7 +1050,7 @@ e^{i\omega_{\vect{k}} t} \right\} e^{i\vect{k} \cdot \vect{r}},
 
 Подамо цей розв’язок у дещо іншій формі, виділивши лоренц-інваріантні комбінації \(\omega_{\vect{k}} - \vect{k} \cdot \vect{r}\).
 
-У першому доданку в \eqref{eq:general_solution_A} за допомогою заміни \(\vect{k} \rightarrow -\vect{k}\) зробимо очевидні перетворення:
+У першому доданку в~\eqref{eq:general_solution_A} за допомогою заміни \(\vect{k} \rightarrow -\vect{k}\) зробимо очевидні перетворення:
 
 \begin{equation*}
 \int \vect{C}_1(\vect{k})
@@ -1071,25 +1071,25 @@ d^3\vect{k}.
 \label{eq:A_final_form}
 \end{equation}
 
-Формула \eqref{eq:A_final_form} з умовою поперечності \(\vect{k} \cdot \vect{a}(\vect{k}) = 0\) подає загальний розв’язок хвильового рівняння
-\eqref{eq:wave_equation_A} з умовою \eqref{eq:div_A_zero}.
+Формула~\eqref{eq:A_final_form} з умовою поперечності \(\vect{k} \cdot \vect{a}(\vect{k}) = 0\) подає загальний розв’язок хвильового рівняння
+\eqref{eq:wave_equation_A} з умовою~\eqref{eq:div_A_zero}.
 
 Доданок, що містить \(e^{-i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})}\), називають додатно-частотною частиною поля, а комплексно-спряжений йому
-доданок --- від’ємно-частотною частиною. Представлення \eqref{eq:A_final_form} називають \emph{розбиттям на додатно-частотні та від’ємно-частотні компоненти}.
+доданок --- від’ємно-частотною частиною. Представлення~\eqref{eq:A_final_form} називають \emph{розбиттям на додатно-частотні та від’ємно-частотні компоненти}.
 
-Як бачимо з \eqref{eq:A_final_form}, стан вільного електромагнітного поля визначається, з огляду на умову поперечності \(\vect{k} \cdot \vect{a} = 0\),
+Як бачимо з~\eqref{eq:A_final_form}, стан вільного електромагнітного поля визначається, з огляду на умову поперечності \(\vect{k} \cdot \vect{a} = 0\),
 двома комплексними функціями від трьох змінних \(\vect{k}\), або --- еквівалентно --- чотирма дійсними функціями від \(\vect{k}\). Кількість цих
 незалежних функцій (яка відповідає степеням вільності поля) така ж, як у задачі Коші згідно з п. \ref{sec:Cauchi}.
 
 Кожному \(\vect{k}\) відповідає плоска хвиля \(\vect{a}(\vect{k}) e^{i(\omega_{\vect{k}} t - \vect{k} \cdot \vect{r})}\) --- частковий розв’язок
-рівняння \eqref{eq:wave_equation_A}, причому напрямок вектора \(\vect{a}(\vect{k})\) задає поляризацію.
+рівняння~\eqref{eq:wave_equation_A}, причому напрямок вектора \(\vect{a}(\vect{k})\) задає поляризацію.
 
 
 %% --------------------------------------------------------
 \subsection*{Розклад поля на осцилятори}
 %% --------------------------------------------------------
 
-За допомогою заміни \(\vect{k} \rightarrow -\vect{k}\) у від’ємно-частотній частині перепишемо \eqref{eq:A_final_form} у вигляді:
+За допомогою заміни \(\vect{k} \rightarrow -\vect{k}\) у від’ємно-частотній частині перепишемо~\eqref{eq:A_final_form} у вигляді:
 
 \begin{equation}
 \vect{A}(t, \vect{r}) = \frac{1}{(2\pi)^{3/2}} \int d^3\vect{k} \, \left( \vect{a}(\vect{k}) e^{-i\omega_{\vect{k}} t} + \vect{a}^*(-\vect{k})
@@ -1097,7 +1097,7 @@ e^{i\omega_{\vect{k}} t} \right) e^{i\vect{k} \cdot \vect{r}}
 \label{eq:A_final_form_modified}
 \end{equation}
 
-Згідно з \eqref{eq:potE}, \eqref{eq:potB} та калібрувальною умовою \eqref{eq:phi_zero}:
+Згідно з~\eqref{eq:potE},~\eqref{eq:potB} та калібрувальною умовою~\eqref{eq:phi_zero}:
 
 \begin{equation}
 \Efield = -\frac{1}{c} \frac{\partial \vect{A}}{\partial t} = \frac{i}{(2\pi)^{3/2}} \int d^3\vect{k} \, \omega_{\vect{k}} \left( \vect{a}(\vect{k})
@@ -1168,7 +1168,7 @@ W_B = \frac{1}{8\pi} \int \Bfield^2 dV  = \frac{1}{8\pi} \int \left| \vect{k} \t
 \vect{a}(-\vect{k}).
 \end{equation*}
 
-Звідси, аналогічно \eqref{eq:W_E_final}:
+Звідси, аналогічно~\eqref{eq:W_E_final}:
 
 \begin{equation}
 W_B = \frac{1}{4\pi} \int d^3\vect{k} \, \vect{k}^2\  \left( \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) + \Re \left[ \vect{a}(\vect{k}) \cdot
@@ -1208,7 +1208,7 @@ e^{-i\omega_{\vect{k}} t} \right]
 \vect{P}_{\vect{k}} \cdot \vect{k} = 0, \quad \vect{Q}_{\vect{k}} \cdot \vect{k} = 0.
 \end{equation*}
 
-За допомогою цих співвідношень отримаємо такий вираз для загальної енергії поля \eqref{eq:total_energy}:
+За допомогою цих співвідношень отримаємо такий вираз для загальної енергії поля~\eqref{eq:total_energy}:
 \begin{equation}
     W = \frac12 \int d^3\vect{k} \left( \vect{P}^2_{\vect{k}} + \omega^2_{\vect{k}}\vect{Q}^2_{\vect{k}}\right),
 \end{equation}
@@ -1217,7 +1217,7 @@ e^{-i\omega_{\vect{k}} t} \right]
     \dot{\vect{Q}}_{\vect{k}} = \vect{P}_{\vect{k}}, \quad
     \dot{\vect{P}}_{\vect{k}} = - \omega^2_{\vect{k}} \vect{Q}_{\vect{k}}.
 \end{equation*}
-що випливає як з гамільтонової форми рівнянь руху відповідно до  \eqref{eq:total_energy}, так і безпосередньо з рівнянь \eqref{eq:Pk},\eqref{eq:Qk}. <<Координати>> задовольняють рівнянням:
+що випливає як з гамільтонової форми рівнянь руху відповідно до ~\eqref{eq:total_energy}, так і безпосередньо з рівнянь~\eqref{eq:Pk},\eqref{eq:Qk}. <<Координати>> задовольняють рівнянням:
  \begin{equation*}
     \ddot{\vect{Q}}_{\vect{k}} + \omega^2_{\vect{k}}\vect{Q}_{\vect{k}} = 0
 \end{equation*}
@@ -1250,7 +1250,7 @@ e^{-i\omega_{\vect{k}} t} \right]
 \end{problem}
 
 \begin{problem}
-    Знайти умову на поле \( \varphi(t) \) (див. п.~\ref{sec:signal_spectrum}), коли співвідношення невизначеностей \eqref{eq:uncertainty} перетворюється на точну рівність:
+    Знайти умову на поле \( \varphi(t) \) (див. п.~\ref{sec:signal_spectrum}), коли співвідношення невизначеностей~\eqref{eq:uncertainty} перетворюється на точну рівність:
     \[
     \left\langle \Delta t^2 \right\rangle \left\langle \Delta \omega^2 \right\rangle = \frac14.
     \]
