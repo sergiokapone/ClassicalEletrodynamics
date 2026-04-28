@@ -1,4 +1,17 @@
-% !TeX root =./FTProblems.tex
+% !TeX root =./ClassicalElectrodynamics.tex
+
+%========================================================================================================
+%
+%									      Протоколи
+%
+%========================================================================================================
+
+\newcommand\IPTNo{14}
+\newcommand\IPTDate{24.11.2026}
+
+\newcommand\KPINo{3}
+\newcommand\KPIDate{12.12.2026}
+
 
 %========================================================================================================
 %
@@ -21,7 +34,7 @@
 					}
 			]%
 			\begin{flushright}
-				\large\bfseries\color{white}Фізико-технічний інститут
+				\large\bfseries\color{white}Навчально-науковий\\ фізико-технічний інститут
 			\end{flushright}
 			\end{tcolorbox}
 			\vspace*{-2em}
@@ -52,7 +65,9 @@
 							align=center,
 							%anchor=east,
 							font=\sffamily\bfseries\large
-						] (title) at (frame.north) {В.~І. Жданов
+						] (title) at (frame.north) {В.~І. Жданов, %
+													С.~М. Пономаренко,
+													В.~Б. Долгошей%
 					};
 				}
 			]
@@ -64,7 +79,8 @@
 		 	\begin{Large}\color{themecolordark!90!black}
 			\begin{gather*}
 				\frac{\partial F^{\mu\nu}}{\partial x^\nu} =                                                                                -\frac{4\pi}{c}j^\mu \\
-				\frac{\partial F_{\mu\nu}}{\partial x^\alpha} + \frac{\partial F_{\mu\alpha}}{\partial x^\nu} +\frac{\partial F_{\alpha\mu}}{\partial x^\nu}  = 0.
+				\frac{\partial F_{\beta\gamma}}{\partial x^\alpha} + \frac{\partial F_{\gamma\alpha}}{\partial x^\beta} +\frac{\partial
+				F_{\alpha\beta}}{\partial x^\gamma}  = 0.
 			\end{gather*}
 			\end{Large}
 			\vfill
@@ -100,7 +116,9 @@
 				<<КИЇВСЬКИЙ ПОЛІТЕХНІЧНИЙ ІНСТИТУТ \\ імені ІГОРЯ СІКОРСЬКОГО>>
 				\vspace*{100pt}
 
-				{\large В.~І.~Жданов
+				{\large В.~І.~Жданов,
+						С.~М.~Пономаренко,
+						В.~Б.~Долгошей
 						}
 				\vspace*{50pt}
 
@@ -109,9 +127,13 @@
 
 			\vspace*{50pt}
 			\begin{center}\itshape
-			Рекомендовано Методичною радою КПІ ім. Ігоря Сікорського як навчальний посібник для здобувачів ступеня бакалавра за спеціальностями 105 <<Прикладна фізика та наноматеріали>>, 113 <<Прикладна математика>>
+			Рекомендовано Методичною радою КПІ ім. Ігоря Сікорського як навчальний посібник для
+			здобувачів ступеня бакалавра за спеціальностями E6 Прикладна фізика та наноматеріали,
+			F1 Прикладна математика
 			\end{center}
-
+            \vfill
+                 \textcolor{malina}{Видання друге, виправлене та доповнене}
+%                \textcolor{malina}{Версія від~\today, час компіляції \currenttime.}
 			\vfill
 			\begin{center}
 				\MakeUppercase{Київ} \\
@@ -141,38 +163,42 @@
 
 
 		\bigskip\noindent%
-        \begin{minipage}[t]{0.2\linewidth}
+        \begin{minipage}[t]{0.25\linewidth}
             	\begin{flushleft}
                     Рецензенти:
                 \end{flushleft}
         \end{minipage}\hfill
-        \begin{minipage}[t]{0.78\linewidth}
-                \href{http://www.nas.gov.ua/UA/PersonalSite/Pages/default.aspx?PersonID=0000006576}{В.~О.~Кочелап}, д.ф.-м.н., професор,
-                член-кореспондент НАН України, завідувач відділу теоретичної фізики Інституту фізики напівпровідників ім. В.~Є. Лашкарьова
-%                \\[1ex]
-%                \href{http://apd.ipt.kpi.ua/blog/author/19}{Я.~Д.~Кривенко-Еметов}, к.ф.-м.н., доцент кафедри прикладної фізики, Фізико-технічного
-%інституту КПІ ім. Ігоря Сікорського
+        \begin{minipage}[t]{0.75\linewidth}
+                \href{https://kzf.kpi.ua/kulish-volodymyr-viktorovych/}{В.~В.~Куліш}, д.ф.-м.н., професор кафедри загальної фізики фізико-метематичного факультету КПІ ім. Ігоря Сікорського.
+                \\[1ex]
+                \href{https://phys.knu.ua/1450-vilchinskiy-stanislav-yosipovich}{С.~Й.~Вільчинський},  д.ф.-м.н., професор, завідувач кафедри  квантової теорії поля та космомікрофізики.
         \end{minipage}
 
 		\bigskip\noindent%
-        \begin{minipage}[t]{0.2\linewidth}
+        \begin{minipage}[t]{0.25\linewidth}
             	\begin{flushleft}
                     Відповідальний редактор:
                 \end{flushleft}
         \end{minipage}\hfill
-        \begin{minipage}[t]{0.78\linewidth}
-                \href{http://ipt.kpi.ua/litvinova}{Т.~В.~Литвинова}, к.т.н., доцент, перший заступник директора Фізико-технічного інституту КПІ ім. Ігоря Сікорського
+        \begin{minipage}[t]{0.75\linewidth}
+                \href{http://is.ipt.kpi.ua/is/smirnovsa/}{С.~А.~Смирнов}, к.ф.-м.н., доцент, голова
+                методичної ради НН ФТІ КПІ ім. Ігоря Сікорського
         \end{minipage}
 
 		\begin{center}\itshape\small
-				Гриф надано Методичною радою КПІ ім. Ігоря Сікорського (протокол №~10/2020~від 18.06.2020~р.) за поданням Вченої ради Фізико-технічного інституту (протокол №~5/2020 від 25.05.2020 р.)
+				Гриф надано Методичною радою КПІ ім. Ігоря Сікорського (протокол №~\KPINo~від \KPIDate~р.) за поданням Вченої ради Навчально-наукового Фізико-технічного інституту (протокол №~\IPTNo~від \IPTDate~р.)
 		\end{center}
 		\begin{center}
 			\ifelectronic Електронне мережне навчальне видання \fi
 			%\par {Версія від~\href{http://www.istpravda.com.ua/dates}{\today}} \par\else \par  \fi
 		\end{center}
 		\begin{center}
-			\href{http://phes.ipt.kpi.ua/zhdanov-valerij-ivanovych}{\itshape Жданов Валерій Іванович}, д.ф.-м.н., професор
+			\href{https://apd.ipt.kpi.ua/kafedra/stuff/zhdanov}{\itshape Жданов Валерій Іванович},
+			д.ф.-м.н., професор \\
+			\href{https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko}{\itshape Пономаренко Сергій
+			Миколайович}, к.ф.-м.н., доцент \\
+			\href{https://apd.ipt.kpi.ua/kafedra/stuff/dolgoshey}{\itshape Долгошей Володимир
+			Борисович}, к.ф.-м.н., доцент
 		\end{center}
 %			\vspace*{1em}%
 		\begin{center}\bfseries
@@ -182,8 +208,11 @@
         \noindent%
         \begin{minipage}[t]{\textwidth}\small
                 \realtitle: \subtitle\ [Електронний ресурс] : навч. посіб. для студ. спеціальностей
-                105 <<Прикладна фізика та наноматеріали>> та 113 <<Прикладна математика>> /  В.~І. Жданов, С.~М. Пономаренко, В.~Б. Долгошей ; КПІ ім. Ігоря Сікорського.~--- Електронні текстові дані
-            (1 файл: 570~кБ). – Київ : КПІ ім. Ігоря Сікорського, \the\year. --- \the\numexpr\getpagerefnumber{LastPages}-1\relax~с.
+                E6 <<Прикладна фізика та наноматеріали>> та F1 <<Прикладна математика>> /  В.~І.
+                Жданов, С.~М. Пономаренко, В.~Б. Долгошей ; КПІ ім. Ігоря Сікорського.~--- Електронні
+                текстові дані
+            (1 файл: 789~кБ). – Київ : КПІ ім. Ігоря Сікорського, \the\year. ---
+             \the\numexpr\getpagerefnumber{LastPages}-1\relax~с.
         \end{minipage}
 
 %		\noindent%
@@ -199,12 +228,8 @@
 %		\end{flushleft}
 		\vfill
 
-%		Наведено \TotalValue{totalproblems} задач з курсу класичної електродинаміки. До більшості задач подано відповіді. Задачі різноманітні як за
-%змістом, так і за складністю. Поряд із задачами, які ілюструють основні поняття і закони електродинаміки, до збірника включена певна кількість більш
-%складних задач, які допомагають суттєвішому вивченню предмета.
-%
-%		Для студентів фізико-технічного інституту КПІ ім. Ігоря Сікорського, які навчаються за спеціальностями 105~<<Прикладна фізика та наноматеріали>>
-%та 113 <<Прикладна математика>>.
+
+		Для студентів фізико-технічного інституту КПІ ім. Ігоря Сікорського, які навчаються за спеціальностями E6~<<Прикладна фізика та наноматеріали>> та F1 <<Прикладна математика>>.
 
 		\vfill
 
@@ -212,10 +237,12 @@
 %			Ілюстративний матеріал підручника підготовлений за допомогою пакету \href{http://pgf.sourceforge.net}{TikZ/Pgf}. Верстка тексту проведена в видавничій системі \LaTeXe{} (компілятор Lua\LaTeX) на базі системи комп'ютерної верстки \TeX{} (Збірка  \href{https://www.tug.org/texlive/}{\TeX Live~\the\year}) з використанням оболонки \href{https://www.texstudio.org}{\TeX Studio}.
 %		\end{flushleft}
 	\hfill
-	\begin{minipage}[t]{0.65\linewidth}\small
-        \textcopyright{} В.~І. Жданов, \the\year\,р. \\
-        \textcopyright{}  КПІ ім. Ігоря Сікорського (ФТІ), \the\year~р.
-    \end{minipage}
+        \begin{flushright}
+    	\begin{minipage}[t]{0.8\linewidth}\small
+        \textcopyright{} В.~І. Жданов, С.~М. Пономаренко, В.~Б. Долгошей, \the\year\,р. \\
+        \textcopyright{}  КПІ ім. Ігоря Сікорського (НН ФТІ), \the\year~р.
+        \end{minipage}
+        \end{flushright}
 		\newpage%
 	\end{alwayssingle}
 }
@@ -230,7 +257,9 @@
 \thispagestyle{empty}%
 \vspace*{0.4\textheight}
 \begin{center}
-		\textbf{Жданов} Валерій Іванович
+		\textbf{Жданов} Валерій Іванович \\
+	    \textbf{Пономаренко} Сергій Миколайович \\
+	    \textbf{Долгошей} Володимир Борисович
 \end{center}
 
 \begin{center}\bfseries
@@ -247,7 +276,7 @@
 Національний технічний університет України \\
 <<Київський політехнічний інститут імені Ігоря Сікорського>> \\
 Свідоцтво про державну реєстрацію: серія ДК № 5354 від 25.05.2017 р.\\
-просп. Перемоги, 37, м. Київ, 03056
+просп. Берестейський, 37, м. Київ, 03056
 \end{center}
 
 %\vfill

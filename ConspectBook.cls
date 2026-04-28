@@ -119,7 +119,6 @@
 \let\@texttop\relax
 %\setlength{\emergencystretch}{1em}
 
-
 %===============================================================================
 %
 %										Кольори
@@ -219,7 +218,9 @@
 \setlength\epigraphwidth{.8\textwidth}
 \setlength\epigraphrule{0pt}
 \renewcommand{\textflush}{flushepinormal}
-\RequirePackage{lastpage}
+\RequirePackage{refcount}
+\RequirePackage[]{pageslts}
+\pagenumbering{arabic}
 \RequirePackage[disable]{todonotes}
 \RequirePackage{pdftexcmds}
 \RequirePackage[most, many]{tcolorbox}
