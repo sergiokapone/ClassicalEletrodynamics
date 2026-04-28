@@ -1,17 +1,442 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <link rel="stylesheet" href="./styles/styles.css" />
-  </head>
-  <body>
-    <header>Класична електродинаміка. Мікроскопічна теорія</header>
-    <div class="container">
-      <main id="main_window">
-        <iframe id="input" src="ClassicalEletrodynamics.pdf"></iframe>
-      </main>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Класична електродинаміка | Конспект лекцій</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #1a1a2e;
+            background-color: #f5f7fa;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        /* PDF Hero Banner */
+        .pdf-hero {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+
+        .pdf-hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .pdf-hero .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+
+        .pdf-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: #ff6b35;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .pdf-button:hover {
+            background: #e55a2b;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+        }
+
+        .pdf-button:active {
+            transform: translateY(0);
+        }
+
+        /* Основний контент */
+        .content {
+            padding: 2rem 2.5rem;
+        }
+
+        /* Секції */
+        .section {
+            margin-bottom: 2.5rem;
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #1e3c72;
+            border-bottom: 3px solid #ff6b35;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+        }
+
+        .section h3 {
+            font-size: 1.4rem;
+            color: #2a5298;
+            margin: 1.5rem 0 1rem 0;
+            padding-left: 0.5rem;
+            border-left: 4px solid #ff6b35;
+        }
+
+        /* Автори */
+        .authors {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin: 1.5rem 0 2rem 0;
+        }
+
+        .author-card {
+            flex: 1;
+            min-width: 250px;
+            background: #f8f9fc;
+            border-radius: 12px;
+            padding: 1.2rem;
+            border-left: 4px solid #ff6b35;
+            transition: transform 0.2s;
+        }
+
+        .author-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .author-card strong {
+            font-size: 1.1rem;
+            color: #1e3c72;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .author-card a {
+            color: #2a5298;
+            text-decoration: none;
+        }
+
+        .author-card a:hover {
+            text-decoration: underline;
+        }
+
+        .author-card p {
+            font-size: 0.9rem;
+            color: #4a5568;
+            margin-top: 0.5rem;
+        }
+
+        /* Таблиці для змісту */
+        .table-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+
+        .content-item {
+            background: #f8f9fc;
+            border-radius: 8px;
+            padding: 0.8rem 1rem;
+            transition: background 0.2s;
+        }
+
+        .content-item:hover {
+            background: #eef2f7;
+        }
+
+        .content-item a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #2a5298;
+            display: block;
+        }
+
+        .content-item a:hover {
+            text-decoration: underline;
+        }
+
+        .content-item small {
+            color: #718096;
+            font-size: 0.8rem;
+            display: block;
+            margin-top: 0.25rem;
+        }
+
+        /* Структура папок */
+        .folder-tree {
+            background: #1a1a2e;
+            color: #e2e8f0;
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'Courier New', 'Fira Code', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .folder-tree pre {
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        /* Файли */
+        .files-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        .files-table th, .files-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .files-table th {
+            background: #f1f5f9;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .files-table td a {
+            color: #2a5298;
+            text-decoration: none;
+        }
+
+        .files-table td a:hover {
+            text-decoration: underline;
+        }
+
+        /* Кнопка збірки */
+        .build-box {
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 1rem;
+            font-family: monospace;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        hr {
+            margin: 2rem 0;
+            border: none;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #f8f9fc;
+            color: #718096;
+            font-size: 0.85rem;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            .content {
+                padding: 1.5rem;
+            }
+            .pdf-hero h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <!-- PDF Hero секція -->
+    <div class="pdf-hero">
+        <h1>📖 Класична електродинаміка</h1>
+        <div class="subtitle">Конспект лекцій | Теорія поля | Релятивістська електродинаміка</div>
+        <a href="ClassicalElectrodynamics.pdf" class="pdf-button">
+            📄 Завантажити повний збірник (PDF)
+            <span style="font-size: 1.2rem;">⬇️</span>
+        </a>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Остання версія збірника — прямий перехід на PDF-файл</p>
     </div>
+
+    <div class="content">
+        <!-- Автори -->
+        <div class="section">
+            <h2>Автори</h2>
+            <div class="authors">
+                <div class="author-card">
+                    <strong>👨‍🏫 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/zhdanov/" target="_blank">Жданов Валерій Іванович</a></strong>
+                    <p>Доктор фізико-математичних наук, професор, академік АН вищої школи України, лауреат Державної премії України в галузі науки і техніки.</p>
+                </div>
+                <div class="author-card">
+                    <strong>👨‍🔬 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko/" target="_blank">Пономаренко Сергій Миколайович</a></strong>
+                    <p>Кандидат фізико-математичних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
+                </div>
+                <div class="author-card">
+                    <strong>👨‍🔬 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/dolgoshey/" target="_blank">Долгошей Володимир Борисович</a></strong>
+                    <p>Кандидат фізико-математичних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Зміст: Частина I -->
+        <div class="section">
+            <h2>📘 Частина I</h2>
+            <div class="table-grid">
+                <div class="content-item">
+                    <a href="Basics/">🔹 Базові поняття та рівняння</a>
+                    <small>Величини в електродинаміці, рівняння Максвелла, закони збереження, межі застосовності</small>
+                </div>
+                <div class="content-item">
+                    <a href="Solutions/">🔹 Розв’язки рівнянь Максвелла</a>
+                    <small>Потенціали, задача Коші, ізольовані системи</small>
+                </div>
+                <div class="content-item">
+                    <a href="FreeField/">🔹 Вільне електромагнітне поле</a>
+                    <small>Спектральний розклад, плоскі хвилі, випадкові поля, тривалість сигналу</small>
+                </div>
+                <div class="content-item">
+                    <a href="Radiation/">🔹 Випромінювання</a>
+                    <small>Поле прискореного заряду, малі системи, розсіювання хвиль</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Зміст: Частина II -->
+        <div class="section">
+            <h2>📗 Частина II</h2>
+            <div class="table-grid">
+                <div class="content-item">
+                    <a href="LorentzTransform/">🔸 Перетворення Лоренца</a>
+                    <small>Постулати Ейнштейна, простір-час, власний час, інтервал</small>
+                </div>
+                <div class="content-item">
+                    <a href="Minkovsky/">🔸 Простір Мінковського</a>
+                    <small>Вектори, тензори, світові лінії, чотиривектор швидкості</small>
+                </div>
+                <div class="content-item">
+                    <a href="RelElecrodynamics/">🔸 Електродинаміка в просторі Мінковського</a>
+                    <small>Рівняння Максвелла, тензор поля, ефект Доплера, вектор-потенціал</small>
+                </div>
+                <div class="content-item">
+                    <a href="VariationPrinciple/">🔸 Варіаційний принцип</a>
+                    <small>Заряд у полі, дія для поля</small>
+                </div>
+                <div class="content-item">
+                    <a href="TEI/">🔸 Тензор енергії-імпульсу</a>
+                    <small>Чотири-імпульс, енергія-імпульс поля, момент імпульсу</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Додатки -->
+        <div class="section">
+            <h2>📎 Додатки</h2>
+            <div class="table-grid">
+                <div class="content-item"><a href="Additions/Vanaliz.tex">Векторний аналіз</a><small>Диференціальні операції, теореми</small></div>
+                <div class="content-item"><a href="Additions/">Поліноми Лежандра</a><small>Довідка</small></div>
+                <div class="content-item"><a href="Additions/">Сферичні гармоніки</a><small>Довідка</small></div>
+                <div class="content-item"><a href="Additions/">Циліндричні функції</a><small>Довідка</small></div>
+                <div class="content-item"><a href="Additions/">Узагальнені функції</a><small>Довідка</small></div>
+            </div>
+        </div>
+
+        <!-- Структура папок -->
+        <div class="section">
+            <h2>📁 Структура проєкту</h2>
+            <div class="folder-tree">
+                <pre>
+ClassicalElectrodynamics/
+├── <a href=".archive/" style="color:#ffb86c;">.archive/</a>
+├── <a href="Additions/" style="color:#ffb86c;">Additions/</a>
+├── <a href="Basics/" style="color:#ffb86c;">Basics/</a>
+│   └── <a href="Basics/tikz/" style="color:#8be9fd;">tikz/</a>
+├── <a href="FreeField/" style="color:#ffb86c;">FreeField/</a>
+│   ├── <a href="FreeField/StokeParams/" style="color:#8be9fd;">StokeParams/</a>
+│   └── <a href="FreeField/tikz/" style="color:#8be9fd;">tikz/</a>
+├── <a href="LorentzTransform/" style="color:#ffb86c;">LorentzTransform/</a>
+├── <a href="Minkovsky/" style="color:#ffb86c;">Minkovsky/</a>
+├── <a href="Radiation/" style="color:#ffb86c;">Radiation/</a>
+├── <a href="RelElecrodynamics/" style="color:#ffb86c;">RelElecrodynamics/</a>
+├── <a href="Solutions/" style="color:#ffb86c;">Solutions/</a>
+├── <a href="TEI/" style="color:#ffb86c;">TEI/</a>
+├── <a href="VariationPrinciple/" style="color:#ffb86c;">VariationPrinciple/</a>
+├── <a href="bibliography/" style="color:#ffb86c;">bibliography/</a>
+├── <a href="styles/" style="color:#ffb86c;">styles/</a>
+├── <a href="ClassicalElectrodynamics.tex" style="color:#8be9fd;">ClassicalElectrodynamics.tex</a>
+├── <a href="ConspectBook.cls" style="color:#8be9fd;">ConspectBook.cls</a>
+├── <a href="CoverPage.tex" style="color:#8be9fd;">CoverPage.tex</a>
+├── <a href="preface.tex" style="color:#8be9fd;">preface.tex</a>
+└── <a href="README.md" style="color:#8be9fd;">README.md</a>
+                </pre>
+            </div>
+        </div>
+
+        <!-- Основні файли -->
+        <div class="section">
+            <h2>📄 Основні файли</h2>
+            <table class="files-table">
+                <thead>
+                    <tr><th>Файл</th><th>Призначення</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><a href="ClassicalElectrodynamics.tex">ClassicalElectrodynamics.tex</a></td><td>Головний файл збірки LaTeX</td></tr>
+                    <tr><td><a href="ConspectBook.cls">ConspectBook.cls</a></td><td>Клас документа</td></tr>
+                    <tr><td><a href="CoverPage.tex">CoverPage.tex</a></td><td>Титульна сторінка</td></tr>
+                    <tr><td><a href="preface.tex">preface.tex</a></td><td>Передмова</td></tr>
+                    <tr><td><a href="index.html">index.html</a></td><td>Ця сторінка (GitHub Pages)</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Збірка -->
+        <div class="section">
+            <h2>🛠️ Збірка PDF</h2>
+            <div class="build-box">
+                <code>
+                pdflatex ClassicalElectrodynamics.tex<br>
+                biber ClassicalElectrodynamics<br>
+                pdflatex ClassicalElectrodynamics.tex<br>
+                pdflatex ClassicalElectrodynamics.tex
+                </code>
+            </div>
+            <p>Або просто завантажте готовий PDF за посиланням угорі сторінки.</p>
+        </div>
+
+        <hr>
+        <p style="text-align: center; font-size: 0.9rem;">
+            🔗 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/zhdanov/" target="_blank">Жданов В.І.</a> ·
+            <a href="https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko/" target="_blank">Пономаренко С.М.</a> ·
+            <a href="https://apd.ipt.kpi.ua/kafedra/stuff/dolgoshey/" target="_blank">Долгошей В.Б.</a>
+        </p>
+    </div>
+
     <footer>
-      &copy; В. І. Жданов КПІ ім. Ігоря сікорського 2020
+        Класична електродинаміка | Конспект лекцій<br>
+        Кафедра прикладної фізики, КПІ ім. Ігоря Сікорського
     </footer>
-  </body>
+</div>
+</body>
 </html>
