@@ -193,7 +193,7 @@
 			      \draw[red] (4.5, 0) circle (0.25 and \R);
 			      \draw[red] (4.5, {+\R}) to[out=-15, in=15, looseness=2] node[pos=0.5, left] {$S_3$} (4.5, {-\R}) ;
 		      \end{tikzpicture}
-		      \caption{}
+		      \caption{}%
 		      \label{tikz:current}
 	      \end{SCfigure}
 	      %---------------------------------------------------------
@@ -282,8 +282,8 @@
 					      \draw[] (T\i) -- ++(-1, 0);
 				      }
 		      \end{tikzpicture}
-		      \caption{На рисунку зображено нормаль $\vect{n}$ (синя стрілка) до лінії $L$, та вектор лінійної густини $\vect{i}$ (чорна стрілка).}
-		      \label{surface_current}
+		      \caption{На рисунку зображено нормаль $\vect{n}$ (синя стрілка) до лінії $L$, та вектор лінійної густини $\vect{i}$ (чорна стрілка).}%
+              \label{surface_current}
 	      \end{SCfigure}
 	      %---------------------------------------------------------
 
@@ -322,7 +322,7 @@
 струм через межу цієї ділянки.
 
 Отримаємо з~\eqref{eq:charge_conservation_low_int} диференціальне співвідношення для густини заряду
-$\rho(t, \vect{r})$ та густини об'ємного струму $\vect{j}(t, \vect{r})$ . Використовуючи визначення~\eqref{eq:q}
+$\rho(t, \vect{r})$ та густини об'ємного струму $\vect{j}(t, \vect{r})$. Використовуючи визначення~\eqref{eq:q}
 для нерухомого об'єму:
 \begin{equation*}
 	\frac{dq_{\Omega}}{dt} = \frac{d}{dt} \int\limits_{\Omega} \rho(t, \vect{r}) \ d^3\vect{r} = \int\limits_{\Omega} \frac{\partial\rho(t, \vect{r})}{\partial
@@ -374,7 +374,7 @@ $\rho(t, \vect{r})$ та густини об'ємного струму $\vect{j}
 мікроскопічних рівнянь має вид:
 
 \begin{align}
-	\oint\limits_{\partial\Omega} \Efield\cdot d\vect{S} & = 4\pi q_{\Omega}   \label{Int
+	\oint\limits_{\partial\Omega} \Efield\cdot d\vect{S} & = 4\pi q_{\Omega}\label{Int
 	I},                                                                                   \\
 	\oint\limits_{\partial\Omega} \Bfield\cdot d\vect{S} & = 0   \label{Int
 	II},                                                                                  \\
@@ -437,8 +437,7 @@ $S_2$, що мають спільну межу $\partial S$ (рис.~\ref{tikz:s
 		\draw[->] (S2.east) to[out=0, in=90] (s2);
 
 	\end{tikzpicture}
-	\caption{}
-	\label{tikz:surface}
+	\caption{}\label{tikz:surface}
 \end{SCfigure}
 %---------------------------------------------------------
 
@@ -449,8 +448,7 @@ $S_2$, що мають спільну межу $\partial S$ (рис.~\ref{tikz:s
 	\frac{\partial\Efield}{\partial t}\cdot d\vect{S}  \right) = 0
 \end{equation}
 Чи суперечить це іншим рівнянням? Виявляється, ні, якщо врахувати закон збереження заряду. Нехай $\Omega$ --- це область, оточена поверхнями $S_1$ та
-$S_2$. Межа $\partial\Omega$ має орієнтацію, спільну з однією з цих поверхонь і протилежну до іншої на відповідних ділянках. Тоді рівняння
-\eqref{eq:diff4} можна переписати так:
+$S_2$. Межа $\partial\Omega$ має орієнтацію, спільну з однією з цих поверхонь і протилежну до іншої на відповідних ділянках. Тоді рівняння~\eqref{eq:diff4} можна переписати так:
 \begin{equation}
 	4\pi I_{\partial\Omega} + \frac{d}{dt} \int\limits_{\partial\Omega} \Efield\cdot d\vect{S} = 0,
 \end{equation}

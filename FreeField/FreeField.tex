@@ -506,7 +506,7 @@
 		\draw[densely dashed] (E) -- node[anchor={180}] {$E_2$} ++(0,{-\l*sin(\a)});
 		\draw[densely dashed] (E) --  node[anchor={south}] {$E_1$}  ++({-\l*cos(\a)}, 0);
 	\end{tikzpicture}
-	\caption{Напрямок вектора \(\Efield\) визначає поляризацію хвилі.}
+	\caption{Напрямок вектора \(\Efield\) визначає поляризацію хвилі.}%
 	\label{pic:E-direction}
 \end{SCfigure}
 %---------------------------------------------------------
@@ -627,7 +627,7 @@
 			      \draw[densely dashed] (E) -- node[anchor={180}] {$E_2$} ++(0,{-\l*sin(\a)});
 			      \draw[densely dashed] (E) --  node[anchor={south}] {$E_1$}  ++({-\l*cos(\a)}, 0);
 		      \end{tikzpicture}
-		      \caption{Лінійна поляризація під кутом $45^{\circ}$ (випадок $E_1 = E_2$).}
+		      \caption{Лінійна поляризація під кутом $45^{\circ}$ (випадок $E_1 = E_2$).}%
 		      \label{pic:E-lin45}
 	      \end{SCfigure}
 	      %---------------------------------------------------------
@@ -663,7 +663,7 @@
 			      (\l,0)arc[start angle=0,end angle=360,
 					      radius=\l];
 		      \end{tikzpicture}
-		      \caption{Колова поляризація (випадок $E_2 = iE_1$, обертання вектора $\Efield$ проти годинникової стрілки).}
+		      \caption{Колова поляризація (випадок $E_2 = iE_1$, обертання вектора $\Efield$ проти годинникової стрілки).}%
 		      \label{pic:E-circle}
 	      \end{SCfigure}
 	      %---------------------------------------------------------
@@ -696,7 +696,7 @@
 			      \draw[-{Latex[length=6pt]}, red, thick] (0,0) -- ++(\a:\l) ;
 			      \draw[-{Latex[length=6pt]},dashed,  red, thick] (0,0) -- ++(180+\a:\l) ;
 		      \end{tikzpicture}
-		      \caption{Лінійна поляризація вздовж $X_1$ (випадок $E_2 = 0$).}
+		      \caption{Лінійна поляризація вздовж $X_1$ (випадок $E_2 = 0$).}%
 		      \label{pic:E-lin0}
 	      \end{SCfigure}
 	      %---------------------------------------------------------
@@ -743,7 +743,7 @@
 			      (\l,0)arc[start angle=0,end angle=360,
 					      x radius=\l, y radius=0.65*\l];
 		      \end{tikzpicture}
-		      \caption{Еліптична поляризація.}
+		      \caption{Еліптична поляризація.}%
 		      \label{pic:E-ellipse}
 	      \end{SCfigure}
 	      %---------------------------------------------------------
@@ -776,7 +776,7 @@
 %---------------------------------------------------------
 \begin{figure}[ht!]\centering
 	\input{\currfilebase/tikz/StokeParams.tikz}
-	\caption{Сфера Пуанкаре: геометричне представлення параметрів Стокса. Координати \((\xi_1, \xi_2, \xi_3)\) визначають точку на сфері для повністю поляризованого світла (\(p=1\)). На рисунку показано як змінюється характер поляризації вздовж екватора.}
+	\caption{Сфера Пуанкаре: геометричне представлення параметрів Стокса. Координати \((\xi_1, \xi_2, \xi_3)\) визначають точку на сфері для повністю поляризованого світла (\(p=1\)). На рисунку показано як змінюється характер поляризації вздовж екватора.}%
 	\label{pic:Stoke}
 \end{figure}
 %---------------------------------------------------------
@@ -873,7 +873,7 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 	0 \leqslant \int d\omega \left| x \frac{d\tilde\phi}{d\omega} + (\omega - \omega_a) \tilde\phi \right|^2
 	\equiv
 	\int d\omega \left( x \frac{d\tilde\phi}{d\omega} + (\omega -
-	\omega_a) \tilde\phi \right) \left( x \frac{d\tilde\phi^{*}}{d\omega} + (\omega - \omega_a) \tilde\phi^{*} \right).7
+	\omega_a) \tilde\phi \right) \left( x \frac{d\tilde\phi^{*}}{d\omega} + (\omega - \omega_a) \tilde\phi^{*} \right).
 \end{equation*}
 
 Звідси, після застосування усереднення, за допомогою~\eqref{eq:Delta_omega} та~\eqref{eq:time_duration_fourier}, маємо:

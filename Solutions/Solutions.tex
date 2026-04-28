@@ -120,7 +120,7 @@ $\phi$ в останній формулі скорочуються, отриму
 \end{equation}
 
 Перевіримо, чи сумісні рівняння~\eqref{eq:Dphi} та~\eqref{eq:DA} з умовою Лоренца~\eqref{eq:LorenzCondition}.
-Комбінування рівнянь $\frac1c \parttime{}~\eqref{eq:Dphi} + \Div\eqref{eq:DA}$ дає:
+Комбінування рівнянь $\frac1c \parttime{}~\eqref{eq:Dphi} + \Div~\eqref{eq:DA}$ дає:
 \begin{equation}
 	\mdlgwhtsquare\ \left( \frac1c \parttime{\phi} + \Div\vect{A} \right) = \frac{4\pi}c \left( \parttime{\rho} + \Div\vect{j}\right)  .
 \end{equation}
@@ -143,7 +143,7 @@ $\phi$ в останній формулі скорочуються, отриму
 не є єдиним (воно має, наприклад, хвильові розв'язки\index{Хвильове рівняння}). Але за умови
 відсутності зовнішнього випромінювання, коли розглядається обмежена
 система зарядів і струмів, рівя~\eqref{eq:Df} має тільки тривіальний розв'язок
-$f=0$. Ця ситуація відповідає запізнюючим розв'язкам рівнянняннь~\eqref{eq:Dphi} та~\eqref{eq:DA}, що
+$f=0$. Ця ситуація відповідає запізнюючим розв'язкам рівнянь~\eqref{eq:Dphi} та~\eqref{eq:DA}, що
 розглядаються нижче.
 
 
@@ -450,9 +450,7 @@ $\Delta \varphi$. Тому асимптотика розв’язку за $r \t
 ізольованої системи зарядів та струмів.
 
 Зауважимо, що~\eqref{eq:phi_ret},~\eqref{eq:A_ret} можна записати у вигляді згортки фундаментального розв’язку оператора Даламбера\index{Оператор Даламбера!фундаментальний розв’язок} з правими частинами
-рівнянь
-\eqref{eq:Dphi},
-\eqref{eq:DA} (див. додаток~\ref{sec:GeneralizedFunctions}). Цей фундаментальний розв’язок має вигляд:
+рівнянь~\eqref{eq:Dphi},~\eqref{eq:DA} (див. додаток~\ref{sec:GeneralizedFunctions}). Цей фундаментальний розв’язок має вигляд:
 \begin{equation}\label{eq:D}
 	D(t, \vect{r}) = \frac{1}{2\pi c} \delta \left( t^2 - r^2 / c^2 \right) \theta(t).
 \end{equation}
@@ -603,7 +601,7 @@ $\Delta \varphi$. Тому асимптотика розв’язку за $r \t
     \node[right] at (surface) {$t = T$};
     \draw[->] (r0) -- node[above, sloped, pos=0.7] {$\vect{R}(t)$} (surface);
 \end{tikzpicture}
-\caption{}
+\caption{}%
 \label{tikz:Unity}
 \end{figure}
 %---------------------------------------------------------
