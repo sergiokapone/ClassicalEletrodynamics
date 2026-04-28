@@ -147,97 +147,38 @@
             margin-top: 0.5rem;
         }
 
-        /* Таблиці для змісту */
-        .table-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1rem;
+        /* Списки для змісту без посилань */
+        .toc-list {
+            list-style: none;
             margin: 1rem 0;
+            padding-left: 0;
         }
 
-        .content-item {
+        .toc-list li {
+            margin-bottom: 0.5rem;
+            padding: 0.5rem 1rem;
             background: #f8f9fc;
             border-radius: 8px;
-            padding: 0.8rem 1rem;
-            transition: background 0.2s;
+            font-size: 1rem;
         }
 
-        .content-item:hover {
-            background: #eef2f7;
-        }
-
-        .content-item a {
-            text-decoration: none;
-            font-weight: 500;
-            color: #2a5298;
-            display: block;
-        }
-
-        .content-item a:hover {
-            text-decoration: underline;
-        }
-
-        .content-item small {
-            color: #718096;
-            font-size: 0.8rem;
-            display: block;
-            margin-top: 0.25rem;
-        }
-
-        /* Структура папок */
-        .folder-tree {
-            background: #1a1a2e;
-            color: #e2e8f0;
-            border-radius: 12px;
-            padding: 1.5rem;
-            font-family: 'Courier New', 'Fira Code', monospace;
-            font-size: 0.85rem;
-            overflow-x: auto;
-            margin: 1rem 0;
-        }
-
-        .folder-tree pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-
-        /* Файли */
-        .files-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 1rem 0;
-        }
-
-        .files-table th, .files-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .files-table th {
-            background: #f1f5f9;
-            font-weight: 600;
+        .toc-list li strong {
             color: #1e3c72;
+            display: inline-block;
+            min-width: 40px;
         }
 
-        .files-table td a {
-            color: #2a5298;
-            text-decoration: none;
+        .sub-list {
+            list-style: none;
+            margin-left: 2rem;
+            margin-top: 0.3rem;
+            font-size: 0.9rem;
+            color: #4a5568;
         }
 
-        .files-table td a:hover {
-            text-decoration: underline;
-        }
-
-        /* Кнопка збірки */
-        .build-box {
-            background: #f1f5f9;
-            border-radius: 12px;
-            padding: 1rem;
-            font-family: monospace;
-            margin: 1rem 0;
-            overflow-x: auto;
+        .sub-list li {
+            background: transparent;
+            padding: 0.2rem 0;
         }
 
         hr {
@@ -265,6 +206,9 @@
             .pdf-hero h1 {
                 font-size: 1.8rem;
             }
+            .sub-list {
+                margin-left: 1rem;
+            }
         }
     </style>
 </head>
@@ -278,7 +222,7 @@
             📄 Завантажити повний збірник (PDF)
             <span style="font-size: 1.2rem;">⬇️</span>
         </a>
-        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Остання версія збірника — прямий перехід на PDF-файл</p>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Повна версія конспекту у форматі PDF</p>
     </div>
 
     <div class="content">
@@ -301,66 +245,107 @@
             </div>
         </div>
 
-        <!-- Зміст: Частина I -->
+        <!-- Частина I -->
         <div class="section">
-            <h2>📘 Частина I</h2>
-            <div class="table-grid">
-                <div class="content-item">
-                    <a href="Basics/">🔹 Базові поняття та рівняння</a>
-                    <small>Величини в електродинаміці, рівняння Максвелла, закони збереження, межі застосовності</small>
-                </div>
-                <div class="content-item">
-                    <a href="Solutions/">🔹 Розв’язки рівнянь Максвелла</a>
-                    <small>Потенціали, задача Коші, ізольовані системи</small>
-                </div>
-                <div class="content-item">
-                    <a href="FreeField/">🔹 Вільне електромагнітне поле</a>
-                    <small>Спектральний розклад, плоскі хвилі, випадкові поля, тривалість сигналу</small>
-                </div>
-                <div class="content-item">
-                    <a href="Radiation/">🔹 Випромінювання</a>
-                    <small>Поле прискореного заряду, малі системи, розсіювання хвиль</small>
-                </div>
-            </div>
+            <h2>Частина I</h2>
+            <ul class="toc-list">
+                <li><strong>1</strong> Базові поняття та рівняння
+                    <ul class="sub-list">
+                        <li>1.1 Величини, що спостерігаються в електродинаміці</li>
+                        <li>1.2 Рівняння електромагнітного поля</li>
+                        <li>1.3 Закони збереження</li>
+                        <li>1.4 Межі застосовності класичної електродинаміки</li>
+                    </ul>
+                </li>
+                <li><strong>2</strong> Розв’язки рівнянь Максвелла
+                    <ul class="sub-list">
+                        <li>2.1 Потенціали електромагнітного поля</li>
+                        <li>2.2 Потенціали ізольованої системи зарядів і струмів</li>
+                        <li>2.3 Задача Коші для рівнянь Максвелла</li>
+                    </ul>
+                </li>
+                <li><strong>3</strong> Вільне електромагнітне поле
+                    <ul class="sub-list">
+                        <li>3.1 Спектральний розклад і плоскі хвилі</li>
+                        <li>3.2 Випадкові поля випромінювання</li>
+                        <li>3.3 Співвідношення між тривалістю сигналу та шириною його спектру</li>
+                        <li>3.4 Загальний розв’язок рівнянь вільного поля</li>
+                    </ul>
+                </li>
+                <li><strong>4</strong> Випромінювання
+                    <ul class="sub-list">
+                        <li>4.1 Поле заряду, що рухається з прискоренням</li>
+                        <li>4.2 Випромінювання малих систем</li>
+                        <li>4.3 Розсіювання електромагнітних хвиль</li>
+                    </ul>
+                </li>
+            </ul>
         </div>
 
-        <!-- Зміст: Частина II -->
+        <!-- Частина II -->
         <div class="section">
-            <h2>📗 Частина II</h2>
-            <div class="table-grid">
-                <div class="content-item">
-                    <a href="LorentzTransform/">🔸 Перетворення Лоренца</a>
-                    <small>Постулати Ейнштейна, простір-час, власний час, інтервал</small>
-                </div>
-                <div class="content-item">
-                    <a href="Minkovsky/">🔸 Простір Мінковського</a>
-                    <small>Вектори, тензори, світові лінії, чотиривектор швидкості</small>
-                </div>
-                <div class="content-item">
-                    <a href="RelElecrodynamics/">🔸 Електродинаміка в просторі Мінковського</a>
-                    <small>Рівняння Максвелла, тензор поля, ефект Доплера, вектор-потенціал</small>
-                </div>
-                <div class="content-item">
-                    <a href="VariationPrinciple/">🔸 Варіаційний принцип</a>
-                    <small>Заряд у полі, дія для поля</small>
-                </div>
-                <div class="content-item">
-                    <a href="TEI/">🔸 Тензор енергії-імпульсу</a>
-                    <small>Чотири-імпульс, енергія-імпульс поля, момент імпульсу</small>
-                </div>
-            </div>
+            <h2>Частина II</h2>
+            <ul class="toc-list">
+                <li><strong>5</strong> Перетворення Лоренца як наслідок постулатів Ейнштейна
+                    <ul class="sub-list">
+                        <li>5.1 Простір-час, системи відліку</li>
+                        <li>5.2 Перетворення Лоренца для одновимірних рухів систем відліку</li>
+                        <li>5.3 Власний час</li>
+                        <li>5.4 Квадрат інтервалу</li>
+                        <li>5.5 Перетворення довжини та об’єму</li>
+                    </ul>
+                </li>
+                <li><strong>6</strong> Співвідношення СТВ у просторі Мінковського
+                    <ul class="sub-list">
+                        <li>6.1 Загальні та власні перетворення Лоренца</li>
+                        <li>6.2 Вектори і тензори в просторі Мінковського</li>
+                        <li>6.3 Світові лінії та чотиривектор швидкості</li>
+                    </ul>
+                </li>
+                <li><strong>7</strong> Електродинаміка у просторі Мінковського
+                    <ul class="sub-list">
+                        <li>7.1 Чотиривимірна форма рівнянь Максвелла</li>
+                        <li>7.2 Трансформаційні властивості Fμν</li>
+                        <li>7.3 Рівняння руху зарядженої частинки</li>
+                        <li>7.4 Плоскі монохроматичні хвилі</li>
+                        <li>7.5 Ефект Доплера</li>
+                        <li>7.6 Вектор-потенціал електромагнітного поля у випадку ізольованої системи</li>
+                    </ul>
+                </li>
+                <li><strong>8</strong> Варіаційний принцип для рівнянь електродинаміки
+                    <ul class="sub-list">
+                        <li>8.1 Заряд у зовнішньому електромагнітному полі</li>
+                        <li>8.2 Дія для електромагнітного поля</li>
+                    </ul>
+                </li>
+                <li><strong>9</strong> Тензор енергії-імпульсу і закони збереження
+                    <ul class="sub-list">
+                        <li>9.1 Чотири-імпульс системи тіл</li>
+                        <li>9.2 Енергія-імпульс електромагнітного поля</li>
+                        <li>9.3 Тензор моменту імпульсу електромагнітної системи</li>
+                    </ul>
+                </li>
+            </ul>
         </div>
 
         <!-- Додатки -->
         <div class="section">
-            <h2>📎 Додатки</h2>
-            <div class="table-grid">
-                <div class="content-item"><a href="Additions/Vanaliz.tex">Векторний аналіз</a><small>Диференціальні операції, теореми</small></div>
-                <div class="content-item"><a href="Additions/">Поліноми Лежандра</a><small>Довідка</small></div>
-                <div class="content-item"><a href="Additions/">Сферичні гармоніки</a><small>Довідка</small></div>
-                <div class="content-item"><a href="Additions/">Циліндричні функції</a><small>Довідка</small></div>
-                <div class="content-item"><a href="Additions/">Узагальнені функції</a><small>Довідка</small></div>
-            </div>
+            <h2>Додатки</h2>
+            <ul class="toc-list">
+                <li><strong>А</strong> Основні формули векторного аналізу
+                    <ul class="sub-list">
+                        <li>А.1 Диференціальні операції в різних системах координат</li>
+                        <li>А.2 Другі похідні</li>
+                        <li>А.3 Похідні від добутків</li>
+                        <li>А.4 Індексна нотація формул векторного аналізу</li>
+                        <li>А.5 Інтегральні характеристики та теореми</li>
+                    </ul>
+                </li>
+                <li><strong>Б</strong> Поліноми Лежандра</li>
+                <li><strong>В</strong> Сферичні гармоніки</li>
+                <li><strong>Г</strong> Циліндричні функції</li>
+                <li><strong>Д</strong> Узагальнені функції</li>
+            </ul>
         </div>
 
         <hr>
