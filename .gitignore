@@ -21,3 +21,5 @@ _minted*/
 ClassicalElectrodynamics_*.pdf
 *.docx
 /!Save
+ClassicalElectrodynamics.parable*.gnuplot
+ClassicalElectrodynamics.parable*.table
