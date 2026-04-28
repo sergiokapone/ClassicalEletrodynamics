@@ -190,7 +190,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 	dI = (\vect{\Pi} \cdot \vect{n}) R_q^2 do = \frac{c}{4\pi} B^2 R_q^2 do, \quad R_q \to \infty.
 \end{equation*}
 
-Після дещо громіздких обчислень з використанням (\ref{eq:magnetic_field}) отримуємо потужність випромінювання в тілесний кут \( do \) в напрямку~\(
+Після дещо громіздких обчислень з використанням \eqref{eq:magnetic_field} отримуємо потужність випромінювання в тілесний кут \( do \) в напрямку~\(
 \vect{n}_q \):
 
 \begin{equation}
@@ -205,7 +205,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 
 Нагадаємо, що всі величини на траєкторії частинки (що входять з індексом \( q \)) обчислюються в момент часу запізнення \( t_q \).
 
-Як було зазначено вище, випромінює лише прискорений заряд. Це також очевидно з формули (\ref{eq:radiation_power}).
+Як було зазначено вище, випромінює лише прискорений заряд. Це також очевидно з формули \eqref{eq:radiation_power}.
 
 У випадку \emph{нерелятивістських} рухів \( |\vect{v}_q/c| \ll 1 \):
 
@@ -222,7 +222,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 \end{equation}
 
 В \emph{ультрарелятивістському} випадку, коли швидкість частинки, що випромінює, близька до швидкості світла, значну роль відіграє вираз \( 1 -
-\frac{\vect{v}_q \cdot \vect{n}}{c} \) в знаменнику формули (\ref{eq:radiation_power}). Якщо \( 1 - \frac{v_q}{c} \ll 1 \), завдяки цьому виразу
+\frac{\vect{v}_q \cdot \vect{n}}{c} \) в знаменнику формули \eqref{eq:radiation_power}. Якщо \( 1 - \frac{v_q}{c} \ll 1 \), завдяки цьому виразу
 інтенсивність зосереджена в області малих кутів \( \theta \) між напрямком швидкості \( \vect{v}_q(t_q) \) і напрямком випромінювання \( \vect{n}_q \).
 Якщо записати:
 
@@ -248,14 +248,14 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 	\label{eq:radiation_power_parallel}
 \end{equation}
 
-В області малих кутів (\ref{eq:effective_angle}) маємо:
+В області малих кутів \eqref{eq:effective_angle} маємо:
 
 \begin{equation*}
 	dI \approx \frac{q^2}{4\pi c^3} \dot{\vect{v}}_q^2 \left( 1 - \frac{v_q}{c} + \frac{\theta^2}{2} \right)^{-6} \theta^2 do.
 \end{equation*}
 
 Якщо швидкість та прискорення взаємно перпендикулярні \( \vect{v}_q \perp \dot{\vect{v}}_q \) (наприклад, рух по колу), тоді з
-(\ref{eq:radiation_power}):
+\eqref{eq:radiation_power}:
 
 
 \begin{equation}\label{eq:4.1.14}
@@ -391,7 +391,7 @@ r' \) маємо:
 	\vect{A}_1 = \frac{1}{c r} \int \vect{j}(t_r, \vect{r}')(\vect{n} \cdot \vect{r}') \, dV'.
 \end{equation}
 
-Перетворимо (\ref{eq:vector_potential_zero_order}), користуючись тотожністю \( \Div(x_j \vect{j}) = J_j + x_j \Div \vect{j} \) і
+Перетворимо \eqref{eq:vector_potential_zero_order}, користуючись тотожністю \( \Div(x_j \vect{j}) = J_j + x_j \Div \vect{j} \) і
 законом збереження заряду \( \Div \vect{j} = -\frac{\partial \rho}{\partial t} \). Звідси:
 
 \begin{equation*}
@@ -404,7 +404,7 @@ r' \) маємо:
 	\int {j}_i \, dV = \int x_i\frac{\partial\rho}{\partial t}\, dV,
 \end{equation*}
 %
-де враховано, що поза межами системи, що розглядається, \( \vect{j} = 0 \),  і на межі області, де струми відмінні від нуля, $\vect{j}\cdot d\vect{S} = 0$. Підстановка цього співвідношення в (\ref{eq:vector_potential_zero_order})
+де враховано, що поза межами системи, що розглядається, \( \vect{j} = 0 \),  і на межі області, де струми відмінні від нуля, $\vect{j}\cdot d\vect{S} = 0$. Підстановка цього співвідношення в \eqref{eq:vector_potential_zero_order}
 дає:
 
 \begin{equation}
@@ -712,7 +712,7 @@ m \ddot{\vect{r}} = q \vect{E},
 dI =\frac1{4\pi c^3}\left[\ddot{\vect{d}\times\vect{n}}\right]^2do = \frac{\ddot{\vect{d}}^2}{4\pi c^3}  \sin^2 \theta \, d\theta,
 \label{eq:intensity_dipole}
 \end{equation}
-де \( \theta \) --- кут між \( \ddot{\vect{d}} \) та напрямком спостереження \( \vect{n} \). Враховуючи (\ref{eq:dipole_moment}):
+де \( \theta \) --- кут між \( \ddot{\vect{d}} \) та напрямком спостереження \( \vect{n} \). Враховуючи \eqref{eq:dipole_moment}:
 
 \begin{equation*}
 dI = \frac{q^4 E^2}{4\pi m^2 c^3} \sin^2 \theta \, d\theta.
@@ -730,7 +730,7 @@ d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
 \label{eq:differential_cross_section_thomson}
 \end{equation}
 
-Цікаво, що цей вираз не залежить від частоти. Повний переріз отримаємо, інтегруючи (\ref{eq:differential_cross_section_thomson}) по усіх напрямках:
+Цікаво, що цей вираз не залежить від частоти. Повний переріз отримаємо, інтегруючи \eqref{eq:differential_cross_section_thomson} по усіх напрямках:
 
 \begin{equation}
 \sigma_T = \frac{8\pi}{3} \left( \frac{q^2}{mc^2} \right)^2.
@@ -743,9 +743,9 @@ d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
 \subsection*{Неполяризована хвиля}
 %% --------------------------------------------------------
 
-Формула (\ref{eq:intensity}) дає диференціальний переріз розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі присутні
-усі напрямки \( \vect{E} \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з (\ref{eq:dipole_moment}), рівноймовірними є усі
-напрямки дипольного моменту з (\ref{eq:intensity}).
+Формула \eqref{eq:intensity} дає диференціальний переріз розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі присутні
+усі напрямки \( \vect{E} \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з \eqref{eq:dipole_moment}, рівноймовірними є усі
+напрямки дипольного моменту з \eqref{eq:intensity}.
 
 Зафіксуємо напрямки спостереження:
 
