@@ -1,390 +1,399 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="uk">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Класична електродинаміка | Конспект лекцій</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        line-height: 1.6;
+        color: #1a1a2e;
+        background-color: #f5f7fa;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+      }
+
+      /* PDF Hero Banner */
+      .pdf-hero {
+        background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+        color: white;
+        padding: 3rem 2rem;
+        text-align: center;
+      }
+
+      .pdf-hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
+
+      .pdf-hero .subtitle {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        margin-bottom: 2rem;
+      }
+
+      .pdf-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: #ff6b35;
+        color: white;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .pdf-button:hover {
+        background: #e55a2b;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      }
+
+      .pdf-button:active {
+        transform: translateY(0);
+      }
+
+      /* Основний контент */
+      .content {
+        padding: 2rem 2.5rem;
+      }
+
+      /* Передмова */
+      .preface {
+        background: #f0f4f8;
+        border-radius: 12px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        border-left: 4px solid #ff6b35;
+      }
+
+      .preface h2 {
+        font-size: 1.6rem;
+        color: #1e3c72;
+        margin-bottom: 1rem;
+        display: inline-block;
+        border-bottom: 2px solid #ff6b35;
+        padding-bottom: 0.3rem;
+      }
+
+      .preface p {
+        margin-bottom: 1rem;
+        text-align: justify;
+      }
+
+      /* Секції */
+      .section {
+        margin-bottom: 2.5rem;
+      }
+
+      .section h2 {
+        font-size: 1.8rem;
+        color: #1e3c72;
+        border-bottom: 3px solid #ff6b35;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1.5rem;
+        display: inline-block;
+      }
+
+      /* Автори */
+      .authors {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin: 1.5rem 0 2rem 0;
+      }
+
+      .author-card {
+        flex: 1;
+        min-width: 250px;
+        background: #f8f9fc;
+        border-radius: 12px;
+        padding: 1.2rem;
+        border-left: 4px solid #ff6b35;
+        transition: transform 0.2s;
+      }
+
+      .author-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .author-card strong {
+        font-size: 1.1rem;
+        color: #1e3c72;
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+
+      .author-card a {
+        color: #2a5298;
+        text-decoration: none;
+      }
+
+      .author-card a:hover {
+        text-decoration: underline;
+      }
+
+      .author-card p {
+        font-size: 0.9rem;
+        color: #4a5568;
+        margin-top: 0.5rem;
+      }
+
+      /* Списки для змісту */
+      .toc-list {
+        list-style: none;
+        margin: 1rem 0;
+        padding-left: 0;
+      }
+
+      .toc-list li {
+        margin-bottom: 0.5rem;
+        padding: 0.5rem 1rem;
+        background: #f8f9fc;
+        border-radius: 8px;
+        font-size: 1rem;
+      }
+
+      .toc-list li strong {
+        color: #1e3c72;
+        display: inline-block;
+        min-width: 40px;
+      }
+
+      .sub-list {
+        list-style: none;
+        margin-left: 2rem;
+        margin-top: 0.3rem;
+        font-size: 0.9rem;
+        color: #4a5568;
+      }
+
+      .sub-list li {
+        background: transparent;
+        padding: 0.2rem 0;
+      }
+
+      hr {
+        margin: 2rem 0;
+        border: none;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      footer {
+        text-align: center;
+        padding: 2rem;
+        background: #f8f9fc;
+        color: #718096;
+        font-size: 0.85rem;
+        border-top: 1px solid #e2e8f0;
+      }
+
+      @media (max-width: 768px) {
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            line-height: 1.6;
-            color: #1a1a2e;
-            background-color: #f5f7fa;
-            padding: 2rem;
+          padding: 1rem;
         }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-
-        /* PDF Hero Banner */
-        .pdf-hero {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-        }
-
-        .pdf-hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .pdf-hero .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.9;
-            margin-bottom: 2rem;
-        }
-
-        .pdf-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            background: #ff6b35;
-            color: white;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
-
-        .pdf-button:hover {
-            background: #e55a2b;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.25);
-        }
-
-        .pdf-button:active {
-            transform: translateY(0);
-        }
-
-        /* Основний контент */
         .content {
-            padding: 2rem 2.5rem;
+          padding: 1.5rem;
         }
-
-        /* Передмова */
-        .preface {
-            background: #f0f4f8;
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-            border-left: 4px solid #ff6b35;
+        .pdf-hero h1 {
+          font-size: 1.8rem;
         }
-
-        .preface h2 {
-            font-size: 1.6rem;
-            color: #1e3c72;
-            margin-bottom: 1rem;
-            display: inline-block;
-            border-bottom: 2px solid #ff6b35;
-            padding-bottom: 0.3rem;
-        }
-
-        .preface p {
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
-
-        /* Секції */
-        .section {
-            margin-bottom: 2.5rem;
-        }
-
-        .section h2 {
-            font-size: 1.8rem;
-            color: #1e3c72;
-            border-bottom: 3px solid #ff6b35;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
-            display: inline-block;
-        }
-
-        /* Автори */
-        .authors {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin: 1.5rem 0 2rem 0;
-        }
-
-        .author-card {
-            flex: 1;
-            min-width: 250px;
-            background: #f8f9fc;
-            border-radius: 12px;
-            padding: 1.2rem;
-            border-left: 4px solid #ff6b35;
-            transition: transform 0.2s;
-        }
-
-        .author-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
-        }
-
-        .author-card strong {
-            font-size: 1.1rem;
-            color: #1e3c72;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .author-card a {
-            color: #2a5298;
-            text-decoration: none;
-        }
-
-        .author-card a:hover {
-            text-decoration: underline;
-        }
-
-        .author-card p {
-            font-size: 0.9rem;
-            color: #4a5568;
-            margin-top: 0.5rem;
-        }
-
-        /* Списки для змісту */
-        .toc-list {
-            list-style: none;
-            margin: 1rem 0;
-            padding-left: 0;
-        }
-
-        .toc-list li {
-            margin-bottom: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: #f8f9fc;
-            border-radius: 8px;
-            font-size: 1rem;
-        }
-
-        .toc-list li strong {
-            color: #1e3c72;
-            display: inline-block;
-            min-width: 40px;
-        }
-
         .sub-list {
-            list-style: none;
-            margin-left: 2rem;
-            margin-top: 0.3rem;
-            font-size: 0.9rem;
-            color: #4a5568;
+          margin-left: 1rem;
         }
-
-        .sub-list li {
-            background: transparent;
-            padding: 0.2rem 0;
-        }
-
-        hr {
-            margin: 2rem 0;
-            border: none;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background: #f8f9fc;
-            color: #718096;
-            font-size: 0.85rem;
-            border-top: 1px solid #e2e8f0;
-        }
-
-        @media (max-width: 768px) {
-            body {
-                padding: 1rem;
-            }
-            .content {
-                padding: 1.5rem;
-            }
-            .pdf-hero h1 {
-                font-size: 1.8rem;
-            }
-            .sub-list {
-                margin-left: 1rem;
-            }
-        }
+      }
     </style>
-</head>
-<body>
-<div class="container">
-    <!-- PDF Hero секція -->
-    <div class="pdf-hero">
+  </head>
+  <body>
+    <div class="container">
+      <!-- PDF Hero секція -->
+      <div class="pdf-hero">
         <h1>📖 Класична електродинаміка</h1>
         <div class="subtitle">Конспект лекцій | Теорія поля | Релятивістська електродинаміка</div>
         <a href="ClassicalElectrodynamics.pdf" class="pdf-button">
-            📄 Завантажити повний збірник (PDF)
-            <span style="font-size: 1.2rem;">⬇️</span>
+          📄 Завантажити повний збірник (PDF)
+          <span style="font-size: 1.2rem">⬇️</span>
         </a>
-        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8;">Повна версія конспекту у форматі PDF</p>
-    </div>
+        <p style="margin-top: 1rem; font-size: 0.85rem; opacity: 0.8">Повна версія конспекту у форматі PDF</p>
+      </div>
 
-    <div class="content">
-        <!-- Передмова (інформаційна сторінка) -->
-        <div class="preface">
-            <h2>📌 Про посібник</h2>
-            <p>Посібник містить матеріали з класичної електродинаміки в рамках програми з теоретичної фізики, розрахованої на студентів третього курсу навчально-наукового фізико-технічного факультету НТУУ «КПІ» імені Ігоря Сікорського.</p>
-            <p>Викладено основні поняття класичної електродинаміки, розглянуто рівняння Максвелла, їх властивості, основні розв’язки, процеси випромінювання та розсіювання, вільні поля та їх характеристики. Посібник складається з двох частин: <strong>І. Класична електродинаміка</strong>; <strong>ІІ. Чотиривимірне формулювання класичної електродинаміки</strong>.</p>
-            <p>У <strong>частині І</strong> викладено базові поняття та рівняння, розв'язки рівнянь Максвелла, що описують ізольовану систему зарядів і струмів (потенціали ізольованої системи зарядів і струмів, задача Коші для рівнянь Максвелла). Обговорено розв’язки для вільного електромагнітного поля та процеси випромінювання.</p>
-            <p>У <strong>частині ІІ</strong> викладено базові принципи та поняття спеціальної теорії відносності (СТВ) близько до оригінальної роботи Ейнштейна. Співвідношення СТВ переписано у просторі Мінковського. Далі рівняння Максвелла та основні пов'язані з ними величини переписано у коваріантній чотиривимірній формі за допомогою тензора електромагнітного поля та чотиривектора густини струму та розглянуто основні наслідки. Виведено коваріантні рівняння руху заряджених частинок в електромагнітному полі за допомогою принципу відповідності з класичною динамікою. Розглянуто варіаційний принцип для рівнянь електродинаміки та закони збереження.</p>
-            <p>Посібник містить вправи для кращого засвоєння матеріалу.</p>
-        </div>
-
+      <div class="content">
         <!-- Автори -->
         <div class="section">
-            <h2>Автори</h2>
-            <div class="authors">
-                <div class="author-card">
-                    <strong>👨‍🏫 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/zhdanov/" target="_blank">Жданов Валерій Іванович</a></strong>
-                    <p>Доктор фізико-математичних наук, професор, академік АН вищої школи України, лауреат Державної премії України в галузі науки і техніки.</p>
-                </div>
-                <div class="author-card">
-                    <strong>👨‍🔬 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko/" target="_blank">Пономаренко Сергій Миколайович</a></strong>
-                    <p>Кандидат фізико-математичних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
-                </div>
-                <div class="author-card">
-                    <strong>👨‍🔬 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/dolgoshey/" target="_blank">Долгошей Володимир Борисович</a></strong>
-                    <p>Кандидат фізико-математичних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
-                </div>
+          <h2>Автори</h2>
+          <div class="authors">
+            <div class="author-card">
+              <strong>👨‍🏫 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/zhdanov/" target="_blank">Жданов Валерій Іванович</a></strong>
+              <p>Доктор фізико-математичних наук, професор, академік АН вищої школи України, лауреат Державної премії України в галузі науки і техніки.</p>
             </div>
+            <div class="author-card">
+              <strong>👨‍🔬 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko/" target="_blank">Пономаренко Сергій Миколайович</a></strong>
+              <p>Кандидат фізико-математичних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
+            </div>
+            <div class="author-card">
+              <strong>👨‍🔬 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/dolgoshey/" target="_blank">Долгошей Володимир Борисович</a></strong>
+              <p>Кандидат фізико-математичних наук, доцент кафедри прикладної фізики КПІ ім. Ігоря Сікорського.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Передмова (інформаційна сторінка) -->
+        <div class="preface">
+          <h2>📌 Про посібник</h2>
+          <p>Посібник містить матеріали з класичної електродинаміки в рамках програми з теоретичної фізики, розрахованої на студентів третього курсу навчально-наукового фізико-технічного факультету НТУУ «КПІ» імені Ігоря Сікорського.</p>
+          <p>Викладено основні поняття класичної електродинаміки, розглянуто рівняння Максвелла, їх властивості, основні розв’язки, процеси випромінювання та розсіювання, вільні поля та їх характеристики. Посібник складається з двох частин: <strong>І. Класична електродинаміка</strong>; <strong>ІІ. Чотиривимірне формулювання класичної електродинаміки</strong>.</p>
+          <p>У <strong>частині І</strong> викладено базові поняття та рівняння, розв'язки рівнянь Максвелла, що описують ізольовану систему зарядів і струмів (потенціали ізольованої системи зарядів і струмів, задача Коші для рівнянь Максвелла). Обговорено розв’язки для вільного електромагнітного поля та процеси випромінювання.</p>
+          <p>У <strong>частині ІІ</strong> викладено базові принципи та поняття спеціальної теорії відносності (СТВ) близько до оригінальної роботи Ейнштейна. Співвідношення СТВ переписано у просторі Мінковського. Далі рівняння Максвелла та основні пов'язані з ними величини переписано у коваріантній чотиривимірній формі за допомогою тензора електромагнітного поля та чотиривектора густини струму та розглянуто основні наслідки. Виведено коваріантні рівняння руху заряджених частинок в електромагнітному полі за допомогою принципу відповідності з класичною динамікою. Розглянуто варіаційний принцип для рівнянь електродинаміки та закони збереження.</p>
+          <p>Посібник містить вправи для кращого засвоєння матеріалу.</p>
         </div>
 
         <!-- Частина I -->
         <div class="section">
-            <h2>Частина I</h2>
-            <ul class="toc-list">
-                <li><strong>1</strong> Базові поняття та рівняння
-                    <ul class="sub-list">
-                        <li>1.1 Величини, що спостерігаються в електродинаміці</li>
-                        <li>1.2 Рівняння електромагнітного поля</li>
-                        <li>1.3 Закони збереження</li>
-                        <li>1.4 Межі застосовності класичної електродинаміки</li>
-                    </ul>
-                </li>
-                <li><strong>2</strong> Розв’язки рівнянь Максвелла
-                    <ul class="sub-list">
-                        <li>2.1 Потенціали електромагнітного поля</li>
-                        <li>2.2 Потенціали ізольованої системи зарядів і струмів</li>
-                        <li>2.3 Задача Коші для рівнянь Максвелла</li>
-                    </ul>
-                </li>
-                <li><strong>3</strong> Вільне електромагнітне поле
-                    <ul class="sub-list">
-                        <li>3.1 Спектральний розклад і плоскі хвилі</li>
-                        <li>3.2 Випадкові поля випромінювання</li>
-                        <li>3.3 Співвідношення між тривалістю сигналу та шириною його спектру</li>
-                        <li>3.4 Загальний розв’язок рівнянь вільного поля</li>
-                    </ul>
-                </li>
-                <li><strong>4</strong> Випромінювання
-                    <ul class="sub-list">
-                        <li>4.1 Поле заряду, що рухається з прискоренням</li>
-                        <li>4.2 Випромінювання малих систем</li>
-                        <li>4.3 Розсіювання електромагнітних хвиль</li>
-                    </ul>
-                </li>
-            </ul>
+          <h2>Частина I</h2>
+          <ul class="toc-list">
+            <li>
+              <strong>1</strong> Базові поняття та рівняння
+              <ul class="sub-list">
+                <li>1.1 Величини, що спостерігаються в електродинаміці</li>
+                <li>1.2 Рівняння електромагнітного поля</li>
+                <li>1.3 Закони збереження</li>
+                <li>1.4 Межі застосовності класичної електродинаміки</li>
+              </ul>
+            </li>
+            <li>
+              <strong>2</strong> Розв’язки рівнянь Максвелла
+              <ul class="sub-list">
+                <li>2.1 Потенціали електромагнітного поля</li>
+                <li>2.2 Потенціали ізольованої системи зарядів і струмів</li>
+                <li>2.3 Задача Коші для рівнянь Максвелла</li>
+              </ul>
+            </li>
+            <li>
+              <strong>3</strong> Вільне електромагнітне поле
+              <ul class="sub-list">
+                <li>3.1 Спектральний розклад і плоскі хвилі</li>
+                <li>3.2 Випадкові поля випромінювання</li>
+                <li>3.3 Співвідношення між тривалістю сигналу та шириною його спектру</li>
+                <li>3.4 Загальний розв’язок рівнянь вільного поля</li>
+              </ul>
+            </li>
+            <li>
+              <strong>4</strong> Випромінювання
+              <ul class="sub-list">
+                <li>4.1 Поле заряду, що рухається з прискоренням</li>
+                <li>4.2 Випромінювання малих систем</li>
+                <li>4.3 Розсіювання електромагнітних хвиль</li>
+              </ul>
+            </li>
+          </ul>
         </div>
 
         <!-- Частина II -->
         <div class="section">
-            <h2>Частина II</h2>
-            <ul class="toc-list">
-                <li><strong>5</strong> Перетворення Лоренца як наслідок постулатів Ейнштейна
-                    <ul class="sub-list">
-                        <li>5.1 Простір-час, системи відліку</li>
-                        <li>5.2 Перетворення Лоренца для одновимірних рухів систем відліку</li>
-                        <li>5.3 Власний час</li>
-                        <li>5.4 Квадрат інтервалу</li>
-                        <li>5.5 Перетворення довжини та об’єму</li>
-                    </ul>
-                </li>
-                <li><strong>6</strong> Співвідношення СТВ у просторі Мінковського
-                    <ul class="sub-list">
-                        <li>6.1 Загальні та власні перетворення Лоренца</li>
-                        <li>6.2 Вектори і тензори в просторі Мінковського</li>
-                        <li>6.3 Світові лінії та чотиривектор швидкості</li>
-                    </ul>
-                </li>
-                <li><strong>7</strong> Електродинаміка у просторі Мінковського
-                    <ul class="sub-list">
-                        <li>7.1 Чотиривимірна форма рівнянь Максвелла</li>
-                        <li>7.2 Трансформаційні властивості Fμν</li>
-                        <li>7.3 Рівняння руху зарядженої частинки</li>
-                        <li>7.4 Плоскі монохроматичні хвилі</li>
-                        <li>7.5 Ефект Доплера</li>
-                        <li>7.6 Вектор-потенціал електромагнітного поля у випадку ізольованої системи</li>
-                    </ul>
-                </li>
-                <li><strong>8</strong> Варіаційний принцип для рівнянь електродинаміки
-                    <ul class="sub-list">
-                        <li>8.1 Заряд у зовнішньому електромагнітному полі</li>
-                        <li>8.2 Дія для електромагнітного поля</li>
-                    </ul>
-                </li>
-                <li><strong>9</strong> Тензор енергії-імпульсу і закони збереження
-                    <ul class="sub-list">
-                        <li>9.1 Чотири-імпульс системи тіл</li>
-                        <li>9.2 Енергія-імпульс електромагнітного поля</li>
-                        <li>9.3 Тензор моменту імпульсу електромагнітної системи</li>
-                    </ul>
-                </li>
-            </ul>
+          <h2>Частина II</h2>
+          <ul class="toc-list">
+            <li>
+              <strong>5</strong> Перетворення Лоренца як наслідок постулатів Ейнштейна
+              <ul class="sub-list">
+                <li>5.1 Простір-час, системи відліку</li>
+                <li>5.2 Перетворення Лоренца для одновимірних рухів систем відліку</li>
+                <li>5.3 Власний час</li>
+                <li>5.4 Квадрат інтервалу</li>
+                <li>5.5 Перетворення довжини та об’єму</li>
+              </ul>
+            </li>
+            <li>
+              <strong>6</strong> Співвідношення СТВ у просторі Мінковського
+              <ul class="sub-list">
+                <li>6.1 Загальні та власні перетворення Лоренца</li>
+                <li>6.2 Вектори і тензори в просторі Мінковського</li>
+                <li>6.3 Світові лінії та чотиривектор швидкості</li>
+              </ul>
+            </li>
+            <li>
+              <strong>7</strong> Електродинаміка у просторі Мінковського
+              <ul class="sub-list">
+                <li>7.1 Чотиривимірна форма рівнянь Максвелла</li>
+                <li>7.2 Трансформаційні властивості Fμν</li>
+                <li>7.3 Рівняння руху зарядженої частинки</li>
+                <li>7.4 Плоскі монохроматичні хвилі</li>
+                <li>7.5 Ефект Доплера</li>
+                <li>7.6 Вектор-потенціал електромагнітного поля у випадку ізольованої системи</li>
+              </ul>
+            </li>
+            <li>
+              <strong>8</strong> Варіаційний принцип для рівнянь електродинаміки
+              <ul class="sub-list">
+                <li>8.1 Заряд у зовнішньому електромагнітному полі</li>
+                <li>8.2 Дія для електромагнітного поля</li>
+              </ul>
+            </li>
+            <li>
+              <strong>9</strong> Тензор енергії-імпульсу і закони збереження
+              <ul class="sub-list">
+                <li>9.1 Чотири-імпульс системи тіл</li>
+                <li>9.2 Енергія-імпульс електромагнітного поля</li>
+                <li>9.3 Тензор моменту імпульсу електромагнітної системи</li>
+              </ul>
+            </li>
+          </ul>
         </div>
 
         <!-- Додатки -->
         <div class="section">
-            <h2>Додатки</h2>
-            <ul class="toc-list">
-                <li><strong>А</strong> Основні формули векторного аналізу
-                    <ul class="sub-list">
-                        <li>А.1 Диференціальні операції в різних системах координат</li>
-                        <li>А.2 Другі похідні</li>
-                        <li>А.3 Похідні від добутків</li>
-                        <li>А.4 Індексна нотація формул векторного аналізу</li>
-                        <li>А.5 Інтегральні характеристики та теореми</li>
-                    </ul>
-                </li>
-                <li><strong>Б</strong> Поліноми Лежандра</li>
-                <li><strong>В</strong> Сферичні гармоніки</li>
-                <li><strong>Г</strong> Циліндричні функції</li>
-                <li><strong>Д</strong> Узагальнені функції</li>
-            </ul>
+          <h2>Додатки</h2>
+          <ul class="toc-list">
+            <li>
+              <strong>А</strong> Основні формули векторного аналізу
+              <ul class="sub-list">
+                <li>А.1 Диференціальні операції в різних системах координат</li>
+                <li>А.2 Другі похідні</li>
+                <li>А.3 Похідні від добутків</li>
+                <li>А.4 Індексна нотація формул векторного аналізу</li>
+                <li>А.5 Інтегральні характеристики та теореми</li>
+              </ul>
+            </li>
+            <li><strong>Б</strong> Поліноми Лежандра</li>
+            <li><strong>В</strong> Сферичні гармоніки</li>
+            <li><strong>Г</strong> Циліндричні функції</li>
+            <li><strong>Д</strong> Узагальнені функції</li>
+          </ul>
         </div>
 
-        <hr>
-        <p style="text-align: center; font-size: 0.9rem;">
-            🔗 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/zhdanov/" target="_blank">Жданов В.І.</a> ·
-            <a href="https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko/" target="_blank">Пономаренко С.М.</a> ·
-            <a href="https://apd.ipt.kpi.ua/kafedra/stuff/dolgoshey/" target="_blank">Долгошей В.Б.</a>
+        <hr />
+        <p style="text-align: center; font-size: 0.9rem">
+          🔗 <a href="https://apd.ipt.kpi.ua/kafedra/stuff/zhdanov/" target="_blank">Жданов В.І.</a> · <a href="https://apd.ipt.kpi.ua/kafedra/stuff/ponomarenko/" target="_blank">Пономаренко С.М.</a> ·
+          <a href="https://apd.ipt.kpi.ua/kafedra/stuff/dolgoshey/" target="_blank">Долгошей В.Б.</a>
         </p>
-    </div>
+      </div>
 
-    <footer>
-        Класична електродинаміка | Конспект лекцій<br>
+      <footer>
+        Класична електродинаміка | Конспект лекцій<br />
         Кафедра прикладної фізики, КПІ ім. Ігоря Сікорського
-    </footer>
-</div>
-</body>
+      </footer>
+    </div>
+  </body>
 </html>

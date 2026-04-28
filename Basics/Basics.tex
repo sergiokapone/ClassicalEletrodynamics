@@ -277,12 +277,13 @@
     \begin{tikzpicture}[scale=1.5]
         \draw[midarrow, tangent=0.2, tangent=0.4, tangent=0.6, tangent=0.8, red, thick] (-1, 1) node[above, text=red] {$L$} to[out=-90, in=115] (0, -1) ;
         \foreach \i in {1,...,4}{
-            \draw[->, use tangent=\i, blue] (0,0) coordinate (T\i)-- ++(90:0.5);
-            \draw[->] (T\i) -- ++(1, 0);
+            \draw[->, use tangent=\i, blue] (0,0) coordinate (T\i)-- ++(90:0.5)
+            \ifnum\i=1 node[above] {$\vect{n}$}\fi;
+            \draw[->] (T\i) -- ++(1, 0) \ifnum\i=1 node[above] {$\vect{i}$}\fi;
             \draw[] (T\i) -- ++(-1, 0);
         }
     \end{tikzpicture}
-\caption{}
+\caption{На рисунку зображено нормаль $\vect{n}$ (синя стрілка) до лінії $L$, та вектор лінійної густини $\vect{i}$ (чорна стрілка).}
 \label{surface_current}
 \end{SCfigure}
 %---------------------------------------------------------
@@ -293,7 +294,7 @@ $L$ (див. рис.~\ref{surface_current}) на цій поверхні:
     I_L(t) = \frac{dq_L(t)}{dt},
 \end{equation}
 де $dq_L$ --- заряд, що перетинає $L$ за час $t$ з початку спостереження. Тут також
-має бути зафіксований додатній напрямок при перетині L вздовж цієї поверхні.
+має бути зафіксований додатній напрямок при перетині $L$ вздовж цієї поверхні.
 Лінійна густина\index{Лінійна густина струму} i поверхневого струму визначається формулою (для будь-якої лінії $L$ на поверхні):
 \begin{equation}
     I_L(t) = \int\limits_L \vect{i}(t, \xi, \eta) d\vect{l}(\xi, \eta),
