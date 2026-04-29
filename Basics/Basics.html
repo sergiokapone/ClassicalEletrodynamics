@@ -1,0 +1,3561 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8">
+<meta name="generator" content="LaTeX Lwarp package">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Класична Електродинаміка</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="../asserts/css/ClassicalElectrodynamics.css">
+
+<script src="ClassicalElectrodynamics.js"></script>
+
+<script
+     id="MathJax-script"
+     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<div class="homepagegrid">
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<a id="ClassicalElectrodynamics-autofile-0"></a>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+   style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]^{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]^{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]^{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\let \symnormal \mathit \)
+
+\(\let \symliteral \mathrm \)
+
+\(\let \symbb \mathbb \)
+
+\(\let \symbbit \mathbb \)
+
+\(\let \symcal \mathcal \)
+
+\(\let \symscr \mathscr \)
+
+\(\let \symfrak \mathfrak \)
+
+\(\let \symsfup \mathsf \)
+
+\(\let \symsfit \mathit \)
+
+\(\let \symbfsf \mathbf \)
+
+\(\let \symbfup \mathbf \)
+
+\(\newcommand {\symbfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symbfcal \mathcal \)
+
+\(\let \symbfscr \mathscr \)
+
+\(\let \symbffrak \mathfrak \)
+
+\(\let \symbfsfup \mathbf \)
+
+\(\newcommand {\symbfsfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symup \mathrm \)
+
+\(\let \symbf \mathbf \)
+
+\(\let \symit \mathit \)
+
+\(\let \symtt \mathtt \)
+
+\(\let \symbffrac \mathbffrac \)
+
+\(\newcommand {\mathfence }[1]{\mathord {#1}}\)
+
+\(\newcommand {\mathover }[1]{#1}\)
+
+\(\newcommand {\mathunder }[1]{#1}\)
+
+\(\newcommand {\mathaccent }[1]{#1}\)
+
+\(\newcommand {\mathbotaccent }[1]{#1}\)
+
+\(\newcommand {\mathalpha }[1]{\mathord {#1}}\)
+
+\(\def\upAlpha{\unicode{x0391}}\)
+
+\(\def\upBeta{\unicode{x0392}}\)
+
+\(\def\upGamma{\unicode{x0393}}\)
+
+\(\def\upDigamma{\unicode{x03DC}}\)
+
+\(\def\upDelta{\unicode{x0394}}\)
+
+\(\def\upEpsilon{\unicode{x0395}}\)
+
+\(\def\upZeta{\unicode{x0396}}\)
+
+\(\def\upEta{\unicode{x0397}}\)
+
+\(\def\upTheta{\unicode{x0398}}\)
+
+\(\def\upVartheta{\unicode{x03F4}}\)
+
+\(\def\upIota{\unicode{x0399}}\)
+
+\(\def\upKappa{\unicode{x039A}}\)
+
+\(\def\upLambda{\unicode{x039B}}\)
+
+\(\def\upMu{\unicode{x039C}}\)
+
+\(\def\upNu{\unicode{x039D}}\)
+
+\(\def\upXi{\unicode{x039E}}\)
+
+\(\def\upOmicron{\unicode{x039F}}\)
+
+\(\def\upPi{\unicode{x03A0}}\)
+
+\(\def\upVarpi{\unicode{x03D6}}\)
+
+\(\def\upRho{\unicode{x03A1}}\)
+
+\(\def\upSigma{\unicode{x03A3}}\)
+
+\(\def\upTau{\unicode{x03A4}}\)
+
+\(\def\upUpsilon{\unicode{x03A5}}\)
+
+\(\def\upPhi{\unicode{x03A6}}\)
+
+\(\def\upChi{\unicode{x03A7}}\)
+
+\(\def\upPsi{\unicode{x03A8}}\)
+
+\(\def\upOmega{\unicode{x03A9}}\)
+
+\(\def\itAlpha{\unicode{x1D6E2}}\)
+
+\(\def\itBeta{\unicode{x1D6E3}}\)
+
+\(\def\itGamma{\unicode{x1D6E4}}\)
+
+\(\def\itDigamma{\mathit{\unicode{x03DC}}}\)
+
+\(\def\itDelta{\unicode{x1D6E5}}\)
+
+\(\def\itEpsilon{\unicode{x1D6E6}}\)
+
+\(\def\itZeta{\unicode{x1D6E7}}\)
+
+\(\def\itEta{\unicode{x1D6E8}}\)
+
+\(\def\itTheta{\unicode{x1D6E9}}\)
+
+\(\def\itVartheta{\unicode{x1D6F3}}\)
+
+\(\def\itIota{\unicode{x1D6EA}}\)
+
+\(\def\itKappa{\unicode{x1D6EB}}\)
+
+\(\def\itLambda{\unicode{x1D6EC}}\)
+
+\(\def\itMu{\unicode{x1D6ED}}\)
+
+\(\def\itNu{\unicode{x1D6EE}}\)
+
+\(\def\itXi{\unicode{x1D6EF}}\)
+
+\(\def\itOmicron{\unicode{x1D6F0}}\)
+
+\(\def\itPi{\unicode{x1D6F1}}\)
+
+\(\def\itRho{\unicode{x1D6F2}}\)
+
+\(\def\itSigma{\unicode{x1D6F4}}\)
+
+\(\def\itTau{\unicode{x1D6F5}}\)
+
+\(\def\itUpsilon{\unicode{x1D6F6}}\)
+
+\(\def\itPhi{\unicode{x1D6F7}}\)
+
+\(\def\itChi{\unicode{x1D6F8}}\)
+
+\(\def\itPsi{\unicode{x1D6F9}}\)
+
+\(\def\itOmega{\unicode{x1D6FA}}\)
+
+\(\def\upalpha{\unicode{x03B1}}\)
+
+\(\def\upbeta{\unicode{x03B2}}\)
+
+\(\def\upvarbeta{\unicode{x03D0}}\)
+
+\(\def\upgamma{\unicode{x03B3}}\)
+
+\(\def\updigamma{\unicode{x03DD}}\)
+
+\(\def\updelta{\unicode{x03B4}}\)
+
+\(\def\upepsilon{\unicode{x03F5}}\)
+
+\(\def\upvarepsilon{\unicode{x03B5}}\)
+
+\(\def\upzeta{\unicode{x03B6}}\)
+
+\(\def\upeta{\unicode{x03B7}}\)
+
+\(\def\uptheta{\unicode{x03B8}}\)
+
+\(\def\upvartheta{\unicode{x03D1}}\)
+
+\(\def\upiota{\unicode{x03B9}}\)
+
+\(\def\upkappa{\unicode{x03BA}}\)
+
+\(\def\upvarkappa{\unicode{x03F0}}\)
+
+\(\def\uplambda{\unicode{x03BB}}\)
+
+\(\def\upmu{\unicode{x03BC}}\)
+
+\(\def\upnu{\unicode{x03BD}}\)
+
+\(\def\upxi{\unicode{x03BE}}\)
+
+\(\def\upomicron{\unicode{x03BF}}\)
+
+\(\def\uppi{\unicode{x03C0}}\)
+
+\(\def\upvarpi{\unicode{x03D6}}\)
+
+\(\def\uprho{\unicode{x03C1}}\)
+
+\(\def\upvarrho{\unicode{x03F1}}\)
+
+\(\def\upsigma{\unicode{x03C3}}\)
+
+\(\def\upvarsigma{\unicode{x03C2}}\)
+
+\(\def\uptau{\unicode{x03C4}}\)
+
+\(\def\upupsilon{\unicode{x03C5}}\)
+
+\(\def\upphi{\unicode{x03D5}}\)
+
+\(\def\upvarphi{\unicode{x03C6}}\)
+
+\(\def\upchi{\unicode{x03C7}}\)
+
+\(\def\uppsi{\unicode{x03C8}}\)
+
+\(\def\upomega{\unicode{x03C9}}\)
+
+\(\def\italpha{\unicode{x1D6FC}}\)
+
+\(\def\itbeta{\unicode{x1D6FD}}\)
+
+\(\def\itvarbeta{\unicode{x03D0}}\)
+
+\(\def\itgamma{\unicode{x1D6FE}}\)
+
+\(\def\itdigamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\itdelta{\unicode{x1D6FF}}\)
+
+\(\def\itepsilon{\unicode{x1D716}}\)
+
+\(\def\itvarepsilon{\unicode{x1D700}}\)
+
+\(\def\itzeta{\unicode{x1D701}}\)
+
+\(\def\iteta{\unicode{x1D702}}\)
+
+\(\def\ittheta{\unicode{x1D703}}\)
+
+\(\def\itvartheta{\unicode{x1D717}}\)
+
+\(\def\itiota{\unicode{x1D704}}\)
+
+\(\def\itkappa{\unicode{x1D705}}\)
+
+\(\def\itvarkappa{\unicode{x1D718}}\)
+
+\(\def\itlambda{\unicode{x1D706}}\)
+
+\(\def\itmu{\unicode{x1D707}}\)
+
+\(\def\itnu{\unicode{x1D708}}\)
+
+\(\def\itxi{\unicode{x1D709}}\)
+
+\(\def\itomicron{\unicode{x1D70A}}\)
+
+\(\def\itpi{\unicode{x1D70B}}\)
+
+\(\def\itvarpi{\unicode{x1D71B}}\)
+
+\(\def\itrho{\unicode{x1D70C}}\)
+
+\(\def\itvarrho{\unicode{x1D71A}}\)
+
+\(\def\itsigma{\unicode{x1D70E}}\)
+
+\(\def\itvarsigma{\unicode{x1D70D}}\)
+
+\(\def\ittau{\unicode{x1D70F}}\)
+
+\(\def\itupsilon{\unicode{x1D710}}\)
+
+\(\def\itphi{\unicode{x1D719}}\)
+
+\(\def\itvarphi{\unicode{x1D711}}\)
+
+\(\def\itchi{\unicode{x1D712}}\)
+
+\(\def\itpsi{\unicode{x1D713}}\)
+
+\(\def\itomega{\unicode{x1D714}}\)
+
+\(\let \lparen (\)
+
+\(\let \rparen )\)
+
+\(\newcommand {\cuberoot }[1]{\,{}^3\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\fourthroot }[1]{\,{}^4\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\longdivision }[1]{\mathord {\unicode {x027CC}#1}}\)
+
+\(\newcommand {\mathcomma }{,}\)
+
+\(\newcommand {\mathcolon }{:}\)
+
+\(\newcommand {\mathsemicolon }{;}\)
+
+\(\newcommand {\overbracket }[1]{\mathinner {\overline {\ulcorner {#1}\urcorner }}}\)
+
+\(\newcommand {\underbracket }[1]{\mathinner {\underline {\llcorner {#1}\lrcorner }}}\)
+
+\(\newcommand {\overbar }[1]{\mathord {#1\unicode {x00305}}}\)
+
+\(\newcommand {\ovhook }[1]{\mathord {#1\unicode {x00309}}}\)
+
+\(\newcommand {\ocirc }[1]{\mathord {#1\unicode {x0030A}}}\)
+
+\(\newcommand {\candra }[1]{\mathord {#1\unicode {x00310}}}\)
+
+\(\newcommand {\oturnedcomma }[1]{\mathord {#1\unicode {x00312}}}\)
+
+\(\newcommand {\ocommatopright }[1]{\mathord {#1\unicode {x00315}}}\)
+
+\(\newcommand {\droang }[1]{\mathord {#1\unicode {x0031A}}}\)
+
+\(\newcommand {\leftharpoonaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\rightharpoonaccent }[1]{\mathord {#1\unicode {x020D1}}}\)
+
+\(\newcommand {\vertoverlay }[1]{\mathord {#1\unicode {x020D2}}}\)
+
+\(\newcommand {\leftarrowaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\annuity }[1]{\mathord {#1\unicode {x020E7}}}\)
+
+\(\newcommand {\widebridgeabove }[1]{\mathord {#1\unicode {x020E9}}}\)
+
+\(\newcommand {\asteraccent }[1]{\mathord {#1\unicode {x020F0}}}\)
+
+\(\newcommand {\threeunderdot }[1]{\mathord {#1\unicode {x020E8}}}\)
+
+\(\newcommand {\Bbbsum }{\mathop {\unicode {x2140}}\limits }\)
+
+\(\newcommand {\oiint }{\mathop {\unicode {x222F}}\limits }\)
+
+\(\newcommand {\oiiint }{\mathop {\unicode {x2230}}\limits }\)
+
+\(\newcommand {\intclockwise }{\mathop {\unicode {x2231}}\limits }\)
+
+\(\newcommand {\ointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\ointctrclockwise }{\mathop {\unicode {x2233}}\limits }\)
+
+\(\newcommand {\varointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\leftouterjoin }{\mathop {\unicode {x27D5}}\limits }\)
+
+\(\newcommand {\rightouterjoin }{\mathop {\unicode {x27D6}}\limits }\)
+
+\(\newcommand {\fullouterjoin }{\mathop {\unicode {x27D7}}\limits }\)
+
+\(\newcommand {\bigbot }{\mathop {\unicode {x27D8}}\limits }\)
+
+\(\newcommand {\bigtop }{\mathop {\unicode {x27D9}}\limits }\)
+
+\(\newcommand {\xsol }{\mathop {\unicode {x29F8}}\limits }\)
+
+\(\newcommand {\xbsol }{\mathop {\unicode {x29F9}}\limits }\)
+
+\(\newcommand {\bigcupdot }{\mathop {\unicode {x2A03}}\limits }\)
+
+\(\newcommand {\bigsqcap }{\mathop {\unicode {x2A05}}\limits }\)
+
+\(\newcommand {\conjquant }{\mathop {\unicode {x2A07}}\limits }\)
+
+\(\newcommand {\disjquant }{\mathop {\unicode {x2A08}}\limits }\)
+
+\(\newcommand {\bigtimes }{\mathop {\unicode {x2A09}}\limits }\)
+
+\(\newcommand {\modtwosum }{\mathop {\unicode {x2A0A}}\limits }\)
+
+\(\newcommand {\sumint }{\mathop {\unicode {x2A0B}}\limits }\)
+
+\(\newcommand {\intbar }{\mathop {\unicode {x2A0D}}\limits }\)
+
+\(\newcommand {\intBar }{\mathop {\unicode {x2A0E}}\limits }\)
+
+\(\newcommand {\fint }{\mathop {\unicode {x2A0F}}\limits }\)
+
+\(\newcommand {\cirfnint }{\mathop {\unicode {x2A10}}\limits }\)
+
+\(\newcommand {\awint }{\mathop {\unicode {x2A11}}\limits }\)
+
+\(\newcommand {\rppolint }{\mathop {\unicode {x2A12}}\limits }\)
+
+\(\newcommand {\scpolint }{\mathop {\unicode {x2A13}}\limits }\)
+
+\(\newcommand {\npolint }{\mathop {\unicode {x2A14}}\limits }\)
+
+\(\newcommand {\pointint }{\mathop {\unicode {x2A15}}\limits }\)
+
+\(\newcommand {\sqint }{\mathop {\unicode {x2A16}}\limits }\)
+
+\(\newcommand {\intlarhk }{\mathop {\unicode {x2A17}}\limits }\)
+
+\(\newcommand {\intx }{\mathop {\unicode {x2A18}}\limits }\)
+
+\(\newcommand {\intcap }{\mathop {\unicode {x2A19}}\limits }\)
+
+\(\newcommand {\intcup }{\mathop {\unicode {x2A1A}}\limits }\)
+
+\(\newcommand {\upint }{\mathop {\unicode {x2A1B}}\limits }\)
+
+\(\newcommand {\lowint }{\mathop {\unicode {x2A1C}}\limits }\)
+
+\(\newcommand {\bigtriangleleft }{\mathop {\unicode {x2A1E}}\limits }\)
+
+\(\newcommand {\zcmp }{\mathop {\unicode {x2A1F}}\limits }\)
+
+\(\newcommand {\zpipe }{\mathop {\unicode {x2A20}}\limits }\)
+
+\(\newcommand {\zproject }{\mathop {\unicode {x2A21}}\limits }\)
+
+\(\newcommand {\biginterleave }{\mathop {\unicode {x2AFC}}\limits }\)
+
+\(\newcommand {\bigtalloblong }{\mathop {\unicode {x2AFF}}\limits }\)
+
+\(\newcommand {\arabicmaj }{\mathop {\unicode {x1EEF0}}\limits }\)
+
+\(\newcommand {\arabichad }{\mathop {\unicode {x1EEF1}}\limits }\)
+
+\(\newcommand {\nicefrac }[3][]{\mathinner ^{{}^{#2}\!/\!_{#3}}}\)
+
+\(\require {mhchem}\)
+
+\(\newcommand {\toprule }[1][]{\hline }\)
+
+\(\let \midrule \toprule \)
+
+\(\let \bottomrule \toprule \)
+
+\(\def \LWRbooktabscmidruleparen (#1)#2{}\)
+
+\(\newcommand {\LWRbooktabscmidrulenoparen }[1]{}\)
+
+\(\newcommand {\cmidrule }[1][]{\ifnextchar (\LWRbooktabscmidruleparen \LWRbooktabscmidrulenoparen }\)
+
+\(\newcommand {\morecmidrules }{}\)
+
+\(\newcommand {\specialrule }[3]{\hline }\)
+
+\(\newcommand {\addlinespace }[1][]{}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\newcommand {\tcbset }[1]{}\)
+
+\(\newcommand {\tcbsetforeverylayer }[1]{}\)
+
+\(\newcommand {\tcbox }[2][]{\boxed {\text {#2}}}\)
+
+\(\newcommand {\tcboxfit }[2][]{\boxed {#2}}\)
+
+\(\newcommand {\tcblower }{}\)
+
+\(\newcommand {\tcbline }{}\)
+
+\(\newcommand {\tcbtitle }{}\)
+
+\(\newcommand {\tcbsubtitle [2][]{\mathrm {#2}}}\)
+
+\(\newcommand {\tcboxmath }[2][]{\boxed {#2}}\)
+
+\(\newcommand {\tcbhighmath }[2][]{\boxed {#2}}\)
+
+\(\let \symsf \symsfup \)
+
+\(\def\Alpha{\unicode{x0391}}\)
+
+\(\def\Beta{\unicode{x0392}}\)
+
+\(\def\Gamma{\unicode{x0393}}\)
+
+\(\def\Digamma{\unicode{x03DC}}\)
+
+\(\def\Delta{\unicode{x0394}}\)
+
+\(\def\Epsilon{\unicode{x0395}}\)
+
+\(\def\Zeta{\unicode{x0396}}\)
+
+\(\def\Eta{\unicode{x0397}}\)
+
+\(\def\Theta{\unicode{x0398}}\)
+
+\(\def\Vartheta{\unicode{x03F4}}\)
+
+\(\def\Iota{\unicode{x0399}}\)
+
+\(\def\Kappa{\unicode{x039A}}\)
+
+\(\def\Lambda{\unicode{x039B}}\)
+
+\(\def\Mu{\unicode{x039C}}\)
+
+\(\def\Nu{\unicode{x039D}}\)
+
+\(\def\Xi{\unicode{x039E}}\)
+
+\(\def\Omicron{\unicode{x039F}}\)
+
+\(\def\Pi{\unicode{x03A0}}\)
+
+\(\def\Varpi{\unicode{x03D6}}\)
+
+\(\def\Rho{\unicode{x03A1}}\)
+
+\(\def\Sigma{\unicode{x03A3}}\)
+
+\(\def\Tau{\unicode{x03A4}}\)
+
+\(\def\Upsilon{\unicode{x03A5}}\)
+
+\(\def\Phi{\unicode{x03A6}}\)
+
+\(\def\Chi{\unicode{x03A7}}\)
+
+\(\def\Psi{\unicode{x03A8}}\)
+
+\(\def\Omega{\unicode{x03A9}}\)
+
+\(\def\alpha{\unicode{x1D6FC}}\)
+
+\(\def\beta{\unicode{x1D6FD}}\)
+
+\(\def\varbeta{\unicode{x03D0}}\)
+
+\(\def\gamma{\unicode{x1D6FE}}\)
+
+\(\def\digamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\delta{\unicode{x1D6FF}}\)
+
+\(\def\epsilon{\unicode{x1D716}}\)
+
+\(\def\varepsilon{\unicode{x1D700}}\)
+
+\(\def\zeta{\unicode{x1D701}}\)
+
+\(\def\eta{\unicode{x1D702}}\)
+
+\(\def\theta{\unicode{x1D703}}\)
+
+\(\def\vartheta{\unicode{x1D717}}\)
+
+\(\def\iota{\unicode{x1D704}}\)
+
+\(\def\kappa{\unicode{x1D705}}\)
+
+\(\def\varkappa{\unicode{x1D718}}\)
+
+\(\def\lambda{\unicode{x1D706}}\)
+
+\(\def\mu{\unicode{x1D707}}\)
+
+\(\def\nu{\unicode{x1D708}}\)
+
+\(\def\xi{\unicode{x1D709}}\)
+
+\(\def\omicron{\unicode{x1D70A}}\)
+
+\(\def\pi{\unicode{x1D70B}}\)
+
+\(\def\varpi{\unicode{x1D71B}}\)
+
+\(\def\rho{\unicode{x1D70C}}\)
+
+\(\def\varrho{\unicode{x1D71A}}\)
+
+\(\def\sigma{\unicode{x1D70E}}\)
+
+\(\def\varsigma{\unicode{x1D70D}}\)
+
+\(\def\tau{\unicode{x1D70F}}\)
+
+\(\def\upsilon{\unicode{x1D710}}\)
+
+\(\def\phi{\unicode{x1D719}}\)
+
+\(\def\varphi{\unicode{x1D711}}\)
+
+\(\def\chi{\unicode{x1D712}}\)
+
+\(\def\psi{\unicode{x1D713}}\)
+
+\(\def\omega{\unicode{x1D714}}\)
+
+\(\newcommand {\vect }[1]{\mathbf {#1}}\)
+
+\(\newcommand {\Efield }{\mathbf {E}}\)
+
+\(\newcommand {\Dfield }{\mathbf {D}}\)
+
+\(\newcommand {\Bfield }{\mathbf {B}}\)
+
+\(\newcommand {\Hfield }{\mathbf {H}}\)
+
+\(\newcommand {\rot }{\nabla \times }\)
+
+\(\newcommand {\divg }{\nabla \cdot }\)
+
+\(\newcommand {\grad }{\nabla }\)
+
+\(\newcommand {\const }{\text {const}}\)
+
+\(\newcommand {\Div }{\text {div}}\)
+
+\(\newcommand {\Rot }{\text {rot}}\)
+
+\(\newcommand {\Grad }{\text {grad}}\)
+
+\(\newcommand {\Laplasian }{\Delta }\)
+
+\(\newcommand {\EMF }{\mathcal {E}}\)
+
+\(\newcommand {\diff }[2]{\frac {\partial #1}{\partial #2}}\)
+
+\(\newcommand {\ddiff }[2]{\frac {\partial ^2 #1}{\partial #2^2}}\)
+
+\(\newcommand {\parttime }[1]{\frac {\partial {#1}}{\partial t}}\)
+
+</div>
+
+<a id="ClassicalElectrodynamics-autopage-1"></a>
+<!--
+...... chapter Зміст ......
+-->
+<h3 id="autosec-2">Зміст</h3>
+<a id="ClassicalElectrodynamics-autopage-2"></a>
+
+
+
+<nav class="toc">
+
+<p>
+<a href="ClassicalElectrodynamics.html#autosec-3" class="tocpart" >
+<span class="sectionnumber">I</span>&#x2003;</a>
+</p>
+
+
+
+<p>
+<a href="ClassicalElectrodynamics.html#autosec-4" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Базові поняття та рівняння</a>
+</p>
+
+
+
+<p>
+<a href="ClassicalElectrodynamics.html#autosec-5" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Величини, що спостерігаються в електродинаміці</a>
+</p>
+
+
+
+<p>
+<a href="ClassicalElectrodynamics.html#autosec-20" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;Рівняння електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ClassicalElectrodynamics.html#autosec-37" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Закони збереження</a>
+</p>
+
+
+<p>
+<a href="ClassicalElectrodynamics.html#autosec-41" class="tocsection" >
+<span class="sectionnumber">1.4</span>&#x2003;Межі застосовності класичної електродинаміки</a>
+</p>
+</nav>
+<!--
+...... part ......
+-->
+<h2 id="autosec-3">Частина&nbsp;<span class="sectionnumber">I&#x2003;</span></h2>
+<a id="ClassicalElectrodynamics-autopage-3"></a>
+<!--
+...... chapter Базові поняття та рівняння ......
+-->
+<h3 id="autosec-4">Розділ&nbsp;<span class="sectionnumber">1&#x2003;</span>Базові поняття та рівняння</h3>
+<a id="ClassicalElectrodynamics-autopage-4"></a>
+
+
+<a id="Basics"></a>
+<!--
+...... section Величини, що спостерігаються в електродинаміці ......
+-->
+<h4 id="autosec-5"><span class="sectionnumber">1.1&#x2003;</span>Величини, що спостерігаються в електродинаміці</h4>
+<a id="ClassicalElectrodynamics-autopage-5"></a>
+<!--
+...... subsection Заряд, електричне та магнітне поле ......
+-->
+<h5 id="autosec-6">Заряд, електричне та магнітне поле</h5>
+<a id="ClassicalElectrodynamics-autopage-6"></a>
+
+
+<p>
+Основними спостережуваними величинами в електродинаміці є електричний заряд та електромагнітне поле — сукупність електричного та магнітного полів. Статичні заряди створюють електричне поле, рух зарядів спричинює магнітне поле.
+Навпаки, електромагнітне поле створює силу, що діє на заряджене тіло. Ця схема відповідає концепції близькодії, яка домінує в сучасній фізиці; за цією концепцією заряди взаємодіють між собою через електромагнітне поле, а не безпосередньо.
+</p>
+<!--
+...... subsection Закон Кулона ......
+-->
+<h5 id="autosec-7">Закон Кулона</h5>
+<a id="ClassicalElectrodynamics-autopage-7"></a>
+
+
+<p>
+Числову характеристику заряду можна дати, вимірюючи силу взаємодії F між двома точковими нерухомими зарядами. Якщо ці заряди розташовані на відстані R, за абсолютною величиною:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{0}\)</span>
+
+<!--
+
+                                                                                                                       𝑞1 𝑞2
+                                                                                                                𝐹=𝑘          ,                                                                  (1.1)--><a id="eq:Columb_low"></a><!--
+                                                                                                                        𝑅2
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Columb_low} F = k \frac {q_1q_2}{R^2},
+\end{equation}
+
+</p>
+
+<p>
+де \(q_1\), \(q_2\) — заряди тіл, \(k\) — коефіцієнт пропорційності, що залежить від вибору системи одиниць. Це співвідношення називають законом Кулона; воно неодноразово перевірялося різними експериментальними методами. Сила, з якою
+один заряд діє на інший, спрямована вздовж лінії центрів зарядів. Зі спостережень відомо, що існують лише два сорти електричних зарядів, причому заряди однакового сорту завжди притягуються, а заряди різного сорту — відштовхуються. Цю
+обставину враховуємо, вводячи знаки зарядів в формулі&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Columb_low">1.1</a>)</span>. Від’ємними вважаються заряди того ж сорту, що й заряд електрона. Заряд є
+<em>адитивною числовою величиною</em>: заряд будь-якої системи є алгебраїчною сумою зарядів його підсистем.
+</p>
+
+<p>
+Формула&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Columb_low">1.1</a>)</span> дає змогу визначити заряд й подати процедуру його вимірювання (тобто спосіб порівняння заряду з деяким еталоном) за
+допомогою вимірювання сили взаємодії. В гаусовiй системi одиниць два одиничних заряди створюють силу взаємодiї \(1\ \text {дина} = 1\ \text {г}\cdot \text {см} / \text {c}^2\), якщо знаходяться на відстані \(1\)&nbsp;см.
+Відповідно в&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Columb_low">1.1</a>)</span> слід покласти \(k=1\). Це — означення одиничного заряду в гаусовій системі (тут одиниця заряду не має спеціальної
+назви):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{1}\)</span>
+
+<!--
+
+
+                                                                                                          [𝑞] = г1/2 ⋅ см3/2 ⋅ с−1 .
+
+-->
+
+<p>
+
+\begin{equation*}
+\left [q\right ] = \text {г}^{1/2}\cdot \text {см}^{3/2}\cdot \text {с}^{-1}.
+\end{equation*}
+
+</p>
+
+<p>
+Підкреслимо, що в&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Columb_low">1.1</a>)</span> йдеться про точкові сферичні заряди, тобто такі, взаємодія яких не залежить від їх орієнтації. Хоча точкове тіло —
+це таке, розмірами якого можна знехтувати, в конкретній задачі розподіл зарядів всередині цього тіла може бути різко неоднорідним. Це спричинюватиме, взагалі кажучи, відмінність сили взаємодії від&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#eq:Columb_low">1.1</a>)</span>. Прикладом може служити взаємодія точкових диполів. Далі під <em>точковим зарядом ми будемо розуміти саме сферичний точковий заряд, якщо немає інших
+застережень</em>.
+</p>
+<!--
+...... subsection Напруженість електричного поля та індукція магнітного поля ......
+-->
+<h5 id="autosec-8">Напруженість електричного поля та індукція магнітного поля</h5>
+<a id="ClassicalElectrodynamics-autopage-8"></a>
+
+
+<p>
+Числову характеристику електромагнітного поля можна дати, вимірюючи сили, що діють на рухомий електричний пробний заряд. Пробний заряд — це такий, впливом якого на зовнішнє поле можна знехтувати. З експерименту відомо, що на
+заряджене точкове пробне тіло (сферичний точковий заряд) в електромагнітному полі діє сила Лоренца:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{1}\)</span>
+
+<!--
+
+                                                                                                                         1
+                                                                                                            𝐅 = 𝑞 (𝐄 +     [𝐕 × 𝐁]) ,                                                           (1.2)--><a id="eq:Lorentz_force"></a><!--
+                                                                                                                         𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Lorentz_force} \vect {F} = q\left ( \Efield + \frac 1c \left [ \vect {V}\times \Bfield \right ] \right ),
+\end{equation}
+
+</p>
+
+<p>
+де \(q\) — заряд тіла — <em>не залежить від швидкості</em>, \(\vect {V}\) — його швидкість, а вектори \(\Efield \) та \(\Bfield \) <em>не залежать від тіла і є характеристиками поля</em>; коефіцієнт \(c\) визначається системою одиниць.
+</p>
+
+<p>
+Вектор \(\Efield \) називають напруженістю електричного поля, \(\Bfield \) — індукцією магнітного поля. Сукупність цих двох векторів, заданих в кожній точці простору, повністю визначають стан електромагнітного поля в класичній фізиці.
+Формула&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Lorentz_force">1.2</a>)</span> також дозволяє узагальнити процедуру визначення заряду на випадок руху тіла. Адже спосіб, що базується на законі
+Кулона&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Columb_low">1.1</a>)</span>, працює лише для нерухомих зарядів.
+</p>
+
+<p>
+Спостерігаючи за рухом заряджених частинок, можна визначити (див. вправу&nbsp;<a href="ClassicalElectrodynamics.html#prb:1">1.1</a>) напруженість електричного поля та індукцію магнітного поля. Звичайно, на практиці існують
+більш зручні методи вимірювання \(\Efield \) та \(\Bfield \).
+</p>
+
+
+<div
+   class="tcolorbox"
+   style=" border: 1px solid #00FFFF; background: #F2F2F2; "
+>
+
+
+<div
+   class="tcolorboxupper"
+   style=" color: #000000; "
+>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-1"></a>
+<p>
+<a id="LWR-ht-problem:i.{1}"></a><a id="totalproblems^::LWR-ht-problem:i.{1}"></a>
+</p>
+<li>
+<p>
+<span class="listmarker"><span style="width:3.76953pt; display:inline-block"><!----></span>1.1.</span> <a id="autoid-2" ></a ><a id="prb:1"></a><a id="totalproblems^::prb:1"></a>Нехай в експерименті визначають
+прискорення в однорідному електромагнітному полі електронів з різними (заданими) швидкостями. Покажіть, що це дає змогу однозначно визначити вектори \(\Efield \) та \(\Bfield \) за формулою&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#eq:Lorentz_force">1.2</a>)</span>.
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<p>
+В гаусовій системі одиниць коефіцієнт \(c = 2{,}9979\cdot 10^{10}\)&nbsp;см/с — швидкість світла, тому розмірності \(\Efield \) та \(\Bfield \) формально однакові:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{2}\)</span>
+
+<!--
+
+
+                                                                                                         [𝐸 ] = [𝐵 ] = г1/2 ⋅ см−1/2 ⋅ с−1 .
+
+-->
+
+<p>
+
+\begin{equation*}
+\left [ E\right ] = \left [ B \right ] = \text {г}^{1/2}\cdot \text {см}^{-1/2}\cdot \text {с}^{-1}.
+\end{equation*}
+
+</p>
+
+<p>
+Одиниця магнітної індукції має назву «гаус». Її не застосовують у випадку електричного поля, хоча формально його напруженість має цю ж розмірність.
+</p>
+<!--
+...... subsection Основні властивості зарядів та електромагнітного поля ......
+-->
+<h5 id="autosec-10">Основні властивості зарядів та електромагнітного поля</h5>
+<a id="ClassicalElectrodynamics-autopage-10"></a><a id="totalproblems^::ClassicalElectrodynamics-autopage-10"></a>
+
+
+<ul class="itemize" style="list-style-type:none">
+
+    <li>
+<p>
+<span class="listmarker">•</span> <i>Принцип суперпозиції</i>. Формула&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Lorentz_force">1.2</a>)</span> дає змогу виміряти електромагнітне поле, вивчаючи
+його вплив на рух точкового заряду, але не дозволяє його розрахувати, виходячи з розподілу зарядів. Для цього потрібні рівняння, що пов’язують певним чином електромагнітне поле з його джерелами. Але перш ніж записати ці рівняння,
+відзначимо фундаментальний принцип суперпозиції електромагнітних полів: напруженість електричного поля \(\Efield \) та індукція \(\Bfield \) магнітного поля, створюваних системою зарядів, є сумою полів \(\Efield _k\), \(\Bfield _k\),
+що створюються окремими зарядами (або підсистемами) цієї системи:
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{2}\)</span>
+    <!--
+
+                                                                                                          𝐄 = ∑ 𝐄𝑘 ,   𝐁 = ∑ 𝐁𝑘 .                                                                                                     (1.3)
+                                                                                                               𝑘           𝑘
+      -->
+<p>
+
+\begin{equation}
+\Efield = \sum \limits _k \Efield _k, \quad \Bfield = \sum \limits _k \Bfield _k.
+\end{equation}
+
+</p>
+<p>
+    Тут поле \((\Efield _k, \Bfield _k)\) \(k\)-ї підсистеми розглядається окремо.
+</p>
+<p>
+    Це твердження, яке значно спрощує розв’язання задач електродинаміки, випливає з дослідних даних. Взагалі кажучи, можна навести приклади, коли фізичні поля не задовольняють принципу суперпозиції. Але ці явища класична
+електродинаміка не розглядає. В звичайних умовах принцип суперпозиції виконується з дуже високою точністю. Принцип суперпозиції тісно пов’язаний з адитивністю заряду.
+</p>
+    </li>
+    <li>
+
+    <p>
+<span class="listmarker">•</span> <i>Квантування (дискретність) електричного заряду</i>. З експериментів відомо, що найменшим відомим зарядом є заряд електрона, що наближено дорівнює (за абсолютною величиною) \(e = 4,8\cdot
+10^{-10}\) одиниць гаусової системи. Заряд електрона є від’ємним; заряд протона — додатній і дорівнює заряду електрона з оберненим знаком. Будь-які заряди, що спостерігалися, кратні заряду електрона. Пошуки вільних зарядів, менших за
+\(e\), або не кратних цій величині, дали негативний результат. Зауважимо, що відхилення зарядів протона й електрона призвело б до порушення електронейтральності атомів, що суперечить експериментальним даним.
+</p>
+<p>
+    Слід відзначити, що сучасні експерименти дають змогу вивчати розподіл заряду всередині елементарних частинок. Але наявність неперервного розподілу густини заряду всередині, наприклад, протона чи нейтрона, яка досліджується при
+зіткненнях елементарних частинок, не суперечить квантуванню електричного заряду. Ця властивість стосується повного заряду частинок, що можуть існувати iзoльовано від інших.
+</p>
+    </li>
+    <li>
+
+    <p>
+<span class="listmarker">•</span> <i>Інваріантність електричного заряду</i>. Величина заряду не залежить від його швидкості відносно спостерігача. Неінваріантність заряду також могла б призвести до порушення електронейтральності
+атомів, оскільки електрони в атомах рухаються з швидкостями до 0,1 с; величина швидкості електронів різна на різних оболонках і відрізняється в різних атомах.
+</p>
+    </li>
+    <li>
+
+    <p>
+<span class="listmarker">•</span> <i>Збереження електричного заряду</i>. Якщо вважати встановленим факт квантування заряду, то збереження заряду в звичайних умовах пов’язано зі збереженням кількості протонів та електронів в
+атомах. Однак відомо, що електричний заряд зберігається і тоді, коли мають місце взаємоперетворення елементарних частинок.
+</p>
+<p>
+    Область застосовності законів збереження, квантування та інваріантності електричного заряду виходить далеко за рамки класичної електродинаміки. На цей час порушення цих законів невідомі.
+</p>
+<p>
+
+</p>
+    </li>
+    </ul>
+<!--
+...... subsection Розподіли зарядів та струмів ......
+-->
+<h5 id="autosec-11">Розподіли зарядів та струмів</h5>
+<a id="ClassicalElectrodynamics-autopage-11"></a>
+
+
+<ul class="itemize" style="list-style-type:none">
+
+    <li>
+<p>
+<span class="listmarker">•</span> <b>Сила струму</b>. Дамо числову характеристику електричного струму — впорядкованого руху носіїв заряду.
+</p>
+<p>
+    Нехай поверхня \(S\) є орієнтованою, тобто визначений певний додатній напрямок перетину цієї поверхні. Нехай \(q(t)\) — сумарний заряд, що перетнув \(S\) з урахуванням напрямку за час \(t\) з початку відліку. Тоді, за визначенням,
+сила струму через поверхню \(S\) (в додатному напрямку) є:
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{3}\)</span>
+    <!--
+
+                                                                                                                          𝑑𝑞(𝑡)
+                                                                                                               𝐼𝑆 (𝑡) =         .                                                                           (1.4)--><a id="eq:I_S"></a><!--
+                                                                                                                           𝑑𝑡
+      -->
+<p>
+
+\begin{equation}
+\label {eq:I_S} I_S(t) = \frac {dq(t)}{dt}.
+\end{equation}
+
+</p>
+<p>
+    У разі сталого струму — це заряд, що перетинає \(S\) за одиницю часу.
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">–</span> Здавалося б, що запис&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:I_S">1.4</a>)</span> не є цілком коректний, оскільки заряди дискретні і \(q(t)\) змінюється
+стрибками. Однак завдяки малості цих стрибків \(q(t)\) можна апроксимувати гладкою функцією, що є цілком правомірно в макроскопічних застосуваннях.
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">–</span> Необхідними елементами визначення сили струму є поверхня \(S\) та її орієнтація. Але якщо йдеться про сталий струм в провідникові, форма перерізу, через який обчислюється струм, не є суттєвою.
+</p>
+</li>
+</ul>
+<p>
+    Завдяки закону збереження заряду струм через \(S_1\), \(S_2\) та \(S_3\) (див. рис.&nbsp;<a href="ClassicalElectrodynamics.html#tikz:current">1.1</a>) однаковий. Адже у разі супротивного заряд з часом міг би накопичуватися,
+наприклад, між \(S_1\) та \(S_2\), що суперечило б умові стаціонарності.
+</p>
+<figure id="autoid-3" class="figure ">
+<div class="center">
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-1"
+    class="lateximagesource"
+><!--
+𝑆1   𝑆2   𝑆3
+--><img
+    src="Basics-images\image-1.svg"
+    alt="(-tikz-&nbsp;diagram)"
+    style=""
+    class="lateximage"
+></span>
+</p>
+
+<div class="figurecaption">
+
+Рис.&nbsp;1.1
+</div>
+<a id="tikz:current"></a>
+</div>
+</figure>
+    </li>
+    <li>
+
+    <p>
+<span class="listmarker">•</span> <b>Мікроскопічний та макроскопічний підхід в електродинаміці</b>. Мікроскопічний підхід оперує з якомога точними значеннями величин, що характеризують електромагнітні взаємодії з
+врахуванням будови речовини і в цьому розумінні він є найбільш повним та послідовним. Але використання мікроскопічного підходу не завжди доцільно. Приклад такої ситуації — попереднє обговорення формули&nbsp;<span
+class="textup">(<a href="ClassicalElectrodynamics.html#eq:I_S">1.4</a>)</span>. У макроскопічних вимірюваннях амперметр вимірює усереднене значення сили струму, і тут можна не зважати на дискретну будову електрики. Це дає
+змогу застосовувати відповідну математичну модель процесу вимірювання, яка працює з гладкими функціями \(I_S(t)\) та \(q(t)\) в&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:I_S">1.4</a>)</span>. Якщо
+треба охарактеризувати нерівномірність розподілу зарядів в об’ємі, можна також використовувати ідеалізацію, коли вводиться густина заряду, яка є неперервною функцією координат. Це можливо, якщо кожна ділянка цього об’єму, де виконують
+вимірювання, містить досить велику кількість елементарних зарядів. Далі під макроскопічними величинами будемо розуміти такі, що отримані внаслідок деякого усереднення — за часом або у деяких просторових масштабах. З одного боку
+макроскопічний підхід пов’язаний з можливостями конкретного фізичного експерименту, в якому мікробудова може бути несуттєвою, з іншого боку, застосування неперервних розподілів дає змогу застосувати апарат математичного аналізу для
+опису явищ.
+</p>
+    </li>
+    <li>
+
+     <p>
+<span class="listmarker">•</span> <b>Густина заряду</b>. Для опису заданого просторового розподілу заряду введемо функцію \(\rho \), що може залежати від координат та від часу і дозволяє обчислити заряд в будь-якій області \(\Omega
+\) за формулою:
+</p>
+     <span class="hidden"> \(\seteqnumber{0}{1.}{4}\)</span>
+     <!--
+                                                                                                                           
+                                                                                                                    𝑞Ω =          𝜌(𝑡, 𝐫) 𝑑 3 𝐫                                                               (1.5)--><a id="eq:q"></a><!--
+                                                                                                                           Ω
+      -->
+<p>
+
+\begin{equation}
+\label {eq:q} q_{\Omega } = \int \limits _{\Omega } \rho (t, \vect {r}) \ d^3\vect {r}
+\end{equation}
+
+</p>
+<p>
+    де \(\vect {r} = \left \{x, y, z\right \}\), \(d^3\vect {r} \equiv dV=dx\ dy\ dz\)<sup>1</sup><a id="ClassicalElectrodynamics-autopage-14"></a>.
+</p>
+<p>
+    Інакше, елемент заряду в об’ємі \(dV\) — це \(dq = \rho (t, \vect {r}) dV\).
+</p>
+<p>
+    Функцію \(\rho (t, \vect {r})\) називають густиною заряду. Для сталого розподілу це величина заряду в одиниці об’єму.
+</p>
+<p>
+    Якщо в середовищі присутні однакові носії з зарядом \(q\) й об’ємною густиною їх числа (концентрацією) \(n\):
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{5}\)</span>
+    <!--
+
+                                                                                                                           𝜌 = 𝑛𝑞                                                                                                        (1.6)
+      -->
+<p>
+
+\begin{equation}
+\rho = nq
+\end{equation}
+
+</p>
+<p>
+    а в більш загальному випадку:
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{6}\)</span>
+    <!--
+
+                                                                                                               𝜌(𝑡, 𝐫) = ∑ 𝑞𝑘 𝑛𝑘 (𝑡, 𝐫),                                                                                                 (1.7)
+                                                                                                                                  𝑘
+      -->
+<p>
+
+\begin{equation}
+\rho (t, \vect {r}) = \sum \limits _k q_kn_k(t, \vect {r}),
+\end{equation}
+
+</p>
+<p>
+    де індекс \(k\) відповідає різним сортам носіїв заряду, кожен із своєю концентрацією.
+</p>
+    </li>
+    <li>
+
+    <p>
+<span class="listmarker">•</span> <b>Густина струму</b>. Цю величину можна визначити формулою для сили струму через поверхню \(S\):
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{7}\)</span>
+    <!--
+                                                                                                                              
+                                                                                                                   𝐼𝑆 (𝑡) =           𝐣(𝑡, 𝐫) ⋅ 𝑑𝐒,                                                                                      (1.8)
+                                                                                                                              𝑆
+      -->
+<p>
+
+\begin{equation}
+I_S(t) = \int \limits _S \vect {j}(t, \vect {r})\cdot d\vect {S},
+\end{equation}
+
+</p>
+<p>
+    де \(\vect {j}\) — вектор густини струму, що не залежить від \(S\), \(d\vect {S} = \vect {n} dS\), \(\vect {n}\) — нормаль до елемента поверхні \(dS\). Густина сили струму дає напрям руху зарядів в даному елементі об’єму і за
+абсолютною величиною — силу струму через одиничний переріз, проведений перпендикулярно до цього напрямку. Маємо:
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{8}\)</span>
+    <!--
+
+                                                                                                                           𝐣 = 𝑛𝑞𝐯                                                                                                       (1.9)
+      -->
+<p>
+
+\begin{equation}
+\vect {j} = nq\vect {v}
+\end{equation}
+
+</p>
+<p>
+    якщо усі заряди з концентрацією \(n\) мають однакову швидкість \(\vect {v}\) та заряд \(q\), або для декількох сортів носіїв заряду:
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{9}\)</span>
+    <!--
+
+                                                                                                                      𝐣 = ∑ 𝑞𝑘 𝑛𝑘 𝐯𝑘                                                                                                    (1.10)
+                                                                                                                              𝑘
+      -->
+<p>
+
+\begin{equation}
+\vect {j} = \sum \limits _k q_k n_k\vect {v}_k
+\end{equation}
+
+</p>
+<p>
+    Ще більш загальний вираз можна записати за наявності розподілу за швидкостями:
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{10}\)</span>
+    <!--
+                                                                                                               
+                                                                                                        𝐣=∑        𝑞𝑘 𝑓𝑘 (𝑡, 𝐫, 𝐯)𝐯𝑘 𝑑𝑉𝑥 𝑑𝑉𝑦 𝑑𝑉𝑧 ,                                                                                      (1.11)
+                                                                                                           𝑘
+      -->
+<p>
+
+\begin{equation}
+\vect {j} = \sum \limits _k \int q_k f_k(t, \vect {r}, \vect {v}) \vect {v}_k dV_xdV_ydV_z,
+\end{equation}
+
+</p>
+<p>
+    де \(f_k(t, \vect {r}, \vect {v})\) — функція розподілу k–го сорту зарядів за швидкостями.
+</p>
+    </li>
+    <li>
+
+    <p>
+<span class="listmarker">•</span> <b>Поверхневі заряди та струми</b>. Якщо електричні заряди зосереджені у тонкому прошарку поблизу деякої поверхні, доцільно ввести поверхневу густину заряду σ. Аналогічно&nbsp;<span
+class="textup">(<a href="ClassicalElectrodynamics.html#eq:q">1.5</a>)</span>, покладемо:
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{11}\)</span>
+    <!--
+                                                                                                                       
+                                                                                                           𝑞𝑆 (𝑡) =        𝜍(𝑡, 𝜉, 𝜂)𝑑𝑆(𝜉, 𝜂).                                                                                          (1.12)
+                                                                                                                       𝑆
+      -->
+<p>
+
+\begin{equation}
+q_S(t) = \int \limits _S \sigma (t, \xi , \eta ) dS(\xi , \eta ).
+\end{equation}
+
+</p>
+<p>
+    де \(q_S\) — заряд на ділянці S цієї поверхні, \(\xi \) та \(\eta \) — координати на поверхні; \(\sigma \) — заряд на одиниці площі.
+</p>
+<figure id="autoid-4" class="figure ">
+<div class="center">
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-2"
+    class="lateximagesource"
+><!--
+𝐿
+    𝐧   𝐢
+--><img
+    src="Basics-images\image-2.svg"
+    alt="(-tikz-&nbsp;diagram)"
+    style=""
+    class="lateximage"
+></span>
+</p>
+
+<div class="figurecaption">
+
+Рис.&nbsp;1.2. На рисунку зображено нормаль \(\vect {n}\) (синя стрілка) до лінії \(L\), та вектор лінійної густини \(\vect {i}\) (чорна стрілка).
+</div>
+<a id="surface_current"></a>
+</div>
+</figure>
+<p>
+    За наявності руху поверхневих зарядів визначимо силу струму через лінію \(L\) (див. рис.&nbsp;<a href="ClassicalElectrodynamics.html#surface_current">1.2</a>) на цій поверхні:
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{12}\)</span>
+    <!--
+
+                                                                                                                            𝑑𝑞𝐿 (𝑡)
+                                                                                                                𝐼𝐿 (𝑡) =            ,                                                                                                   (1.13)
+                                                                                                                              𝑑𝑡
+      -->
+<p>
+
+\begin{equation}
+I_L(t) = \frac {dq_L(t)}{dt},
+\end{equation}
+
+</p>
+<p>
+    де \(dq_L\) — заряд, що перетинає \(L\) за час \(t\) з початку спостереження. Тут також має бути зафіксований додатній напрямок при перетині \(L\) вздовж цієї поверхні. Лінійна густина i поверхневого струму визначається формулою (для
+будь-якої лінії \(L\) на поверхні):
+</p>
+    <span class="hidden"> \(\seteqnumber{0}{1.}{13}\)</span>
+    <!--
+                                                                                                                     
+                                                                                                          𝐼𝐿 (𝑡) =       𝐢(𝑡, 𝜉, 𝜂)𝑑𝐥(𝜉, 𝜂),                                                                                            (1.14)
+                                                                                                                     𝐿
+      -->
+<p>
+
+\begin{equation}
+I_L(t) = \int \limits _L \vect {i}(t, \xi , \eta ) d\vect {l}(\xi , \eta ),
+\end{equation}
+
+</p>
+<p>
+    де \(d\vect {l} = \vect {n} d \ell \) — орієнтовний елемент довжини на \(L\), \(\vect {n}\) — нормаль до \(L\) на поверхні у точці інтегрування.
+</p>
+    </li>
+    </ul>
+<div role="note" class="footnotes">
+
+<a id="ClassicalElectrodynamics-autopage-18"></a>
+    <p>
+<sup>1</sup>&nbsp;В курсі математичного аналізу потрійний інтеграл традиційно позначають \(\iiint _{\Omega }\rho \,dV\)&nbsp;— і це цілком коректно. Однак у теоретичній фізиці прийнято лаконічніший запис: єдиний знак інтеграла
+\(\int _{\Omega }\) із мірою \(d^3\vect {r}\). Область інтегрування \(\Omega \subset \mathbb {R}^3\) вже однозначно вказує на тривимірність, тому потрійний знак є надлишковим. Позначення \(d^3\vect {r}\) при цьому інформативніше
+за \(dV\): воно явно фіксує розмірність простору і природно узагальнюється&nbsp;— наприклад, \(d^4x\) в релятивістському записі.
+</p>
+
+
+</div>
+<!--
+...... subsection Математичний запис закону збереження заряду ......
+-->
+<h5 id="autosec-19">Математичний запис закону збереження заряду</h5>
+<a id="ClassicalElectrodynamics-autopage-19"></a>
+
+
+<p>
+Нехай \(q_{\Omega }\) — заряд в деякому об’ємi \(\Omega \), \(\partial \Omega \) — поверхня, що обмежує цей об’єм, \(I_{\partial \Omega }\) — струм, що виходить через \(\partial \Omega \) назовні з об’єму \(\Omega \) (будемо вважати,
+що це відповідає додатній орієнтації поверхні \(\Omega \)). Тоді, за законом збереження заряду i за означенням струму&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:I_S">1.4</a>)</span>, маємо у кожний
+момент часу:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{14}\)</span>
+
+<!--
+
+
+                                                                                𝑑𝑞Ω
+                                                                                    + 𝐼𝜕Ω = 0.                                                                              (1.15)--><a id="eq:charge_conservation_low_int"></a><!--
+                                                                                 𝑑𝑡
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:charge_conservation_low_int} \frac {dq_{\Omega }}{dt} + I_{\partial \Omega } = 0.
+\end{equation}
+
+</p>
+
+<p>
+Спiввiдношення&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:charge_conservation_low_int">1.15</a>)</span> є інтегральною формою закону збереження заряду. Для поверхневих зарядів та струмів можна
+подати аналогічне співвідношення, що пов’язує швидкість зміни заряду на ділянку поверхні та струм через межу цієї ділянки.
+</p>
+
+<p>
+Отримаємо з&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:charge_conservation_low_int">1.15</a>)</span> диференціальне співвідношення для густини заряду \(\rho (t, \vect {r})\) та густини об’ємного
+струму \(\vect {j}(t, \vect {r})\). Використовуючи визначення&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:q">1.5</a>)</span> для нерухомого об’єму:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{15}\)</span>
+
+<!--
+
+                                                                                                                                         
+                                                                                                     𝑑𝑞Ω   𝑑                                  𝜕𝜌(𝑡, 𝐫) 3
+                                                                                                         =            𝜌(𝑡, 𝐫) 𝑑 3 𝐫 =                 𝑑 𝐫.
+                                                                                                      𝑑𝑡   𝑑𝑡                                   𝜕𝑡
+                                                                                                                  Ω                       Ω
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {dq_{\Omega }}{dt} = \frac {d}{dt} \int \limits _{\Omega } \rho (t, \vect {r}) \ d^3\vect {r} = \int \limits _{\Omega } \frac {\partial \rho (t, \vect {r})}{\partial t} \ d^3\vect {r}.
+\end{equation*}
+
+</p>
+
+<p>
+Тоді з&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:charge_conservation_low_int">1.15</a>)</span> та за визначенням густини струму&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#eq:I_S">1.4</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{15}\)</span>
+
+<!--
+
+                                                                                                                                    
+                                                                                                              𝜕𝜌(𝑡, 𝐫) 3
+                                                                                                                      𝑑 𝐫+                𝐣 ⋅ 𝑑𝐒 = 0.
+                                                                                                                𝜕𝑡
+                                                                                                         Ω                           𝜕Ω
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{\Omega } \frac {\partial \rho (t, \vect {r})}{\partial t} \ d^3\vect {r} + \int \limits _{\partial \Omega } \vect {j}\cdot d\vect {S} = 0.
+\end{equation*}
+
+</p>
+
+<p>
+Перетворимо iнтеграл по замкненiй поверхнi \(\partial \Omega \), що оточує об’єм \(\Omega \), за теоремою Остроградського-Гаусcа:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{15}\)</span>
+
+<!--
+
+                                                                                                                                
+                                                                                                                      𝐣 ⋅ 𝑑𝐒 =       div 𝐣 𝑑 3 𝐫,
+                                                                                                              𝜕Ω                 Ω
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{\partial \Omega } \vect {j}\cdot d\vect {S} = \int \limits _{\Omega }\Div \vect {j} \ d^3\vect {r},
+\end{equation*}
+
+</p>
+
+<p>
+звідки
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{15}\)</span>
+
+<!--
+
+                                                                                                          
+                                                                                                                  𝜕𝜌(𝑡, 𝐫)
+                                                                                                              (            + div 𝐣) 𝑑3 𝐫 = 0.
+                                                                                                                    𝜕𝑡
+                                                                                                          Ω
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{\Omega } \left (\frac {\partial \rho (t, \vect {r})}{\partial t} + \Div \vect {j} \right ) \ d^3\vect {r} =0.
+\end{equation*}
+
+</p>
+
+<p>
+Це співвідношення виконується для будь-якого об’єму \(\Omega \), тому підінтегральний вираз має дорівнювати нулю:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{15}\)</span>
+
+<!--
+
+
+                                                                              𝜕𝜌(𝑡, 𝐫)
+                                                                                       + div 𝐣 = 0                                                                         (1.16)--><a id="eq:charge_conservation_low_diff"></a><!--
+                                                                                𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:charge_conservation_low_diff} \frac {\partial \rho (t, \vect {r})}{\partial t} + \Div \vect {j} = 0
+\end{equation}
+
+</p>
+
+<p>
+Це <em>диференціальна форма закону збереження заряду</em> або <em>рівняння неперервності</em> для об’ємної густини зарядів.
+</p>
+<!--
+...... section Рівняння електромагнітного поля ......
+-->
+<h4 id="autosec-20"><span class="sectionnumber">1.2&#x2003;</span>Рівняння електромагнітного поля</h4>
+<a id="ClassicalElectrodynamics-autopage-20"></a>
+<!--
+...... subsection Мікроскопічні рівняння Максвелла (інтегральна форма) ......
+-->
+<h5 id="autosec-21">Мікроскопічні рівняння Максвелла (інтегральна форма)</h5>
+<a id="ClassicalElectrodynamics-autopage-21"></a>
+
+
+<p>
+В цьому розділі буде розглянута система рівнянь, яка дає змогу аналізувати електродинамічні явища в усій класичній області від мікроскопічних до макроскопічних масштабів. В рамках класичної електродинаміки ці рівняння вважаються
+точними, вони не містять наближень і явно враховують усі заряди і струми в рамках конкретного явища або теоретичної моделі. Далі будемо називати ці рівняння мікроскопічними — на відміну від макроскопічних рівнянь, які припускають певні
+наближення або макроскопічні усереднення, наприклад, для опису поляризаційних зарядів і струмів намагнічення, що виникають у суцільному середовищі. Мікроскопічні рівняння отримано дослідним шляхом за допомогою узагальнення великої
+кількості експериментальних даних. Вихідною для нас буде інтегральна форма рівнянь Максвелла, з якої далі будуть отримані граничні умови і диференціальна форма цих рівнянь. Інтегральна форма мікроскопічних рівнянь має вид:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{16}\)</span>
+
+
+<!--
+
+
+
+                                                                                                                    𝐄 ⋅ 𝑑𝐒 = 4𝜋𝑞Ω ,                                                      (1.17)                --><a id="Int I"></a><!--
+                                                                                                               𝜕Ω
+
+                                                                                                                    𝐁 ⋅ 𝑑𝐒 = 0,                                                         (1.18)                --><a id="Int II"></a><!--
+                                                                                                               𝜕Ω
+                                                                                                                                                                                                                                     (1.19)
+
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\oint \limits _{\partial \Omega } \Efield \cdot d\vect {S} &amp; = 4\pi q_{\Omega }\label {Int I}, \\ \oint \limits _{\partial \Omega } \Bfield \cdot d\vect {S} &amp; = 0 \label {Int II}, \\
+\end{align}
+де \(\Omega \) — довільний нерухомий об’єм, \(\partial \Omega \) — його межа; \(S\) — довільна нерухома орієнтована поверхня, \(\partial S\) — замкнений контур, що її обмежує, \(q_{\Omega }\) — повний заряд в області \(\Omega \).
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{19}\)</span>
+
+
+<!--
+
+
+                                                                                                                            
+                                                                                                                        1       𝜕𝐁
+                                                                                                           𝐄 ⋅ 𝑑𝐫 = −              ⋅ 𝑑𝐒,                                  (1.20)                            --><a id="Int III"></a><!--
+                                                                                                                        𝑐       𝜕𝑡
+                                                                                                      𝜕𝑆                    𝑆
+                                                                                                                                   
+                                                                                                                      4𝜋     1         𝜕𝐄
+                                                                                                           𝐁 ⋅ 𝑑𝐫 =      𝐼 +              ⋅ 𝑑𝐒,                            (1.21)                             --><a id="Int IV"></a><!--
+                                                                                                                       𝑐 𝑆 𝑐           𝜕𝑡
+                                                                                                      𝜕𝑆                           𝑆
+
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\oint \limits _{\partial S} \Efield \cdot d\vect {r} &amp; = - \frac 1c \int \limits _S \frac {\partial \Bfield }{\partial t}\cdot d\vect {S} \label {Int III}, \\ \oint \limits _{\partial S} \Bfield \cdot
+d\vect {r} &amp; =\dfrac {4\pi }{c} I_S +\frac {1}{c} \int \limits _S \frac {\partial \Efield }{\partial t}\cdot d\vect {S} \label {Int IV},
+\end{align}
+де \(S\) — довільна нерухома орієнтована поверхня, \(\partial S\) — замкнений контур, що її обмежує. \(I_S\) — струм через \(S\) у додатному напрямку.
+</p>
+
+<p>
+В літературі можна зустріти форму рівнянь електродинаміки для об′ємів та поверхонь, що деформуються із часом. Зокрема, замість рівняння&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#Int III">1.20</a>)</span> часто використовують зв’язок між електрорушійною силою, що виникає у рухомому провідникові, та зміною потоку магнітного поля через поверхню, що обмежена контуром
+цього провідника. Цей зв’язок можна отримати з записаних рівнянь, якщо при обчисленні е.р.с. врахувати також внесок сил, що діють на носії струму з боку магнітного поля.
+</p>
+<!--
+...... subsection Сумісність рівнянь Максвелла із законом збереження заряду ......
+-->
+<h5 id="autosec-22">Сумісність рівнянь Максвелла із законом збереження заряду</h5>
+<a id="ClassicalElectrodynamics-autopage-22"></a>
+
+
+<p>
+Наявність довільного об′єму \(\Omega \) та довільної поверхні \(S\) в рівняннях Максвелла є дещо незвичайним; принаймні, треба перевірити, чи не призводить це до неоднозначностей. Наприклад, в рівнянні&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#Int IV">1.21</a>)</span> ми можемо вибрати різні поверхні \(S_1\) і \(S_2\), що мають спільну межу \(\partial S\) (рис.&nbsp;<a href="ClassicalElectrodynamics.html#tikz:surface">1.3</a>).
+</p>
+<figure id="autoid-5" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-3"
+    class="lateximagesource"
+><!--
+𝑆2
+
+
+
+
+𝑆1
+--><img
+    src="Basics-images\image-3.svg"
+    alt="(-tikz-&nbsp;diagram)"
+    style=""
+    class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+
+Рис.&nbsp;1.3
+</div>
+
+<a id="tikz:surface"></a>
+
+</div>
+
+</figure>
+
+<p>
+Тоді з рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int IV">1.21</a>)</span> легко отримати:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{21}\)</span>
+
+<!--
+
+                                                                                                 
+                                                               4𝜋             1       𝜕𝐄               𝜕𝐄
+                                                                  (𝐼 − 𝐼𝑆2 ) + (         ⋅ 𝑑𝐒 −           ⋅ 𝑑𝐒) = 0                                                      (1.22)                            --><a id="eq:diff4"></a><!--
+                                                                𝑐 𝑆1          𝑐       𝜕𝑡               𝜕𝑡
+                                                                                 𝑆1               𝑆2
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:diff4} \frac {4\pi }c(I_{S_1} - I_{S_2}) +\frac 1c \left ( \int \limits _{S_1} \frac {\partial \Efield }{\partial t}\cdot d\vect {S} - \int \limits _{S_2} \frac {\partial \Efield }{\partial t}\cdot
+d\vect {S} \right ) = 0
+\end{equation}
+
+</p>
+
+<p>
+Чи суперечить це іншим рівнянням? Виявляється, ні, якщо врахувати закон збереження заряду. Нехай \(\Omega \) — це область, оточена поверхнями \(S_1\) та \(S_2\). Межа \(\partial \Omega \) має орієнтацію, спільну з однією з цих
+поверхонь і протилежну до іншої на відповідних ділянках. Тоді рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:diff4">1.22</a>)</span> можна переписати так:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{22}\)</span>
+
+<!--
+
+                                                                                                                                 
+                                                                                                                            𝑑
+                                                                                                                  4𝜋𝐼𝜕Ω +             𝐄 ⋅ 𝑑𝐒 = 0,                                                                                    (1.23)
+                                                                                                                            𝑑𝑡
+                                                                                                                                 𝜕Ω
+
+-->
+
+<p>
+
+\begin{equation}
+4\pi I_{\partial \Omega } + \frac {d}{dt} \int \limits _{\partial \Omega } \Efield \cdot d\vect {S} = 0,
+\end{equation}
+
+</p>
+
+<p>
+де похідну винесено за знак інтегралу. Оскільки поверхневий інтеграл тут в силу&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int I">1.17</a>)</span> пов’язаний із зарядом \(q_{\Omega }\) в області \(\Omega \),
+звідси:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{23}\)</span>
+
+<!--
+
+
+                                                                           𝑑𝑞Ω
+                                                                   𝐼𝜕Ω +       = 0.                                                                  (1.24)                            --><a id="eq:charge_conservation_low"></a><!--
+                                                                            𝑑𝑡
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:charge_conservation_low} I_{\partial \Omega } + \frac {dq_{\Omega }}{dt} = 0.
+\end{equation}
+
+</p>
+
+<p>
+Таким чином, рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:diff4">1.22</a>)</span> тотожно виконується внаслідок рівняння&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#Int I">1.17</a>)</span> та закону збереження заряду&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:charge_conservation_low">1.24</a>)</span>. У разі
+рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int III">1.20</a>)</span> ми можемо також вибрати різні поверхні інтегрування з однаковою межею; тут аналогічні міркування з огляду на
+рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int II">1.18</a>)</span> також показують відсутність суперечностей.
+</p>
+<!--
+...... subsection Диференціальна форма рівнянь Максвелла ......
+-->
+<h5 id="autosec-26">Диференціальна форма рівнянь Максвелла</h5>
+<a id="ClassicalElectrodynamics-autopage-26"></a>
+
+
+<p>
+В рівнянні&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int I">1.17</a>)</span> за означенням:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{24}\)</span>
+
+<!--
+
+                                                                                                                          
+                                                                                                                 𝑞Ω =         𝜌 𝑑3𝐫                                                                                              (1.25)
+                                                                                                                        Ω
+
+-->
+
+<p>
+
+\begin{equation}
+q_{\Omega } = \int \limits _{\Omega } \rho \ d^3\vect {r}
+\end{equation}
+
+</p>
+
+<p>
+де \(\rho \) — об′ємна густина заряду. За теоремою Остроградського-Гаусса ліва частина&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int I">1.17</a>)</span> також зводиться до об′ємного інтегралу, звідки:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{25}\)</span>
+
+<!--
+
+                                                                                                                              
+                                                                                                               div 𝐄 𝑑 3 𝐫 =          𝜌 𝑑3𝐫
+                                                                                                          Ω                    Ω
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{\Omega } \Div \Efield \ d^3\vect {r} = \int \limits _{\Omega } \rho \ d^3\vect {r}
+\end{equation*}
+
+</p>
+
+<p>
+зважаючи на довільність області \(\Omega \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{25}\)</span>
+
+<!--
+
+
+                                                                               div 𝐄 = 4𝜋𝜌                                                                              (1.26)                           --><a id="eq:M1D"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:M1D} \Div \Efield = 4\pi \rho
+\end{equation}
+
+</p>
+
+<p>
+Аналогічно, з&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int II">1.18</a>)</span> маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{26}\)</span>
+
+<!--
+
+
+                                                                                div 𝐁 = 0.                                                                              (1.27)                           --><a id="eq:M2D"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:M2D} \Div \Bfield = 0.
+\end{equation}
+
+</p>
+
+<p>
+В рівнянні&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int III">1.20</a>)</span> перетворимо ліву частину за теоремою Стокса:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{27}\)</span>
+
+<!--
+
+                                                                                                                                 
+                                                                                                                              1       𝜕𝐁
+                                                                                                          rot 𝐄 ⋅ 𝑑𝐒 = −                 ⋅ 𝑑𝐒
+                                                                                                                              𝑐       𝜕𝑡
+                                                                                                      𝑆                           𝑆
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{S} \Rot \Efield \cdot d\vect {S} = - \frac 1c \int \limits _S \frac {\partial \Bfield }{\partial t}\cdot d\vect {S}
+\end{equation*}
+
+</p>
+
+<p>
+звідки, з урахуванням довільності \(S\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{27}\)</span>
+
+<!--
+
+
+                                                                                         1 𝜕𝐁
+                                                                             rot 𝐄 = −        .                                                                         (1.28)                           --><a id="eq:M3D"></a><!--
+                                                                                         𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:M3D} \Rot \Efield = - \frac 1c \frac {\partial \Bfield }{\partial t}.
+\end{equation}
+
+</p>
+
+<p>
+Аналогічно, виражаючи також згідно до&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:charge_conservation_low">1.24</a>)</span> струм у правій частині&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#Int IV">1.21</a>)</span> через інтеграл від густини струму \(\vect {j}\), отримаємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{28}\)</span>
+
+<!--
+
+
+                                                                                     4𝜋    1 𝜕𝐄
+                                                                           rot 𝐁 =      𝐣+      .                                                                       (1.29)                           --><a id="eq:M4D"></a><!--
+                                                                                      𝑐    𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:M4D} \Rot \Bfield = \frac {4\pi }c\vect {j} + \frac 1c \frac {\partial \Efield }{\partial t}.
+\end{equation}
+
+</p>
+
+<p>
+Рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M1D">1.26</a>)</span> –&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M4D">1.29</a>)</span> складають систему
+мікроскопічних рівнянь Максвелла у диференціальній формі.
+</p>
+
+<p>
+З рівнянь Максвелла&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M1D">1.26</a>)</span>,&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M4D">1.29</a>)</span> можна
+виразити густини заряду та струму через напруженості полів. Виникає питання, чи не суперечитимуть ці рівняння закону збереження заряду&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#eq:charge_conservation_low">1.24</a>)</span>, де цих напруженостей немає. Це питання вище було розглянуто на основі інтегральної форми рівнянь Максвелла. Покажемо це також за допомогою
+диференціальної форми рівнянь. Візьмемо дивергенцію від обох частин&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M4D">1.29</a>)</span> враховуючи, що \(\Div \Rot \equiv 0\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{29}\)</span>
+
+<!--
+
+
+                                                                                                               4𝜋         1 𝜕
+                                                                                                          0=      div 𝐣 +      div 𝐄.
+                                                                                                                𝑐         𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+0 = \frac {4\pi }c\Div \vect {j} + \frac 1c \frac {\partial }{\partial t} \Div \Efield .
+\end{equation*}
+
+</p>
+
+<p>
+Підставляючи \(\Div \Efield \) з&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M1D">1.26</a>)</span> отримаємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{29}\)</span>
+
+<!--
+
+
+                                                                                                                          𝜕𝜌
+                                                                                                                div 𝐣 +      = 0.
+                                                                                                                          𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\Div \vect {j} + \frac {\partial \rho }{\partial t} = 0.
+\end{equation*}
+
+</p>
+
+<p>
+що збігається з рівнянням неперервності&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:charge_conservation_low_diff">1.16</a>)</span> — диференціальною формою закону збереження заряду. Зауважимо,
+що обчислення дивергенції від обох частин&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M3D">1.28</a>)</span> з урахуванням&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#eq:M2D">1.27</a>)</span> приводить до тотожності.
+</p>
+<!--
+...... subsection Умови на поверхні розриву ......
+-->
+<h5 id="autosec-27">Умови на поверхні розриву</h5>
+<a id="ClassicalElectrodynamics-autopage-27"></a>
+
+
+<p>
+Досить часто трапляється ситуація, коли поля \(\Efield \) або \(\Bfield \) мають розриви першого роду на деякій поверхні \(S\), залишаючись скінченними і неперервними при переміщеннях вздовж цієї поверхні. Це пов′язано з існуванням
+поверхневих зарядів та струмів на \(S\) з густинами \(\sigma \) та \(\vect {i}\) відповідно.
+</p>
+
+<p>
+Для отримання граничних умов на поверхні розриву, розглянемо довільний досить малий елемент поверхні \(S\), котрий можна вважати майже плоским.
+</p>
+
+<p>
+Нехай \(\vect {n}\) — нормаль до площини розриву, що розділяє \(1\) та \(2\), причому \(\vect {n}\) напрямлена з \(1\) в \(2\)
+</p>
+
+<figure id="autoid-6" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-4"
+    class="lateximagesource"
+><!--
+𝐧2
+
+
+𝐧
+     ℎ
+
+
+
+
+𝐧1
+--><img
+    src="Basics-images\image-4.svg"
+    alt="(-tikz-&nbsp;diagram)"
+    style=""
+    class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+
+Рис.&nbsp;1.4. До виведення першої граничної умови
+</div>
+
+<a id="tikz:bc1"></a>
+
+</div>
+
+</figure>
+
+<p>
+Нехай \(\Omega \) — область всередині циліндра (рис.&nbsp;<a href="ClassicalElectrodynamics.html#tikz:bc1">1.4</a>), з основами \(S_1\) та \(S_2\), паралельними \(S\), причому \(S_1\) лежить у середовищі \(1\), \(S_2\) — в \(2\), а
+висота циліндра дорівнює \(h\).
+</p>
+
+<p>
+Застосуємо рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int I">1.17</a>)</span> розбиваючи інтеграл по \(\partial \Omega \) на частини, що відповідають \(S_1\), \(S_2\) та бічній поверхні циліндра
+\(\partial \Omega &apos;\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{29}\)</span>
+
+<!--
+
+                                                                                                                                        
+                                                                                                             𝐄 ⋅ 𝑑𝐒 +         𝐄 ⋅ 𝑑𝐒 +         𝐄 ⋅ 𝑑𝐒 = 4𝜋𝑞Ω ,
+                                                                                                        𝑆1               𝑆2              𝜕Ω′
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{S_1} \Efield \cdot d\vect {S} + \int \limits _{S_2} \Efield \cdot d\vect {S} + \int \limits _{\partial \Omega &apos;} \Efield \cdot d\vect {S} = 4\pi q_{\Omega },
+\end{equation*}
+
+</p>
+
+<p>
+де повний заряд всередині \(\Omega \) складається в загальному випадку з неперервно розподіленого об′ємного заряду iз інтегрованою об’ємною густиною \(\rho \) та поверхневого заряду з поверхневою густиною \(\sigma \) на \(S\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{29}\)</span>
+
+<!--
+
+                                                                                                                                              
+                                                                                                                     𝑞Ω =         𝜌 𝑑3 𝐫 +         𝜍𝑑𝑆.
+                                                                                                                              Ω                𝑆
+
+-->
+
+<p>
+
+\begin{equation*}
+q_{\Omega } = \int \limits _{\Omega } \rho \ d^3\vect {r} + \int \limits _S \sigma dS.
+\end{equation*}
+
+</p>
+
+<p>
+Якщо висота \(h \to 0\), об’єм та бічна поверхня циліндра також прямують до нуля, а з ними й інтеграли по об′єму та по бічній поверхні. Відкидаючи ці інтеграли, отримаємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{29}\)</span>
+
+<!--
+
+                                                                                                                                 
+                                                                                                                    𝐄1 ⋅ 𝑑𝐒 +          𝐄2 ⋅ 𝑑𝐒 = 4𝜋𝑞Ω .
+                                                                                                               𝑆1                 𝑆2
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{S_1} \Efield _1\cdot d\vect {S} + \int \limits _{S_2} \Efield _2\cdot d\vect {S} = 4\pi q_{\Omega }.
+\end{equation*}
+
+</p>
+
+<p>
+Оскільки:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{29}\)</span>
+
+<!--
+
+                                                                                                                                                       
+                                                                                                      𝐄1 ⋅ 𝑑𝐒 = −        𝐄1 ⋅ 𝐧 𝑑𝑆,           𝐄2 ⋅ 𝑑𝐒 =       𝐄1 ⋅ 𝐧 𝑑𝑆,
+                                                                                                 𝑆1                  𝑆                  𝑆2                𝑆
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{S_1} \Efield _1\cdot d\vect {S} = - \int \limits _{S} \Efield _1\cdot \vect {n}\ dS, \quad \\ \int \limits _{S_2} \Efield _2\cdot d\vect {S} = \int \limits _{S} \Efield _1\cdot \vect {n}\ dS,
+\end{equation*}
+
+</p>
+
+<p>
+де враховано напрямки нормалей до \(\partial \Omega \) на \(S_1\) та \(S_2\), звідки:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{29}\)</span>
+
+<!--
+
+                                                                                                                                                   
+                                                                                                                   (𝐄2 − 𝐄1 ) ⋅ 𝐧 𝑑𝑆 = 4𝜋               𝜍𝑑𝑆.
+                                                                                                               𝑆                                    𝑆
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{S} (\Efield _2 - \Efield _1)\cdot \vect {n}\ dS = 4\pi \int \limits _S \sigma dS.
+\end{equation*}
+
+</p>
+
+<p>
+Завдяки довільності \(S\), дістаємо співвідношення в будь-якій точці поверхні розриву:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{29}\)</span>
+
+<!--
+
+
+                                                                              (𝐄2 − 𝐄1 ) ⋅ 𝐧 = 4𝜋𝜍,                                                                           (1.30)                           --><a id="eq:bc1"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:bc1} (\Efield _2 - \Efield _1)\cdot \vect {n} = 4\pi \sigma ,
+\end{equation}
+
+</p>
+
+<p>
+яке пов’язує нормальні до поверхні розриву складові напруженості електричного поля з обох боків розриву.
+</p>
+
+<figure id="autoid-7" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-5"
+    class="lateximagesource"
+><!--
+    𝐧
+
+𝐵
+            𝝉
+        𝐶
+𝐴           ℎ
+        𝐷
+--><img
+    src="Basics-images\image-5.svg"
+    alt="(-tikz-&nbsp;diagram)"
+    style=""
+    class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+
+Рис.&nbsp;1.5. До виведення другої граничної умови
+</div>
+
+<a id="tikz:bc2"></a>
+
+</div>
+
+</figure>
+
+<p>
+Щоб отримати зв’язок тангенціальних компонент E, звернемося до рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int III">1.20</a>)</span>. Розглянемо прямокутний контур, дві сторони \(BC\) і \(AD\)
+(рис.&nbsp;<a href="ClassicalElectrodynamics.html#tikz:bc2">1.5</a>) якого паралельні до поверхні розриву.
+</p>
+
+<p>
+З рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int III">1.20</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{30}\)</span>
+
+<!--
+
+                                                                                                                                            
+                                                                                                                                                                 1 𝜕𝐁
+                                                                                                    𝐄 ⋅ 𝑑𝐫 +        𝐄 ⋅ 𝑑𝐫 +        𝐄 ⋅ 𝑑𝐫 +        𝐄 ⋅ 𝑑𝐫 = −        ⋅ 𝑑𝐒.
+                                                                                                                                                                 𝑐 𝜕𝑡
+                                                                                              𝐴𝐵               𝐵𝐶              𝐶𝐷              𝐷𝐴
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{AB} \Efield \cdot d\vect {r} + \int \limits _{BC} \Efield \cdot d\vect {r} + \int \limits _{CD} \Efield \cdot d\vect {r} + \int \limits _{DA} \Efield \cdot d\vect {r} = -\frac 1c \frac {\partial
+\Bfield }{\partial t}\cdot d\vect {S}.
+\end{equation*}
+
+</p>
+
+<p>
+Інтеграл по \(S\) (за умови неперервності \(\frac {\partial \Bfield }{\partial t}\)) прямує до нуля при \(h\to 0\). Тому, враховуючи напрямок обходу контура, що визначає знак інтегралів по \(BC\) і \(AD\), можна записати:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{30}\)</span>
+
+<!--
+
+                                                                                                                        
+                                                                                                                            (𝐄2 − 𝐄1 ) ⋅ 𝝉𝑑ℓ = 0
+                                                                                                                       𝐵𝐶
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{BC} (\Efield _2 - \Efield _1)\cdot \vect {\tau } d\ell = 0
+\end{equation*}
+
+</p>
+
+<p>
+де \(\vect {\tau }\) — тангенціальний одиничний вектор вздовж \(BC\). Звідси, завдяки довільності вибору контура \(ABCD\),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{30}\)</span>
+
+<!--
+
+
+                                                                               (𝐄2 − 𝐄1 ) ⋅ 𝝉 = 0                                                                             (1.31)                          --><a id="eq:bc2"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:bc2} (\Efield _2 - \Efield _1)\cdot \vect {\tau } = 0
+\end{equation}
+
+</p>
+
+<p>
+Очевидно, це співвідношення справедливе, якщо \(\vect {\tau }\) — довільний тангенціальний до поверхні \(S\) одиничний вектор. Легко перевірити, розглядаючи&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#eq:bc2">1.31</a>)</span> для двох незалежних напрямків \(\vect {\tau }\) на поверхні \(S\), що еквівалентна формі граничних умов для тангенціальних складових може бути записана так:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{31}\)</span>
+
+<!--
+
+
+                                                                                                                         [𝐧 × (𝐄2 − 𝐄1 )] = 0
+
+-->
+
+<p>
+
+\begin{equation*}
+\left [ \vect {n}\times (\Efield _2 - \Efield _1)\right ] = 0
+\end{equation*}
+
+</p>
+
+<p>
+Таким чином, тангенціальна складова напруженості електричного поля не має розривy на \(S\).
+</p>
+
+<p>
+З рівняння Максвелла&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#Int II">1.18</a>)</span> отримуємо співвідношення для нормальних компонент індукції магнітного поля аналогічно&nbsp;<span
+class="textup">(<a href="ClassicalElectrodynamics.html#eq:bc1">1.30</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{31}\)</span>
+
+<!--
+
+
+                                                                                                                            (𝐁2 − 𝐁1 ) ⋅ 𝐧 = 0                                                                                       (1.32)
+
+-->
+
+<p>
+
+\begin{equation}
+(\Bfield _2 - \Bfield _1)\cdot \vect {n} = 0
+\end{equation}
+
+</p>
+
+<p>
+тобто нормальна компонента індукції магнітного поля не має розривів. Це є наслідком відсутності магнітних зарядів, в даному випадку, поверхневих.
+</p>
+
+<p>
+На відміну від цього, тангенціальна компонента \(\Bfield \) може мати розриви за наявності поверхневого струму з поверхневою густиною&nbsp;\(\vect {i}\).
+</p>
+
+<figure id="autoid-8" class="figure ">
+<div class="center">
+
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-6"
+    class="lateximagesource"
+><!--
+    𝐧
+
+𝐵           𝐛
+            𝝉
+    𝐢   𝐶
+𝐴           ℎ
+        𝐷
+--><img
+    src="Basics-images\image-6.svg"
+    alt="(-tikz-&nbsp;diagram)"
+    style=""
+    class="lateximage"
+></span>
+</p>
+
+
+<div class="figurecaption">
+
+Рис.&nbsp;1.6. До виведення другої граничної умови для \(\Bfield \)
+</div>
+
+<a id="tikz:bc2m"></a>
+
+</div>
+
+</figure>
+
+<p>
+Нехай \(\vect {n}\) — вектор нормалі до поверхні, проведений з \(1\) в \(2\), \(\vect {\tau }\) — тангенціальний одиничний вектор вздовж \(BC\), а \(\vect {b}\) — вектор, що перпендикулярний до \(\vect {\tau }\) та \(\vect {n}\) і
+утворює разом з ними праву трійку Запишемо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{32}\)</span>
+
+<!--
+
+
+                                                                                                                         𝐁 = 𝐵𝑛 𝐧 + 𝐵𝜏 𝝉 + 𝐵𝑏 𝐛,
+
+-->
+
+<p>
+
+\begin{equation*}
+\Bfield = B_n\vect {n} + B_{\tau }\vect {\tau } + B_b\vect {b},
+\end{equation*}
+
+</p>
+
+<p>
+де напрямок одиничного вектора \(\vect {b}\) відповідає напрямку \(\vect {i}\), напрямок одиничного вектора \(\vect {\tau }\) перпендикулярний до \(\vect {n}\) та \(\vect {b}\). З рівняння&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#Int IV">1.21</a>)</span> для контура \(ABCD\) при \(h \to 0\), враховуючи, що за цієї умови інтеграли по сторонам \(AB\) і \(CD\) прямують до нуля, маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{32}\)</span>
+
+<!--
+
+                                                                                                                                  
+                                                                                                                                                              4𝜋
+                                                                                                         𝐁 ⋅ 𝑑𝐫 +        𝐁 ⋅ 𝑑𝐫 =        (𝐁2 − 𝐁1 ) ⋅ 𝝉𝑑ℓ =      𝐼 ,
+                                                                                                                                                               𝑐 𝐵𝐶
+                                                                                                   𝐵𝐶               𝐷𝐴              𝐵𝐶
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \limits _{BC} \Bfield \cdot d\vect {r} + \int \limits _{DA} \Bfield \cdot d\vect {r} = \int \limits _{BC} (\Bfield _2 - \Bfield _1)\cdot \vect {\tau } d\ell = \frac {4\pi }c I_{BC},
+\end{equation*}
+
+</p>
+
+<p>
+де \(I_{BC} = \int \limits _{BC} \vect {i}\cdot \vect {b}\ d\ell \) — поверхневий струм через \(BC\). Звідси:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{32}\)</span>
+
+<!--
+
+                                                                                             4𝜋
+                                                                          (𝐁2 − 𝐁1 ) ⋅ 𝝉 =      𝐢 ⋅ 𝐛.                                                                    (1.33)                            --><a id="eq:bc2m"></a><!--
+                                                                                              𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:bc2m} (\Bfield _2 - \Bfield _1)\cdot \vect {\tau } = \frac {4\pi }c\ \vect {i}\cdot \vect {b}.
+\end{equation}
+
+</p>
+
+<p>
+Розглядаючи&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:bc2m">1.33</a>)</span> для двох незалежних напрямків \(\vect {\tau }\) можемо написати:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{33}\)</span>
+
+<!--
+
+                                                                                               4𝜋
+                                                                         [𝐧 × (𝐁2 − 𝐁1 )] =       𝐢.                                                                     (1.34)                            --><a id="eq:bc2m2"></a><!--
+                                                                                                𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:bc2m2} \left [ \vect {n}\times (\Bfield _2 - \Bfield _1)\right ] = \frac {4\pi }c\ \vect {i}.
+\end{equation}
+
+</p>
+<!--
+...... section Закони збереження ......
+-->
+<h4 id="autosec-37"><span class="sectionnumber">1.3&#x2003;</span>Закони збереження</h4>
+<a id="ClassicalElectrodynamics-autopage-37"></a>
+<!--
+...... subsection Збереження енергії електромагнітного поля ......
+-->
+<h5 id="autosec-38">Збереження енергії електромагнітного поля</h5>
+<a id="ClassicalElectrodynamics-autopage-38"></a>
+
+
+<p>
+В електромагнітному полі на заряди діє сила Лоренца&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Lorentz_force">1.2</a>)</span>. Потужність, що витрачає ця сила, є:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{34}\)</span>
+
+<!--
+
+
+                                                                                                                             𝐅 ⋅ 𝐯 = 𝑞𝐄 ⋅ 𝐯.
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {F}\cdot \vect {v} = q\Efield \cdot \vect {v}.
+\end{equation*}
+
+</p>
+
+<p>
+Якщо концентрація зарядів є \(n\), маємо \(\vect {j} = qn\vect {v}\); тоді потужність, що витрачає електричне поле в одиничному об’ємі, є:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{34}\)</span>
+
+<!--
+
+
+                                                                                                                              𝑑𝐴
+                                                                                                                                 = 𝐣 ⋅ 𝐄.                                                                                            (1.35)
+                                                                                                                              𝑑𝑡
+
+-->
+
+<p>
+
+\begin{equation}
+\frac {dA}{dt} = \vect {j}\cdot \Efield .
+\end{equation}
+
+</p>
+
+<p>
+Легко перевірити, що ця формула зберігається у разі загального розподілу різних зарядів за швидкостями.
+</p>
+
+<p>
+З рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M4D">1.29</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{35}\)</span>
+
+<!--
+
+
+                                                                                                                              𝑐         1 𝜕𝐄
+                                                                                                                        𝐣=      rot 𝐁 −      .
+                                                                                                                             4𝜋         𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {j} = \frac {c}{4\pi } \Rot \Bfield - \frac 1c \parttime {\Efield }.
+\end{equation*}
+
+</p>
+
+<p>
+звідси, за формулами векторного аналізу:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{1.}{35}\)</span>
+
+
+<!--
+
+
+
+           𝑐              1    𝜕𝐄
+  𝐣⋅𝐄=       𝐄 ⋅ rot 𝐁 −    𝐄⋅    =
+          4𝜋             4𝜋    𝜕𝑡
+                                                                                                                                                                                                    𝑐             𝑐             𝜕   1 2
+                                                                                                                                                                                       = − div (      [𝐄 × 𝐁]) +    𝐁 ⋅ rot 𝐄 −   (   𝐄 )
+                                                                                                                                                                                                   4𝜋            4𝜋             𝜕𝑡 8𝜋
+
+
+-->
+
+
+<p>
+
+\begin{multline*}
+\vect {j}\cdot \Efield = \frac {c}{4\pi }\Efield \cdot \Rot \Bfield - \frac 1{4\pi }\Efield \cdot \frac {\partial \Efield }{\partial t} = \\ = - \Div \left (\frac {c}{4\pi }[\Efield \times \Bfield ]\right ) +
+\frac {c}{4\pi } \Bfield \cdot \Rot \Efield - \parttime {} \left ( \frac 1{8\pi }\Efield ^2\right )
+\end{multline*}
+
+</p>
+
+<p>
+В силу рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M3D">1.28</a>)</span>:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{1.}{35}\)</span>
+
+
+<!--
+
+
+
+                     𝑐             1    𝜕𝐁   𝜕   1 2
+  𝐣 ⋅ 𝐄 = − div (      [𝐄 × 𝐁]) −    𝐁⋅    −   (   𝐄 )=
+                    4𝜋            4𝜋    𝜕𝑡   𝜕𝑡 8𝜋
+                                                                                                                                                                                                         𝑐            𝜕   1 2    1 2
+                                                                                                                                                                                            = − div (      [𝐄 × 𝐁]) −   (   𝐄 +    𝐁 )
+                                                                                                                                                                                                        4𝜋            𝜕𝑡 8𝜋     8𝜋
+
+
+-->
+
+
+<p>
+
+\begin{multline*}
+\vect {j}\cdot \vect {E} = - \Div \left (\frac {c}{4\pi }[\Efield \times \Bfield ]\right ) - \frac {1}{4\pi } \Bfield \cdot \parttime {\Bfield } - \parttime {} \left ( \frac 1{8\pi }\Efield ^2\right ) = \\ = -
+\Div \left (\frac {c}{4\pi }[\Efield \times \Bfield ]\right ) - \parttime {} \left ( \frac 1{8\pi }\Efield ^2 + \frac 1{8\pi }\Bfield ^2 \right )
+\end{multline*}
+
+</p>
+
+<p>
+Звідси отримуємо важливе співвідношення:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{35}\)</span>
+
+<!--
+
+
+                                                                                             𝜕 𝐄2 + 𝐁2
+                                                                        𝐣 ⋅ 𝐄 + div 𝚷 +                = 0,                                           (1.36)                                --><a id="eq:energy_balance"></a><!--
+                                                                                             𝜕𝑡  8𝜋
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:energy_balance} \vect {j}\cdot \vect {E} + \Div \vect {\Pi } + \parttime {} \frac {\Efield ^2 + \Bfield ^2}{8\pi } = 0,
+\end{equation}
+
+</p>
+
+<p>
+де величину:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{36}\)</span>
+
+<!--
+
+                                                                                                                                    𝑐
+                                                                                                                         𝚷=           [𝐄 × 𝐁]                                                                                        (1.37)
+                                                                                                                                   4𝜋
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {\Pi } = \frac {c}{4\pi }[\Efield \times \Bfield ]
+\end{equation}
+
+</p>
+
+<p>
+називають вектором Пойнтінга; як буде видно далі, він має зміст густини потоку енергії.
+</p>
+
+<p>
+Співвідношення&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:energy_balance">1.36</a>)</span> виражає енергетичний баланс в одиниці об’єму. Проінтегруємо його по деякій області \(\Omega \),
+перетворюючи інтеграл з дивергентним членом в інтеграл по (замкненій) поверхні \(\partial \Omega \), що оточує \(\Omega \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{37}\)</span>
+
+<!--
+
+                                                                                                 
+                                                                                             𝜕        𝐄2 + 𝐁2 3
+                                                              𝐣 ⋅ 𝐄 𝑑3 𝐫 +        𝚷 ⋅ 𝑑𝐒 +                   𝑑 𝐫 = 0.                            (1.38)                                --><a id="eq:energy_balance_int"></a><!--
+                                                                                             𝜕𝑡         8𝜋
+                                                      Ω                      𝜕Ω                   Ω
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:energy_balance_int} \int \limits _{\Omega } \vect {j}\cdot \vect {E} \ d^3\vect {r} + \oint \limits _{\partial \Omega } \vect {\Pi }\cdot d\vect {S} + \parttime {} \int \limits _{\Omega } \frac
+{\Efield ^2 + \Bfield ^2}{8\pi } \ d^3\vect {r} = 0.
+\end{equation}
+
+</p>
+
+<p>
+Перший в доданок в&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:energy_balance_int">1.38</a>)</span> — це робота, яку виконує поле за одиницю часу в об’ємі \(\Omega \), другий — потік енергії через
+поверхню \(\partial \Omega \), останній доданок — швидкість зміни енергії електромагнітного поля в об’ємі Ω. Величина:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{38}\)</span>
+
+<!--
+
+                                                                                                                               
+                                                                                                                                   𝐄2 + 𝐁2 3
+                                                                                                                        𝑊=                𝑑 𝐫                                                                                        (1.39)
+                                                                                                                                     8𝜋
+                                                                                                                               Ω
+
+-->
+
+<p>
+
+\begin{equation}
+W = \int \limits _{\Omega } \frac {\Efield ^2 + \Bfield ^2}{8\pi } \ d^3\vect {r}
+\end{equation}
+
+</p>
+
+<p>
+являє собою енергію поля в області \(\Omega \),а підінтегральний вираз – це густина енергії електромагнітного поля.
+</p>
+<!--
+...... subsection Закон збереження імпульсу ......
+-->
+<h5 id="autosec-39">Закон збереження імпульсу</h5>
+<a id="ClassicalElectrodynamics-autopage-39"></a>
+
+
+<p>
+Імпульс, що передає поле зарядам в одиниці об‘єму, визначається силою Лоренца&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Lorentz_force">1.2</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+<!--
+
+                                                                                                                                 1
+                                                                                                                      𝐟 = 𝜌𝐄 +     [𝐣 × 𝐁] .
+                                                                                                                                 𝑐
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {f} = \rho \Efield + \frac 1c\left [\vect {j}\times \Bfield \right ].
+\end{equation*}
+
+</p>
+
+<p>
+З рівняння Максвелла&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M1D">1.26</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+<!--
+
+                                                                                                                                1
+                                                                                                                       𝜌𝐄 =       𝐄 div 𝐄,
+                                                                                                                               4𝜋
+
+-->
+
+<p>
+
+\begin{equation*}
+\rho \Efield = \frac 1{4\pi }\Efield \Div \Efield ,
+\end{equation*}
+
+</p>
+
+<p>
+або для \(k\)-ої компоненти:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+<!--
+
+
+                                                                                                          4𝜋𝜌𝐸𝑘 = 𝐸𝑘 𝜕𝑖 𝐸𝑖 = 𝜕𝑖 (𝐸𝑖 𝐸𝑘 ) − 𝐸𝑖 𝜕𝑖 𝐸𝑘 .
+
+-->
+
+<p>
+
+\begin{equation*}
+4\pi \rho E_k = E_k\partial _iE_i = \partial _i(E_iE_k) - E_i \partial _iE_k.
+\end{equation*}
+
+</p>
+
+<p>
+Запишемо рівняння&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M3D">1.28</a>)</span> \(\Rot \Efield = - \frac 1c \parttime \Bfield \) покомпонентно:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+<!--
+
+
+                                                                                                                                               1 𝜕𝐵𝑖
+                                                                                                              (rot 𝐄)𝑖 = 𝜀𝑖𝑗𝑘 𝜕𝑗 𝐸𝑘 = −              ,
+                                                                                                                                               𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+(\Rot \Efield )_i = \epsilon _{ijk}\partial _j E_k = - \frac 1c \parttime {B_i},
+\end{equation*}
+
+</p>
+
+<p>
+помножимо його на \(\epsilon _{pqi}\) ε та підсумуємо по \(i\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+<!--
+
+
+                                                                                                                                              1 𝜕𝐵𝑖
+                                                                                                                𝜀𝑝𝑞𝑖 𝜀𝑖𝑗𝑘 𝜕𝑗 𝐸𝑘 = −𝜀𝑝𝑞𝑖             ,
+                                                                                                                                              𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\epsilon _{pqi}\epsilon _{ijk}\partial _j E_k = - \epsilon _{pqi} \frac 1c \parttime {B_i},
+\end{equation*}
+
+</p>
+
+<p>
+або, за допомогою формули згортки:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+<!--
+
+
+                                                                                                                                              1 𝜕𝐵𝑖
+                                                                                                                𝜕𝑝 𝐸𝑞 − 𝜕𝑞 𝐸𝑝 = −𝜀𝑝𝑞𝑖               .
+                                                                                                                                              𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\partial _pE_q - \partial _qE_p = - \epsilon _{pqi} \frac 1c \parttime {B_i}.
+\end{equation*}
+
+</p>
+
+<p>
+Враховуючи це співвідношення, дістанемо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+
+<!--
+
+
+
+                                     1      𝜕𝐵𝑗
+  4𝜋𝜌𝐸𝑘 = 𝜕𝑖 (𝐸𝑖 𝐸𝑘 ) − 𝐸𝑖 𝜕𝑘 𝐸𝑖 −     𝜀 𝐸      =
+                                     𝑐 𝑘𝑖𝑗 𝑖 𝜕𝑡
+                                                                                                                                                                                                              1 2        1     𝜕𝐁
+                                                                                                                                                                                              = 𝜕𝑖 (𝐸𝑘 𝐸𝑖 −     𝐄 𝛿𝑖𝑘 ) − [𝐄 ×    ] .
+                                                                                                                                                                                                              2          𝑐     𝜕𝑡 𝑘
+
+
+-->
+
+
+<p>
+
+\begin{multline*}
+4\pi \rho E_k = \partial _i(E_iE_k) - E_i \partial _kE_i - \frac 1c \epsilon _{kij} E_i \parttime {B_j} = \\ = \partial _i\left ( E_kE_i - \frac 12 \Efield ^2\delta _{ik}\right ) - \frac 1c \left [ \Efield
+\times \parttime {\Bfield }\right ]_k .
+\end{multline*}
+
+</p>
+
+<p>
+З останнього рівняння Максвелла<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:M4D">1.29</a>)</span> \(\vect {j} = \frac {c}{4\pi } \Rot \Bfield - \frac 1c \parttime {\Efield }\), тоді:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+
+<!--
+
+
+
+   1                        1        𝑐          1 𝜕𝐸𝑖
+     [𝐣 × 𝐁]𝑘 = 𝜀𝑘𝑖𝑗 𝑗𝑖 𝐵𝑗 = 𝜀𝑘𝑖𝑗 [    𝜀 𝜕 𝐵 −        ] 𝐵𝑗 =
+   𝑐                        𝑐       4𝜋 𝑖𝑝𝑞 𝑝 𝑞 4𝜋 𝜕𝑡
+                                                                                                      1                              1     𝜕𝐸𝑖
+                                                                                                 =      (𝛿 𝛿 − 𝛿𝑘𝑝 𝛿𝑗𝑞 ) 𝐵𝑗 𝜕𝑝 𝐵𝑞 −    𝜀       𝐵 =
+                                                                                                     4𝜋 𝑘𝑞 𝑗𝑝                       4𝜋𝑐 𝑘𝑖𝑗 𝜕𝑡 𝑗
+                                                                                                                                                                                            1                        1   𝜕𝐄
+                                                                                                                                                                                       =      (𝐵 𝜕 𝐵 − 𝐵𝑗 𝜕𝑘 𝐵𝑗 ) −    [    × 𝐁] .
+                                                                                                                                                                                           4𝜋 𝑗 𝑗 𝑘                 4𝜋𝑐 𝜕𝑡      𝑘
+
+
+
+-->
+
+
+<p>
+
+\begin{multline*}
+\frac 1c \left [ \vect {j}\times \Bfield \right ]_k = \epsilon _{kij} j_i B_j = \frac 1c \epsilon _{kij} \left [ \frac {c}{4\pi }\epsilon _{ipq}\partial _p B_q - \frac 1{4\pi }\parttime {E_i} \right ] B_j = \\
+= \frac 1{4\pi } \left ( \delta _{kq}\delta _{jp} - \delta _{kp}\delta _{jq} \right ) B_j\partial _p B_q - \frac 1{4\pi c} \epsilon _{kij}\parttime {E_i} B_j = \\ = \frac 1{4\pi } \left ( B_j \partial _j B_k -
+B_j \partial _k B_j \right ) - \frac 1{4\pi c} \left [ \parttime {\Efield }\times \Bfield \right ]_k.
+\end{multline*}
+
+</p>
+
+<p>
+Це можна подати як:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+<!--
+
+
+                                                                                                 4𝜋                            𝐁2     1   𝜕𝐄
+                                                                                                    [𝐣 × 𝐁]𝑘 = 𝜕𝑗 (𝐵𝑘 𝐵𝑗 − 𝛿𝑖𝑗    )−    [    × 𝐁] .
+                                                                                                  𝑐                            2     4𝜋𝑐 𝜕𝑡      𝑘
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {4\pi }{c} \left [ \vect {j}\times \Bfield \right ]_k = \partial _j \left ( B_kB_j - \delta _{ij} \frac {\Bfield ^2}{2}\right ) - \frac 1{4\pi c} \left [ \parttime {\Efield }\times \Bfield \right ]_k.
+\end{equation*}
+
+</p>
+
+<p>
+Маємо результат для балансу імпульсу в одиниці об’єму:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{39}\)</span>
+
+<!--
+
+
+                                                                                                                              𝜕𝜋𝑘                   𝚷
+                                                                                                              𝑓𝑘 + 𝑇𝑘𝑗,𝑗 +        = 0,         𝝅=      ,                                                                          (1.40)
+                                                                                                                               𝜕𝑡                   𝑐2
+
+-->
+
+<p>
+
+\begin{equation}
+f_k + T_{kj, j} + \parttime {\pi _k} = 0, \quad \vect {\pi } = \frac {\vect {\Pi }}{c^2},
+\end{equation}
+
+</p>
+
+<p>
+де
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{40}\)</span>
+
+<!--
+
+                                                                                                               1                   1
+                                                                                                      𝑇𝑘𝑗 =      (𝐸 𝐸 + 𝐵𝑘 𝐵𝑗 ) −    𝛿 (𝐄2 + 𝐁2 )
+                                                                                                              4𝜋 𝑘 𝑗              8𝜋 𝑘𝑗
+
+-->
+
+<p>
+
+\begin{equation*}
+T_{kj} = \frac 1{4\pi } (E_kE_j + B_kB_j) - \frac 1{8\pi }\delta _{kj}(\Efield ^2 + \Bfield ^2)
+\end{equation*}
+
+</p>
+
+<p>
+максвеллівський тензор натягу.
+</p>
+
+<p>
+Інтегральне співвідношення:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{40}\)</span>
+
+<!--
+
+                                                                                                                                             
+                                                                                                                                         𝜕
+                                                                                                          𝑓𝑘 𝑑3 𝐫 +        𝑇𝑘𝑗 𝑛𝑗 𝑑𝑆 +            𝜋𝑘 𝑑 3 𝐫 = 0                                                                    (1.41)
+                                                                                                                                         𝜕𝑡
+                                                                                                      Ω               𝜕Ω                      Ω
+
+-->
+
+<p>
+
+\begin{equation}
+\int \limits _{\Omega } f_k \ d^3\vect {r} + \oint \limits _{\partial \Omega } T_{kj} n_j dS + \parttime {} \int \limits _{\Omega } \pi _k \ d^3\vect {r} = 0
+\end{equation}
+
+</p>
+
+<p>
+пов’язує зміну імпульсу в об’ємі \(\Omega \) з дією зовнішніх зовнішніх сил та потоком через бічну поверхню; тут \(\pi _k\) — імпульс поля в одиниці об’єму.
+</p>
+<!--
+...... subsection Закон збереження моменту імпульсу ......
+-->
+<h5 id="autosec-40">Закон збереження моменту імпульсу</h5>
+<a id="ClassicalElectrodynamics-autopage-40"></a>
+
+
+<p>
+Виходимо з рівнянь:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{41}\)</span>
+
+<!--
+
+
+                                                                                                       𝑑𝐋
+                                                                                                          = 𝐌,        𝐌 = [𝐫 × 𝐟] .
+                                                                                                       𝑑𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {d\vect {L}}{dt} = \vect {M},\quad \vect {M} = \left [\vect {r}\times \vect {f} \right ].
+\end{equation*}
+
+</p>
+
+<p>
+Момент сили, що діє на заряди в одиниці об’єму, є, за означенням,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{41}\)</span>
+
+<!--
+
+
+                                                                                                              𝑀𝑘 = 𝜀𝑘𝑖𝑗 𝑥𝑖 𝑓𝑗 .
+
+-->
+
+<p>
+
+\begin{equation*}
+M_k = \epsilon _{kij}x_if_j.
+\end{equation*}
+
+</p>
+
+<p>
+Використовуючи співвідношення, отримані для баланса імпульсу, маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{41}\)</span>
+
+<!--
+
+
+                                                                                                                     𝜕𝐿𝑖
+                                                                                     𝜀𝑖𝑗𝑘 𝑥𝑗 𝑓𝑘 + 𝜀𝑖𝑗𝑘 𝑥𝑗 𝑇𝑘𝑗,𝑗 +        = 0,      де 𝐿𝑖 = 𝜀𝑖𝑗𝑘 𝑥𝑖 𝜋𝑘
+                                                                                                                     𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\epsilon _{ijk}x_jf_k + \epsilon _{ijk}x_j T_{kj,j} + \parttime {L_i} = 0, \quad \text {де}\ L_i = \epsilon _{ijk}x_i\pi _k
+\end{equation*}
+
+</p>
+
+<p>
+можна інтерпретувати як густину момента імпульсу поля.
+</p>
+
+<p>
+Завдяки симетрії \(T_{kl}\) по індексах:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{41}\)</span>
+
+<!--
+
+
+                                                                                   𝜀𝑖𝑗𝑘 𝑥𝑗 𝑇𝑘𝑙,𝑙 = 𝜕𝑙 (𝜀𝑖𝑗𝑘 𝑥𝑗 𝑇𝑘𝑙 ) − 𝜀𝑖𝑗𝑘 𝛿𝑙𝑗 𝑇𝑘𝑙 = 𝜕𝑙 (𝜀𝑖𝑗𝑘 𝑥𝑗 𝑇𝑘𝑙 ).
+
+-->
+
+<p>
+
+\begin{equation*}
+\epsilon _{ijk} x_j T_{kl, l} = \partial _l( \epsilon _{ijk} x_jT_{kl}) - \epsilon _{ijk}\delta _{lj}T_{kl} = \partial _l ( \epsilon _{ijk} x_j T_{kl}).
+\end{equation*}
+
+</p>
+
+<p>
+Звідси дістаємо локальне співвідношення для зміни моменту імпульсу:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{41}\)</span>
+
+<!--
+
+
+                                                                                                                              𝜕𝐿𝑖
+                                                                                                  𝑀𝑖 + 𝜕𝑙 (𝜀𝑖𝑗𝑘 𝑥𝑗 𝑇𝑘𝑙 ) +        = 0.                                           (1.42)
+                                                                                                                              𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation}
+M_i + \partial _l( \epsilon _{ijk} x_jT_{kl}) + \parttime {L_i} = 0.
+\end{equation}
+
+</p>
+
+<p>
+Рівняння баланс моменту імпульсу в об’ємі Ω має вид:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{1.}{42}\)</span>
+
+<!--
+
+                                                                                                                                      
+                                                                                                                                  𝜕
+                                                                                           𝑀𝑖 𝑑3 𝐫 +        𝜀𝑖𝑗𝑘 𝑥𝑗 𝑇𝑘𝑙 𝑛𝑙 𝑑𝑆 +            𝐿𝑖 𝑑3 𝐫 = 0.                          (1.43)
+                                                                                                                                  𝜕𝑡
+                                                                                       Ω               𝜕Ω                              Ω
+
+-->
+
+<p>
+
+\begin{equation}
+\int \limits _{\Omega } M_i \ d^3\vect {r} + \oint \limits _{\partial \Omega } \epsilon _{ijk} x_jT_{kl} n_l dS + \parttime {} \int \limits _{\Omega } L_i \ d^3\vect {r} = 0.
+\end{equation}
+
+</p>
+<!--
+...... section Межі застосовності класичної електродинаміки ......
+-->
+<h4 id="autosec-41"><span class="sectionnumber">1.4&#x2003;</span>Межі застосовності класичної електродинаміки</h4>
+<a id="ClassicalElectrodynamics-autopage-41"></a>
+<!--
+...... subsection Квантова механіка і електродинаміка ......
+-->
+<h5 id="autosec-42">Квантова механіка і електродинаміка</h5>
+<a id="ClassicalElectrodynamics-autopage-42"></a>
+
+
+<p>
+На сучасному рівні знань найбільш фундаментальним є квантовий розгляд фізичних процесів, який і визначає межі застосовності класичної теорії. Електродинамічна система складається з заряджених частинок та електромагнітного поля; тут
+необхідно визначити, яка з цих складових (або уся система в цілому) допускає класичний опис. Широке коло фізичних задач потребує квантового опису руху частинок в класичному електромагнітному полі. Основні зміни, у порівнянні з класичною
+механікою, тут стосуються рівнянь&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Columb_low">1.1</a>)</span>,&nbsp;<span class="textup">(<a
+href="ClassicalElectrodynamics.html#eq:Lorentz_force">1.2</a>)</span> та інших, пов’язаних із поняттями траєкторії, сили, другим законом Ньютона, тощо. Перегляд цих понять у дослідженнях атомів та молекул — прерогатива квантової
+механіки, яка аналізує мікрооб’єкти з розмірами \(10^{-13} \div 10^{-16}\)&nbsp;см. Однак деякі мікропроцеси відзначають властивості твердих тіл і рідин також на макроскопічних масштабах. Хоча рух заряджених частинок в цих задачах
+визначається законами квантової механіки, досить часто залишаються незмінними класичні поняття про напруженість електричного поля та магнітну індукцію; наприклад, в рівнянні Шредінгера для електрона в атомі водню фігурує класичний
+кулонівський потенціал поля ядра. Звичайно, що для визначення цих полів ми не завжди можемо прямо скористатися формулою&nbsp;<span class="textup">(<a href="ClassicalElectrodynamics.html#eq:Lorentz_force">1.2</a>)</span>,
+що пов’язана з механікою точкової частинки. Але зберігається класичний опис електромагнітного поля.
+</p>
+<!--
+...... subsection Квантова будова випромінювання ......
+-->
+<h5 id="autosec-43">Квантова будова випромінювання</h5>
+<a id="ClassicalElectrodynamics-autopage-43"></a>
+
+
+<p>
+За певних умов треба враховувати квантові властивості самого електромагнітного поля. Вивчення рівноважного електромагнітного випромінювання, а також фотоелектричних явищ (М.&nbsp;Планк, 1900; А.&nbsp;Ейнштейн,1905) привело до
+висновку, що електромагнітне випромінювання має корпускулярні властивості і може розглядатися як сукупність окремих квантів-фотонів, з енергією \(Е=h\nu \), де \(h\) — стала Планка, \(\nu \) — частота випромінювання. Коли фотонів
+багато, можливий класичний опис поля випромінювання. Але в слабких пучках випромінювання рахунок йде на окремі фотони і сучасна техніка дозволяє майже поодиночну їх реєстрацію. Теоретичну базу для опису процесів, в яких суттєвими є
+квантові властивості і речовини, і електромагнітного поля, дає квантова електродинаміка, яка є складовою частиною квантової теорії поля. Квантова електродинаміка передбачає суттєві зміни характеру електродинамічної взаємодії також в
+області дуже сильних полів. В електричному полі з напруженістю \(E \sim \frac {m_e^2 c^3}{he} = 10^{20}\)&nbsp;В/м необхідно враховувати процеси народження та знищення електрон–позитронних пар. В цих умовах електромагнітне поле
+не може розглядатися окремо від електрон– позитронного поля, навіть при поширенні електромагнітної хвилі в вакуумі. Складна взаємодія цих полів робить нелінійними ефективні рівняння для класичних величин \(E\) та \(B\); завдяки цьому
+стає можливим процес розсіювання фотона фотоном. В цьому розумінні можна говорити про порушення класичного принципу суперпозиції.
+</p>
+<!--
+...... subsection Електродинаміка і гравітація ......
+-->
+<h5 id="autosec-44">Електродинаміка і гравітація</h5>
+<a id="ClassicalElectrodynamics-autopage-44"></a>
+
+
+<p>
+Взаємодію гравітаційного та електромагнітного полів розглядає загальна теорія відносності. Сильне гравітаційне поле не міняє класичний характер електричного та магнітного полів, але вносить корективи в рівняння електродинаміки на фоні
+викривлення простору-часу. Вплив гравітаційних ефектів можна оцінити за допомогою параметра \(\mu = |U|/c^2\), де \(U\) — порядок зміни ньютонівського гравітаційного потенціалу в конкретній задачі. Наприклад, при проходженні
+променів світла біля Сонця \(\mu = 10^{-6}\), відповідний порядок величини має кут зміщення віддаленого джерела променів, що його спостерігають з Землі. Гравітаційно-релятивістські ефекти в Сонячній системі необхідно враховувати для
+правильної інтерпретації найбільш точних астрометричних спостережень.
+</p>
+<!--
+...... section Задачі ......
+-->
+<h4 id="autosec-45">Задачі</h4>
+<a id="ClassicalElectrodynamics-autopage-45"></a>
+
+
+
+<div
+   class="tcolorbox"
+   style=" border: 1px solid #00FFFF; background: #F2F2F2; "
+>
+
+
+<div
+   class="tcolorboxupper"
+   style=" color: #000000; "
+>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-9"></a>
+<p>
+<a id="LWR-ht-problem:i.{2}"></a><a id="totalproblems^::LWR-ht-problem:i.{2}"></a>
+</p>
+<li>
+<p>
+<span class="listmarker"><span style="width:3.76953pt; display:inline-block"><!----></span>1.2.</span> <a id="autoid-10" ></a >Всередині кулі радіуса \(R\) густина заряду стала і дорівнює \(\rho \); зовні зарядів немає. Знайти
+модуль напруженості зовні та усередині кулі.
+</p>
+
+<p>
+<i>Відповідь:</i>
+</p>
+
+<p>
+\[ E = 4\pi \rho R^3/(3r^2), \quad r &gt; R; \qquad E = 4\pi \rho r/3, \quad r &lt; R. \]
+</p>
+
+<p>
+
+
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+   class="tcolorbox"
+   style=" border: 1px solid #00FFFF; background: #F2F2F2; "
+>
+
+
+<div
+   class="tcolorboxupper"
+   style=" color: #000000; "
+>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-11"></a>
+<p>
+<a id="LWR-ht-problem:i.{3}"></a><a id="totalproblems^::LWR-ht-problem:i.{3}"></a>
+</p>
+<li>
+<p>
+<span class="listmarker"><span style="width:3.76953pt; display:inline-block"><!----></span>1.3.</span> <a id="autoid-12" ></a >Всередині нескінченного циліндру радіуса \(R\) густина заряду стала і дорівнює \(\rho \); зовні
+зарядів немає. Знайти модуль напруженості електричного поля на відстані \(r&apos;\) від осі циліндра.
+</p>
+
+<p>
+<i>Відповідь:</i>
+</p>
+
+<p>
+\[ E = 2\pi \rho R^2/r&apos;, \quad r &gt; R; \qquad E = 2\pi \rho r&apos;, \quad r &lt; R. \]
+</p>
+
+<p>
+
+
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+   class="tcolorbox"
+   style=" border: 1px solid #00FFFF; background: #F2F2F2; "
+>
+
+
+<div
+   class="tcolorboxupper"
+   style=" color: #000000; "
+>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-13"></a>
+<p>
+<a id="LWR-ht-problem:i.{4}"></a><a id="totalproblems^::LWR-ht-problem:i.{4}"></a>
+</p>
+<li>
+<p>
+<span class="listmarker"><span style="width:3.76953pt; display:inline-block"><!----></span>1.4.</span> <a id="autoid-14" ></a >Поверхнева густина заряду на нескінченній площині стала і дорівнює \(\sigma \). Знайти модуль
+напруженості електричного поля.
+</p>
+
+<p>
+<i>Відповідь:</i>
+</p>
+
+<p>
+\[ E = 2\pi \sigma . \]
+</p>
+
+<p>
+
+
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+   class="tcolorbox"
+   style=" border: 1px solid #00FFFF; background: #F2F2F2; "
+>
+
+
+<div
+   class="tcolorboxupper"
+   style=" color: #000000; "
+>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-15"></a>
+<p>
+<a id="LWR-ht-problem:i.{5}"></a><a id="totalproblems^::LWR-ht-problem:i.{5}"></a>
+</p>
+<li>
+<p>
+<span class="listmarker"><span style="width:3.76953pt; display:inline-block"><!----></span>1.5.</span> <a id="autoid-16" ></a >На площині \(z=0\) декартових координат розподіл струму однорідний з поверхневою густиною
+</p>
+
+<p>
+\[ \vect i = i_0(1,0,0). \]
+</p>
+
+<p>
+Знайти індукцію магнітного поля при \(z&gt;0\) (гаусова система одиниць).
+</p>
+
+<p>
+<i>Відповідь:</i>
+</p>
+
+<p>
+\[ \Bfield = -2\pi i_0 c^{-1}(1,0,0). \]
+</p>
+
+<p>
+
+
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+
+<div
+   class="tcolorbox"
+   style=" border: 1px solid #00FFFF; background: #F2F2F2; "
+>
+
+
+<div
+   class="tcolorboxupper"
+   style=" color: #000000; "
+>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-17"></a>
+<p>
+<a id="LWR-ht-problem:i.{6}"></a><a id="totalproblems^::LWR-ht-problem:i.{6}"></a>
+</p>
+<li>
+<p>
+<span class="listmarker"><span style="width:3.76953pt; display:inline-block"><!----></span>1.6.</span> <a id="autoid-18" ></a >Вздовж нескінченного циліндру радіуса \(R\) тече струм з густиною
+</p>
+
+<p>
+\[ \vect j = j \vect n = \text {const}, \]
+</p>
+
+<p>
+де одиничний вектор \(\vect n\) напрямлений вздовж осі циліндра. Зовні струмів немає. Знайти індукцію магнітного поля на відстані \(r&apos;\) від осі циліндра.
+</p>
+
+<p>
+<i>Відповідь:</i>
+</p>
+
+<p>
+\[ \Bfield = 2\pi j c^{-1} [\vect n \times \vect {r&apos;}], \quad r &lt; R, \]
+</p>
+
+<p>
+\[ \Bfield = 2\pi j R^2 c^{-1} [\vect n \times \vect {r&apos;}] r^{-3}, \quad r &gt; R, \]
+</p>
+
+<p>
+де \(\vect {r&apos;}\) — вектор, перпендикулярний осі циліндра і напрямлений від осі до точки спостереження.
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+<a id="ClassicalElectrodynamics-autofile-last"></a><a id="totalproblems^::ClassicalElectrodynamics-autofile-last"></a>
+</section>
+
+</main>
+
+</div><!-- grid -->
+</body>
+</html>

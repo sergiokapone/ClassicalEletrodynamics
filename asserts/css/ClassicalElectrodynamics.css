@@ -1,0 +1,341 @@
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --navy:    #0d1b2e;
+  --navy2:   #152238;
+  --gold:    #c8a84b;
+  --gold2:   #e6c96e;
+  --cream:   #f7f2e8;
+  --cream2:  #ede8db;
+  --ink:     #1e1e2e;
+  --ink2:    #2f3050;
+  --muted:   #6b7080;
+  --accent:  #3a7abf;
+  --prob-bg: #fdf8ef;
+  --prob-border: #c8a84b;
+  --radius:  6px;
+}
+
+html {
+  font-size: 18px;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--navy);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, serif;
+  line-height: 1.8;
+  min-height: 100vh;
+  /* subtle field-line background */
+  background-image:
+    repeating-linear-gradient(
+      115deg,
+      transparent 0px,
+      transparent 60px,
+      rgba(200,168,75,0.025) 60px,
+      rgba(200,168,75,0.025) 61px
+    ),
+    radial-gradient(ellipse at 15% 50%, rgba(58,122,191,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(200,168,75,0.06) 0%, transparent 45%);
+}
+
+/* ── Layout Grid ── */
+.homepagegrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  min-height: 100vh;
+}
+
+main.bodycontainer {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 0 0 80px 0;
+  width: 100%;
+}
+
+section.textbody {
+  background: var(--cream);
+  padding: 60px 72px 80px;
+  border-left: 1px solid rgba(200,168,75,0.2);
+  border-right: 1px solid rgba(200,168,75,0.2);
+  box-shadow:
+    0 0 80px rgba(0,0,0,0.5),
+    inset 0 0 0 1px rgba(255,255,255,0.05);
+  position: relative;
+}
+
+/* Top decorative bar */
+section.textbody::before {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold2) 50%, var(--gold) 80%, transparent);
+  position: absolute;
+  top: 0; left: 0;
+}
+
+/* ── Typography ── */
+h2, h3, h4, h5, h6 {
+  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
+  color: var(--navy2);
+  line-height: 1.3;
+  margin-top: 2.4em;
+  margin-bottom: 0.7em;
+  font-weight: 600;
+}
+
+/* Part heading */
+h2 {
+  font-size: 2.1rem;
+  font-weight: 700;
+  color: var(--navy);
+  letter-spacing: 0.03em;
+  text-align: center;
+  padding: 1.2em 0 0.6em;
+  border-bottom: 2px solid var(--gold);
+  margin-bottom: 1.5em;
+  margin-top: 1em;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 1.1rem;
+  position: relative;
+}
+h2::after {
+  content: '⚡';
+  display: block;
+  font-size: 1.8rem;
+  margin-top: 0.3em;
+  color: var(--gold);
+  letter-spacing: 0;
+}
+
+/* Chapter */
+h3 {
+  font-size: 2.2rem;
+  color: var(--navy);
+  border-left: 5px solid var(--gold);
+  padding-left: 0.6em;
+  margin-top: 2em;
+}
+
+/* Section */
+h4 {
+  font-size: 1.55rem;
+  color: var(--navy2);
+  padding-bottom: 0.25em;
+  border-bottom: 1px solid var(--cream2);
+  position: relative;
+}
+h4::before {
+  content: '';
+  position: absolute;
+  bottom: -1px; left: 0;
+  width: 60px; height: 2px;
+  background: var(--gold);
+}
+
+/* Subsection */
+h5 {
+  font-size: 1.25rem;
+  color: var(--ink2);
+  font-style: italic;
+  font-weight: 600;
+  margin-top: 1.8em;
+  margin-bottom: 0.5em;
+}
+
+p {
+  margin: 0.75em 0;
+  text-align: justify;
+  hyphens: auto;
+}
+
+em { font-style: italic; color: var(--ink2); }
+strong, b { font-weight: 600; }
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--accent);
+  transition: color 0.2s, border-color 0.2s;
+}
+a:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+
+/* ── Table of Contents ── */
+nav.toc {
+  background: var(--navy);
+  border: 1px solid rgba(200,168,75,0.3);
+  border-radius: var(--radius);
+  padding: 1.8em 2em 1.5em;
+  margin: 2em 0 2.5em;
+  position: relative;
+  overflow: hidden;
+}
+nav.toc::before {
+  content: 'ЗМІСТ';
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  margin-bottom: 1em;
+  padding-bottom: 0.6em;
+  border-bottom: 1px solid rgba(200,168,75,0.2);
+}
+nav.toc p {
+  margin: 0.3em 0;
+  text-align: left;
+}
+nav.toc a {
+  color: var(--cream);
+  border-bottom: none;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem;
+  transition: color 0.2s, padding-left 0.2s;
+  display: inline-block;
+}
+nav.toc a:hover { color: var(--gold2); padding-left: 4px; }
+nav.toc a.tocpart {
+  color: var(--gold);
+  font-weight: 600;
+  font-size: 1rem;
+}
+nav.toc a.tocchapter {
+  color: var(--cream);
+  font-weight: 500;
+  font-size: 1rem;
+}
+nav.toc a.tocsection {
+  color: rgba(247,242,232,0.7);
+  padding-left: 1.2em;
+}
+nav.toc .sectionnumber {
+  color: var(--gold);
+  font-weight: 600;
+  margin-right: 0.1em;
+}
+
+/* ── Problem Boxes (tcolorbox) ── */
+div.tcolorbox {
+  background: var(--prob-bg) !important;
+  border: none !important;
+  border-left: 4px solid var(--prob-border) !important;
+  border-radius: 0 var(--radius) var(--radius) 0 !important;
+  margin: 1.6em 0;
+  padding: 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 0 0 1px rgba(200,168,75,0.12);
+  position: relative;
+  overflow: hidden;
+}
+div.tcolorbox::before {
+  content: '⬡';
+  position: absolute;
+  top: 10px; right: 14px;
+  font-size: 1.4rem;
+  color: rgba(200,168,75,0.15);
+}
+
+div.tcolorboxupper {
+  color: var(--ink) !important;
+  padding: 1.2em 1.6em 1em 1.5em;
+}
+
+.theorembodyproblem { /* inherits from tcolorboxupper */ }
+
+/* Problem number marker */
+span.listmarker {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--gold);
+  margin-right: 0.3em;
+  font-style: normal;
+}
+
+i { /* Відповідь italic */
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+/* ── Lists ── */
+ul.itemize {
+  list-style: none;
+  padding-left: 1.2em;
+}
+ul.itemize li {
+  position: relative;
+  margin: 0.5em 0;
+}
+ul.itemize > li > p > span.listmarker {
+  color: var(--gold);
+  font-size: 1.2em;
+  margin-right: 0.4em;
+}
+
+ul.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+ul.list li { margin: 0; }
+
+/* ── Equations ── */
+mjx-container {
+  color: var(--ink2) !important;
+  overflow-x: auto;
+}
+
+/* Display equations — subtle highlight */
+p:has(> mjx-container[display="true"]) {
+  background: rgba(200,168,75,0.05);
+  border-radius: 4px;
+  padding: 0.4em 1em;
+  margin: 1em 0;
+  text-align: center;
+}
+
+/* ── Figures ── */
+figure.figure {
+  margin: 1.8em auto;
+  text-align: center;
+}
+.figurecaption {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.5em;
+  font-family: 'EB Garamond', serif;
+}
+img.lateximage {
+  max-width: 100%;
+  height: auto;
+  filter: contrast(1.1);
+}
+
+/* ── Utility ── */
+.hidden { display: none !important; }
+.center { text-align: center; }
+span.textup { font-style: normal; }
+.sectionnumber { font-weight: 600; }
+
+/* ── Scrollbar (WebKit) ── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--navy); }
+::-webkit-scrollbar-thumb { background: rgba(200,168,75,0.4); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  section.textbody { padding: 40px 28px 60px; }
+  h3 { font-size: 1.75rem; }
+}
+
+/* ── Equation tag color ── */
+.mjx-eqn-num { color: var(--gold) !important; font-size: 0.85em !important; }
