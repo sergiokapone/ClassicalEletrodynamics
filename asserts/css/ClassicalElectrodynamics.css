@@ -1,135 +1,128 @@
-/* ── Reset & Base ── */
+/* ═══════════════════════════════════════════════════════
+   Класична Електродинаміка — стиль для TeX4ht HTML
+   ═══════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Variables ── */
+:root {
+  --navy:         #0d1b2e;
+  --navy2:        #152238;
+  --gold:         #c8a84b;
+  --gold2:        #e6c96e;
+  --cream:        #f7f2e8;
+  --cream2:       #ede8db;
+  --ink:          #1e2030;
+  --ink2:         #2f3050;
+  --muted:        #6b7080;
+  --accent:       #3a7abf;
+  --radius:       6px;
+}
+
+/* ── Reset ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
-  --navy:    #0d1b2e;
-  --navy2:   #152238;
-  --gold:    #c8a84b;
-  --gold2:   #e6c96e;
-  --cream:   #f7f2e8;
-  --cream2:  #ede8db;
-  --ink:     #1e1e2e;
-  --ink2:    #2f3050;
-  --muted:   #6b7080;
-  --accent:  #3a7abf;
-  --prob-bg: #fdf8ef;
-  --prob-border: #c8a84b;
-  --radius:  6px;
-}
-
+/* ── Page shell: темно-синій зовні, кремовий всередині ── */
 html {
-  font-size: 18px;
-  scroll-behavior: smooth;
-}
-
-body {
+  min-height: 100%;
   background: var(--navy);
-  color: var(--ink);
-  font-family: 'EB Garamond', Georgia, serif;
-  line-height: 1.8;
-  min-height: 100vh;
-  /* subtle field-line background */
+  /* силові лінії на фоні */
   background-image:
     repeating-linear-gradient(
       115deg,
-      transparent 0px,
-      transparent 60px,
-      rgba(200,168,75,0.025) 60px,
-      rgba(200,168,75,0.025) 61px
+      transparent 0px, transparent 60px,
+      rgba(200,168,75,.025) 60px, rgba(200,168,75,.025) 61px
     ),
-    radial-gradient(ellipse at 15% 50%, rgba(58,122,191,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 20%, rgba(200,168,75,0.06) 0%, transparent 45%);
+    radial-gradient(ellipse at 15% 50%, rgba(58,122,191,.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(200,168,75,.06) 0%, transparent 45%);
 }
 
-/* ── Layout Grid ── */
-.homepagegrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  min-height: 100vh;
-}
-
-main.bodycontainer {
+body {
   max-width: 820px;
   margin: 0 auto;
-  padding: 0 0 80px 0;
-  width: 100%;
-}
-
-section.textbody {
+  padding: 0 0 80px;
   background: var(--cream);
-  padding: 60px 72px 80px;
-  border-left: 1px solid rgba(200,168,75,0.2);
-  border-right: 1px solid rgba(200,168,75,0.2);
-  box-shadow:
-    0 0 80px rgba(0,0,0,0.5),
-    inset 0 0 0 1px rgba(255,255,255,0.05);
+  color: var(--ink);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 18px;
+  line-height: 1.82;
+  border-left:  1px solid rgba(200,168,75,.2);
+  border-right: 1px solid rgba(200,168,75,.2);
+  box-shadow: 0 0 100px rgba(0,0,0,.55);
+  /* золота смуга зверху */
+  border-top: 4px solid var(--gold);
   position: relative;
 }
 
-/* Top decorative bar */
-section.textbody::before {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, transparent, var(--gold) 20%, var(--gold2) 50%, var(--gold) 80%, transparent);
-  position: absolute;
-  top: 0; left: 0;
-}
+/* ── Paragraphs ── */
+p { margin: .7em 0; }
+p.indent  { text-indent: 1.5em; text-align: justify; hyphens: auto; }
+p.noindent { text-indent: 0;    text-align: justify; hyphens: auto; }
 
-/* ── Typography ── */
+/* ── Headings ── */
 h2, h3, h4, h5, h6 {
-  font-family: 'Cormorant Garamond', 'EB Garamond', Georgia, serif;
-  color: var(--navy2);
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--navy);
   line-height: 1.3;
-  margin-top: 2.4em;
-  margin-bottom: 0.7em;
+  margin-top: 2.2em;
+  margin-bottom: .7em;
   font-weight: 600;
 }
 
-/* Part heading */
-h2 {
-  font-size: 2.1rem;
+/* Розділ (Chapter) */
+h2.chapterHead,
+h2.likechapterHead {
+  font-size: 2rem;
   font-weight: 700;
-  color: var(--navy);
-  letter-spacing: 0.03em;
   text-align: center;
-  padding: 1.2em 0 0.6em;
+  padding: 1.4em 60px .9em;
   border-bottom: 2px solid var(--gold);
-  margin-bottom: 1.5em;
-  margin-top: 1em;
-  text-transform: uppercase;
-  letter-spacing: 0.15em;
-  font-size: 1.1rem;
+  margin-bottom: 1.4em;
+  margin-top: .5em;
   position: relative;
+  background: linear-gradient(to bottom, rgba(200,168,75,.06), transparent);
 }
-h2::after {
-  content: '⚡';
+h2.likechapterHead { /* Зміст */
+  font-size: 1.6rem;
+  padding: 2em 60px .7em;
+  letter-spacing: .08em;
+}
+h2.chapterHead .titlemark {
   display: block;
-  font-size: 1.8rem;
-  margin-top: 0.3em;
+  font-size: .62rem;
+  letter-spacing: .3em;
+  text-transform: uppercase;
   color: var(--gold);
-  letter-spacing: 0;
+  margin-bottom: .4em;
+  font-style: normal;
+  font-weight: 700;
 }
 
-/* Chapter */
-h3 {
-  font-size: 2.2rem;
-  color: var(--navy);
+/* Параграф (Section) */
+h3.sectionHead,
+h3.likesectionHead {
+  font-size: 1.65rem;
   border-left: 5px solid var(--gold);
-  padding-left: 0.6em;
+  padding: .1em 0 .1em .6em;
   margin-top: 2em;
 }
+h3.sectionHead .titlemark {
+  color: var(--gold);
+  font-style: normal;
+}
 
-/* Section */
-h4 {
-  font-size: 1.55rem;
-  color: var(--navy2);
-  padding-bottom: 0.25em;
+/* Підпараграф (Subsection) */
+h4.likesubsectionHead,
+h4.subsectionHead {
+  font-size: 1.28rem;
+  font-style: italic;
+  color: var(--ink2);
+  padding-bottom: .25em;
   border-bottom: 1px solid var(--cream2);
   position: relative;
 }
-h4::before {
+h4.likesubsectionHead::before,
+h4.subsectionHead::before {
   content: '';
   position: absolute;
   bottom: -1px; left: 0;
@@ -137,205 +130,188 @@ h4::before {
   background: var(--gold);
 }
 
-/* Subsection */
-h5 {
-  font-size: 1.25rem;
-  color: var(--ink2);
-  font-style: italic;
-  font-weight: 600;
-  margin-top: 1.8em;
-  margin-bottom: 0.5em;
+/* ── Content padding ── */
+h2.chapterHead ~ *,
+h2.likechapterHead ~ *,
+p, .newtheorem, .tcolorbox, .figure, ul, ol {
+  padding-left: 60px;
+  padding-right: 60px;
 }
+/* Reset для елементів що мають власний padding */
+h2, h3, h4 { padding-left: 60px; padding-right: 60px; }
+h3.sectionHead { padding-left: calc(60px + .15em); } /* компенсація border-left */
 
-p {
-  margin: 0.75em 0;
-  text-align: justify;
-  hyphens: auto;
+/* ── TOC ── */
+.tableofcontents {
+  background: var(--navy);
+  border: 1px solid rgba(200,168,75,.3);
+  border-radius: var(--radius);
+  padding: 1.8em 2em 1.6em;
+  margin: 0 60px 2em;
+  position: relative;
 }
+.tableofcontents::before {
+  content: 'ЗМІСТ';
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  color: var(--gold);
+  margin-bottom: .9em;
+  padding-bottom: .6em;
+  border-bottom: 1px solid rgba(200,168,75,.2);
+}
+.chapterToc,
+.sectionToc {
+  display: block;
+  margin: .25em 0;
+}
+.chapterToc a {
+  color: var(--cream);
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  font-weight: 500;
+}
+.sectionToc a {
+  color: rgba(247,242,232,.7);
+  font-family: 'EB Garamond', serif;
+  font-size: .93rem;
+  padding-left: 1.3em;
+  display: inline-block;
+}
+.tableofcontents a {
+  text-decoration: none;
+  border-bottom: none;
+  transition: color .2s, padding-left .15s;
+}
+.tableofcontents a:hover { color: var(--gold2) !important; padding-left: calc(1.3em + 4px); }
+.chapterToc a:hover { padding-left: 4px; }
 
-em { font-style: italic; color: var(--ink2); }
-strong, b { font-weight: 600; }
-
+/* ── Links ── */
 a {
   color: var(--accent);
   text-decoration: none;
   border-bottom: 1px dotted var(--accent);
-  transition: color 0.2s, border-color 0.2s;
+  transition: color .2s, border-color .2s;
 }
-a:hover {
-  color: var(--gold);
-  border-color: var(--gold);
-}
+a:hover { color: var(--gold); border-color: var(--gold); }
 
-/* ── Table of Contents ── */
-nav.toc {
-  background: var(--navy);
-  border: 1px solid rgba(200,168,75,0.3);
-  border-radius: var(--radius);
-  padding: 1.8em 2em 1.5em;
-  margin: 2em 0 2.5em;
-  position: relative;
-  overflow: hidden;
-}
-nav.toc::before {
-  content: 'ЗМІСТ';
-  display: block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.7rem;
-  font-weight: 700;
-  letter-spacing: 0.25em;
-  color: var(--gold);
-  margin-bottom: 1em;
-  padding-bottom: 0.6em;
-  border-bottom: 1px solid rgba(200,168,75,0.2);
-}
-nav.toc p {
-  margin: 0.3em 0;
-  text-align: left;
-}
-nav.toc a {
-  color: var(--cream);
-  border-bottom: none;
-  font-family: 'EB Garamond', serif;
-  font-size: 0.95rem;
-  transition: color 0.2s, padding-left 0.2s;
-  display: inline-block;
-}
-nav.toc a:hover { color: var(--gold2); padding-left: 4px; }
-nav.toc a.tocpart {
-  color: var(--gold);
-  font-weight: 600;
-  font-size: 1rem;
-}
-nav.toc a.tocchapter {
-  color: var(--cream);
-  font-weight: 500;
-  font-size: 1rem;
-}
-nav.toc a.tocsection {
-  color: rgba(247,242,232,0.7);
-  padding-left: 1.2em;
-}
-nav.toc .sectionnumber {
-  color: var(--gold);
-  font-weight: 600;
-  margin-right: 0.1em;
-}
+/* ── Inline formatting ── */
+.rm-lmbx-10, strong, b { font-weight: 600; }
+.rm-lmri-10, em { font-style: italic; color: var(--ink2); }
+.textsuperscript { font-size: .75em; vertical-align: super; }
+.footnote-mark { font-size: .75em; vertical-align: super; color: var(--gold); }
 
-/* ── Problem Boxes (tcolorbox) ── */
-div.tcolorbox {
-  background: var(--prob-bg) !important;
-  border: none !important;
-  border-left: 4px solid var(--prob-border) !important;
-  border-radius: 0 var(--radius) var(--radius) 0 !important;
-  margin: 1.6em 0;
-  padding: 0;
-  box-shadow: 0 2px 12px rgba(0,0,0,0.07), 0 0 0 1px rgba(200,168,75,0.12);
-  position: relative;
-  overflow: hidden;
+/* ── Display equations ── */
+.mathjax-env {
+  margin: 1.1em 60px;
+  padding: .5em 1.2em;
+  background: rgba(200,168,75,.06);
+  border-radius: 4px;
+  text-align: center;
+  overflow-x: auto;
 }
-div.tcolorbox::before {
-  content: '⬡';
-  position: absolute;
-  top: 10px; right: 14px;
-  font-size: 1.4rem;
-  color: rgba(200,168,75,0.15);
-}
+/* скасовуємо подвійний padding якщо клас вже набрав його */
+.mathjax-env { padding-left: 1.2em; padding-right: 1.2em; }
 
-div.tcolorboxupper {
-  color: var(--ink) !important;
-  padding: 1.2em 1.6em 1em 1.5em;
-}
-
-.theorembodyproblem { /* inherits from tcolorboxupper */ }
-
-/* Problem number marker */
-span.listmarker {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 700;
-  font-size: 1rem;
-  color: var(--gold);
-  margin-right: 0.3em;
-  font-style: normal;
-}
-
-i { /* Відповідь italic */
-  color: var(--muted);
-  font-size: 0.95rem;
-}
-
-/* ── Lists ── */
-ul.itemize {
-  list-style: none;
-  padding-left: 1.2em;
-}
-ul.itemize li {
-  position: relative;
-  margin: 0.5em 0;
-}
-ul.itemize > li > p > span.listmarker {
-  color: var(--gold);
-  font-size: 1.2em;
-  margin-right: 0.4em;
-}
-
-ul.list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-ul.list li { margin: 0; }
-
-/* ── Equations ── */
-mjx-container {
-  color: var(--ink2) !important;
+.mathjax-block {
+  margin: 1em 60px;
   overflow-x: auto;
 }
 
-/* Display equations — subtle highlight */
-p:has(> mjx-container[display="true"]) {
-  background: rgba(200,168,75,0.05);
-  border-radius: 4px;
-  padding: 0.4em 1em;
-  margin: 1em 0;
-  text-align: center;
+/* Inline math — нічого не чіпаємо */
+.mathjax-inline { color: inherit; }
+
+/* ── Problem boxes (tcolorbox) ── */
+.tcolorbox {
+  background: #fdf8ef;
+  border-left: 4px solid var(--gold) !important;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 1.6em 60px;
+  padding: 0;
+  box-shadow: 0 2px 12px rgba(0,0,0,.07), 0 0 0 1px rgba(200,168,75,.12);
+  position: relative;
+  overflow: hidden;
+  /* скасуй успадкований padding від * */
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
+.tcolorbox::after {
+  content: '⬡';
+  position: absolute;
+  top: 8px; right: 14px;
+  font-size: 1.6rem;
+  color: rgba(200,168,75,.12);
+  pointer-events: none;
+}
+.tcolorbox-content {
+  padding: 1.1em 1.8em 1.1em 1.5em;
+  /* скасуй padding від загального правила */
+  padding-left: 1.5em !important;
+  padding-right: 1.8em !important;
+}
+
+/* ── Theorems ── */
+.newtheorem {
+  background: rgba(58,122,191,.06);
+  border-left: 4px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 1.4em 60px;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.newtheorem .head {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--accent);
+  padding: .8em 1.5em .2em;
+  display: block;
+}
+.newtheorem .content {
+  padding: 0 1.8em 1em 1.5em;
+}
+.newtheorem .id { display: none; } /* номер вже в .head */
+
+/* ── Lists ── */
+ul.itemize,
+ul.itemize1,
+ul.itemize2 {
+  margin: .6em 0;
+  padding-left: 1.5em;
+  list-style: none;
+}
+ul.itemize  li::before { content: '▸'; color: var(--gold); margin-right: .5em; }
+ul.itemize1 li::before { content: '–'; color: var(--muted); margin-right: .5em; }
+ul.itemize2 li::before { content: '·'; color: var(--muted); margin-right: .5em; }
 
 /* ── Figures ── */
-figure.figure {
-  margin: 1.8em auto;
+.figure {
   text-align: center;
+  margin: 1.8em 60px;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
-.figurecaption {
-  font-size: 0.85rem;
+.caption {
+  font-size: .85rem;
   color: var(--muted);
   font-style: italic;
-  margin-top: 0.5em;
-  font-family: 'EB Garamond', serif;
+  margin-top: .5em;
 }
-img.lateximage {
-  max-width: 100%;
-  height: auto;
-  filter: contrast(1.1);
-}
-
-/* ── Utility ── */
-.hidden { display: none !important; }
-.center { text-align: center; }
-span.textup { font-style: normal; }
-.sectionnumber { font-weight: 600; }
+img { max-width: 100%; height: auto; }
 
 /* ── Scrollbar (WebKit) ── */
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: var(--navy); }
-::-webkit-scrollbar-thumb { background: rgba(200,168,75,0.4); border-radius: 4px; }
+::-webkit-scrollbar { width: 8px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--cream2); }
+::-webkit-scrollbar-thumb { background: rgba(200,168,75,.4); border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
 /* ── Responsive ── */
 @media (max-width: 860px) {
-  section.textbody { padding: 40px 28px 60px; }
-  h3 { font-size: 1.75rem; }
+  body { font-size: 16px; }
+  p.indent, p.noindent { padding-left: 24px; padding-right: 24px; }
+  h2, h3, h4 { padding-left: 24px !important; padding-right: 24px !important; }
+  .tableofcontents, .mathjax-env, .mathjax-block,
+  .tcolorbox, .newtheorem, .figure { margin-left: 24px; margin-right: 24px; }
 }
-
-/* ── Equation tag color ── */
-.mjx-eqn-num { color: var(--gold) !important; font-size: 0.85em !important; }
