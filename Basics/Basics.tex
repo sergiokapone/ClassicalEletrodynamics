@@ -425,7 +425,8 @@ $S_2$, що мають спільну межу $\partial S$ (рис.~\ref{tikz:s
 
 		\draw[thick, rotate around={-15:(O)}, use tangent=1, ->] (0,0) -- ++(90:0.5);
 
-		\draw[thick, red, rotate around={-15:(O)}] (O) ++(180:1) arc(180:360:1 and 0.3);
+		\draw[thick, red, rotate around={-15:(O)}] (O) ++(180:1) arc(180:360:1 and 0.3) coordinate[pos=0.2] 	(ps);
+
 		%		\draw[fill=red!50, opacity=0.5] (0, -1.5) circle[x radius=1 cm, y radius= 0.3 cm];
 		%        \draw[->] (0, -1.5) -- ++(0, 1) node[left] {$n$};
 		%		\draw[in=55, out=125, looseness=3.9, fill=red!50, opacity=0.75] (-1, -1.5) to (+1, -1.5) arc[x radius=1 cm, y radius= 0.3 cm, start
@@ -434,12 +435,14 @@ $S_2$, що мають спільну межу $\partial S$ (рис.~\ref{tikz:s
 		%
 		%        \draw[->] (0, 0.5) -- ++(0, 1) node[left] {$n$};
 
+        \node (pS) at (-2, 0.5)  {$\partial S$};
+        \draw[->] (pS.south) to[out=290, in=250] (ps);
 
 		\node (S2) at (-1, +2)  {$S_2$};
 		\draw[->] (S2.east) to[out=0, in=90] (s2);
 
 	\end{tikzpicture}
-	\caption{}\label{tikz:surface}
+	\caption{Поверхні інтегрування $S_1$ і $S_2$, що мають спільну межу $\partial S$.}\label{tikz:surface}
 \end{SCfigure}
 %---------------------------------------------------------
 
