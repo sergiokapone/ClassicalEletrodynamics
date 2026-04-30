@@ -170,6 +170,109 @@
 %=========================================================
 \begin{problem}
 За допомогою формул перетворення електричного та магнітного полів при переході $S\to S'$ з вправи~\ref{prb:3.3} покажіть прямим обчисленням, що величини $\vect{E}^{2}-\vect{B}^{2}$ та $\vect{E}\cdot\vect{B}$ при цьому переході залишаються незмінними.
+
+\vspace{1ex}
+\textit{Розв'язок}:
+\begin{itemize}
+\item Інваріантність $\Efield^2 - \Bfield^2$.
+
+Розкладемо на паралельну та перпендикулярну до швидкості частини:
+\[
+\Efield^2 - \Bfield^2 = (E_\parallel^2 + E_\perp^2) - (B_\parallel^2 + B_\perp^2).
+\]
+
+У системі $S'$:
+\[
+E_\parallel'^2 - B_\parallel'^2 = E_\parallel^2 - B_\parallel^2.
+\]
+
+Для перпендикулярних компонент візьмемо
+\[
+\Efield_\perp = (0, E_y, E_z), \quad \Bfield_\perp = (0, B_y, B_z), \quad \boldsymbol{\beta} = (\beta, 0, 0),
+\]
+тоді
+\[
+\boldsymbol{\beta} \Bfield_\perp = (0, -\beta B_z, \beta B_y), \quad
+\boldsymbol{\beta} \Efield_\perp = (0, -\beta E_z, \beta E_y).
+\]
+
+Отже,
+\[
+\begin{aligned}
+E'_{y'} &= \gamma (E_y + \beta B_z), \quad E'_{z'} = \gamma (E_z - \beta B_y), \\
+B'_{y'} &= \gamma (B_y - \beta E_z), \quad B'_{z'} = \gamma (B_z + \beta E_y).
+\end{aligned}
+\]
+
+Обчислимо:
+\[
+E_\perp'^2 = \gamma^2 \left[ (E_y + \beta B_z)^2 + (E_z - \beta B_y)^2 \right],
+\]
+\[
+B_\perp'^2 = \gamma^2 \left[ (B_y - \beta E_z)^2 + (B_z + \beta E_y)^2 \right].
+\]
+
+Різниця:
+\[
+E_\perp'^2 - B_\perp'^2 = \gamma^2 \bigl[ E_\perp^2 + 2\beta X + \beta^2 B_\perp^2 - B_\perp^2 - 2\beta X - \beta^2 E_\perp^2 \bigr],
+\]
+де \(X = E_y B_z - E_z B_y\). Члени з \(X\) скорочуються, тому
+\[
+E_\perp'^2 - B_\perp'^2 = \gamma^2 (1 - \beta^2)(E_\perp^2 - B_\perp^2) = E_\perp^2 - B_\perp^2.
+\]
+
+Додаючи паралельну частину, отримуємо
+\[
+\Efield'^2 - \Bfield'^2 = \Efield^2 - \Bfield^2.
+\]
+
+\item Інваріантність $\Efield \cdot \Bfield$.
+
+Скалярний добуток:
+\[
+\Efield' \cdot \Bfield' = E_\parallel' B_\parallel' + \Efield_\perp' \cdot \Bfield_\perp'.
+\]
+
+Паралельна частина: \(E_\parallel B_\parallel\) інваріантна. Для перпендикулярної:
+\[
+\Efield_\perp' \cdot \Bfield_\perp' = E_y' B_y' + E_z' B_z'.
+\]
+
+Підставляємо вирази для \(E_y', B_y', E_z', B_z'\):
+\[
+\begin{aligned}
+E_y' B_y' &= \gamma^2 (E_y + \beta B_z)(B_y - \beta E_z), \\
+E_z' B_z' &= \gamma^2 (E_z - \beta B_y)(B_z + \beta E_y).
+\end{aligned}
+\]
+
+Розкриваємо дужки:
+\[
+E_y' B_y' = \gamma^2 \left( E_y B_y - \beta E_y E_z + \beta B_z B_y - \beta^2 B_z E_z \right),
+\]
+\[
+E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_y E_y \right).
+\]
+
+Додаємо:
+\[
+\gamma^2 \bigl[ E_y B_y + E_z B_z - \beta^2 (E_y B_y + E_z B_z) \bigr] = \gamma^2 (1 - \beta^2) (\Efield_\perp \cdot \Bfield_\perp) = \Efield_\perp \cdot \Bfield_\perp.
+\]
+
+Отже,
+\[
+\Efield' \cdot \Bfield' = E_\parallel B_\parallel + \Efield_\perp \cdot \Bfield_\perp = \Efield \cdot \Bfield.
+\]
+
+\end{itemize}
+
+
+Отже:
+\[
+\Efield'^2 - \Bfield'^2 = \Efield^2 - \Bfield^2, \qquad
+\Efield' \cdot \Bfield' = \Efield \cdot \Bfield.
+\]
+
 \end{problem}
 
 %=========================================================
@@ -333,6 +436,65 @@
     = \left(\frac{1+v/c}{1-v/c}\right)^{1/2} > 1.
 \end{equation*}
 
+%=========================================================
+\begin{problem}%
+    Частинка рухається з постійною швидкістю $\vect{v}$ відносно лабораторної системи координат $S$. У власній системі спокою частинки $S_0$ вона випромінює монохроматичну світлову хвилю з частотою $\omega_0$ у напрямку, що утворює кут $\theta_0$ з її власним вектором швидкості (вісь $x_0$). Визначити частоту $\omega$ та кут $\theta$ поширення хвилі відносно напрямку руху частинки в лабораторній системі $K$, користуючись перетвореннями 4-хвильового вектора $k^\mu = (\omega/c, \mathbf{k})$.
+    \textit{Розв'язок}: 4-хвильовий вектор має компоненти:
+    \[
+    k^\mu = \left( \frac{\omega}{c}, \frac{\omega}{c} \mathbf{n} \right), \qquad \mathbf{n}^2 = 1,
+    \]
+    де $\mathbf{n}$ — одиничний вектор у напрямку поширення хвилі.
+
+    У системі спокою частинки $K_0$:
+    \[
+    k_0^\mu = \left( \frac{\omega_0}{c}, \frac{\omega_0}{c} \mathbf{n}_0 \right), \qquad \mathbf{n}_0 = (\cos\theta_0, \sin\theta_0, 0).
+    \]
+
+    Перетворення Лоренца вздовж осі $x$ зі швидкістю $v$ дає в лабораторній системі:
+    \[
+    \frac{\omega}{c} = \gamma \left( \frac{\omega_0}{c} + \beta \frac{\omega_0}{c} \cos\theta_0 \right) = \gamma \frac{\omega_0}{c} (1 + \beta \cos\theta_0),
+    \]
+    де $\beta = v/c$, $\gamma = 1/\sqrt{1-\beta^2}$.
+
+    Отже,
+    \[
+    \omega = \omega_0 \gamma (1 + \beta \cos\theta_0).
+    \]
+
+    Для компонент хвильового вектора:
+    \[
+    k_x = \frac{\omega}{c} \cos\theta = \gamma \left( \frac{\omega_0}{c} \cos\theta_0 + \beta \frac{\omega_0}{c} \right) = \gamma \frac{\omega_0}{c} (\cos\theta_0 + \beta),
+    \]
+    \[
+    k_y = \frac{\omega}{c} \sin\theta = \frac{\omega_0}{c} \sin\theta_0.
+    \]
+
+    Поділивши $k_y$ на $k_x$, знаходимо:
+    \[
+    \tan\theta = \frac{\sin\theta_0}{\gamma (\cos\theta_0 + \beta)}.
+    \]
+
+\begin{itemize}
+\item     Окремий випадок (поздовжній ефект Доплера).
+     Якщо $\theta_0 = 0$ (випромінювання вперед у системі спокою), то
+     \[
+     \omega = \omega_0 \sqrt{\frac{1+\beta}{1-\beta}}, \qquad \theta = 0.
+     \]
+     Якщо $\theta_0 = \pi$ (випромінювання назад), то
+     \[
+     \omega = \omega_0 \sqrt{\frac{1-\beta}{1+\beta}}, \qquad \theta = \pi.
+     \]
+
+\item Окремий випадок (поперечний ефект Доплера).
+ Якщо $\theta_0 = \pi/2$, то
+ \[
+ \omega = \gamma \omega_0, \qquad \tan\theta = \frac{1}{\gamma \beta}.
+ \]
+ Цей випадок не має класичного аналога і є чисто релятивістським ефектом.
+\end{itemize}
+\end{problem}
+
+
 %% --------------------------------------------------------
 \section{Вектор-потенціал електромагнітного поля у випадку ізольованої системи}
 %% --------------------------------------------------------
@@ -398,5 +560,5 @@ $\int f(x-x')g(x')\,d^4x'$; символ <<$*$>> у~\eqref{eq:retarded_potential
 
 %=========================================================
 \begin{problem}
-Покладаючи $\{A^{\mu}\}=\{A^0,\vect{A}\}$ (контраваріантний вектор! Звертайте увагу на положення індексів!), де $A^0=\varphi$ --- скалярний та $\vect{A}$ --- векторний потенціали електромагнітного поля класичної електродинаміки відповідно, запишіть тривимірну форму рівнянь: (а)~$\partial_{\nu}A^{\nu}=0$; (б)~$\mdlgwhtsquare A^{\nu}=(4\pi/c)j^{\nu}$.
+Покладаючи $\{A^{\mu}\}=\{A^0,\vect{A}\}$ (контраваріантний вектор! Звертайте увагу на положення індексів!), де $A^0=\varphi$ --- скалярний та $\vect{A}$ --- векторний потенціали електромагнітного поля класичної електродинаміки відповідно, запишіть тривимірну форму рівнянь: (а)~$\partial_{\nu}A^{\nu}=0$; (б)~$\mdlgwhtsquare\ A^{\nu}=(4\pi/c)j^{\nu}$.
 \end{problem}
