@@ -416,13 +416,13 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
 Далі усі величини розглянемо у системі спостерігача, де його 4-швидкість $u_{\text{obs}}^{\mu}=\{1,0,0,0\}$, а виміряна ним частота $\omega_{\text{obs}}=ck_{\mu}u_{\text{obs}}^{\mu}=ck_0=ck^0$. Напрям поширення хвиль, що реєструє спостерігач, є протилежним напрямку від спостерігача на джерело випромінювання $\vect{n}=-\vect{k}/|\vect{k}|=-\vect{k}/k^0$.
 
 Після переходу в систему спостерігача маємо
-\begin{equation*}
+\begin{equation}\label{eq:Dopler}
     \frac{\omega_{\text{obs}}}{\omega_0}
     = \frac{k_{\mu}u_{\text{obs}}^{\mu}}{k_{\mu}u_0^{\mu}}
     = \frac{k_0}{k_{\mu}u_0^{\mu}}
     = \frac{1}{u_0^0(1+\vect{n}\vect{v}/c)}
     = \frac{\sqrt{1-\vect{v}^2/c^2}}{1+\vect{n}\vect{v}/c},
-\end{equation*}
+\end{equation}
 де $\vect{v}$ --- швидкість джерела відносно спостерігача. За нерелятивістських швидкостей корінь у чисельнику можна наближено замінити на одиницю.
 
 Нехай спостерігач та джерело знаходяться весь час на одній прямій. Коли джерело віддаляється від спостерігача, то
@@ -438,37 +438,40 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
 
 \begin{problem}%
     Частинка (джерело світла) рухається з постійною швидкістю $\vect{v}$ відносно спостерігача. У власній системі вона випромінює монохроматичну світлову хвилю з частотою $\omega_0$ у напрямку, що утворює кут $\theta_0$ з віссю $x_0$ (вісь, вздовж якої напрямлено $\vect{v}$).
-    Знайти в системі віддліку спостерігача:
+    Знайти в системі відліку спостерігача:
     \begin{itemize}
         \item кут $\theta$ між напрямком поширення хвилі та віссю $x$ (релятивістська аберація);
         \item при якому куті $\theta_0$ у власній системі частота $\omega$, що реєструється спостерігачем, дорівнює власній частоті $\omega_0$;
         \item як співвідносяться $\theta$ і $\theta_0$ у нерелятивістській границі $\beta\ll 1$.
     \end{itemize}
     \vspace*{1ex}
-    \textit{Розв'язок}: У власній системі джерела:
+    \textit{Розв'язок}: Запишемо 4-вектор хвилі у власній системі джерела:
     \[
-    k_0^\mu = \left( \frac{\omega_0}{c}, \frac{\omega_0}{c} \vect{n}_0 \right), \qquad \vect{n}_0 = (\cos\theta_0, \sin\theta_0, 0).
+        k_0^\mu = \frac{\omega_0}{c}\left(1,\, \cos\theta_0,\, \sin\theta_0,\, 0\right).
+    \]
+    Перетворення Лоренца вздовж осі $x$ ($\beta = v/c$, $\gamma = 1/\sqrt{1-\beta^2}$) дає часову компоненту
+    \[
+        \frac{\omega}{c} = \gamma\frac{\omega_0}{c}(1+\beta\cos\theta_0),
+    \]
+    що збігається з формулою~\eqref{eq:Dopler} при $\vect{n}\cdot\vect{v}/c = -\beta\cos\theta_0$. Для просторових компонент:
+    \[
+        k_x = \frac{\omega}{c}\cos\theta = \gamma\frac{\omega_0}{c}(\cos\theta_0+\beta), \qquad
+        k_y = \frac{\omega}{c}\sin\theta = \frac{\omega_0}{c}\sin\theta_0.
+    \]
+    Поділивши $k_y$ на $k_x$, отримуємо \emph{формулу аберації}:
+    \[
+        \tan\theta = \frac{\sin\theta_0}{\gamma(\cos\theta_0+\beta)}.
     \]
 
-    Перетворення Лоренца вздовж осі $x$ ($\beta = v/c$, $\gamma = 1/\sqrt{1-\beta^2}$) для просторових компонент:
+    Умова $\omega = \omega_0$ з формули Доплера:
     \[
-    k_x = \frac{\omega}{c}\cos\theta = \gamma\frac{\omega_0}{c}(\cos\theta_0 + \beta), \qquad
-    k_y = \frac{\omega}{c}\sin\theta = \frac{\omega_0}{c}\sin\theta_0,
-    \]
-    де $\omega = \omega_0\,\gamma(1+\beta\cos\theta_0)$. Поділивши $k_y$ на $k_x$, отримуємо \emph{формулу аберації}:
-    \[
-    \tan\theta = \frac{\sin\theta_0}{\gamma(\cos\theta_0+\beta)}.
-    \]
-
-    Умова $\omega = \omega_0$ із $\omega = \omega_0\,\gamma(1+\beta\cos\theta_0)$ дає:
-    \[
-    \gamma(1+\beta\cos\theta_0) = 1 \implies \cos\theta_0 = -\frac{\gamma - 1}{\gamma\beta} = -\frac{\beta}{1+\sqrt{1-\beta^2}}.
+        \gamma(1+\beta\cos\theta_0) = 1 \implies \cos\theta_0 = -\frac{\gamma-1}{\gamma\beta} = -\frac{\beta}{1+\sqrt{1-\beta^2}}.
     \]
     Оскільки $\cos\theta_0 < 0$, цей кут лежить у другій чверті: джерело має випромінювати дещо назад у власній системі, щоб компенсувати ефект Доплера.
 
     При $\beta\ll 1$, $\gamma\approx 1$:
     \[
-    \tan\theta \approx \frac{\sin\theta_0}{\cos\theta_0+\beta} \approx \tan(\theta_0 - \beta\sin\theta_0),
+        \tan\theta \approx \frac{\sin\theta_0}{\cos\theta_0+\beta} \approx \tan(\theta_0 - \beta\sin\theta_0),
     \]
     тобто $\theta \approx \theta_0 - \beta\sin\theta_0$: напрямок поширення хвилі зміщується вперед у бік руху джерела на кут $\delta\theta = \beta\sin\theta_0$.
 \end{problem}
