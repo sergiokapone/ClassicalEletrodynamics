@@ -436,76 +436,41 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
     = \left(\frac{1+v/c}{1-v/c}\right)^{1/2} > 1.
 \end{equation*}
 
-%=========================================================
 \begin{problem}%
-    Частинка (джерело світла) рухається з постійною швидкістю $\vect{v}$ відносно лабораторної системи $S$. У власній системі спокою частинки $S_0$ вона випромінює монохроматичну світлову хвилю з частотою $\omega_0$ у напрямку, що утворює кут $\theta_0$ з віссю $x_0$ (вісь, вздовж якої напрямлено $\vect{v}$).
-    Знайти в лабораторній системі $S$:
+    Частинка (джерело світла) рухається з постійною швидкістю $\vect{v}$ відносно спостерігача. У власній системі вона випромінює монохроматичну світлову хвилю з частотою $\omega_0$ у напрямку, що утворює кут $\theta_0$ з віссю $x_0$ (вісь, вздовж якої напрямлено $\vect{v}$).
+    Знайти в системі віддліку спостерігача:
     \begin{itemize}
-        \item частоту $\omega$ випромінювання (релятивістський ефект Доплера);
-        \item кут $\theta$ між напрямком поширення хвилі та віссю $x$ (релятивістська аберація).
+        \item кут $\theta$ між напрямком поширення хвилі та віссю $x$ (релятивістська аберація);
+        \item при якому куті $\theta_0$ у власній системі частота $\omega$, що реєструється спостерігачем, дорівнює власній частоті $\omega_0$;
+        \item як співвідносяться $\theta$ і $\theta_0$ у нерелятивістській границі $\beta\ll 1$.
     \end{itemize}
-
     \vspace*{1ex}
-
-    \textit{Розв'язок}: У системі спокою джерела $S_0$:
+    \textit{Розв'язок}: У власній системі джерела:
     \[
-    k_0^\mu = \left( \frac{\omega_0}{c}, \frac{\omega_0}{c} \vect{n}_0 \right), \qquad \vect{n}_0 = (\cos\theta_0, \sin\theta_0, 0), \quad |\vect{n}_0| = 1.
+    k_0^\mu = \left( \frac{\omega_0}{c}, \frac{\omega_0}{c} \vect{n}_0 \right), \qquad \vect{n}_0 = (\cos\theta_0, \sin\theta_0, 0).
     \]
 
-    Лабораторна система $S$ рухається відносно $S_0$ зі швидкістю $-\vect{v}$ (тобто джерело в $S$ має швидкість $\vect{v} = (v,0,0)$). Перетворення Лоренца вздовж осі $x$ дає:
-
+    Перетворення Лоренца вздовж осі $x$ ($\beta = v/c$, $\gamma = 1/\sqrt{1-\beta^2}$) для просторових компонент:
     \[
-    \frac{\omega}{c} = \gamma \left( \frac{\omega_0}{c} + \beta \frac{\omega_0}{c} \cos\theta_0 \right) = \gamma \frac{\omega_0}{c} (1 + \beta \cos\theta_0),
+    k_x = \frac{\omega}{c}\cos\theta = \gamma\frac{\omega_0}{c}(\cos\theta_0 + \beta), \qquad
+    k_y = \frac{\omega}{c}\sin\theta = \frac{\omega_0}{c}\sin\theta_0,
     \]
-    де
+    де $\omega = \omega_0\,\gamma(1+\beta\cos\theta_0)$. Поділивши $k_y$ на $k_x$, отримуємо \emph{формулу аберації}:
     \[
-    \beta = \frac{v}{c}, \qquad \gamma = \frac{1}{\sqrt{1-\beta^2}}.
-    \]
-
-    Отже, \emph{релятивістський ефект Доплера}:
-    \[
-    \omega = \omega_0 \, \gamma (1 + \beta \cos\theta_0).
+    \tan\theta = \frac{\sin\theta_0}{\gamma(\cos\theta_0+\beta)}.
     \]
 
-    Для просторових компонент $k^\mu$:
+    Умова $\omega = \omega_0$ із $\omega = \omega_0\,\gamma(1+\beta\cos\theta_0)$ дає:
     \[
-    k_x = \frac{\omega}{c} \cos\theta = \gamma \left( \frac{\omega_0}{c} \cos\theta_0 + \beta \frac{\omega_0}{c} \right) = \gamma \frac{\omega_0}{c} (\cos\theta_0 + \beta),
+    \gamma(1+\beta\cos\theta_0) = 1 \implies \cos\theta_0 = -\frac{\gamma - 1}{\gamma\beta} = -\frac{\beta}{1+\sqrt{1-\beta^2}}.
     \]
+    Оскільки $\cos\theta_0 < 0$, цей кут лежить у другій чверті: джерело має випромінювати дещо назад у власній системі, щоб компенсувати ефект Доплера.
+
+    При $\beta\ll 1$, $\gamma\approx 1$:
     \[
-    k_y = \frac{\omega}{c} \sin\theta = \frac{\omega_0}{c} \sin\theta_0.
+    \tan\theta \approx \frac{\sin\theta_0}{\cos\theta_0+\beta} \approx \tan(\theta_0 - \beta\sin\theta_0),
     \]
-
-    Поділивши $k_y$ на $k_x$, отримуємо \emph{формулу аберації}:
-    \[
-    \tan\theta = \frac{\sin\theta_0}{\gamma (\cos\theta_0 + \beta)}.
-    \]
-
-
-
-
-    \begin{itemize}
-        \item Поздовжній ефект Доплера ($\theta_0 = 0$ або $\pi$):
-        \[
-        \theta_0 = 0:\quad \omega = \omega_0 \sqrt{\frac{1+\beta}{1-\beta}}, \qquad \theta = 0;
-        \]
-        \[
-        \theta_0 = \pi:\quad \omega = \omega_0 \sqrt{\frac{1-\beta}{1+\beta}}, \qquad \theta = \pi.
-        \]
-
-        \item Поперечний ефект Доплера ($\theta_0 = \pi/2$):
-        \[
-        \omega = \gamma \omega_0, \qquad \tan\theta = \frac{1}{\gamma\beta}.
-        \]
-        Цей випадок не має класичного аналога: навіть коли в системі спокою джерело випромінює перпендикулярно до руху, у лабораторній системі спостерігається як зміна частоти, так і відхилення напрямку (аберація).
-
-        \item Зв'язок з класичними формулами:
-        При $\beta \ll 1$:
-        \[
-        \omega \approx \omega_0 (1 + \beta \cos\theta_0), \qquad
-        \theta \approx \theta_0 - \beta \sin\theta_0,
-        \]
-        де друга формула --- класична аберація (як для звуку, наприклад), а перша --- класичний ефект Доплера (без поперечного доданку).
-    \end{itemize}
+    тобто $\theta \approx \theta_0 - \beta\sin\theta_0$: напрямок поширення хвилі зміщується вперед у бік руху джерела на кут $\delta\theta = \beta\sin\theta_0$.
 \end{problem}
 
 
