@@ -197,11 +197,11 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 
 \begin{equation}
     dI = \frac{q^2}{4\pi c^2}
-    \left\{
+    \left(
     \frac{2 ( \vect{n}_q \cdot \vect{v}_q ) (\vect{v}_q \cdot \dot{\vect{v}}_q)}{c Z_q^5}
     + \frac{\dot{\vect{v}}_q^{\,2}}{Z_q^4}
-    - \frac{\left(1 - \frac{\vect{v}_q^{\,2}}{c^2}\right) (\mathbf{n}_q \cdot \dot{\vect{v}}_q)^2}{Z_q^6}
-    \right\} do.
+    - \frac{\left(1 - \frac{\vect{v}_q^{\,2}}{c^2}\right) (\vect{n}_q \cdot \dot{\vect{v}}_q)^2}{Z_q^6}
+    \right) do.
 	\label{eq:radiation_power}
 \end{equation}
 
@@ -260,8 +260,8 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 
 
 \begin{equation}\label{eq:4.1.14}
-	dI = \frac{q^2}{4\pi c^3} \left[ \frac{\dot{\vect{v}}_q^2}{z^4} - \frac{\left(1 - \frac{v_q^2}{c^2}\right) (\vect{n} \cdot \dot{\vect{v}}_q)^2}{z^6}
-		\right] do,
+	dI = \frac{q^2}{4\pi c^3} \left( \frac{\dot{\vect{v}}_q^2}{z^4} - \frac{\left(1 - \frac{v_q^2}{c^2}\right) (\vect{n} \cdot \dot{\vect{v}}_q)^2}{z^6}
+		\right) do,
 \end{equation}
 де
 
@@ -279,10 +279,10 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 переважно в
 напрямку руху, випромінювання складатиметься з дуже коротких імпульсів, період повторення яких дорівнює періоду обертання.
 
-Для колового руху в магнітному полі \( \Bfield \) частота обертання:
+Для колового руху в магнітному полі \( \Bfield \) частота обертання\footnote{Ця частота, ще називається \emph{циклотронною}, або \emph{гіромагнітною} частотою.}:
 
 \begin{equation*}
-	\omega_H = \frac{v_q}{r_q} = \frac{eB}{m c}\sqrt{1 - \frac{v_q^2}{c^2}},
+	\omega_c = \frac{v_q}{r_q} = \frac{eB}{m c}\sqrt{1 - \frac{v_q^2}{c^2}},
 \end{equation*}
 прискорення:
 \begin{equation*}
@@ -293,7 +293,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 
 Систему координат виберемо таким чином, що:
 \begin{equation*}
-    \left\{\vect{v}_q(t_q)\right\} = v_q\left\{ \sin\omega t_q, \cos\omega t_q, 0\right\}, \quad \omega = \omega_H;
+    \left\{\vect{v}_q(t_q)\right\} = v_q\left\{ \sin\omega t_q, \cos\omega t_q, 0\right\}, \quad \omega = \omega_c;
 \end{equation*}
 і зафіксуємо напрямок \( \vect{n}_q = \{\sin \theta, 0, \cos \theta\} \).
 
@@ -396,7 +396,7 @@ r' \) маємо:
 законом збереження заряду \( \Div \vect{j} = -\frac{\partial \rho}{\partial t} \). Звідси:
 
 \begin{equation*}
-	j_j = \frac{\partial}{\partial t}(x_j \rho) - \Div (x_j \vect{j}).
+	j_j = \frac{\partial}{\partial t}(x_j \rho) - \Div (x_j\ \vect{j}).
 \end{equation*}
 
 Проінтегруємо це співвідношення:
@@ -446,19 +446,19 @@ r' \) маємо:
 
 \subsection*{Квадрупольне і магнітодипольне випромінювання}
 
-Якщо дипольний момент системи відсутній, основний внесок у вектор-потенціал~\eqref{eq:vector_potential_expansion} дає наступний після дипольного член
+Якщо дипольний момент системи відсутній, основний внесок у вектор-потенці\-ал~\eqref{eq:vector_potential_expansion} дає наступний після дипольного член
 розкладу~\eqref{eq:A1}.
 
 Скористаємося співвідношенням:
 
 \begin{equation*}
-	\Div\{x_i x_j \vect{j}\} = x_i J_j + x_j J_i + x_i x_j \Div \vect{j} = x_i J_j + x_j J_i - x_i x_j \frac{\partial \rho}{\partial t}.
+	\Div(x_i x_j\ \vect{j}) = x_i j_j + x_j j_i + x_i x_j \Div \vect{j} = x_i j_j + x_j j_i - x_i x_j \frac{\partial \rho}{\partial t}.
 \end{equation*}
 
 Для обмеженої системи струмів інтеграл від лівої частини дорівнює нулю. Звідси:
 
 \begin{equation*}
-	\int dV (x_i J_j + x_j J_i) = \int dV x_i x_j \frac{\partial \rho}{\partial t} \Rightarrow \int dV (x_i J_j + x_j J_i) = \int dV x_i x_j
+	\int dV (x_i j_j + x_j j_i) = \int dV x_i x_j \frac{\partial \rho}{\partial t} \Rightarrow \int dV (x_i j_j + x_j j_i) = \int dV x_i x_j
 	\frac{\partial^2 \rho}{\partial t^2}.
 \end{equation*}
 
@@ -487,15 +487,15 @@ r' \) маємо:
 \end{equation}
 
 \begin{equation}
-	\vect{A}_\text{квадруп.} = \{A_{\text{квадруп.},i}\}, \quad A_{\text{квадруп.},i} = \frac{1}{2c^2} \frac{\partial^2}{\partial t^2} \int x'_i (\vect{x}' \cdot \vect{n})
+	\vect{A}_\text{квадруп.} = \{A_{\text{квадруп.},i}\}, \quad A_{\text{квадруп.},i} = \frac{1}{2c^2} \frac{\partial^2}{\partial t^2} \int x'_i (\vect{r}' \cdot \vect{n})
 	\rho' \, dV',
 	\label{eq:quadrupole_potential}
 \end{equation}
 %
-де штрихом позначено величини, що залежать від змінної інтегрування \( \vect{x}' \). Останній доданок можна виразити через тензор квадрупольного моменту:
+де штрихом позначено величини, що залежать від змінної інтегрування \( \vect{r}' \). Останній доданок можна виразити через тензор квадрупольного моменту:
 
 \begin{equation}
-	Q_{ij} = \int \{3x_i x_j - r^2 \delta_{ij}\} \rho \, dV, \quad \sum_{i=1}^3 Q_{ii} = 0.
+	Q_{ij} = \int (3x_i x_j - r^2 \delta_{ij}) \rho \, dV, \quad \sum_{i=1}^3 Q_{ii} = 0.
 	\label{eq:quadrupole_tensor}
 \end{equation}
 
@@ -589,7 +589,7 @@ X_{iijj} = 4\pi = \int do \cdot 1.
 
 \begin{multline*}
 \int [\vect{n} \times [\ddot{\vect{m}}\times\vect{n}]] \cdot [\vect{n} \times \dddot{\vect{D}}] \, do = \int (m_i - n_i n_j m_i)
-(\epsilon_{ipq} n_p \tilde{\dddot{Q}}_{qr} n_r) \, do = \\ = \int \dddot{m}_i\epsilon_{ipq} n_p \dddot{Q}_{qr} n_r do =
+(\epsilon_{ipq} n_p \dddot{Q}_{qr} n_r) \, do = \\ = \int \dddot{m}_i\epsilon_{ipq} n_p \dddot{Q}_{qr} n_r do =
 \frac{4\pi}c \epsilon_{ipq} n_p \dddot{Q}_{qp}\dddot{m}_i = 0
 \end{multline*}
 %
@@ -626,7 +626,7 @@ X_{iijj} = 4\pi = \int do \cdot 1.
 зберігається, це означає, що частина енергії хвилі, що падає, переходить в енергію вторинних хвиль. Цей процес називають \emph{розсіюванням}. Він може
 також супроводжуватися \emph{поглинанням} енергії, коли частина енергії хвилі, що падає, втрачається в розсіювачі, трансформуючись в інші види енергії.
 
-Для опису цих процесів вводять \emph{диференціальний переріз розсіювання в тілесний кут} \( do \):
+Для опису цих процесів вводять \emph{диференціальний переріз розсіювання в тілесний кут}\index{Переріз!розсіювання!диференціальний} \( do \):
 
 \begin{equation}
 d\sigma = \frac{dI}{\Pi},
@@ -635,7 +635,7 @@ d\sigma = \frac{dI}{\Pi},
 де \( dI \) --- середня (за часом) енергія вторинного випромінювання за одиницю часу в тілесний кут \( do \), \( \Pi \) — середня густина потоку
 енергії хвилі, що падає, яка визначається вектором Пойнтінга.
 
-\textit{Повний переріз розсіювання} є:
+\textit{Повний переріз розсіювання}\index{Переріз!розсіювання!повний} є:
 
 \begin{equation}
 \sigma = \int d\sigma,
@@ -643,7 +643,7 @@ d\sigma = \frac{dI}{\Pi},
 \end{equation}
 де інтеграл береться по усіх можливих напрямках розсіяного випромінювання.
 
-\textit{Перерізом поглинання} називають величину:
+\textit{Перерізом поглинання}\index{Переріз!поглинання} називають величину:
 
 \begin{equation}
 \sigma_a = \frac{Q}{\Pi},
@@ -723,7 +723,7 @@ d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
 \label{eq:differential_cross_section_thomson}
 \end{equation}
 
-Цікаво, що цей вираз не залежить від частоти. Повний переріз отримаємо, інтегруючи~\eqref{eq:differential_cross_section_thomson} по усіх напрямках:
+Цікаво, що цей вираз не залежить від частоти. Повний переріз\index{Переріз!розсіювання!повний} отримаємо, інтегруючи~\eqref{eq:differential_cross_section_thomson} по усіх напрямках:
 
 \begin{equation}
 \sigma_T = \frac{8\pi}{3} \left( \frac{q^2}{mc^2} \right)^2.
@@ -736,7 +736,7 @@ d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
 \subsection*{Неполяризована хвиля}
 %% --------------------------------------------------------
 
-Формула~\eqref{eq:intensity} дає диференціальний переріз розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі присутні
+Формула~\eqref{eq:intensity} дає диференціальний переріз\index{Переріз!розсіювання!диференціальний} розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі присутні
 усі напрямки \( \vect{E} \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з~\eqref{eq:dipole_moment}, рівноймовірними є усі
 напрямки дипольного моменту з~\eqref{eq:intensity}.
 
