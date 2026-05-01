@@ -761,15 +761,36 @@ hbox,
   drop fuzzy shadow,#1}
 
 
-\newtcolorbox{postulate}[1]{
-  colback=blue!5!white,
-  colframe=blue!75!black,
-  fonttitle=\bfseries,
-  title=#1,
-  arc=2mm,
-  boxrule=0.5mm
-}
+%\newtcolorbox{postulate}[1]{
+%    enhanced,
+%    colback=cyan!6!white,
+%    colframe=white,
+%    boxrule=0pt,
+%    fonttitle=\bfseries\underline,
+%    fontupper=\bfseries\itshape,
+%    title=#1,
+%    borderline west={2.5pt}{0pt}{themecolorlight},
+%    overlay={
+%        \filldraw[themecolorlight, draw=themecolorlight]
+%            ([xshift=1.25pt]frame.north west) circle (4pt);
+%    },
+%}
 
+\newtcolorbox{postulate}[1]{
+    enhanced,
+    colback=cyan!10!white,
+    colframe=white,
+    boxrule=0pt,
+    fonttitle=\bfseries\underline,
+    fontupper=\bfseries\itshape,
+    title=#1,
+    left=8pt,
+    borderline west={2.5pt}{0pt}{themecolorlight},
+    overlay={
+        \filldraw[themecolorlight, draw=themecolorlight]
+            ([xshift=1.25pt]frame.north west) circle (5pt);
+    },
+}
 
 % Define a background layer, in which the parchment shape is drawn
 \pgfdeclarelayer{background}

@@ -8,6 +8,8 @@ _minted*/
 *.bbl
 *.blg
 *.nav
+*.bbl*
+*.bcf*
 *.toc
 *.thm
 *.snm
