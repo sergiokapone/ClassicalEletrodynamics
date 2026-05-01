@@ -89,9 +89,9 @@
 	\mathrm{grad}\,(\phi \psi)             & = \psi\,\mathrm{grad}\,\phi +\phi\, \mathrm{grad}\,\psi                                                                                                                           \\
 	\mathrm{div}\,(\phi \vect{A})          & = \phi\,\mathrm{div}\,\vect{A} + \vect{A}\,\mathrm{grad}\,\phi                                                                                                                    \\
 	\mathrm{rot}\,(\phi \vect{A})          & = \phi\,\mathrm{rot}\,\vect{A} + \mathrm{grad}\,\phi \times \vect{A}                                                                                                              \\
-	\mathrm{grad}\,(\vect{A}\cdot\vect{B}) & = \vect{B}\times\mathrm{rot}\,\vect{A} + \vect{A}\times\mathrm{rot}\,\vect{B} + \left( \vect{B}\vect{\nabla}\right)\vect{A} + \left( \vect{A}\vect{\nabla}\right)\vect{B}         \\
-	\mathrm{div}\,(\vect{A}\times\vect{B}) & = \vect{B}\cdot\mathrm{rot}\,\vect{A} - \vect{A}\cdot\mathrm{rot}\,\vect{B}                                                                                                       \\
-	\mathrm{rot}\,(\vect{A}\times\vect{B}) & = \left( \vect{B}\vect{\nabla}\right)\vect{A} - \left( \vect{A}\vect{\nabla}\right)\vect{B} + 	\vect{A}\,\mathrm{div}\,\vect{B} - \vect{B}\,\mathrm{div}\,\vect{A} \label{rotvect} \\
+	\mathrm{grad}\,(\vect{A}\cdot\Bfield) & = \Bfield\times\mathrm{rot}\,\vect{A} + \vect{A}\times\mathrm{rot}\,\Bfield + \left( \Bfield\vect{\nabla}\right)\vect{A} + \left( \vect{A}\vect{\nabla}\right)\Bfield         \\
+	\mathrm{div}\,(\vect{A}\times\Bfield) & = \Bfield\cdot\mathrm{rot}\,\vect{A} - \vect{A}\cdot\mathrm{rot}\,\Bfield                                                                                                       \\
+	\mathrm{rot}\,(\vect{A}\times\Bfield) & = \left( \Bfield\vect{\nabla}\right)\vect{A} - \left( \vect{A}\vect{\nabla}\right)\Bfield + 	\vect{A}\,\mathrm{div}\,\Bfield - \Bfield\,\mathrm{div}\,\vect{A} \label{rotvect} \\
 	\frac12\mathrm{grad}\,A^2              & =  \left( \vect{A}\vect{\nabla}\right)\vect{A} + \vect{A}\times\mathrm{rot}\,\vect{A}
 \end{align}
 
@@ -124,7 +124,7 @@
 Ротор та векторний добуток у декартових координатах $\{x,y,z\} = \{x_1, x_2, x_3\}$:
 \begin{align}
 \left[\rot\vect{A} \right]_i &= \epsilon_{ijk}{\partial_j}{A_k}, \\
-\left[ \vect{A} \times \vect{B} \right]_i &= \epsilon_{ijk}{A_j}{B_k},
+\left[ \vect{A} \times \Bfield \right]_i &= \epsilon_{ijk}{A_j}{B_k},
 \end{align}
 всі індекси пробігають значення $1$, $2$, $3$.
 
@@ -158,10 +158,10 @@
 За допомогою~\eqref{eq:Levi-Chiv} можна записати \(i\)-ту компоненту векторного добутку:
 
 \begin{equation*}
-[\vect{A} \times \vect{B}]_i = \varepsilon_{ijk} A_j B_k
+[\vect{A} \times \Bfield]_i = \varepsilon_{ijk} A_j B_k
 \end{equation*}
 
-\((A_i, B_i\) --- компоненти векторів \(\vect{A}\) та \(\vect{B})\), а також ротор:
+\((A_i, B_i\) --- компоненти векторів \(\vect{A}\) та \(\Bfield)\), а також ротор:
 
 \begin{equation*}
 \Rot(\vect{A})_i = \varepsilon_{ijk} \partial_j A_k.
@@ -192,8 +192,8 @@
 Дивергенція векторного добутку:
 
 \begin{multline*}
-\Div[\vect{A} \times \vect{B}] = \partial_i (\varepsilon_{ijk} A_j B_k) = B_k \varepsilon_{ijk} \partial_i A_j + A_j \varepsilon_{ijk} \partial_i B_k =
-B_k \varepsilon_{kij} \partial_i A_j - A_j \varepsilon_{ijk} \partial_i B_k = \\ = \vect{B} \cdot \Rot \vect{A} - \vect{A} \cdot \Rot \vect{B}.
+\Div[\vect{A} \times \Bfield] = \partial_i (\varepsilon_{ijk} A_j B_k) = B_k \varepsilon_{ijk} \partial_i A_j + A_j \varepsilon_{ijk} \partial_i B_k =
+B_k \varepsilon_{kij} \partial_i A_j - A_j \varepsilon_{ijk} \partial_i B_k = \\ = \Bfield \cdot \Rot \vect{A} - \vect{A} \cdot \Rot \Bfield.
 \end{multline*}
 
 %% --------------------------------------------------------
@@ -243,20 +243,20 @@ B_k \varepsilon_{kij} \partial_i A_j - A_j \varepsilon_{ijk} \partial_i B_k = \\
 Отримаємо за допомогою~\eqref{eq:epsilon_contraction} правило для подвійного векторного добутку:
 
 \begin{equation*}
-([\vect{A} \times [\vect{B} \times \vect{C}]])_i \equiv \varepsilon_{ijk} A_j ([\vect{B} \times \vect{C}])_k \equiv \varepsilon_{ijk} A_j
+([\vect{A} \times [\Bfield \times \vect{C}]])_i \equiv \varepsilon_{ijk} A_j ([\Bfield \times \vect{C}])_k \equiv \varepsilon_{ijk} A_j
 \varepsilon_{kpq} B_p C_q.
 \end{equation*}
 
 Завдяки~\eqref{eq:epsilon_contraction}:
 
 \begin{equation*}
-([\vect{A} \times [\vect{B} \times \vect{C}]])_i \equiv (\delta_{ip} \delta_{jq} - \delta_{iq} \delta_{jp}) A_j B_p C_q = B_i A_q C_q - C_i A_p B_p,
+([\vect{A} \times [\Bfield \times \vect{C}]])_i \equiv (\delta_{ip} \delta_{jq} - \delta_{iq} \delta_{jp}) A_j B_p C_q = B_i A_q C_q - C_i A_p B_p,
 \end{equation*}
 
 тобто маємо відому формулу:
 
 \begin{equation*}
-[\vect{A} \times [\vect{B} \times \vect{C}]] = \vect{B}(\vect{A} \cdot \vect{C}) - \vect{C}(\vect{A} \cdot \vect{B}).
+[\vect{A} \times [\Bfield \times \vect{C}]] = \Bfield(\vect{A} \cdot \vect{C}) - \vect{C}(\vect{A} \cdot \Bfield).
 \end{equation*}
 
 

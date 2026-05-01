@@ -720,7 +720,7 @@ $BC$ і $AD$, можна записати:
 
 В силу рівняння~\eqref{eq:M3D}:
 \begin{multline*}
-	\vect{j}\cdot\vect{E} =  - \Div\left(\frac{c}{4\pi}[\Efield\times\Bfield]\right) - \frac{1}{4\pi}  \Bfield\cdot
+	\vect{j}\cdot\Efield =  - \Div\left(\frac{c}{4\pi}[\Efield\times\Bfield]\right) - \frac{1}{4\pi}  \Bfield\cdot
 	\parttime{\Bfield}  -
 	\parttime{} \left( \frac1{8\pi}\Efield^2\right) = \\
 	= - \Div\left(\frac{c}{4\pi}[\Efield\times\Bfield]\right) -  \parttime{} \left(
@@ -730,7 +730,7 @@ $BC$ і $AD$, можна записати:
 
 Звідси отримуємо важливе співвідношення:
 \begin{equation}\label{eq:energy_balance}
-	\vect{j}\cdot\vect{E} + \Div\vect{\Pi} +  \parttime{} \frac{\Efield^2 + \Bfield^2}{8\pi}  = 0,
+	\vect{j}\cdot\Efield + \Div\vect{\Pi} +  \parttime{} \frac{\Efield^2 + \Bfield^2}{8\pi}  = 0,
 \end{equation}
 де величину:
 \begin{equation}
@@ -742,7 +742,7 @@ $BC$ і $AD$, можна записати:
 Проінтегруємо його по деякій області $\Omega$, перетворюючи інтеграл з
 дивергентним членом в інтеграл по (замкненій) поверхні $\partial\Omega$, що оточує $\Omega$:
 \begin{equation}\label{eq:energy_balance_int}
-	\iiint\limits_{\Omega} \vect{j}\cdot\vect{E} dV + \oiint\limits_{\partial\Omega} \vect{\Pi}\cdot d\vect{S} +  \parttime{} \iiint\limits_{\Omega}
+	\iiint\limits_{\Omega} \vect{j}\cdot\Efield dV + \oiint\limits_{\partial\Omega} \vect{\Pi}\cdot d\vect{S} +  \parttime{} \iiint\limits_{\Omega}
 	\frac{\Efield^2 + \Bfield^2}{8\pi} dV  = 0.
 \end{equation}
 

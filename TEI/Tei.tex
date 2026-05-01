@@ -36,16 +36,16 @@
 \end{equation}
 з якого випливає фізичний зміст компонент $p^{\mu}$. Дійсно, при $\mu=0$, враховуючи представлення $F^{\mu\nu}$ через електричне і магнітне поля, маємо
 \begin{equation*}
-    \frac{d\mathcal{E}}{dt} = q(\vect{E}\cdot\vect{v}),
+    \frac{d\mathcal{E}}{dt} = q(\Efield\cdot\vect{v}),
 \end{equation*}
-де $\mathcal{E}=cp^0=mc^2/\sqrt{1-v^2/c^2}$, $\vect{v}=d\vect{r}/dt$ --- звичайна швидкість, або $d\mathcal{E}=q(\vect{E}\cdot d\vect{r})$.
+де $\mathcal{E}=cp^0=mc^2/\sqrt{1-v^2/c^2}$, $\vect{v}=d\vect{r}/dt$ --- звичайна швидкість, або $d\mathcal{E}=q(\Efield\cdot d\vect{r})$.
 
 Права частина цього рівняння --- робота електромагнітного поля, яке діє на частинку з зарядом $q$ й передає їй певну енергію, зміна якої $d\mathcal{E}$ фігурує в лівій частині.
 
 При $\mu=i=1,2,3$ з~\eqref{eq:EOM_p} у тривимірних позначеннях дістанемо
 \begin{equation*}
-    \frac{d\vect{p}}{dt} = q\!\left\{\vect{E}
-    + \frac{1}{c}\vect{v}\times\vect{B}\right\},
+    \frac{d\vect{p}}{dt} = q\!\left(\Efield
+    + \frac{1}{c}\vect{v}\times\Bfield\right),
 \end{equation*}
 де $\vect{p}=m\vect{v}(1-v^2/c^2)^{-1/2}$ --- тривимірна частина чотири-імпульсу. Це рівняння описує обмін імпульсом між зарядженим тілом та електромагнітним полем, причому права частина рівняння дає значення сили\index{Сила Лоренца}, що діє на тіло. Таким чином, $\vect{p}$ має сенс імпульсу рухомого тіла.
 
@@ -115,8 +115,8 @@ F^{\alpha\beta} F_{\alpha\beta,\nu}
 \int\limits_{\Omega_3} d^3 x \, (\partial_\nu T^{\mu\nu})
 &= \frac{1}{c}\,\frac{d}{dt} \int\limits_{\Omega_3} T^{\mu 0}\, d^3 x
 + \int\limits_{\Omega_3} d^3 x \, \frac{\partial T^{\mu i}}{\partial x^i} \\
-&= \frac{1}{c}\,\frac{d}{dt} \int_{\Omega_3} T^{\mu 0}\, d^3 x
-+ \oint_{\partial \Omega_3} T^{\mu i}\, d\sigma_i \, .
+&= \frac{1}{c}\,\frac{d}{dt} \int\limits_{\Omega_3} T^{\mu 0}\, d^3 x
++ \oint\limits_{\partial \Omega_3} T^{\mu i}\, d\sigma_i \, .
 \end{align*}
 де $d\sigma_i$ --- елемент площини поверхні $\partial\Omega_3$, що обмежує просторову область $\Omega_3$ (з $d\sigma_1=dy\,dz$, $d\sigma_2=dx\,dz$, $d\sigma_3=dx\,dy$), причому інтеграл по $\partial\Omega_3$ описує потік 4-імпульсу через межу цієї області. Інтегральний \emph{закон збереження енергії та імпульсу\index{Закон збереження!енергії-імпульсу}} усієї системи «поле + частинки» в цій області має такий вигляд:
 \begin{equation}\label{eq:conservation_integral}
@@ -128,16 +128,16 @@ F^{\alpha\beta} F_{\alpha\beta,\nu}
 
 Запишемо явні вирази для \emph{густини енергії поля}:
 \begin{equation}\label{eq:T00}
-    T^{00} = \frac{1}{8\pi}\!\left(\vect{E}^2 + \vect{B}^2\right),
+    T^{00} = \frac{1}{8\pi}\!\left(\Efield^2 + \Bfield^2\right),
 \end{equation}
 та для \emph{густини потоку енергії}:
 \begin{equation}\label{eq:Poynting}
-    \vect{\Pi} = \frac{c}{4\pi}\vect{E}\times\vect{B}.
+    \vect{\Pi} = \frac{c}{4\pi}\Efield\times\Bfield.
 \end{equation}
-Як видно з~\eqref{eq:conservation_integral} при $\mu=0$, $\oint\limits_{\partial\Omega_3}\vect{\Pi}\cdot d\vect{\Sigma}$ --- це енергія, що витікає через $\partial\Omega_3$ за одиницю часу. Одночасно $T^{0i}/c = T^{i0}/c = \Pi^i/c^2$ --- густина імпульсу поля, причому рівняння~\eqref{eq:conservation_integral} при $\mu=i$ описує збереження імпульсу. Доданок $\oint_{\partial\Omega_3}d\sigma_j T^{ij}$ описує потік імпульсу (імпульс, що витікає за одиницю часу через поверхню $\partial\Omega_3$). Відповідно, $T^{k1}, T^{k2}, T^{k3}$ можна інтерпретувати як густину потоку $k$-тої компоненти імпульсу. Для просторової частини тензора енергії-імпульсу маємо $T^{ij}=-t^{ij}$, де тривимірний тензор
+Як видно з~\eqref{eq:conservation_integral} при $\mu=0$, $\oint\limits_{\partial\Omega_3}\vect{\Pi}\cdot d\vect{S}$ --- це енергія, що витікає через $\partial\Omega_3$ за одиницю часу. Одночасно $T^{0i}/c = T^{i0}/c = \Pi^i/c^2$ --- густина імпульсу поля, причому рівняння~\eqref{eq:conservation_integral} при $\mu=i$ описує збереження імпульсу. Доданок $\oint_{\partial\Omega_3}d\sigma_j T^{ij}$ описує потік імпульсу (імпульс, що витікає за одиницю часу через поверхню $\partial\Omega_3$). Відповідно, $T^{k1}, T^{k2}, T^{k3}$ можна інтерпретувати як густину потоку $k$-тої компоненти імпульсу. Для просторової частини тензора енергії-імпульсу маємо $T^{ij}=-t^{ij}$, де тривимірний тензор
 \begin{equation}\label{eq:Maxwell_stress}
     t^{ij} = \frac{1}{4\pi}\!\left(
-    E^i E^j + B^i B^j - \frac{1}{2}\delta^{ij}(\vect{E}^2+\vect{B}^2)
+    E^i E^j + B^i B^j - \frac{1}{2}\delta^{ij}(\Efield^2+\Bfield^2)
     \right)
 \end{equation}
 називають \emph{максвелівським тензором натягів\index{Тензор!натягів Максвелла}}.

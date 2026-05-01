@@ -79,20 +79,20 @@
 
 \textit{Відповідь}: Рівняння~\eqref{eq:Maxwell_4D_1} при $\nu=0$ еквівалентне рівнянню
 \[
-    \Div\vect{E} = 4\pi\rho,
+    \Div\Efield = 4\pi\rho,
 \]
 рівняння~\eqref{eq:Maxwell_4D_1} при $\nu=1,2,3$ еквівалентне рівнянню
 \[
-    \Rot\vect{B} = \frac{4\pi}{c}\vect{j}
-    + \frac{1}{c}\frac{\partial\vect{E}}{\partial t},
+    \Rot\Bfield = \frac{4\pi}{c}\vect{j}
+    + \frac{1}{c}\frac{\partial\Efield}{\partial t},
 \]
 рівняння~\eqref{eq:Maxwell_4D_2} при $\alpha,\beta,\gamma=1,2,3$ еквівалентне рівнянню
 \[
-    \Div\vect{B} = 0,
+    \Div\Bfield = 0,
 \]
 а інші три комбінації $\alpha,\beta,\gamma$, що містять індекс «0», відповідають рівнянню
 \[
-    \Rot\vect{E} = -\frac{1}{c}\frac{\partial\vect{B}}{\partial t}.
+    \Rot\Efield = -\frac{1}{c}\frac{\partial\Bfield}{\partial t}.
 \]
 \end{problem}
 
@@ -156,20 +156,20 @@
 \end{equation*}
 де позначки $\|$ та $\bot$ відповідають поздовжнім та поперечним компонентам тривимірних векторів. За допомогою закону перетворення для тензора електромагнітного поля покажіть, що відповідні до $(*)$ перетворення поперечних та поздовжніх компонент напруженості електричного поля та індукції магнітного поля мають вид:
 \begin{align*}
-    \vect{E}'_{\|} &= \vect{E}_{\|},
+    \Efield'_{\|} &= \Efield_{\|},
     \qquad
-    \vect{B}'_{\|} = \vect{B}_{\|}, \\
-    \vect{E}'_{\bot} &= \frac{\vect{E}_{\bot}
-    + \tfrac{1}{c}[\vect{v}\times\vect{B}]}{\sqrt{1-\beta^2}},
+    \Bfield'_{\|} = \Bfield_{\|}, \\
+    \Efield'_{\bot} &= \frac{\Efield_{\bot}
+    + \tfrac{1}{c}[\vect{v}\times\Bfield]}{\sqrt{1-\beta^2}},
     \qquad
-    \vect{B}'_{\bot} = \frac{\vect{B}_{\bot}
-    - \tfrac{1}{c}[\vect{v}\times\vect{E}]}{\sqrt{1-\beta^2}}.
+    \Bfield'_{\bot} = \frac{\Bfield_{\bot}
+    - \tfrac{1}{c}[\vect{v}\times\Efield]}{\sqrt{1-\beta^2}}.
 \end{align*}
 \end{problem}
 
 %=========================================================
 \begin{problem}
-За допомогою формул перетворення електричного та магнітного полів при переході $S\to S'$ з вправи~\ref{prb:3.3} покажіть прямим обчисленням, що величини $\vect{E}^{2}-\vect{B}^{2}$ та $\vect{E}\cdot\vect{B}$ при цьому переході залишаються незмінними.
+За допомогою формул перетворення електричного та магнітного полів при переході $S\to S'$ з вправи~\ref{prb:3.3} покажіть прямим обчисленням, що величини $\Efield^{2}-\Bfield^{2}$ та $\Efield\cdot\Bfield$ при цьому переході залишаються незмінними.
 
 \vspace{1ex}
 \textit{Розв'язок}:
@@ -295,8 +295,8 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
 
 Отримаємо рівняння руху зарядженої частинки з урахуванням \emph{принципу відповідності з класичною теорією}. У контексті рівнянь руху це означає, що у системі відліку, де швидкість частинки значно менша за швидкість світла $c$, можна користуватися ньютонівськими рівняннями
 \begin{equation*}
-    m\frac{d\vect{v}}{dt} = q\!\left(\vect{E}
-    + \frac{1}{c}[\vect{v}\times\vect{B}]\right).
+    m\frac{d\vect{v}}{dt} = q\!\left(\Efield
+    + \frac{1}{c}[\vect{v}\times\Bfield]\right).
 \end{equation*}
 Ми далі використаємо навіть більш слабку умову, що класичні рівняння руху виконуються при $\vect{v}=0$. Основна ідея полягає у тому, що співвідношення між тензорними величинами, записані в одній системі відліку, можна поширити на будь-які системи.
 
@@ -308,8 +308,8 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
 
 Зафіксуємо деякий момент $t_1$ і подію~А з координатами $(t_1,\vect{r}(t_1))$ та розглянемо інерціальну систему відліку $S_1$, таку, де швидкість частинки у цей момент дорівнює нулю: $\vect{v}=0$. Тоді, згідно з принципом відповідності, в цій системі у момент події~А можна використати ньютонівські співвідношення (в декартових координатах):
 \begin{equation*}
-    m\frac{d\vect{v}}{dt} = q\!\left(\vect{E}
-    + \frac{1}{c}[\vect{v}\times\vect{B}]\right) = q\vect{E},
+    m\frac{d\vect{v}}{dt} = q\!\left(\Efield
+    + \frac{1}{c}[\vect{v}\times\Bfield]\right) = q\Efield,
     \qquad
     m\frac{d(\vect{v}^2/2)}{dt} = 0.
 \end{equation*}
@@ -324,7 +324,7 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
 З рівнянь руху отримаємо формулу для енергії та імпульсу частинки. Запишемо тривимірну форму рівнянь руху, яка є еквівалентною трьом компонентам~\eqref{eq:rel_motion} при $\mu=i=1,2,3$:
 \begin{equation*}
     m\frac{d}{dt}\!\left(\frac{\vect{v}}{\sqrt{1-\vect{v}^2/c^2}}\right)
-    = q\!\left(\vect{E} + \frac{1}{c}[\vect{v}\times\vect{B}]\right).
+    = q\!\left(\Efield + \frac{1}{c}[\vect{v}\times\Bfield]\right).
 \end{equation*}
 Права частина --- це сила Лоренца\index{Сила Лоренца}, що визначає швидкість передачі імпульсу від поля до зарядженої частинки. Звідси випливає \emph{вираз для тривимірної частини релятивістського імпульсу}:
 \begin{equation*}
@@ -335,7 +335,7 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
 Компонента $\mu=0$ рівняння~\eqref{eq:rel_motion} дає
 \begin{equation*}
     mc^2\frac{d}{dt}\!\left(\frac{1}{\sqrt{1-\vect{v}^2/c^2}}\right)
-    = q(\vect{E}\cdot\vect{v}).
+    = q(\Efield\cdot\vect{v}).
 \end{equation*}
 Права частина --- це звичайна потужність, що описує передачу енергії від поля до частинки за одиницю часу. Звідси випливає \emph{релятивістський вираз для повної енергії рухомої частинки}:
 \begin{equation*}
@@ -345,7 +345,7 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
 
 %=========================================================
 \begin{problem}
-Частинка з зарядом $q$ та масою $m$ рухається в однорідному сталому електромагнітному полі, причому електричне $\vect{E}$ та магнітне $\vect{B}$ поля паралельні. В початковий момент $t=0$ частинка була у початку координат та мала швидкість $v$, перпендикулярну до полів. Знайти залежності координат зарядженої частинки від власного часу $\tau$.
+Частинка з зарядом $q$ та масою $m$ рухається в однорідному сталому електромагнітному полі, причому електричне $\Efield$ та магнітне $\Bfield$ поля паралельні. В початковий момент $t=0$ частинка була у початку координат та мала швидкість $v$, перпендикулярну до полів. Знайти залежності координат зарядженої частинки від власного часу $\tau$.
 
 \textit{Відповідь}. Нехай вісь $OZ$ напрямлена вздовж вектора напруженості електричного поля, а вісь $OX$ --- вздовж напрямку швидкості в початковий момент. Тоді
 \begin{align*}
@@ -398,14 +398,14 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
 \end{equation}
 Звідси випливає $k^0=|\vect{k}|$.
 
-Згортаючи~\eqref{eq:Bianchi_plane} з $f^{\alpha\beta}$ із врахуванням~\eqref{eq:transversality} дістанемо $f^{\alpha\beta}f_{\alpha\beta}=0$, або $F^{\alpha\beta}F_{\alpha\beta}=0$, що еквівалентне $\vect{E}^2=\vect{B}^2$. Згорнемо~\eqref{eq:Bianchi_plane} з $\varepsilon^{\mu\nu\alpha\beta}f_{\mu\nu}$ та врахуємо, що~\eqref{eq:Bianchi_plane} можна записати як $\varepsilon^{\mu\alpha\beta\gamma}k_{\alpha}f_{\beta\gamma}=0$. Після такої операції зникають доданки
+Згортаючи~\eqref{eq:Bianchi_plane} з $f^{\alpha\beta}$ із врахуванням~\eqref{eq:transversality} дістанемо $f^{\alpha\beta}f_{\alpha\beta}=0$, або $F^{\alpha\beta}F_{\alpha\beta}=0$, що еквівалентне $\Efield^2=\Bfield^2$. Згорнемо~\eqref{eq:Bianchi_plane} з $\varepsilon^{\mu\nu\alpha\beta}f_{\mu\nu}$ та врахуємо, що~\eqref{eq:Bianchi_plane} можна записати як $\varepsilon^{\mu\alpha\beta\gamma}k_{\alpha}f_{\beta\gamma}=0$. Після такої операції зникають доданки
 \begin{equation*}
     \varepsilon^{\mu\nu\alpha\beta}(f_{\mu\nu}f_{\beta\gamma}k_{\alpha}
     + f_{\gamma\alpha}k_{\beta})
     \equiv (\varepsilon^{\mu\nu\alpha\beta}f_{\mu\nu}k_{\alpha})f_{\beta\gamma}
     + (\varepsilon^{\mu\nu\alpha\beta}f_{\mu\nu}k_{\beta})f_{\gamma\alpha} = 0
 \end{equation*}
-і залишається $\varepsilon^{\mu\nu\alpha\beta}f_{\mu\nu}f_{\alpha\beta}=0$, або $\varepsilon^{\mu\nu\alpha\beta}F_{\mu\nu}F_{\alpha\beta}=0$, що еквівалентне $\vect{E}\cdot\vect{B}=0$. Як і слід було очікувати, отримано звичайні співвідношення для плоских хвиль у вакуумі.
+і залишається $\varepsilon^{\mu\nu\alpha\beta}f_{\mu\nu}f_{\alpha\beta}=0$, або $\varepsilon^{\mu\nu\alpha\beta}F_{\mu\nu}F_{\alpha\beta}=0$, що еквівалентне $\Efield\cdot\Bfield=0$. Як і слід було очікувати, отримано звичайні співвідношення для плоских хвиль у вакуумі.
 
 %% --------------------------------------------------------
 \section{Ефект Доплера}

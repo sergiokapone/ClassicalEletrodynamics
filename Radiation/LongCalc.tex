@@ -1,0 +1,245 @@
+\documentclass[a4paper,12pt]{article}
+
+\usepackage{fontsetup}
+\usepackage[english, russian, ukrainian]{babel}
+
+\usepackage{amsmath}
+
+\newcommand\vect[1]{\vect{#1}}
+
+\begin{document}
+
+\subsection*{Детальний вивід середньої інтенсивності випромінювання для колового руху}
+
+Розглянемо заряд $q$, що рухається по колу радіуса $r$ у площині $(x,y)$ зі сталою кутовою швидкістю $\omega = v/r$. Тоді:
+\[
+\vect{v}_q(t_q) = v\bigl( \sin(\omega t_q),\; \cos(\omega t_q),\; 0 \bigr),\qquad
+\dot{\vect{v}}_q(t_q) = \omega v\bigl( \cos(\omega t_q),\; -\sin(\omega t_q),\; 0 \bigr),
+\]
+\[
+\dot{v}^2 = \omega^2 v^2.
+\]
+
+Напрямок спостереження:
+\[
+\vect{n} = (\sin\theta,\; 0,\; \cos\theta),
+\]
+де $\theta$ --- кут між $\vect{n}$ і віссю $z$ (перпендикулярною до площини орбіти).
+
+\subsubsection{Крок 1. Вираз для $Z_q$}
+\[
+\vect{v}_q\cdot\vect{n} = v\sin(\omega t_q)\sin\theta + v\cos(\omega t_q)\cdot 0 + 0\cdot\cos\theta
+= v\sin\theta\sin(\omega t_q).
+\]
+Отже,
+\[
+Z_q = 1 - \frac{\vect{v}_q\cdot\vect{n}}{c} = 1 - \beta\sin\theta\sin\phi,\qquad
+\beta = \frac{v}{c},\quad \phi = \omega t_q.
+\]
+
+\subsubsection{Крок 2. Миттєва інтенсивність $dI$ для $\vect{v}_q\perp\dot{\vect{v}}_q$}
+З формули (4.1.14):
+\[
+dI = \frac{q^2}{4\pi c^3}\left[ \frac{\dot{v}^2}{Z_q^4} - \frac{(1-\beta^2)(\vect{n}\cdot\dot{\vect{v}}_q)^2}{Z_q^6} \right] do.
+\]
+Обчислимо $\vect{n}\cdot\dot{\vect{v}}_q$:
+\[
+\vect{n}\cdot\dot{\vect{v}}_q = \sin\theta\cdot(\omega v\cos\phi) + 0\cdot(-\omega v\sin\phi) + \cos\theta\cdot 0 = \omega v\sin\theta\cos\phi.
+\]
+Тому:
+\[
+(\vect{n}\cdot\dot{\vect{v}}_q)^2 = \omega^2 v^2\sin^2\theta\cos^2\phi.
+\]
+Підставляємо:
+\[
+dI = \frac{q^2}{4\pi c^3}\,\omega^2 v^2\left[ \frac{1}{Z_q^4} - \frac{(1-\beta^2)\sin^2\theta\cos^2\phi}{Z_q^6} \right] do.
+\]
+
+\subsubsection{Крок 3. Середнє за часом спостереження}
+Середнє за великим періодом $T$:
+\[
+\langle dI \rangle = \frac{1}{T}\int_0^T dI(t)\,dt.
+\]
+Перехід до інтегрування по $t_q$:
+\[
+dt = \left(1 - \frac{\vect{v}_q\cdot\vect{n}}{c}\right) dt_q = Z_q\, dt_q.
+\]
+Оскільки $dI(t)$ залежить від $t$ через $t_q$, маємо:
+\[
+\langle dI \rangle = \frac{\omega}{2\pi} \int_0^{2\pi/\omega} dI(t_q)\, Z_q\, dt_q.
+\]
+Підставляємо $dI(t_q)$:
+\[
+\langle dI \rangle = \frac{\omega}{2\pi} \int_0^{2\pi/\omega} \frac{q^2}{4\pi c^3}\omega^2 v^2\left[ \frac{1}{Z_q^4} - \frac{(1-\beta^2)\sin^2\theta\cos^2\phi}{Z_q^6} \right] Z_q\, dt_q.
+\]
+Спрощуємо:
+\[
+\langle dI \rangle = \frac{q^2\omega^3 v^2}{8\pi^2 c^3} \int_0^{2\pi/\omega} \left[ \frac{1}{Z_q^3} - \frac{(1-\beta^2)\sin^2\theta\cos^2\phi}{Z_q^5} \right] dt_q.
+\]
+Заміна $dt_q = d\phi/\omega$, $\phi\in[0,2\pi]$:
+\[
+\langle dI \rangle = \frac{q^2\omega^2 v^2}{8\pi^2 c^3} \int_0^{2\pi} \left[ \frac{1}{Z_q^3} - \frac{(1-\beta^2)\sin^2\theta\cos^2\phi}{Z_q^5} \right] d\phi,
+\]
+де $Z_q = 1 - a\sin\phi$, $a = \beta\sin\theta$.
+
+\subsubsection{Крок 4. Табличні інтеграли}
+Відомі формули ($|a|<1$):
+\[
+J_3(a) = \int_0^{2\pi} \frac{d\phi}{(1-a\sin\phi)^3} = \frac{2\pi(2+a^2)}{(1-a^2)^{5/2}},
+\]
+\[
+J_5(a) = \int_0^{2\pi} \frac{d\phi}{(1-a\sin\phi)^5} = \frac{2\pi(8+12a^2+3a^4)}{(1-a^2)^{9/2}}.
+\]
+Для інтеграла з $\cos^2\phi$:
+\[
+K_5(a) = \int_0^{2\pi} \frac{\cos^2\phi\,d\phi}{(1-a\sin\phi)^5} = \frac{\pi(4+3a^2)}{(1-a^2)^{7/2}}.
+\]
+(Цей результат можна отримати, виразивши $\cos^2\phi = 1-\sin^2\phi$ і використавши зв'язок між $J_n$ та похідними по $a$.)
+
+Отже,
+\[
+\langle dI \rangle = \frac{q^2\omega^2 v^2}{8\pi^2 c^3}\Bigl[ J_3(a) - (1-\beta^2)\sin^2\theta\cdot K_5(a) \Bigr].
+\]
+
+\subsubsection{Крок 5. Підстановка $J_3$ та $K_5$}
+\[
+J_3(a) = \frac{2\pi(2+\beta^2\sin^2\theta)}{(1-\beta^2\sin^2\theta)^{5/2}},
+\]
+\[
+K_5(a) = \frac{\pi(4+3\beta^2\sin^2\theta)}{(1-\beta^2\sin^2\theta)^{7/2}}.
+\]
+Тоді:
+\[
+\langle dI \rangle = \frac{q^2\omega^2 v^2}{8\pi^2 c^3}\left[
+\frac{2\pi(2+\beta^2 s^2)}{(1-\beta^2 s^2)^{5/2}}
+- (1-\beta^2)s^2\cdot \frac{\pi(4+3\beta^2 s^2)}{(1-\beta^2 s^2)^{7/2}}
+\right],
+\]
+де $s\equiv\sin\theta$.
+
+Виносимо $\pi$ за дужки:
+\[
+\langle dI \rangle = \frac{q^2\omega^2 v^2}{8\pi c^3}\left[
+\frac{2(2+\beta^2 s^2)}{(1-\beta^2 s^2)^{5/2}}
+- \frac{(1-\beta^2)s^2(4+3\beta^2 s^2)}{(1-\beta^2 s^2)^{7/2}}
+\right].
+\]
+
+\subsubsection{Крок 6. Зведення до спільного знаменника}
+Спільний знаменник $(1-\beta^2 s^2)^{7/2}$:
+\[
+\langle dI \rangle = \frac{q^2\omega^2 v^2}{8\pi c^3}\cdot
+\frac{ 2(2+\beta^2 s^2)(1-\beta^2 s^2) - (1-\beta^2)s^2(4+3\beta^2 s^2) }
+{(1-\beta^2 s^2)^{7/2}}.
+\]
+
+Обчислимо чисельник $N$:
+\[
+N = 2(2+\beta^2 s^2)(1-\beta^2 s^2) - (1-\beta^2)s^2(4+3\beta^2 s^2).
+\]
+
+Перший доданок:
+\begin{multline*}
+2(2+\beta^2 s^2)(1-\beta^2 s^2) = 2\bigl[2(1-\beta^2 s^2) + \beta^2 s^2(1-\beta^2 s^2)\bigr] = \\
+= 2\bigl[2 - 2\beta^2 s^2 + \beta^2 s^2 - \beta^4 s^4\bigr] = \\
+= 2\bigl[2 - \beta^2 s^2 - \beta^4 s^4\bigr] = 4 - 2\beta^2 s^2 - 2\beta^4 s^4.
+\end{multline*}
+
+Другий доданок:
+\[
+(1-\beta^2)s^2(4+3\beta^2 s^2) = s^2(4+3\beta^2 s^2) - \beta^2 s^2(4+3\beta^2 s^2)
+= 4s^2 + 3\beta^2 s^4 - 4\beta^2 s^2 - 3\beta^4 s^4.
+\]
+
+Отже,
+\[
+N = \bigl(4 - 2\beta^2 s^2 - 2\beta^4 s^4\bigr) - \bigl(4s^2 + 3\beta^2 s^4 - 4\beta^2 s^2 - 3\beta^4 s^4\bigr).
+\]
+
+Збираємо подібні доданки:
+\begin{align*}
+\text{сталі: } & 4,\\
+s^2: & -2\beta^2 s^2 - 4s^2 + 4\beta^2 s^2 = -4s^2 + 2\beta^2 s^2,\\
+s^4: & -2\beta^4 s^4 - 3\beta^2 s^4 + 3\beta^4 s^4 = (\beta^4 - 3\beta^2) s^4.
+\end{align*}
+Таким чином,
+\[
+N = 4 - 4s^2 + 2\beta^2 s^2 - 3\beta^2 s^4 + \beta^4 s^4.
+\]
+
+\subsubsection{Крок 7. Перехід до $\cos\theta$ і спрощення}
+Оскільки $s^2 = \sin^2\theta = 1 - \cos^2\theta$, підставимо:
+\[
+N = 4 - 4(1-\cos^2\theta) + 2\beta^2(1-\cos^2\theta) - 3\beta^2(1-\cos^2\theta)^2 + \beta^4(1-\cos^2\theta)^2.
+\]
+
+Спрощуємо перші два доданки: $4 - 4 + 4\cos^2\theta = 4\cos^2\theta$.
+
+Далі:
+\[
+2\beta^2(1-\cos^2\theta) = 2\beta^2 - 2\beta^2\cos^2\theta.
+\]
+
+Розкриємо квадрати:
+\[
+(1-\cos^2\theta)^2 = 1 - 2\cos^2\theta + \cos^4\theta.
+\]
+Тоді:
+\[
+-3\beta^2(1-\cos^2\theta)^2 = -3\beta^2 + 6\beta^2\cos^2\theta - 3\beta^2\cos^4\theta,
+\]
+\[
++\beta^4(1-\cos^2\theta)^2 = \beta^4 - 2\beta^4\cos^2\theta + \beta^4\cos^4\theta.
+\]
+
+Додаємо все:
+\begin{align*}
+N = &\ 4\cos^2\theta \\
+&+ 2\beta^2 - 2\beta^2\cos^2\theta \\
+&- 3\beta^2 + 6\beta^2\cos^2\theta - 3\beta^2\cos^4\theta \\
+&+ \beta^4 - 2\beta^4\cos^2\theta + \beta^4\cos^4\theta.
+\end{align*}
+
+Згрупуємо сталі: $2\beta^2 - 3\beta^2 + \beta^4 = -\beta^2 + \beta^4 = \beta^2(\beta^2-1) = -\beta^2(1-\beta^2)$.
+
+Згрупуємо $\cos^2\theta$: $4\cos^2\theta - 2\beta^2\cos^2\theta + 6\beta^2\cos^2\theta - 2\beta^4\cos^2\theta
+= 4\cos^2\theta + 4\beta^2\cos^2\theta - 2\beta^4\cos^2\theta
+= 4\cos^2\theta(1+\beta^2) - 2\beta^4\cos^2\theta$.
+
+Згрупуємо $\cos^4\theta$: $-3\beta^2\cos^4\theta + \beta^4\cos^4\theta = \beta^2(\beta^2-3)\cos^4\theta$.
+
+Отже,
+\[
+N = -\beta^2(1-\beta^2) + \bigl[4(1+\beta^2)-2\beta^4\bigr]\cos^2\theta + \beta^2(\beta^2-3)\cos^4\theta.
+\]
+
+\subsubsection{Крок 8. Використання $\omega^2$ для магнітного поля}
+Для колового руху в магнітному полі $B$:
+\[
+\omega = \frac{qB}{mc}\sqrt{1-\beta^2}, \qquad
+\omega^2 v^2 = \frac{q^2 B^2}{m^2 c^2}(1-\beta^2)\cdot v^2 = \frac{q^2 B^2 v^2}{m^2 c^2}(1-\beta^2).
+\]
+
+Підставляємо у $\langle dI \rangle$:
+\[
+\langle dI \rangle = \frac{q^2}{8\pi c^3}\cdot \frac{q^2 B^2 v^2}{m^2 c^2}(1-\beta^2) \cdot \frac{N}{(1-\beta^2 s^2)^{7/2}}\, do.
+\]
+
+Тобто:
+\[
+\langle dI \rangle = \frac{q^4 B^2 v^2}{8\pi m^2 c^5}(1-\beta^2)\, \frac{N}{(1-\beta^2\sin^2\theta)^{7/2}}\, do.
+\]
+
+\subsubsection{Крок 9. Остаточний вигляд}
+Після підстановки спрощеного $N$ отримуємо:
+\[
+\boxed{
+\langle dI \rangle = \frac{q^4 B^2 v^2}{8\pi m^2 c^5}\left(1-\frac{v^2}{c^2}\right)
+\frac{2 - \cos^2\theta - \frac{v^2}{4c^2}\left(1+3\frac{v^2}{c^2}\right)\cos^4\theta}
+{\left(1 - \frac{v^2}{c^2}\cos^2\theta\right)^{7/2}}\; do.
+}
+\]
+
+Це і є шуканий вираз після ``тривалих обчислень''.
+
+\end{document}

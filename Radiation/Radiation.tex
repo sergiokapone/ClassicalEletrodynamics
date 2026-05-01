@@ -583,7 +583,7 @@ X_{ijkl} = \frac{4\pi}{15} (\delta_{ij}\delta_{kl} + \delta_{ik}\delta_{jl} + \d
 X_{iijj} = 4\pi = \int do \cdot 1.
 \end{equation*}
 
-Обчислимо потік через сферу великого радіусу \( r \), виходячи з~\eqref{eq:4.2.12}. Квадрат першого (дипольного) доданку в~\eqref{eq:4.2.12} дає внесок, що вже обчислено і подано формулою~\eqref{eq:energy_flux}. При обчисленні \( \vect{B}^2 \) добуток першого (дипольного) доданку в~\eqref{eq:4.2.12} на інші в кінцевому результаті дасть нуль в силу~\eqref{eq:4.2.14}, оскільки тут під інтегралом з’являються лише непарні комбінації компонент \( n_i \) (нагадаємо, що квадрупольний доданок в~\eqref{eq:4.2.12} містить квадратичні комбінації цих компонент).
+Обчислимо потік через сферу великого радіусу \( r \), виходячи з~\eqref{eq:4.2.12}. Квадрат першого (дипольного) доданку в~\eqref{eq:4.2.12} дає внесок, що вже обчислено і подано формулою~\eqref{eq:energy_flux}. При обчисленні \( \Bfield^2 \) добуток першого (дипольного) доданку в~\eqref{eq:4.2.12} на інші в кінцевому результаті дасть нуль в силу~\eqref{eq:4.2.14}, оскільки тут під інтегралом з’являються лише непарні комбінації компонент \( n_i \) (нагадаємо, що квадрупольний доданок в~\eqref{eq:4.2.12} містить квадратичні комбінації цих компонент).
 
 Також:
 
@@ -658,7 +658,7 @@ d\sigma = \frac{dI}{\Pi},
 Нехай електричне поле хвилі, що падає, є:
 
 \begin{equation}
-\vect{E} = \vect{E}_0 \cos(\omega t - \vect{k} \cdot \vect{r}),
+\Efield = \Efield_0 \cos(\omega t - \vect{k} \cdot \vect{r}),
 \label{eq:incident_wave}
 \end{equation}
 %
@@ -676,25 +676,25 @@ r \sim \frac{v}{\omega} \ll \frac{c}{\omega} = \frac{\lambda}{2\pi}.
 Ця умова дозволяє відкинути доданок \( \vect{k} \cdot \vect{r} \ll 1 \) під аргументом косинуса в~\eqref{eq:incident_wave}. Звідси з рівнянь руху:
 
 \begin{equation*}
-m \ddot{\vect{r}} = q \vect{E},
+m \ddot{\vect{r}} = q \Efield,
 \end{equation*}
 %
 отримуємо:
 
 \begin{equation*}
-\ddot{\vect{r}} = -\frac{q \vect{E}}{m \omega^2}.
+\ddot{\vect{r}} = -\frac{q \Efield}{m \omega^2}.
 \end{equation*}
 
 Дипольний момент системи:
 
 \begin{equation*}
-\vect{d} = q \vect{r} = -\frac{q^2 \vect{E}}{m \omega^2},
+\vect{d} = q \vect{r} = -\frac{q^2 \Efield}{m \omega^2},
 \end{equation*}
 %
 причому:
 
 \begin{equation}
-\ddot{\vect{d}} = \frac{q^2 \vect{E}}{m}.
+\ddot{\vect{d}} = \frac{q^2 \Efield}{m}.
 \label{eq:dipole_moment}
 \end{equation}
 
@@ -714,7 +714,7 @@ dI = \frac{q^4 E^2}{4\pi m^2 c^3} \sin^2 \theta \, d\theta.
 Оскільки вектор Пойнтінга хвилі, що падає, є:
 
 \begin{equation*}
-\vect{\Pi} = \frac{c}{4\pi} [\vect{E} \times \vect{B}],
+\vect{\Pi} = \frac{c}{4\pi} [\Efield \times \Bfield],
 \end{equation*}
 де \( \vect{n}_0 \) --- напрямок хвилі, що падає, за визначенням перерізу~\eqref{eq:differential_cross_section} маємо:
 
@@ -737,7 +737,7 @@ d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
 %% --------------------------------------------------------
 
 Формула~\eqref{eq:intensity} дає диференціальний переріз\index{Переріз!розсіювання!диференціальний} розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі присутні
-усі напрямки \( \vect{E} \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з~\eqref{eq:dipole_moment}, рівноймовірними є усі
+усі напрямки \( \Efield \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з~\eqref{eq:dipole_moment}, рівноймовірними є усі
 напрямки дипольного моменту з~\eqref{eq:intensity}.
 
 Зафіксуємо напрямки спостереження:
@@ -787,11 +787,11 @@ d\sigma = \left( \frac{q^2}{mc^2} \right)^2 \sin^2 \theta \, do.
 \alpha \) частинки, яка дає зв’язок між дипольним моментом:
 
 \begin{equation}
-\vect{d} = \alpha \vect{E},
+\vect{d} = \alpha \Efield,
 \label{eq:polarizability}
 \end{equation}
 %
-та зовнішнім однорідним полем \( \vect{E} \) в наближенні електростатики, тобто \( \alpha \) не залежить від \( \omega \). Тоді за формулами дипольного
+та зовнішнім однорідним полем \( \Efield \) в наближенні електростатики, тобто \( \alpha \) не залежить від \( \omega \). Тоді за формулами дипольного
 випромінювання:
 
 \begin{equation}

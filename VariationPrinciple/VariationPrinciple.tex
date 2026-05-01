@@ -122,7 +122,7 @@
 Звідси та з~\eqref{eq:energy_integral} маємо
 \begin{equation*}
     m^2c^4 = \left(\mathcal{E}-\alpha u\right)^2
-    - (u'^2+u^2)\frac{L^2c^2}{1},
+    - (u'^2+u^2){L^2c^2},
 \end{equation*}
 або
 \begin{equation*}
@@ -166,11 +166,11 @@
     = j^{\mu}(\boldsymbol{x})\,d^3x,
 \end{equation*}
 де $\rho$ --- об'ємна густина заряду, $\boldsymbol{x}=\boldsymbol{x}_q(t)$, $j^{\mu}=\rho\,dx^{\mu}/dt$ --- 4-вектор густини струму\index{Чотиривектор!густини струму}. Тоді, переходячи в $S_{\text{int}}$ до інтегралу по області $\Omega$ чотиривимірного простору, маємо:
-\begin{equation}\label{eq:Sint_4D}
-    S_{\text{int}} = -\frac{1}{c}\int_{\Omega} dq\,A_{\mu}(x_e)\frac{dx_q^{\mu}}{dt}\,dt
-    = -\frac{1}{c}\int_{\Omega} dt\,d^3x\,A_{\mu}(x)j^{\mu}(x)
-    = -\frac{1}{c^2}\int_{\Omega} d^4x\,A_{\mu}(x)j^{\mu}(x).
-\end{equation}
+\begin{multline}\label{eq:Sint_4D}
+    S_{\text{int}} = -\frac{1}{c}\int\limits_{\Omega} dq\,A_{\mu}(x_e)\frac{dx_q^{\mu}}{dt}\,dt
+    = -\frac{1}{c}\int\limits_{\Omega} dt\,d^3x\,A_{\mu}(x)j^{\mu}(x) = \\
+    = -\frac{1}{c^2}\int\limits_{\Omega} d^4x\,A_{\mu}(x)j^{\mu}(x).
+\end{multline}
 
 Виникає питання, чи не втратимо ми калібрувальну інваріантність\index{Калібрувальне перетворення} теорії завдяки тому, що в~\eqref{eq:Sint_4D} явно входить 4-потенціал? Відсутність тут якихось непорозумінь випливає в першу чергу з того, що з принципу найменшої дії буде отримано правильні рівняння поля, що є калібрувально інваріантними. Але навіть на даному етапі можна пересвідчитися, що вираз~\eqref{eq:Sint_4D} є калібрувально інваріантним, якщо врахувати закон збереження заряду\index{Закон збереження!заряду}. Покажемо, що~\eqref{eq:Sint_4D} не змінюється при калібрувальних перетвореннях
 \begin{equation*}
