@@ -34,7 +34,7 @@
     j^{\mu} = c\sum_{i}q_{i}\int ds_{i}\,\delta^{(4)}(x - x_{(i)}(s_{i}))
     \frac{dx_{(i)}^{\mu}}{ds_{i}},
 \end{equation*}
-де інтегрування проводиться вздовж траєкторій зарядів, $\delta^{(4)}(x)$ --- чотиривимірна дельта-функція Дірака\footnote{За визначенням, для будь-якої неперервної функції $f$: $\int\delta^{(4)}(x-x_0)f(x)\,d^4x = f(x_0)$.}.
+де інтегрування проводиться вздовж траєкторій зарядів, $\delta^{(4)}(x)$ --- чотиривимірна дельта-функція Дірака\footnote{За визначенням, для будь-якої неперервної функції $f$: $\int\delta^{(4)}(x-x_0)f(x)\,d^4\vect{x} = f(x_0)$.}.
 
 Для опису електромагнітного поля введемо антисиметричну матрицю
 \begin{equation*}
@@ -510,13 +510,13 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
     \equiv \delta(x^0)\,\delta(x^1)\,\delta(x^2)\,\delta(x^3).
 \end{equation*}
 Відповідний розв'язок рівняння~\eqref{eq:wave_eq_A} має вид згортки\footnote{Згортка функцій (відрізняти від згортки тензорів!) визначається за формулою
-$\int f(x-x')g(x')\,d^4x'$; символ <<$*$>> у~\eqref{eq:retarded_potentials} означає саме її.}:
+$\int f(x-x')g(x')\,d^4\vect{x}'$; символ <<$*$>> у~\eqref{eq:retarded_potentials} означає саме її.}:
 \begin{equation}\label{eq:retarded_potentials}
     A^{\nu} = \frac{4\pi}{c}\,D_{\text{ret}}*j^{\nu}.
 \end{equation}
 Формально це можна записати так:
 \begin{align*}
-    A^{\nu}(x) &= \frac{2}{c}\int d^4x\;
+    A^{\nu}(x) &= \frac{2}{c}\int d^4\vect{x}\;
     \theta(x^0-x'^0)\,\delta[(x^0-x'^0)^2 - (\vect{r}-\vect{r}')^2]\,
     j^{\nu}(x') \\
     &= \frac{1}{c}\int d^3\vect{r}'\;
@@ -532,8 +532,8 @@ $\int f(x-x')g(x')\,d^4x'$; символ <<$*$>> у~\eqref{eq:retarded_potential
 \begin{align*}
     \partial_{\nu}A^{\nu}
     &= \frac{4\pi}{c}\,\partial_{\nu}\{D_{\text{ret}}*j^{\nu}\}
-    \equiv \frac{4\pi}{c}\int\frac{\partial}{\partial x^{\nu}}D(x-x')\,j^{\nu}(x')\,d^4x' \\
-    &= \frac{4\pi}{c}\int D(x-x')\,\frac{\partial}{\partial x'^{\nu}}j^{\nu}(x')\,d^4x'
+    \equiv \frac{4\pi}{c}\int\frac{\partial}{\partial x^{\nu}}D(x-x')\,j^{\nu}(x')\,d^4\vect{x}' \\
+    &= \frac{4\pi}{c}\int D(x-x')\,\frac{\partial}{\partial x'^{\nu}}j^{\nu}(x')\,d^4\vect{x}'
     \equiv \frac{4\pi}{c}\,D_{\text{ret}}*\partial_{\nu}j^{\nu} = 0,
 \end{align*}
 внаслідок закону збереження заряду~\eqref{eq:charge_conservation}. За умови Лоренца з рівнянь~\eqref{eq:Lorenz_gauge},~\eqref{eq:wave_eq_A} випливає~\eqref{eq:Maxwell_4D_1}.

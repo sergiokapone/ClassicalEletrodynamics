@@ -145,14 +145,14 @@
 Оскільки поля задано в усьому просторі, функціонал дії повинен містити інтегрування по чотиривимірному об'єму, а не тільки по траєкторіях, як у випадку частинок. Тому подаватимемо $S_{\text{int}}+S_f$ у вигляді такого інтегралу:
 \begin{equation}\label{eq:S_field_int}
     S_{\text{int}} + S_f
-    = \int_{\Omega} d^4x\,\Lambda_{\text{tot}}\!\left(A_{\mu}(x),\,A_{\mu,\nu}(x)\right),
+    = \int_{\Omega} d^4\vect{x}\,\Lambda_{\text{tot}}\!\left(A_{\mu}(x),\,A_{\mu,\nu}(x)\right),
     \qquad \Lambda_{\text{tot}} = \Lambda_{\text{int}} + \Lambda_f.
 \end{equation}
 \emph{Незалежними змінними, відносно яких обчислюватиметься варіація, вважаємо компоненти 4-вектора потенціалу} $A_{\mu}$. Область інтегрування $\Omega$ може охоплювати весь простір, а може бути скінченною. Варіацію функціоналу дії розглядаємо за умови, що \emph{зміни польових функцій обертаються на нуль на межі області інтегрування} $\partial\Omega$.
 
 \textit{Зауваження}. Якщо змінити підінтегральний вираз в~\eqref{eq:S_field_int}, додавши до нього повну 4-дивергенцію $\Lambda\to\Lambda+\partial_{\mu}f^{\mu}$, де $f$ --- будь-яка функція від польових змінних (але не від їх похідних), то при обчисленні варіації додається вираз
 \begin{equation*}
-    \int\partial_{\mu}\delta f^{\mu}\,d^4x = 0,
+    \int\partial_{\mu}\delta f^{\mu}\,d^4\vect{x} = 0,
 \end{equation*}
 що обертається на нуль в силу граничних умов на $\partial\Omega$ після застосування формули Остроградського--Гаусса. Тому \emph{додавання повної 4-дивергенції до $\Lambda$ не впливає на рівняння, що випливають з варіаційного принципу}.
 
@@ -169,7 +169,7 @@
 \begin{multline}\label{eq:Sint_4D}
     S_{\text{int}} = -\frac{1}{c}\int\limits_{\Omega} dq\,A_{\mu}(x_e)\frac{dx_q^{\mu}}{dt}\,dt
     = -\frac{1}{c}\int\limits_{\Omega} dt\,d^3x\,A_{\mu}(x)j^{\mu}(x) = \\
-    = -\frac{1}{c^2}\int\limits_{\Omega} d^4x\,A_{\mu}(x)j^{\mu}(x).
+    = -\frac{1}{c^2}\int\limits_{\Omega} d^4\vect{x}\,A_{\mu}(x)j^{\mu}(x).
 \end{multline}
 
 Виникає питання, чи не втратимо ми калібрувальну інваріантність\index{Калібрувальне перетворення} теорії завдяки тому, що в~\eqref{eq:Sint_4D} явно входить 4-потенціал? Відсутність тут якихось непорозумінь випливає в першу чергу з того, що з принципу найменшої дії буде отримано правильні рівняння поля, що є калібрувально інваріантними. Але навіть на даному етапі можна пересвідчитися, що вираз~\eqref{eq:Sint_4D} є калібрувально інваріантним, якщо врахувати закон збереження заряду\index{Закон збереження!заряду}. Покажемо, що~\eqref{eq:Sint_4D} не змінюється при калібрувальних перетвореннях
@@ -178,9 +178,9 @@
 \end{equation*}
 де $\chi|_{\partial\Omega}=0$ на межі області. При такому перетворенні інтеграл~\eqref{eq:Sint_4D} отримує доданок
 \begin{equation*}
-    -\frac{1}{c^2}\int d^4x\,\frac{\partial\chi}{\partial x^{\mu}}j^{\mu}
-    = -\frac{1}{c^2}\int d^4x\,\frac{\partial}{\partial x^{\mu}}(\chi j^{\mu})
-    + \frac{1}{c^2}\int d^4x\,\chi\,j^{\mu}{}_{,\mu}.
+    -\frac{1}{c^2}\int d^4\vect{x}\,\frac{\partial\chi}{\partial x^{\mu}}j^{\mu}
+    = -\frac{1}{c^2}\int d^4\vect{x}\,\frac{\partial}{\partial x^{\mu}}(\chi j^{\mu})
+    + \frac{1}{c^2}\int d^4\vect{x}\,\chi\,j^{\mu}{}_{,\mu}.
 \end{equation*}
 Інтеграл від дивергенції зникає на межі $\partial\Omega$, а другий доданок дорівнює нулю завдяки закону збереження заряду $j^{\mu}{}_{,\mu}=0$. Це ілюструє зв'язок калібрувальної інваріантності із збереженням заряду.
 
@@ -204,11 +204,11 @@
 \end{equation*}
 де було враховано антисиметрію $\varepsilon^{\alpha\beta\gamma\delta}=-\varepsilon^{\alpha\beta\delta\gamma}$ та рівняння~\eqref{eq:Bianchi}, що мають місце завдяки вигляду $F_{\mu\nu}$ за побудовою. Інтеграл від $I_2$ по області $\Omega$ зводиться до інтегралу по межі $\partial\Omega$ і не дає внеску в рівняння поля всередині $\Omega$. Таким чином, в нашому розпорядженні залишається лише інваріант $I_1$, тому можна вибрати
 \begin{equation}\label{eq:Sf}
-    S_f = -\frac{1}{16\pi c}\int F_{\mu\nu}F^{\mu\nu}\,d^4x.
+    S_f = -\frac{1}{16\pi c}\int F_{\mu\nu}F^{\mu\nu}\,d^4\vect{x}.
 \end{equation}
 Вибір сталого множника зроблено заздалегідь так, щоб забезпечити відповідність рівнянням Максвелла в гаусовій системі одиниць\index{Гаусова система одиниць}. Можна показати, що вибір іншого множника вплине лише на визначення одиниці заряду. Враховуючи внесок взаємодії поля і зарядів, покладемо
 \begin{equation}\label{eq:Sf_Sint_total}
-    S_f + S_{\text{int}} = \int d^4x\,\Lambda,
+    S_f + S_{\text{int}} = \int d^4\vect{x}\,\Lambda,
 \end{equation}
 де
 \begin{equation*}
@@ -216,28 +216,28 @@
     - \frac{1}{c^2}A_{\mu}j^{\mu}.
 \end{equation*}
 
-Нагадаємо, що незалежними польовими змінними в~\eqref{eq:Sf_Sint_total} вважаємо $A_{\mu}$, $\mu=0,1,2,3$. Обчислимо $\delta(S_f+S_{\text{int}})=\int_{\Omega}d^4x\,\delta\Lambda$ за умови, що варіації польових змінних на межі області інтегрування зникають:
+Нагадаємо, що незалежними польовими змінними в~\eqref{eq:Sf_Sint_total} вважаємо $A_{\mu}$, $\mu=0,1,2,3$. Обчислимо $\delta(S_f+S_{\text{int}})=\int_{\Omega}d^4\vect{x}\,\delta\Lambda$ за умови, що варіації польових змінних на межі області інтегрування зникають:
 \begin{equation*}
     \delta A_{\mu}(x)\big|_{\partial\Omega} = 0.
 \end{equation*}
 Маємо
 \begin{equation*}
-    \delta S_{\text{int}} = -\frac{1}{c^2}\int_{\Omega}d^4x\,j^{\nu}(x)\,\delta A_{\nu}(x);
+    \delta S_{\text{int}} = -\frac{1}{c^2}\int_{\Omega}d^4\vect{x}\,j^{\nu}(x)\,\delta A_{\nu}(x);
 \end{equation*}
 \begin{align*}
-    \delta\int_{\Omega}d^4x\,I_1
-    &= 2\int_{\Omega}d^4x\,F^{\mu\nu}\delta F_{\mu\nu}
-    = 2\int_{\Omega}d^4x\,F^{\mu\nu}(\partial_{\mu}\delta A_{\nu}
+    \delta\int_{\Omega}d^4\vect{x}\,I_1
+    &= 2\int_{\Omega}d^4\vect{x}\,F^{\mu\nu}\delta F_{\mu\nu}
+    = 2\int_{\Omega}d^4\vect{x}\,F^{\mu\nu}(\partial_{\mu}\delta A_{\nu}
     - \partial_{\nu}\delta A_{\mu}) \\
-    &= 4\int_{\Omega}d^4x\,F^{\mu\nu}\partial_{\mu}\delta A_{\nu}
-    = 4\int_{\Omega}d^4x\,\Big[\partial_{\mu}(F^{\mu\nu}\delta A_{\nu})
+    &= 4\int_{\Omega}d^4\vect{x}\,F^{\mu\nu}\partial_{\mu}\delta A_{\nu}
+    = 4\int_{\Omega}d^4\vect{x}\,\Big[\partial_{\mu}(F^{\mu\nu}\delta A_{\nu})
     - \partial_{\mu}F^{\mu\nu}\,\delta A_{\nu}\Big] \\
-    &= -4\int_{\Omega}d^4x\,\partial_{\mu}F^{\mu\nu}\,\delta A_{\nu},
+    &= -4\int_{\Omega}d^4\vect{x}\,\partial_{\mu}F^{\mu\nu}\,\delta A_{\nu},
 \end{align*}
 де застосовано формулу Остроградського--Гаусса і враховано умову на $\partial\Omega$. Звідси
 \begin{equation*}
     \delta(S_f + S_{\text{int}})
-    = \int_{\Omega}d^4x\,\left(\frac{1}{4\pi c}\partial_{\mu}F^{\mu\nu}
+    = \int_{\Omega}d^4\vect{x}\,\left(\frac{1}{4\pi c}\partial_{\mu}F^{\mu\nu}
     - \frac{1}{c^2}j^{\nu}\right)\delta A_{\nu}(x).
 \end{equation*}
 Згідно з принципом стаціонарної дії\index{Принцип найменшої дії}, цей вираз має дорівнювати нулю для довільних варіацій $\delta A_{\nu}(x)$ всередині $\Omega$. Це можливо лише коли вираз в дужках дорівнює нулю, або остаточно:

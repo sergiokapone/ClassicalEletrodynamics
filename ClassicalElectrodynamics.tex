@@ -60,9 +60,10 @@ biblatex,
 %=================================================================================
 
 \input{Preface}
+%\input{Measures}
 \pagestyle{main}
 %------------------- Частина І -------------------
-\part{}
+\part{Класична електродинаміка}
 %\input{Additions/MaxwellEquation}
 \multiinclude{
 	Basics,
@@ -71,14 +72,16 @@ biblatex,
 	Radiation
 }[]
 
-%\part{}
-%\multiinclude{
-%	LorentzTransform,
-%	Minkovsky,
-%	RelElecrodynamics,
-%	VariationPrinciple,
-%	TEI
-%}[]
+%------------------- Частина IІ ------------------
+\addtocontents{toc}{\protect\clearpage}
+\part{Чотиривимірне формулювання класичної\\ електродинаміки}
+\multiinclude{
+	LorentzTransform,
+	Minkovsky,
+	RelElecrodynamics,
+	VariationPrinciple,
+	TEI
+}[]
 
 %=================================================================================
 %
