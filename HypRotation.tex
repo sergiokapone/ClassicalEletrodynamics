@@ -1,0 +1,107 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !BIB program = biber
+
+\documentclass[%
+biblatex,
+%marginversioninfo
+]{ConspectBook}
+
+
+\begin{document}
+
+\subsection*{Гіперболічний поворот}
+Розглянемо ще раз матрицю одновимірного перетворення Лоренца (буста):
+
+\[
+\|L^{\mu'}{}_{\mu}\| =
+\begin{pmatrix}
+\gamma & -\beta\gamma & 0 & 0 \\
+-\beta\gamma & \gamma & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}, \qquad
+\beta = \frac{v}{c},\quad \gamma = \frac{1}{\sqrt{1-\beta^2}}.
+\]
+
+Незважаючи на зовнішню схожість із матрицею просторового повороту в площині $(x^1, x^2)$,
+\[
+R(\theta) =
+\begin{pmatrix}
+1 & 0 & 0 & 0 \\
+0 & \cos\theta & -\sin\theta & 0 \\
+0 & \sin\theta & \cos\theta & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix},
+\]
+буст має принципову відмінність --- він зберігає не суму квадратів координат, а їх різницю.
+Цю відмінність можна зробити наочною, ввівши замість швидкості $v$ \textbf{швидкісний параметр}
+(rapidity) $\psi$:
+\[
+\beta = \th\psi, \qquad \gamma = \ch\psi, \qquad \beta\gamma = \sh\psi.
+\]
+Тоді матриця буста набуває вигляду
+\begin{equation}
+\|L^{\mu'}{}_{\mu}\| =
+\begin{pmatrix}
+\ch\psi & -\sh\psi & 0 & 0 \\
+-\sh\psi &  \ch\psi & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}.
+\label{eq:boost_hyperbolic}
+\end{equation}
+Це --- \textbf{гіперболічний поворот} у площині $(x^0, x^1)$, який залишає інваріантною
+гіперболу $(x^0)^2 - (x^1)^2 = \const$, подібно до того, як звичайний поворот залишає
+інваріантним коло. Ізотропія простору гарантує, що залежність $\psi(v)$ є непарною
+($\psi(-v) = -\psi(v)$), а з властивостей гіперболічних функцій випливає
+\textbf{адитивність} швидкісного параметра при послідовних бустах:
+\[
+\psi_{13} = \psi_{12} + \psi_{23},
+\]
+що еквівалентно формулі додавання швидкостей (див. підрозділ про додавання швидкостей).
+У цьому сенсі $\psi$ є природнішою мірою руху, ніж $v$, оскільки вона пробігає всі дійсні
+значення $(-\infty, +\infty)$, тоді як $v\in(-c,c)$.
+
+Отже, перетворення Лоренца слід розуміти як \textbf{псевдоповороти} в просторі Мінковського,
+які разом із звичайними просторовими обертаннями утворюють групу Лоренца. Будь-яке власне
+перетворення Лоренца можна подати у вигляді композиції просторового обертання, буста вздовж
+осі $x^1$ та ще одного просторового обертання.
+
+
+\begin{figure}[h!]\centering
+	\begin{tikzpicture}[
+        declare function={atanh(\x) = 1/2*ln((1 + \x)/(1 -\x));}
+    ]
+		\pgfmathsetmacro{\hangle}{atanh(0.2)}
+		\pgfmathsetmacro{\angle}{\hangle*45}
+
+		\pgfmathdeclarefunction{x}{2}{\pgfmathparse{#1*cosh(\hangle)+#2*sinh(\hangle)}} % Real x coord of canvas
+		\pgfmathdeclarefunction{y}{2}{\pgfmathparse{#1*sinh(\hangle)+#2*cosh(\hangle)}} % Real y coord of canvas
+		\def\point(#1,#2){({x(#1,#2)},{y(#1,#2)})}
+
+		\draw [-latex',thick, black] (0,0) -- (10,0)  node[below] {$x$};
+		\draw [-latex',thick, black] (0,0) -- (0,10)  node[left] {$t$};
+		\foreach \i in {1,...,10} {
+			\draw [dashed, black] (0,\i) -- (10,\i)  ;
+			\draw [dashed, black] (\i,0) -- (\i,10)  ;
+		}
+
+		\draw [-latex',thick, red] \point(0,0) -- \point(10,0)  node[below] {$x'$};
+		\draw [-latex',thick, red] \point(0,0) -- \point(0,10)  node[left] {$t'$};
+		\foreach \i in {1,...,10} {
+			\draw [dashed, red!50] \point(0,\i) -- \point(10,\i)  ;
+			\draw [dashed, red!50] \point(\i,0) -- \point(\i,10)  ;
+		}
+
+%		\fill [gray] (3,6) circle (0.1) node [above] {$\mathbf{A}$}
+%		(5,6) circle (0.1) node [above] {$\mathbf{B}$};
+%
+%		\fill[red] \point(3,6) circle (0.1) node [above] {$\mathbf{A}'$}
+%		\point(5,6) circle (0.1) node [above] {$\mathbf{B}'$};
+	\end{tikzpicture}
+	\caption{}
+\end{figure}
+
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass[border = 1cm, tikz]{standalone}
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\foreach \a in {0,0.1, ..., 0.75}{
+    \begin{tikzpicture}[
+        declare function = {alpha=atan(\a);},
+]
+
+    \draw (-1,-1) rectangle (7,6);
+    \pgfmathsetmacro{\Ax}{2}
+    \pgfmathsetmacro{\Ay}{2}
+    \pgfmathsetmacro{\Bx}{3}
+    \pgfmathsetmacro{\By}{5}
+
+    \node[circle, fill, inner sep=1pt] (A) at (\Ax,\Ay) {};
+    \node[circle, fill, inner sep=1pt] (B) at (\Bx,\By) {};
+
+    \pgfmathsetmacro{\dx}{\Bx-\Ax}
+    \pgfmathsetmacro{\dy}{\By-\Ay}
+    % Гіперболічний буст: вісь ct' пролягає у напрямку (sin α, cos α)
+    % Система: t*(cos α, sin α) + s*(sin α, cos α) = (dx, dy)
+    % det = cos(2α)
+    \pgfmathsetmacro{\legX}{(cos(alpha)*\dx - sin(alpha)*\dy) / cos(2*alpha)}
+    \pgfmathsetmacro{\legT}{(-sin(alpha)*\dx + cos(alpha)*\dy) / cos(2*alpha)}
+
+    \draw[-latex] (0,0) -- (6,0) node[below] {$x$};
+    \draw[-latex] (0,0) -- (0,5)
+        node[circle, draw, fill=white, inner sep=2pt, pos=0.65, ultra thin] {$ S $}
+        node[left] {$ct$};
+    \draw[-latex, gray] (0,0) -- ++(alpha:6) node[below] {$x'$};
+    \draw[-latex, gray] (0,0) -- ++({90-alpha}:5.5)
+        node[circle, draw, fill=white, inner sep=2pt, pos=0.65, ultra thin, text=black] {$ S' $}
+        node[left] {$ct'$};
+    \draw[gray] (0,2) arc[start angle=90, end angle={90-alpha}, radius=2]
+        node[pos=0.5, above] {$ \psi $};
+    \draw[gray] (2,0) arc[start angle=0, end angle=alpha, radius=2]
+        node[pos=0.5, right] {$ \psi $};
+
+    % Угловая точка C: из A вдоль x' на legX, затем вдоль ct' на legT до B
+    \coordinate (C) at ($(A) + (alpha:\legX)$);
+
+    \draw[gray!50] (A) -- node[below, sloped] {$dx'$} (C)
+                        -- node[right, sloped] {$cdt'$} (B);
+    \draw (A) -- node[left] {$ ds $} (B)
+        |- node[right, pos=0.25] {$ cdt $}
+           node[below, pos=0.75] {$ dx $} (A);
+
+    \end{tikzpicture}
+}
+
+\end{document}
