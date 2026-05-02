@@ -162,13 +162,13 @@
 \end{equation}
 Як було зазначено, ці вирази слід подати у вигляді інтегралів. Зробимо це лише для $S_{\text{int}}$, оскільки $S_0$ не впливає на виведення рівнянь поля при обчисленні варіації $\delta S$ по $\delta A_{\mu}$. Для неперервного розподілу ми зіставляємо кожному елементу заряду $dq$ його траєкторію $x_q^{\mu}(t)$; відповідно
 \begin{equation*}
-    dq\,\frac{dx_q^{\mu}}{dt} = \rho(\boldsymbol{x})\,d^3x\,\frac{dx_q^{\mu}}{dt}
-    = j^{\mu}(\boldsymbol{x})\,d^3x,
+    dq\,\frac{dx_q^{\mu}}{dt} = \rho(\boldsymbol{x})\,d^3\vect{r}\,\frac{dx_q^{\mu}}{dt}
+    = j^{\mu}(\boldsymbol{x})\,d^3\vect{r},
 \end{equation*}
 де $\rho$ --- об'ємна густина заряду, $\boldsymbol{x}=\boldsymbol{x}_q(t)$, $j^{\mu}=\rho\,dx^{\mu}/dt$ --- 4-вектор густини струму\index{Чотиривектор!густини струму}. Тоді, переходячи в $S_{\text{int}}$ до інтегралу по області $\Omega$ чотиривимірного простору, маємо:
 \begin{multline}\label{eq:Sint_4D}
     S_{\text{int}} = -\frac{1}{c}\int\limits_{\Omega} dq\,A_{\mu}(x_e)\frac{dx_q^{\mu}}{dt}\,dt
-    = -\frac{1}{c}\int\limits_{\Omega} dt\,d^3x\,A_{\mu}(x)j^{\mu}(x) = \\
+    = -\frac{1}{c}\int\limits_{\Omega} dt\,d^3\vect{r}\,A_{\mu}(x)j^{\mu}(x) = \\
     = -\frac{1}{c^2}\int\limits_{\Omega} d^4\vect{x}\,A_{\mu}(x)j^{\mu}(x).
 \end{multline}
 

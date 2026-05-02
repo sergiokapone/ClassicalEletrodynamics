@@ -65,8 +65,8 @@
 \begin{equation}\label{eq:dPdt}
     \frac{dP^{\mu}}{dt}
     = \frac{1}{c}\int dq\cdot F^{\mu}{}_{\nu}\frac{dx^{\nu}}{dt}
-    = \frac{1}{c}\int d^3x\,\rho\,F^{\mu}{}_{\nu}\frac{dx^{\nu}}{dt}
-    = \frac{1}{c}\int d^3x\,F^{\mu}{}_{\nu}j^{\nu}.
+    = \frac{1}{c}\int d^3\vect{r}\,\rho\,F^{\mu}{}_{\nu}\frac{dx^{\nu}}{dt}
+    = \frac{1}{c}\int d^3\vect{r}\,F^{\mu}{}_{\nu}j^{\nu}.
 \end{equation}
 Права частина~\eqref{eq:dPdt} визначає чотири-імпульс, який поле передає системі частинок за одиницю часу.
 
@@ -121,7 +121,7 @@ F^{\alpha\beta} F_{\alpha\beta,\nu}
 де $d\sigma_i$ --- елемент площини поверхні $\partial\Omega_3$, що обмежує просторову область $\Omega_3$ (з $d\sigma_1=dy\,dz$, $d\sigma_2=dx\,dz$, $d\sigma_3=dx\,dy$), причому інтеграл по $\partial\Omega_3$ описує потік 4-імпульсу через межу цієї області. Інтегральний \emph{закон збереження енергії та імпульсу\index{Закон збереження!енергії-імпульсу}} усієї системи «поле + частинки» в цій області має такий вигляд:
 \begin{equation}\label{eq:conservation_integral}
     \frac{dP^{\mu}}{dt}
-    + \frac{1}{c}\frac{d}{dt}\int\limits_{\Omega_3}T^{\mu 0}\,d^3x
+    + \frac{1}{c}\frac{d}{dt}\int\limits_{\Omega_3}T^{\mu 0}\,d^3\vect{r}
     + \oint\limits_{\partial\Omega_3}T^{\mu j}\,d\sigma_j = 0,
 \end{equation}
 де враховано~\eqref{eq:dPdt},~\eqref{eq:divT}, причому тут вважаємо, що частинки не перетинають межі області $\Omega_3$. Звідси $T^{00}$ можна інтерпретувати як густину енергії електромагнітного поля\index{Густина!енергії поля}, $T^{i0}/c$ --- як густину імпульсу. Останній доданок в~\eqref{eq:conservation_integral} описує потік чотири-імпульсу через поверхню $\partial\Omega_3$; відповідно $cT^{0i}=\Pi^i$ описує компоненти тривимірного вектора густини потоку енергії, де $\vect{\Pi}$ --- вектор Пойнтінга.
@@ -206,13 +206,13 @@ F^{\alpha\beta} F_{\alpha\beta,\nu}
 \left( x^\mu T^{\nu i} - x^\nu T^{\mu i} \right) = \\
 =\frac{d\mathcal{M}_{\text{emf}}^{\mu\nu}}{dt}
     + \oint\limits_{\partial\Omega_3}d\sigma_i\!\left(x^{\mu}T^{\nu i} - x^{\nu}T^{\mu i}\right)
-    = -\frac{1}{c}\int\limits_{\Omega_3}d^3x\,
+    = -\frac{1}{c}\int\limits_{\Omega_3}d^3\vect{r}\,
     \!\left(x^{\mu}F^{\nu}{}_{\alpha} - x^{\nu}F^{\mu}{}_{\alpha}\right)j^{\alpha},
 \end{multline*}
 де величину
 \begin{equation*}
     \mathcal{M}_{\text{emf}}^{\mu\nu}
-    = \frac{1}{c}\int_{\Omega_3}\!\left(x^{\mu}T^{\nu 0} - x^{\nu}T^{\mu 0}\right)d^3x
+    = \frac{1}{c}\int_{\Omega_3}\!\left(x^{\mu}T^{\nu 0} - x^{\nu}T^{\mu 0}\right)d^3\vect{r}
 \end{equation*}
 назвемо \emph{моментом імпульсу поля}\footnote{Відповідно, підінтегральний вираз --- тензор густини моменту імпульсу.}. Враховуючи~\eqref{eq:dM_particles}, дістанемо:
 \begin{equation}\label{eq:angular_conservation}

@@ -9,7 +9,7 @@
 % chktex-file 25
 
 %=========================================================
-\chapter[Перетворення Лоренца як наслідок постулатів\\ Айнштайна]{Перетворення Лоренца як наслідок постулатів Айнштайна}\label{\currfilebase}
+\chapter{Перетворення Лоренца як наслідок постулатів Айн\-штайна}\label{\currfilebase}
 %=========================================================
 
 
@@ -331,9 +331,9 @@ c^2t^2-x^2=c^2t'^2-x'^2.
 Очевидно, ${\left(\Delta x\right)}^2+{\left(\Delta y\right)}^2+{\left(\Delta z\right)}^2$,${}_{ }$а значить і $\Delta s^2$, не змінюється при просторових обертаннях декартової системи координат, тобто при переході в систему відліку $\tilde{S}$, що рухається разом із $S$, але декартові просторові осі якої повернуті відносно $S$. Це ж справедливо для $S'$ та системи $\tilde{S}'$, що рухається разом із $S'$, але з іншим напрямком декартових просторових осей. Тепер можна зорієнтувати просторові координати в $\tilde{S}'$ та $\tilde{S}$ так, щоб обидві осі абсцис були колінеарні напрямку швидкості відносного руху. При переходах  чи  відповідні квадрати інтервалу залишаються незмінними, а зв'язок між квадратами інтервалу для систем  та  в разі їх колінеарних осей  та  можна встановити за формулами одновимірних перетворень~\eqref{eq:LT_1_14}.
 
 %---------------------------------------------------------
-\begin{figure}[htb!]\centering
+\begin{SCfigure}[0.6][htb!]\centering
 % SPACETIME DIAGRAM - VECTORS
-\begin{tikzpicture}[scale=2.5, every node/.style={font=\scriptsize}]
+\begin{tikzpicture}[scale=1.8, every node/.style={font=\tiny}]
 \tikzset{
   >=latex, % for LaTeX arrow head
   world line/.style={blue!40,line width=0.2},
@@ -374,9 +374,9 @@ c^2t^2-x^2=c^2t'^2-x'^2.
   }
 
   % FILLS
-  \fill[blue,opacity=0.05] % SPACELIKE
+  \fill[red,opacity=0.05] % SPACELIKE
     (\xmax,\xmax) -- (-\xmax,-\xmax) -- (-\xmax,\xmax) -- (\xmax,-\xmax) -- cycle;
-  \fill[green!50!black,opacity=0.05] % TIMELIKE
+  \fill[blue,opacity=0.05] % TIMELIKE
     (\xmax,\xmax) -- (-\xmax,\xmax) -- (\xmax,-\xmax) -- (-\xmax,-\xmax) -- cycle;
 
   % AXES
@@ -393,17 +393,17 @@ c^2t^2-x^2=c^2t'^2-x'^2.
 %    {\contour{blue!5}{просторовоподібний}\\[-2]
 %     \contour{blue!5}{вектор}\\[-1]
 %     \contour{blue!5}{$s^2=c^2t^2-x^2<0$}};
-  \draw[vector,green!50!black,<->] (-2*\d,-\d) --++ (-2*\d,3.5*\d)
+  \draw[vector,<->] (-2*\d,-\d) --++ (-2*\d,3.5*\d)
     node[pos=0.8,below left,align=right]
     {\contour{blue!5}{часоподібний}\\[-2]
      \contour{blue!5}{інтервал}\\[-1]
      \contour{blue!5}{$\Delta s^2>0$}};
-  \draw[vector,blue,<->] (2*\d,-\d) --++ (3*\d,-2*\d)
-    node[pos=0.4,above right,align=left]
+  \draw[vector,<->] (2*\d,-\d) --++ (3*\d,-2*\d)
+    node[pos=0.6,above right,align=left]
     {\contour{blue!5}{просторовоподібний}\\[-2]
      \contour{blue!5}{інтервал}\\[-1]
      \contour{blue!5}{$\Delta s^2<0$}};
-  \draw[vector,orange,<->] (2*\d,3*\d) --++ (2*\d,2*\d)
+  \draw[vector,<->] (2*\d,3*\d) --++ (2*\d,2*\d)
     node[pos=0.45,above left,align=center]
     {\contour{green!50!black!5}{світлоподібний}\\[-2]
      \contour{green!50!black!5}{інтервал}\\[-1]
@@ -416,14 +416,21 @@ c^2t^2-x^2=c^2t'^2-x'^2.
 %    node[orange,above=-1,align=center] {світлоподібний вектор\\[-2]$s^2=c^2t^2+x^2=0$};
   \draw[photon] (-0.02*\xmax,0.02*\xmax) -- (-\xmax,\xmax);
 
+    \node[align=center] at (0,-1) {\contour{green!50!black!5}{Абсолютне}\\
+                                     \contour{green!50!black!5}{минуле}
+                                    };
+    \node[align=center] at (0,+1) {\contour{green!50!black!5}{Абсолютне}\\
+                                 \contour{green!50!black!5}{майбутнє}
+                                    };
+
 \end{tikzpicture}
 \caption{Конус світла у просторі-часі Мінковського.
-Часоподібні інтервали між подіями ($\Delta s^2>0$) мають нахил,
+{\scriptsize Часоподібні інтервали між подіями ($\Delta s^2>0$) мають нахил,
 менший за~$45^\circ$ відносно осі~$ct$,
 просторовоподібні ($\Delta s^2<0$) --- більший за~$45^\circ$,
-світлоподібні ($\Delta s^2=0$) --- рівно~$45^\circ$.}%
+світлоподібні ($\Delta s^2=0$) --- рівно~$45^\circ$.}}%
 \label{pic:space-time}
-\end{figure}
+\end{SCfigure}
 %---------------------------------------------------------
 
 Таким чином, \textbf{величина квадрату інтервалу є незмінною для довільних відносних рухів інерціальних систем відліку}: $\Delta s^2=\Delta s'^2$.
