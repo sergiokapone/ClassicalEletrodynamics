@@ -44,13 +44,13 @@
 неодноразово перевірялося різними експериментальними методами. Сила, з
 якою один заряд діє на інший, спрямована вздовж лінії центрів зарядів.
 Зі спостережень відомо, що існують лише два сорти електричних зарядів,
-причому заряди однакового сорту завжди притягуються, а заряди різного сорту
---- відштовхуються. Цю обставину враховуємо, вводячи знаки зарядів в
+причому заряди однакового сорту завжди відштовхуються, а заряди різного сорту
+--- притягуються. Цю обставину враховуємо, вводячи знаки зарядів у
 формулі~\eqref{eq:Columb_low}. Від'ємними вважаються заряди того ж сорту, що й заряд
 електрона. Заряд є \emph{адитивною числовою величиною}\index{Заряд!адитивність}: заряд будь-якої
 системи є алгебраїчною сумою зарядів його підсистем.
 
-Формула~\eqref{eq:Columb_low} дає змогу визначити заряд й подати процедуру його
+Формула~\eqref{eq:Columb_low} дає змогу визначити заряд і подати процедуру його
 вимірювання (тобто спосіб порівняння заряду з деяким еталоном) за
 допомогою вимірювання сили взаємодії. В гаусовiй системi одиниць\index{Гаусова система одиниць} два
 одиничних заряди створюють силу взаємодiї $1\ \text{дина} = 1\ \text{г}\cdot\text{см} / \text{c}^2$,
@@ -476,7 +476,7 @@ $S_2$. Межа $\partial\Omega$ має орієнтацію, спільну з 
 \end{equation}
 де $\rho$ ---  об′ємна густина заряду. За теоремою Остроградського-Гаусса ліва частина~\eqref{Int_I} також зводиться до об′ємного інтегралу, звідки:
 \begin{equation*}
-	\int\limits_{\Omega} \Div\Efield\ d^3\vect{r} = \int\limits_{\Omega} \rho\ d^3\vect{r}
+	\int\limits_{\Omega} \Div\Efield\ d^3\vect{r} = 4\pi\int\limits_{\Omega} \rho\ d^3\vect{r}
 \end{equation*}
 зважаючи на довільність області $\Omega$:
 \begin{equation}\label{eq:M1D}
@@ -539,7 +539,7 @@ $\vect{n}$ напрямлена з $1$ в $2$
 \begin{SCfigure}[0.5][h!]
 	\centering
 	\localinput{bc1.tikz}
-	\caption{До виведення першої граничної умови}%
+	\caption{До виведення першої граничної умови.}%
 	\label{tikz:bc1}
 \end{SCfigure}
 
@@ -569,7 +569,7 @@ $\vect{n}$ напрямлена з $1$ в $2$
 Оскільки:
 \begin{equation*}
 	\int\limits_{S_1} \Efield_1\cdot d\vect{S}  = - \int\limits_{S} \Efield_1\cdot \vect{n}\ dS, \quad \\
-	\int\limits_{S_2} \Efield_2\cdot d\vect{S} = \int\limits_{S} \Efield_1\cdot \vect{n}\ dS,
+	\int\limits_{S_2} \Efield_2\cdot d\vect{S} = \int\limits_{S} \Efield_2\cdot \vect{n}\ dS,
 \end{equation*}
 де враховано напрямки нормалей до $\partial\Omega$ на $S_1$ та $S_2$, звідки:
 \begin{equation*}
@@ -731,13 +731,13 @@ $BC$ і $AD$, можна записати:
 	\frac{\Efield^2 + \Bfield^2}{8\pi} \ d^3\vect{r}  = 0.
 \end{equation}
 
-Перший в доданок в~\eqref{eq:energy_balance_int} --- це робота, яку виконує поле за одиницю часу
+Перший доданок в~\eqref{eq:energy_balance_int} --- це робота, яку виконує поле за одиницю часу
 в об’ємі $\Omega$, другий --- потік енергії через поверхню $\partial\Omega$, останній доданок ---
-швидкість зміни енергії електромагнітного поля в об’ємі Ω. Величина:
+швидкість зміни енергії електромагнітного поля в об’ємі $\Omega$. Величина:
 \begin{equation}
 	W = \int\limits_{\Omega}     \frac{\Efield^2 + \Bfield^2}{8\pi} \ d^3\vect{r}
 \end{equation}
-являє собою енергію поля в області $\Omega$, а підінтегральний вираз --- це густина енергії електромагнітного поля.
+являє собою енергію поля в об’ємі $\Omega$, а підінтегральний вираз --- це густина енергії електромагнітного поля.
 
 
 %% --------------------------------------------------------
@@ -780,9 +780,9 @@ $BC$ і $AD$, можна записати:
 	\Efield^2\delta_{ik}\right) - \frac1c \left[ \Efield \times \parttime{\Bfield}\right]_k .
 \end{multline*}
 
-З останнього рівняння Максвелла\eqref{eq:M4D} $\vect{j} = \frac{c}{4\pi} \Rot\Bfield - \frac1c \parttime{\Efield}$, тоді:
+З останнього рівняння Максвелла\eqref{eq:M4D} $\vect{j} = \frac{c}{4\pi} \Rot\Bfield - \frac1{4\pi} \parttime{\Efield}$, тоді:
 \begin{multline*}
-	\frac1c \left[ \vect{j}\times\Bfield\right]_k = \epsilon_{kij} j_i B_j = \frac1c  \epsilon_{kij} \left[ \frac{c}{4\pi}\epsilon_{ipq}\partial_p B_q -
+	\frac1c \left[ \vect{j}\times\Bfield\right]_k = 	\frac1c \epsilon_{kij} j_i B_j = \frac1c  \epsilon_{kij} \left[ \frac{c}{4\pi}\epsilon_{ipq}\partial_p B_q -
 		\frac1{4\pi}\parttime{E_i}
 		\right] B_j = \\
 	= \frac1{4\pi} \left( \delta_{kq}\delta_{jp} - \delta_{kp}\delta_{jq} \right) B_j\partial_p B_q - \frac1{4\pi c} \epsilon_{kij}\parttime{E_i} B_j =
@@ -810,7 +810,7 @@ $BC$ і $AD$, можна записати:
 \begin{equation}
 	\int\limits_{\Omega} f_k \ d^3\vect{r} + \oint\limits_{\partial\Omega} T_{kj} n_j dS + \parttime{}  \int\limits_{\Omega} \pi_k \ d^3\vect{r} = 0
 \end{equation}
-пов'язує зміну імпульсу в об'ємі $\Omega$ з дією зовнішніх зовнішніх сил та потоком
+пов'язує зміну імпульсу в об'ємі $\Omega$ з дією зовнішніх сил та потоком
 через бічну поверхню; тут $\pi_k$ --- імпульс поля в одиниці об'єму.
 
 
@@ -827,11 +827,11 @@ $BC$ і $AD$, можна записати:
 \begin{equation*}
 	M_k = \epsilon_{kij}x_if_j.
 \end{equation*}
-Використовуючи співвідношення, отримані для баланса імпульсу, маємо:
+Використовуючи співвідношення, отримані для балансу імпульсу, маємо:
 \begin{equation*}
-	\epsilon_{ijk}x_jf_k + \epsilon_{ijk}x_j T_{kj,j} + \parttime{L_i} = 0, \quad \text{де}\ L_i = \epsilon_{ijk}x_i\pi_k
+    \epsilon_{ijk} x_j f_k + \epsilon_{ijk} x_j T_{kl,l} + \parttime{L_i} = 0, \quad \text{де}\ L_i = \epsilon_{ijk} x_j \pi_k
 \end{equation*}
-можна інтерпретувати як густину момента імпульсу поля.
+можна інтерпретувати як густину моменту імпульсу поля.
 
 Завдяки симетрії $T_{kl}$ по індексах:
 \begin{equation*}
@@ -842,7 +842,7 @@ $BC$ і $AD$, можна записати:
 \begin{equation}
 	M_i + \partial_l( \epsilon_{ijk}  x_jT_{kl}) + \parttime{L_i} = 0.
 \end{equation}
-Рівняння баланс моменту імпульсу в об'ємі Ω має вид:
+Рівняння балансу моменту імпульсу в об'ємі Ω має вид:
 \begin{equation}
 	\int\limits_{\Omega} M_i \ d^3\vect{r} + \oint\limits_{\partial\Omega} \epsilon_{ijk}  x_jT_{kl} n_l dS +
 	\parttime{} \int\limits_{\Omega} L_i \ d^3\vect{r} = 0.
