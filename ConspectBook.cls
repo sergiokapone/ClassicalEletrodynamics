@@ -87,7 +87,10 @@
 	\renewcommand{\sfdefault}{fos}
 	\renewcommand{\bfdefault}{b}
 \fi
-\RequirePackage[english,russian,ukrainian]{babel}
+
+\RequirePackage[english,ukrainian]{babel}
+\RequirePackage{microtype}
+
 
 %===============================================================================
 %
@@ -107,7 +110,7 @@
 %
 %===============================================================================
 
-\RequirePackage{microtype}
+
 %\RequirePackage[nosingleletter, hyphenation, lastparline]{impnattypo}
 %\usepackage[defaultlines=4,all]{nowidow}
 %\clubpenalty =1000
