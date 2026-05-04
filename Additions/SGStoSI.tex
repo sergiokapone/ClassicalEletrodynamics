@@ -1,0 +1,145 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !TeX root =../ClassicalElectrodynamics.tex
+
+
+%% --------------------------------------------------------
+\section{Таблиця переходу між гаусовою системою одиниць та SI}\label{sec:SGStoSI}
+%% --------------------------------------------------------
+
+Для коректного читання та інтерпретації літератури з класичної електродинаміки необхідно вільно орієнтуватися в різних системах одиниць, зокрема в системі СІ та гаусовій системі (СГС). Це пов’язано з тим, що різні джерела використовують різні системи одиниць: фундаментальні теоретичні праці традиційно формулюються в СГС, тоді як у сучасній навчальній і прикладній літературі переважає система СІ. Тому необхідно впевнено володіти перевідними співвідношеннями між цими системами для основних фізичних величин.
+
+Перехід між системами одиниць не зводиться до простого масштабування величин, а супроводжується зміною вигляду рівнянь. У системі~SI рівняння містять константи \(\varepsilon_0\) та \(\mu_0\), тоді як у гаусовій системі вони відсутні, і відповідні коефіцієнти з’являються у вигляді множників \(4\pi\). Тому необхідно враховувати не лише перевідні співвідношення, але й зміну структури рівнянь.
+
+\begin{table}[h!]\centering
+	\caption{Перехід між гаусовою системою одиниць та SI}
+	\label{tab:CGStoSI}
+	\small
+	\begin{tblr}{
+			colspec={l X[c] X[c]},
+			row{1} = {1.5em, c, azure2, fg=white,font=\bfseries\sffamily},
+			row{odd[2]}={gray9},
+			row{2-Z}={1.7em},
+			cell{1}{4}={mode=text},
+			hlines={azure3},
+			vlines={azure3},
+			vline{2-4}={1}{white},
+			hline{2}={white}
+		}
+		Величина                       & Система СГС               & Система SI                                                   \\
+		Швидкість світла               & \(c\)                     & \((\varepsilon_0\mu_0)^{-1/2}\)                              \\
+		Напруженість електричного поля & \(\Efield_{\text{СГС}}\)  & \(\frac{1}{\sqrt{4\pi\varepsilon_0}}\,\Efield_{\text{СГС}}\) \\
+		Електричний потенціал          & \(\phi_{\text{СГС}}\)     & \(\frac{1}{\sqrt{4\pi\varepsilon_0}}\,\phi_{\text{СГС}}\)    \\
+		Магнітна індукція              & \(\Bfield_{\text{СГС}}\)  & \(\frac{1}{\sqrt{4\pi\mu_0}}\,\Bfield_{\text{СГС}}\)         \\
+		Вектор-потенціал               & \(\vect{A}_{\text{СГС}}\) & \(\frac{1}{\sqrt{4\pi\mu_0}}\,\vect{A}_{\text{СГС}}\)        \\
+		Густина заряду                 & \(\rho_{\text{СГС}}\)     & \(\sqrt{4\pi\varepsilon_0}\,\rho_{\text{СГС}}\)              \\
+		Заряд                          & \(q_{\text{СГС}}\)        & \(\sqrt{4\pi\varepsilon_0}\,q_{\text{СГС}}\)                 \\
+		Густина струму                 & \(\vect{j}_{\text{СГС}}\) & \(\sqrt{4\pi\varepsilon_0}\,\vect{j}_{\text{СГС}}\)          \\
+	\end{tblr}
+\end{table}
+
+
+%% --------------------------------------------------------
+\subsection*{Приклад: переписування рівнянь Максвела з гаусової системи (СГС) в SI}
+%% --------------------------------------------------------
+
+Розглянемо перехід від гаусової системи (СГС) до системи~SI на прикладі рівнянь Максвелла. Це дозволяє простежити зміну вигляду рівнянь при переході між системами одиниць.
+
+У гаусовій системі рівняння Максвела для вакууму мають вигляд:
+\begin{equation*}
+	\begin{aligned}
+		\Div\Efield_{\text{СГС}} & = 4\pi\rho_{\text{СГС}},                                                                             & \qquad
+		\Rot\Efield_{\text{СГС}} & = -\frac{1}{c}\frac{\partial \Bfield_{\text{СГС}}}{\partial t},                                               \\[4pt]
+		\Div\Bfield_{\text{СГС}} & = 0,                                                                                                 & \qquad
+		\Rot\Bfield_{\text{СГС}} & = \frac{4\pi}{c}\vect{j}_{\text{СГС}} + \frac{1}{c}\frac{\partial \Efield_{\text{СГС}}}{\partial t}.
+	\end{aligned}
+\end{equation*}
+
+З таблиці беремо перевідні співвідношення (позначимо величини в SI тим же символом без індексу):
+\begin{align*}
+	 & \Efield_{\text{СГС}} = \sqrt{4\pi\varepsilon_0}\,\Efield, \quad
+	\Bfield_{\text{СГС}} = \sqrt{4\pi\mu_0}\,\Bfield,                   \\
+	 & \rho_{\text{СГС}} = \frac{\rho}{\sqrt{4\pi\varepsilon_0}}, \quad
+	\vect{j}_{\text{СГС}} = \frac{\vect{j}}{\sqrt{4\pi\varepsilon_0}},  \\
+	 & c = \frac{1}{\sqrt{\varepsilon_0\mu_0}}.
+\end{align*}
+
+Підставимо в перше рівняння (теорема Гаусса):
+\begin{equation*}
+	\Div\bigl( \sqrt{4\pi\varepsilon_0}\,\Efield \bigr) = 4\pi \cdot \frac{\rho}{\sqrt{4\pi\varepsilon_0}}
+	\;\Longrightarrow\;
+	\sqrt{4\pi\varepsilon_0}\,\Div\Efield = \sqrt{\frac{4\pi}{\varepsilon_0}}\,\rho
+	\;\Longrightarrow\;
+	\Div\Efield = \frac{\rho}{\varepsilon_0}.
+\end{equation*}
+
+Друге рівняння (закон електромагнітної індукції Фарадея):
+\begin{equation*}
+	\Rot\bigl( \sqrt{4\pi\varepsilon_0}\,\Efield \bigr) = -\frac{1}{c}\frac{\partial}{\partial t}\bigl( \sqrt{4\pi\mu_0}\,\Bfield \bigr).
+\end{equation*}
+\begin{equation*}
+	\sqrt{4\pi\varepsilon_0}\,\Rot\Efield = -\frac{\sqrt{4\pi\mu_0}}{c}\,\frac{\partial \Bfield}{\partial t}.
+\end{equation*}
+Оскільки \(c = 1/\sqrt{\varepsilon_0\mu_0}\), то \(\sqrt{\mu_0}/c = \sqrt{\mu_0}\sqrt{\varepsilon_0\mu_0} = \mu_0\sqrt{\varepsilon_0}\). Тоді:
+\begin{equation*}
+	\sqrt{4\pi\varepsilon_0}\,\Rot\Efield = -\sqrt{4\pi\varepsilon_0}\,\mu_0\,\frac{\partial \Bfield}{\partial t}
+	\;\Longrightarrow\;
+	\Rot\Efield = -\frac{\partial \Bfield}{\partial t}.
+\end{equation*}
+
+Третє рівняння:
+\begin{equation*}
+	\Div\bigl( \sqrt{4\pi\mu_0}\,\Bfield \bigr) = 0 \;\Longrightarrow\; \Div\Bfield = 0.
+\end{equation*}
+
+\noindent Четверте рівняння:
+\begin{equation*}
+	\Rot\bigl( \sqrt{4\pi\mu_0}\,\Bfield \bigr) = \frac{4\pi}{c}\cdot\frac{\vect{j}}{\sqrt{4\pi\varepsilon_0}} + \frac{1}{c}\frac{\partial}{\partial t}\bigl( \sqrt{4\pi\varepsilon_0}\,\Efield \bigr).
+\end{equation*}
+\begin{equation*}
+	\sqrt{4\pi\mu_0}\,\Rot\Bfield = \frac{4\pi}{c\sqrt{4\pi\varepsilon_0}}\,\vect{j} + \frac{\sqrt{4\pi\varepsilon_0}}{c}\,\frac{\partial \Efield}{\partial t}.
+\end{equation*}
+Використаємо \(c = 1/\sqrt{\varepsilon_0\mu_0}\):
+
+\begin{equation*}
+	\frac{4\pi}{c\sqrt{4\pi\varepsilon_0}} = 4\pi\sqrt{\varepsilon_0\mu_0}\cdot\frac{1}{\sqrt{4\pi\varepsilon_0}} = \frac{4\pi\sqrt{\varepsilon_0\mu_0}}{\sqrt{4\pi\varepsilon_0}} = \sqrt{4\pi}\sqrt{\mu_0} = \sqrt{4\pi\mu_0}.
+\end{equation*}
+А другий доданок: \(\frac{\sqrt{4\pi\varepsilon_0}}{c} = \sqrt{4\pi\varepsilon_0}\sqrt{\varepsilon_0\mu_0} = \sqrt{4\pi}\,\varepsilon_0\sqrt{\mu_0}\).
+
+Отже:
+\begin{equation*}
+	\sqrt{4\pi\mu_0}\,\Rot\Bfield = \sqrt{4\pi\mu_0}\,\vect{j} + \sqrt{4\pi}\,\varepsilon_0\sqrt{\mu_0}\,\frac{\partial \Efield}{\partial t}.
+\end{equation*}
+Поділимо на \(\sqrt{4\pi\mu_0}\):
+\begin{equation*}
+	\Rot\Bfield = \vect{j} + \frac{\sqrt{4\pi}\,\varepsilon_0\sqrt{\mu_0}}{\sqrt{4\pi\mu_0}}\,\frac{\partial \Efield}{\partial t}
+	= \vect{j} + \varepsilon_0\sqrt{\mu_0}\cdot\frac{1}{\sqrt{\mu_0}}\,\frac{\partial \Efield}{\partial t}
+	= \vect{j} + \varepsilon_0\,\frac{\partial \Efield}{\partial t}.
+\end{equation*}
+
+Отримані рівняння Максвелла в системі SI для вакууму:
+
+\begin{equation*}
+	\begin{aligned}
+		 & \Div\Efield = \frac{\rho}{\varepsilon_0}, \qquad
+		 & \Rot\Efield = -\frac{\partial \Bfield}{\partial t},                                    \\[4pt]
+		 & \Div\Bfield = 0, \qquad
+		 & \Rot\Bfield = \mu_0\vect{j} + \mu_0\varepsilon_0\,\frac{\partial \Efield}{\partial t}.
+	\end{aligned}
+\end{equation*}
+
+
+Слід зауважити, що навіть у вакуумі в системі SI часто вводять допоміжні вектори електричної індукції \(\Dfield\) та напруженості магнітного поля \(\Hfield\), які для вакууму визначаються як:
+\begin{equation*}
+	\Dfield = \varepsilon_0 \Efield, \qquad \Hfield = \frac{\Bfield}{\mu_0}.
+\end{equation*}
+Підстановка цих визначень дозволяє переписати рівняння Максвелла в симетричнішій формі, де коефіцієнти \(\varepsilon_0\) та \(\mu_0\) зникають з правих частин\footnote{У такому записі рівняння Максвелла в SI набувають формально однакового вигляду як для вакууму, так і для середовищ хоча у випадку середовищ \(\rho\) та \(\vect{j}\) позначають лише вільні заряди та струми, а поля \(\Dfield\) та \(\Hfield\) включають внесок зв'язаних зарядів і струмів намагніченості.}:
+\begin{equation*}
+	\begin{aligned}
+		 & \Div\Dfield = \rho, \qquad
+		 & \Rot\Efield = -\frac{\partial \Bfield}{\partial t},           \\[4pt]
+		 & \Div\Bfield = 0, \qquad
+		 & \Rot\Hfield = \vect{j} + \frac{\partial \Dfield}{\partial t}.
+	\end{aligned}
+\end{equation*}
