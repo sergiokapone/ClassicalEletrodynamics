@@ -386,7 +386,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 Умови випромінювання однозначно задають поля ізольованої системи струмів і розв’язки хвильових рівнянь~\eqref{eq:Dphi},~\eqref{eq:DA} для потенціалів, а
 також рівнянь
-Гельмгольца~\eqref{eq:Dphi_Fourier},~\eqref{eq:DA_Fourier} для їх Фур’є-перетворень. Розв’язки~\eqref{eq:Dphi},~\eqref{eq:DA} можна отримати
+Гельмгольца~\eqref{eq:Dphi_Fourier},~\eqref{eq:DA_Fourier} для їх Фур’є-перетворень. Розв’язки~\eqref{eq:Dphi}, \eqref{eq:DA} можна отримати
 безпосередньо,
 використовуючи сферично-симетричний
 розв’язок~\eqref{eq:rad_phi}. Але ми проведемо аналогічний розгляд з використанням сферично-симетричного розв’язку рівнянь Гельмгольца, а потім
@@ -418,7 +418,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 Залишається визначити $C_1(k)$. Коли $r \to 0$, поведінку розв’язку визначає співмножник $C_1/r$, а в лівій частині рівняння~\eqref{eq:rad_phi_sph}
 домінує доданок
-$\Delta \varphi$. Тому асимптотика розв’язку за $r \to 0$ повинна збігатися з розв’язком рівняння Пуассона для точкового заряду:
+$\Delta \phi$. Тому асимптотика розв’язку за $r \to 0$ повинна збігатися з розв’язком рівняння Пуассона для точкового заряду:
 \begin{equation}
 	\Delta \left( \frac{q}{r} \right) = -4\pi q \delta (\vect{r}).
 \end{equation}
@@ -433,7 +433,7 @@ $\Delta \varphi$. Тому асимптотика розв’язку за $r \t
 З урахуванням~\eqref{eq:tildeGr}, за принципом суперпозиції розв’язки рівнянь~\eqref{eq:tilde_phi},~\eqref{eq:tilde_A} за умови випромінювання можна
 подати згортками:
 \begin{equation}\label{eq:tilde_phi_bundle}
-	\tilde{\varphi} (\omega, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \exp \left[ i \frac{\omega}{c} |\vect{r} - \vect{r}'| \right]
+	\tilde{\phi} (\omega, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \exp \left[ i \frac{\omega}{c} |\vect{r} - \vect{r}'| \right]
 	\tilde{\rho} (\omega, \vect{r}'),
 \end{equation}
 \begin{equation}\label{eq:tilde_A_bundle}
@@ -443,7 +443,7 @@ $\Delta \varphi$. Тому асимптотика розв’язку за $r \t
 
 За допомогою оберненого до~\eqref{eq:tilde_phi},\eqref{eq:tilde_A} перетворення Фур'є маємо:
 \begin{equation}
-	\varphi (t, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int e^{-i\omega t} \tilde{\varphi} (\omega, \vect{r}) d\omega,
+	\phi (t, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int e^{-i\omega t} \tilde{\phi} (\omega, \vect{r}) d\omega,
 \end{equation}
 \begin{equation}
 	\rho (t, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int e^{-i\omega t} \tilde{\rho} (\omega, \vect{r}) d\omega.
@@ -458,7 +458,7 @@ $\Delta \varphi$. Тому асимптотика розв’язку за $r \t
 
 Остаточно запишемо:
 \begin{equation}\label{eq:phi_ret}
-	\varphi (t, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \rho \left( t - \frac{1}{c} |\vect{r} - \vect{r}'|, \vect{r}' \right),
+	\phi (t, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \rho \left( t - \frac{1}{c} |\vect{r} - \vect{r}'|, \vect{r}' \right),
 \end{equation}
 а також, аналогічно, для розв’язку~\eqref{eq:DA}:
 \begin{equation}\label{eq:A_ret}
@@ -498,7 +498,7 @@ $\Delta \varphi$. Тому асимптотика розв’язку за $r \t
 Перевіримо виконання калібрувальної умови Лоренца для розв’язків~\eqref{eq:2.2.18},~\eqref{eq:2.2.19}:
 
 \begin{multline*}
-	\frac{1}{c} \frac{\partial \varphi}{\partial t} + \Div\vect{A} = \\
+	\frac{1}{c} \frac{\partial \phi}{\partial t} + \Div\vect{A} = \\
 	= \frac{4\pi}{c} \int dt' dV' \left[ \left( \frac{\partial}{\partial t} G(t - t', \vect{r} - \vect{r}') \right) \rho (t, \vect{r}) + \left(
 		\frac{\partial}{\partial x_i} G(t - t', \vect{r} - \vect{r}') \right) j_i (t', \vect{r}') \right] = \\
 	= \frac{4\pi}{c} \int dt' dV' \left[ - \left( \frac{\partial}{\partial t'} G(t - t', \vect{r} - \vect{r}') \right) \rho (t', \vect{r}') - \left(
@@ -721,18 +721,18 @@ c^{-1} r^{-3} \int dV \, \vect{j}(\vect{r}')(\vect{r} \cdot \vect{r}') \). За�
 
 %=========================================================
 \begin{problem}%
-Знайти загальний сферично симетричний розв’язок  \( \tilde\Phi \equiv \tilde\Phi(k, r) \)рівняння Гельмгольца в вакуумі:
+Знайти загальний сферично симетричний розв’язок  \( \tilde\phi \equiv \tilde\phi(k, r) \) рівняння Гельмгольца в вакуумі:
 \[
-	\Delta \tilde\Phi + k^2 \tilde\Phi = 0 \quad \text{в області} \quad r \geqslant R > 0.
+	\Delta \tilde\phi + k^2 \tilde\phi = 0 \quad \text{в області} \quad r \geqslant R > 0.
 \]
 Що в цьому розв’язку залишиться після врахування умови випромінювання (тобто за відсутності зовнішніх хвиль, що приходять до центру)?
 \end{problem}
 
 %=========================================================
 \begin{problem}%
-Знайти розв’язок \( \tilde\Phi \equiv \tilde\Phi(k, r) \) рівняння Гельмгольца:
+Знайти розв’язок \( \tilde\phi \equiv \tilde\phi(k, r) \) рівняння Гельмгольца:
 \begin{equation*}
-	\Delta \tilde\Phi + k^2 \tilde\Phi = -4\pi\tilde\rho
+	\Delta \tilde\phi + k^2 \tilde\phi = -4\pi\tilde\rho
 \end{equation*}
 у випадку сферичної симетрії \(
 \tilde\rho \equiv \tilde\rho(k, r) \), за умови відсутності зовнішнього випромінювання. Функція \( \tilde\rho \equiv \tilde\rho(k, r) \) відмінна від нуля лише в області \( r <
