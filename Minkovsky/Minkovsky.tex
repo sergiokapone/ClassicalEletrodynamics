@@ -201,13 +201,79 @@ $x^\mu \to x^{\prime\mu'}$
 правій частині~\eqref{eq:2.2}, які --- за вимоги однорідності простору-часу
 --- завжди можна прибрати за допомогою зсуву початку координат.
 
-Підстановка~\eqref{eq:2.2} в~\eqref{eq:2.1} дає
-$\eta_{\alpha\beta} = L^{\alpha'}{}_\alpha L^{\beta'}{}_\beta \eta_{\alpha'\beta'}$,
-тобто
+Підстановка~\eqref{eq:2.2} в~\eqref{eq:2.1} дає:
 \begin{equation}
   \eta_{\alpha\beta} = L^{\alpha'}{}_\alpha\, L^{\beta'}{}_\beta\, \eta_{\alpha'\beta'}.
   \label{eq:2.3}
 \end{equation}
+
+Оскільки $\det \|L\| \ne 0$, існує обернена матриця $\|(L^{-1})^{\mu}{}_{\mu'}\|$. За означенням оберненої матриці:
+\begin{equation*}
+    (L^{-1})^{\mu}{}_{\mu'} \, L^{\mu'}{}_{\nu} = \delta^{\mu}_{\nu}, \qquad
+    L^{\mu'}{}_{\mu} \, (L^{-1})^{\mu}{}_{\nu'} = \delta^{\mu'}_{\nu'}.
+\end{equation*}
+
+Помножимо обидві частини~\eqref{eq:2.3} зліва на $(L^{-1})^{\alpha}{}_{\mu'}$:
+\begin{equation*}
+    (L^{-1})^{\alpha}{}_{\mu'} \, x^{\prime\mu'} = (L^{-1})^{\alpha}{}_{\mu'} \, L^{\mu'}{}_{\mu} \, x^{\mu}.
+\end{equation*}
+
+Згортка $(L^{-1})^{\alpha}{}_{\mu'} \, L^{\mu'}{}_{\mu}$ дає $\delta^{\alpha}_{\mu}$, тому
+\begin{equation*}
+    (L^{-1})^{\alpha}{}_{\mu'} \, x^{\prime\mu'} = \delta^{\alpha}_{\mu} \, x^{\mu} = x^{\alpha}.
+\end{equation*}
+
+Перейменовано німий індекс $\alpha \to \mu$, отримаємо обернене перетворення до~\eqref{eq:2.2}:
+\begin{equation}\label{eq:Direct_tranformation}
+    x^{\mu} = (L^{-1})^{\mu}{}_{\mu'} \, x^{\prime\mu'},
+\end{equation}
+
+
+%\begin{problem}%
+%Отримайте співвідношення~\eqref{eq:2.3}.
+%\vspace{1ex}
+%
+%Розв'язок:
+%
+%{\scriptsize  Пеерейменуємо німі індекси підсумовування: \(\mu \to \alpha\) у першому множнику та \(\nu \to \beta\) у другому
+%
+%Ліва частина~\eqref{eq:2.1} має вигляд:
+%
+%\begin{equation*}
+%    \eta_{\mu\nu}\,\Delta x^{\mu}\,\Delta x^{\nu}
+%    = \eta_{\alpha\beta}\,\Delta x^{\alpha}\,\Delta x^{\beta},
+%\end{equation*}
+%}
+%
+%Підставимо~\eqref{eq:2.2} цей вираз у праву частину~\eqref{eq:2.1} Отримуємо:
+%\begin{align}
+%    \eta_{\mu'\nu'}\,\Delta x^{\prime\mu'}\,\Delta x^{\prime\nu'}
+%    &= \eta_{\mu'\nu'}
+%       \bigl( L^{\mu'}{}_{\alpha}\,\Delta x^{\alpha} \bigr)
+%       \bigl( L^{\nu'}{}_{\beta}\,\Delta x^{\beta} \bigr) \notag \\[4pt]
+%    &= \bigl( L^{\mu'}{}_{\alpha}\,L^{\nu'}{}_{\beta}\,\eta_{\mu'\nu'} \bigr)
+%       \Delta x^{\alpha}\,\Delta x^{\beta}. \tag{*}
+%\end{align}
+%
+%
+%
+%де ми так само перейменували індекси \(\mu \to \alpha\), \(\nu \to \beta\).
+%
+%
+%Оскільки рівність~\eqref{eq:2.1} має виконуватися для \emph{довільних} \(\Delta x^{\alpha}\), \(\Delta x^{\beta}\), порівнюючи вирази, отримуємо:
+%
+%\begin{equation}
+%    \eta_{\alpha\beta}
+%    = L^{\mu'}{}_{\alpha}\,L^{\nu'}{}_{\beta}\,\eta_{\mu'\nu'}.
+%\end{equation}
+%
+%Тепер залишилося лише перейменувати німі індекси підсумовування \(\mu' \to \alpha'\) та \(\nu' \to \beta'\), щоб привести до вигляду, наведеного в тексті:
+%
+%\begin{equation}
+%    \boxed{\eta_{\alpha\beta}
+%    = L^{\alpha'}{}_{\alpha}\,L^{\beta'}{}_{\beta}\,\eta_{\alpha'\beta'}} \tag{2.3}
+%\end{equation}
+%\end{problem}
 
 \textbf{Групу}%
 \footnote{Множина елементів є групою, якщо в ній заданий асоціативний
@@ -376,25 +442,25 @@ $\eta_{\mu\nu}A^\mu A^\nu > 0$, \textbf{просторовоподібним}, �
 $\eta_{\mu\nu}A^\mu A^\nu < 0$, та \textbf{ізотропним} (або
 \textbf{світлоподібним}), якщо $\eta_{\mu\nu}A^\mu A^\nu = 0$.
 
-Оскільки $\det \|L\| \ne 0$, існує обернена матриця $\|(L^{-1})^\mu{}_{\mu'}\|$,
-що також відповідає перетворенню з групи Лоренца:
-\begin{equation*}
-  x^\mu = (\|L\|^{-1})^\mu{}_{\mu'}\, x^{\prime\mu'}.
-\end{equation*}
-Якщо $\|M^\mu{}_{\mu'}\|$ --- обернена до $\|L^{\mu'}{}_\mu\|$ матриця, тобто
-$L^{\mu'}{}_\mu M^\mu{}_{\nu'} = \delta^{\mu'}{}_{\nu'}$,
-$M^\mu{}_{\mu'} L^{\mu'}{}_\nu = \delta^\mu{}_\nu$ та
-$\|(L^{-1})^\mu{}_{\mu'}\| = \|M^\mu{}_{\mu'}\|$, тоді очевидно, що
-$\|M^\alpha{}_{\alpha'}\| = \|(L^{-1})^\alpha{}_{\alpha'}\|$.
+%Оскільки $\det \|L\| \ne 0$, існує обернена матриця $\|(L^{-1})^\mu{}_{\mu'}\|$,
+%що також відповідає перетворенню з групи Лоренца:
+%\begin{equation*}
+%  x^\mu = (L^{-1})^\mu{}_{\mu'}\, x^{\prime\mu'}.
+%\end{equation*}
+%Якщо $\|M^\mu{}_{\mu'}\|$ --- обернена до $\|L^{\mu'}{}_\mu\|$ матриця, тобто
+%$L^{\mu'}{}_\mu M^\mu{}_{\nu'} = \delta^{\mu'}{}_{\nu'}$,
+%$M^\mu{}_{\mu'} L^{\mu'}{}_\nu = \delta^\mu{}_\nu$ та
+%$\|L\|^{-1}) = \|M\|$, тоді очевидно, що
+%$\|M^\alpha{}_{\alpha'}\| = \|(L^{-1})^\alpha{}_{\alpha'}\|$.
 
-Помножимо~\eqref{eq:2.3} на обернену матрицю
-$M^\alpha{}_{\alpha'} \eta^{\alpha'\gamma'}$;
-звідси, після помноження на $M^\beta{}_{\beta'}$,
-отримуємо зв'язок між матрицями прямого та оберненого перетворення Лоренца
-\begin{equation}
-  (\|L\|^{-1})^\mu{}_{\gamma'} = \eta_{\gamma'\beta'}\, L^{\beta'}{}_\beta\, \eta^{\beta\mu}.
-  \label{eq:2.4}
-\end{equation}
+%Помножимо~\eqref{eq:2.3} на обернену матрицю
+%$M^\alpha{}_{\alpha'} \eta^{\alpha'\gamma'}$;
+%звідси, після помноження на $M^\beta{}_{\beta'}$,
+%отримуємо зв'язок між матрицями прямого та оберненого перетворення Лоренца
+%\begin{equation}
+%  (L^{-1})^\mu{}_{\gamma'} = \eta_{\gamma'\beta'}\, L^{\beta'}{}_\beta\, \eta^{\beta\mu}.
+%  \label{eq:2.4}
+%\end{equation}
 
 \textbf{Тензори} визначаються набором чисел (компонент), які перетворюються
 як прямий добуток відповідного числа коваріантних та контраваріантних
@@ -403,7 +469,7 @@ $T_{\alpha'\beta'}{}^{\gamma'}$ при переході, відповідно д
 в іншу систему відліку перетворюється за правилом
 \begin{equation*}
   T'_{\alpha'\beta'}{}^{\gamma'} =
-  (\|L\|^{-1})^\alpha{}_{\alpha'}\,(\|L\|^{-1})^\beta{}_{\beta'}\,
+  (L^{-1})^\alpha{}_{\alpha'}\,(L^{-1})^\beta{}_{\beta'}\,
   L^{\gamma'}{}_\gamma\, T_{\alpha\beta}{}^\gamma.
 \end{equation*}
 
