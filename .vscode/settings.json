@@ -1,4 +1,6 @@
 {
+  "ltex.language": "uk-UA",
+  "ltex.enabled": ["latex"],
   "[latex]": {
       "editor.wordBasedSuggestions": "off",
       "editor.tabCompletion": "onlySnippets"
@@ -14,8 +16,8 @@
   ],
   "latex-workshop.latex.magic.args": [
     "-shell-escape", "-synctex=1", "-interaction=nonstopmode",
-    "-file-line-error", "%DOC%"
-  ],
+    "-file-line-error", "%DOC%" 
+   ],
   "latex-workshop.view.pdf.zoom": "page-width",
   "latex-workshop.view.pdf.viewer": "tab",
   "workbench.editorAssociations": {
@@ -40,9 +42,16 @@
     }
   ],
   "latex-workshop.latex.recipe.default": "latexmk",
+  "latex-workshop.message.log.show": false,
+  "latex-workshop.message.badbox.show": "both",
+  "latex-workshop.message.warning.show": false,
+  "latex-workshop.latex.autoBuild.run": "never",
   "latex-workshop.synctex.afterBuild.enabled": true,
   "latex-workshop.linting.chktex.enabled": true,
   "latex-workshop.linting.run": "onSave",
+  "latex-workshop.latex.autoClean.run" : "onBuilt",
+  "latex-workshop.hover.preview.enabled": true,
+  "latex-workshop.hover.citation.enabled": true,
   "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
   "latex-workshop.linting.chktex.exec.args": [
     "-wall",
