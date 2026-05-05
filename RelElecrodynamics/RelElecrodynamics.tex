@@ -30,7 +30,7 @@
     j^{i} = \rho\,dx^{i}/dt.
 \end{equation*}
 
-З формули для перетворення густини заряду~\eqref{eq:charge_density_transform}, яку легко узагальнити на випадок довільного напрямку швидкості, випливає, що величина $\rho\sqrt{1-\vect{v}^{2}/c^{2}} = \rho\,ds/dt$ є інваріантом --- це густина заряду у власній системі елемента середовища. Тоді $j^{\mu}$ має ті ж трансформаційні властивості, що й $dx^{\mu}/ds$, тобто це контраваріантний вектор. Його називають \textbf{чотиривектором густини струму\index{Чотиривектор!густини струму}}. Цей вектор введено для середовища з неперервним розподілом зарядів та швидкостей, але його можна означити і для точкових зарядів $q_{i}$ з траєкторіями $x^{\alpha}=x^{\alpha}_{(i)}$ (індекс $i=1,2,\ldots$ нумерує заряди):
+З формули для перетворення густини заряду~\eqref{eq:charge_density_transform}, яку легко узагальнити на випадок довільного напрямку швидкості, випливає, що величина $\rho\sqrt{1-\vect{v}^{2}/c^{2}} = \rho\,ds/dt$ є інваріантом --- це густина заряду у власній системі елемента середовища. Тоді $j^{\mu}$ має ті ж трансформаційні властивості, що й $dx^{\mu}/ds$, тобто це контраваріантний вектор. Його називають \textbf{чотиривектором густини струму\index{Чотиривектор!густини струму}}. Цей вектор введено для середовища з неперервним розподілом зарядів та швидкостей, але його можна означити та для точкових зарядів $q_{i}$ з траєкторіями $x^{\alpha}=x^{\alpha}_{(i)}$ (індекс $i=1,2,\ldots$ нумерує заряди):
 \begin{equation*}
     j^{\mu} = c\sum_{i}q_{i}\int ds_{i}\,\delta^{(4)}(x - x_{(i)}(s_{i}))
     \frac{dx_{(i)}^{\mu}}{ds_{i}},
@@ -72,7 +72,7 @@
 \begin{equation}\label{eq:charge_conservation}
     \partial_{\mu}j^{\mu} = 0,
 \end{equation}
-як необхідна умова існування розв'язку рівнянь електромагнітного поля. Оскільки $j^{\mu}$ є чотири-вектор, а $\partial_{\alpha}j^{\beta}$ --- тензор, згортка $\partial_{\mu}j^{\mu}$ є інваріантом. Рівняння~\eqref{eq:charge_conservation} є інваріантним при перетвореннях Лоренца.
+як необхідна умова існування розв'язку рівнянь електромагнітного поля. Оскільки $j^{\mu}$ є 4-вектор, а $\partial_{\alpha}j^{\beta}$ --- тензор, згортка $\partial_{\mu}j^{\mu}$ є інваріантом. Рівняння~\eqref{eq:charge_conservation} є інваріантним при перетвореннях Лоренца.
 
 %=========================================================
 \begin{problem}
@@ -111,7 +111,7 @@
 \section{Трансформаційні властивості \texorpdfstring{$F_{\mu\nu}$}{Fmunu}}
 %% --------------------------------------------------------
 
-Досі ми не з'ясовували трансформаційні властивості величин $F_{\mu\nu}$, які є розв'язками рівнянь електродинаміки~\eqref{eq:Maxwell_4D_1},~\eqref{eq:Maxwell_4D_2}. За певних граничних умов розв'язок цих рівнянь визначений єдиним чином. Для подальшого досить розглянути якусь одну постановку задачі для~\eqref{eq:Maxwell_4D_1},~\eqref{eq:Maxwell_4D_2}, що забезпечує єдиність, зокрема, що відповідає розгляду ізольованої системи. Адже фізичні властивості поля, в тому числі і трансформаційні співвідношення, що пов'язують різні інерціальні системи, не залежать від того, яка конфігурація зарядів створює це поле.
+Досі ми не з'ясовували трансформаційні властивості величин $F_{\mu\nu}$, які є розв'язками рівнянь електродинаміки~\eqref{eq:Maxwell_4D_1},~\eqref{eq:Maxwell_4D_2}. За певних граничних умов розв'язок цих рівнянь визначений єдиним чином. Для подальшого досить розглянути якусь одну постановку задачі для~\eqref{eq:Maxwell_4D_1},~\eqref{eq:Maxwell_4D_2}, що забезпечує єдиність, зокрема, що відповідає розгляду ізольованої системи. Адже фізичні властивості поля, в тому числі та трансформаційні співвідношення, що пов'язують різні інерціальні системи, не залежать від того, яка конфігурація зарядів створює це поле.
 
 Врахуємо, що, за відсутності зовнішнього випромінювання, рівняння~\eqref{eq:Maxwell_4D_1},~\eqref{eq:Maxwell_4D_2} визначають електромагнітне поле $F_{\alpha\beta}$ (а також і $F^{\alpha\beta}$) обмеженої системи зарядів і струмів \emph{однозначно в усьому просторі}, якщо ці рівняння розглядають, починаючи з нескінченного минулого. Відповідний розв'язок для поля ізольованої системи можна подати за допомогою запізнюючих потенціалів (див. далі~\eqref{eq:retarded_potentials} та представлення~\eqref{eq:4potential_def} електромагнітного поля через 4-вектор потенціалу), за допомогою яких $F_{\alpha\beta}$ \emph{однозначно} виражається через 4-вектор струму. Ці формули дають змогу явно дослідити трансформаційні властивості $F_{\alpha\beta}$ при переході в іншу інерціальну систему відліку. Але тут ми вчинимо інакше, виходячи безпосередньо з рівнянь Максвелла.
 
@@ -178,114 +178,112 @@
 \item Інваріантність $\Efield^2 - \Bfield^2$.
 
 Розкладемо на паралельну та перпендикулярну до швидкості частини:
-\[
-\Efield^2 - \Bfield^2 = (E_\parallel^2 + E_\perp^2) - (B_\parallel^2 + B_\perp^2).
-\]
+\begin{equation*}
+    \Efield^2 - \Bfield^2 = (E_\parallel^2 + E_\perp^2) - (B_\parallel^2 + B_\perp^2).
+\end{equation*}
 
 У системі $S'$:
-\[
-E_\parallel'^2 - B_\parallel'^2 = E_\parallel^2 - B_\parallel^2.
-\]
+\begin{equation*}
+    E_\parallel'^2 - B_\parallel'^2 = E_\parallel^2 - B_\parallel^2.
+\end{equation*}
 
 Для перпендикулярних компонент візьмемо
-\[
-\Efield_\perp = (0, E_y, E_z), \quad \Bfield_\perp = (0, B_y, B_z), \quad \boldsymbol{\beta} = (\beta, 0, 0),
-\]
+\begin{equation*}
+    \Efield_\perp = (0, E_y, E_z), \quad \Bfield_\perp = (0, B_y, B_z), \quad \boldsymbol{\beta} = (\beta, 0, 0),
+\end{equation*}
 тоді
-\[
-\boldsymbol{\beta} \Bfield_\perp = (0, -\beta B_z, \beta B_y), \quad
-\boldsymbol{\beta} \Efield_\perp = (0, -\beta E_z, \beta E_y).
-\]
+\begin{equation*}
+    \boldsymbol{\beta} \Bfield_\perp = (0, -\beta B_z, \beta B_y), \quad
+    \boldsymbol{\beta} \Efield_\perp = (0, -\beta E_z, \beta E_y).
+\end{equation*}
 
 Отже,
-\[
-\begin{aligned}
-E'_{y'} &= \gamma (E_y + \beta B_z), \quad E'_{z'} = \gamma (E_z - \beta B_y), \\
-B'_{y'} &= \gamma (B_y - \beta E_z), \quad B'_{z'} = \gamma (B_z + \beta E_y).
-\end{aligned}
-\]
+\begin{equation*}
+    \begin{aligned}
+    E'_{y'} &= \gamma (E_y + \beta B_z), \quad E'_{z'} = \gamma (E_z - \beta B_y), \\
+    B'_{y'} &= \gamma (B_y - \beta E_z), \quad B'_{z'} = \gamma (B_z + \beta E_y).
+    \end{aligned}
+\end{equation*}
 
 Обчислимо:
-\[
-E_\perp'^2 = \gamma^2 \left[ (E_y + \beta B_z)^2 + (E_z - \beta B_y)^2 \right],
-\]
-\[
-B_\perp'^2 = \gamma^2 \left[ (B_y - \beta E_z)^2 + (B_z + \beta E_y)^2 \right].
-\]
+\begin{align*}
+    E_\perp'^2 = \gamma^2 \left[ (E_y + \beta B_z)^2 + (E_z - \beta B_y)^2 \right], \\
+    B_\perp'^2 = \gamma^2 \left[ (B_y - \beta E_z)^2 + (B_z + \beta E_y)^2 \right].
+\end{align*}
 
 Різниця:
-\[
-E_\perp'^2 - B_\perp'^2 = \gamma^2 \bigl[ E_\perp^2 + 2\beta X + \beta^2 B_\perp^2 - B_\perp^2 - 2\beta X - \beta^2 E_\perp^2 \bigr],
-\]
+\begin{equation*}
+    E_\perp'^2 - B_\perp'^2 = \gamma^2 \bigl[ E_\perp^2 + 2\beta X + \beta^2 B_\perp^2 - B_\perp^2 - 2\beta X - \beta^2 E_\perp^2 \bigr],
+\end{equation*}
 де \(X = E_y B_z - E_z B_y\). Члени з \(X\) скорочуються, тому
-\[
-E_\perp'^2 - B_\perp'^2 = \gamma^2 (1 - \beta^2)(E_\perp^2 - B_\perp^2) = E_\perp^2 - B_\perp^2.
-\]
+\begin{equation*}
+    E_\perp'^2 - B_\perp'^2 = \gamma^2 (1 - \beta^2)(E_\perp^2 - B_\perp^2) = E_\perp^2 - B_\perp^2.
+\end{equation*}
 
 Додаючи паралельну частину, отримуємо
-\[
-\Efield'^2 - \Bfield'^2 = \Efield^2 - \Bfield^2.
-\]
+\begin{equation*}
+    \Efield'^2 - \Bfield'^2 = \Efield^2 - \Bfield^2.
+\end{equation*}
 
 \item Інваріантність $\Efield \cdot \Bfield$.
 
 Скалярний добуток:
-\[
-\Efield' \cdot \Bfield' = E_\parallel' B_\parallel' + \Efield_\perp' \cdot \Bfield_\perp'.
-\]
+\begin{equation*}
+    \Efield' \cdot \Bfield' = E_\parallel' B_\parallel' + \Efield_\perp' \cdot \Bfield_\perp'.
+\end{equation*}
 
 Паралельна частина: \(E_\parallel B_\parallel\) інваріантна. Для перпендикулярної:
-\[
-\Efield_\perp' \cdot \Bfield_\perp' = E_y' B_y' + E_z' B_z'.
-\]
+\begin{equation*}
+    \Efield_\perp' \cdot \Bfield_\perp' = E_y' B_y' + E_z' B_z'.
+\end{equation*}
 
 Підставляємо вирази для \(E_y', B_y', E_z', B_z'\):
-\[
-\begin{aligned}
-E_y' B_y' &= \gamma^2 (E_y + \beta B_z)(B_y - \beta E_z), \\
-E_z' B_z' &= \gamma^2 (E_z - \beta B_y)(B_z + \beta E_y).
-\end{aligned}
-\]
+\begin{equation*}
+    \begin{aligned}
+    E_y' B_y' &= \gamma^2 (E_y + \beta B_z)(B_y - \beta E_z), \\
+    E_z' B_z' &= \gamma^2 (E_z - \beta B_y)(B_z + \beta E_y).
+    \end{aligned}
+\end{equation*}
 
 Розкриваємо дужки:
-\[
-E_y' B_y' = \gamma^2 \left( E_y B_y - \beta E_y E_z + \beta B_z B_y - \beta^2 B_z E_z \right),
-\]
-\[
-E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_y E_y \right).
-\]
+\begin{equation*}
+\begin{aligned}
+    E_y' B_y' = \gamma^2 \left( E_y B_y - \beta E_y E_z + \beta B_z B_y - \beta^2 B_z E_z \right), \\
+    E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_y E_y \right).
+\end{aligned}
+\end{equation*}
 
 Додаємо:
-\[
-\gamma^2 \bigl[ E_y B_y + E_z B_z - \beta^2 (E_y B_y + E_z B_z) \bigr] = \gamma^2 (1 - \beta^2) (\Efield_\perp \cdot \Bfield_\perp) = \Efield_\perp \cdot \Bfield_\perp.
-\]
+\begin{equation*}
+    \gamma^2 \bigl[ E_y B_y + E_z B_z - \beta^2 (E_y B_y + E_z B_z) \bigr] = \gamma^2 (1 - \beta^2) (\Efield_\perp \cdot \Bfield_\perp) = \Efield_\perp \cdot \Bfield_\perp.
+\end{equation*}
 
 Отже,
-\[
-\Efield' \cdot \Bfield' = E_\parallel B_\parallel + \Efield_\perp \cdot \Bfield_\perp = \Efield \cdot \Bfield.
-\]
+\begin{equation*}
+    \Efield' \cdot \Bfield' = E_\parallel B_\parallel + \Efield_\perp \cdot \Bfield_\perp = \Efield \cdot \Bfield.
+\end{equation*}
 
 \end{itemize}
 
 
 Отже:
-\[
-\Efield'^2 - \Bfield'^2 = \Efield^2 - \Bfield^2, \qquad
-\Efield' \cdot \Bfield' = \Efield \cdot \Bfield.
-\]
+\begin{equation*}
+    \Efield'^2 - \Bfield'^2 = \Efield^2 - \Bfield^2, \qquad
+    \Efield' \cdot \Bfield' = \Efield \cdot \Bfield.
+\end{equation*}
 
 \end{problem}
 
 %=========================================================
 \begin{problem}
 Виходячи з 4-вектора густини струму, покажіть, що перетворення густини заряду та густини струму, відповідні переходу $S\to S'$ з вправи~\ref{prb:3.3}, мають вид:
-\[
+\begin{equation*}
     \rho' = \frac{\rho - (\vect{j}\cdot\vect{v})/c^2}{\sqrt{1-\beta^2}},
     \qquad
     \vect{j}'_{\|} = \frac{\vect{j}_{\|} - \rho\vect{v}}{\sqrt{1-\beta^2}},
     \qquad
     \vect{j}'_{\bot} = \vect{j}_{\bot}.
-\]
+\end{equation*}
 \end{problem}
 
 %% --------------------------------------------------------
@@ -380,9 +378,9 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
     \omega = \frac{d}{d\tau}\,\Omega\!\left(x_{\text{obs}}^{\mu}(\tau)\right)
     = c\,\frac{d}{ds}\,\Omega = c\,k_{\mu}\,u_{\text{obs}}^{\mu},
 \end{equation}
-де $u_{\text{obs}}^{\mu}=dx_{\text{obs}}^{\mu}/ds_{\text{obs}}$ --- чотиришвидкість спостерігача, $\tau$ --- власний час спостерігача, що вимірює частоту, $s=c\tau=s_{\text{obs}}$.
+де $u_{\text{obs}}^{\mu}=dx_{\text{obs}}^{\mu}/ds_{\text{obs}}$ --- 4-швидкість спостерігача, $\tau$ --- власний час спостерігача, що вимірює частоту, $s=c\tau=s_{\text{obs}}$.
 
-Вектор $K^{\mu}=k^{\mu}-k_{\alpha}u_{\text{obs}}^{\alpha}\,u_{\text{obs}}^{\mu}$, ортогональний до $u_{\text{obs}}^{\mu}$, визначає напрямок руху електромагнітних хвиль відносно спостерігача. Дійсно, у власній системі спостерігача чотиришвидкість має лише одну ненульову компоненту $\{u_{\text{obs}}^{\mu}\}=\{1,0,0,0\}$, звідки $K^0=0$, а тривимірні компоненти векторів збігаються з $K^i=k^i$.
+Вектор $K^{\mu}=k^{\mu}-k_{\alpha}u_{\text{obs}}^{\alpha}\,u_{\text{obs}}^{\mu}$, ортогональний до $u_{\text{obs}}^{\mu}$, визначає напрямок руху електромагнітних хвиль відносно спостерігача. Дійсно, у власній системі спостерігача 4-швидкість має лише одну ненульову компоненту $\{u_{\text{obs}}^{\mu}\}=\{1,0,0,0\}$, звідки $K^0=0$, а тривимірні компоненти векторів збігаються з $K^i=k^i$.
 
 Підстановка тензора електромагнітного поля для плоских хвиль у~\eqref{eq:Maxwell_4D_1} та~\eqref{eq:Maxwell_4D_2} дає
 \begin{equation}\label{eq:transversality}
@@ -412,7 +410,7 @@ E_z' B_z' = \gamma^2 \left( E_z B_z + \beta E_z E_y - \beta B_y B_z - \beta^2 B_
 \section{Ефект Доплера}
 %% --------------------------------------------------------
 
-Отримаємо формулу ефекту Доплера, який полягає у зміні спостережуваної частоти випромінювання в залежності від руху джерела відносно спостерігача. Аналогічно~\eqref{eq:freq_observer} власна частота коливань випромінювача з траєкторією $x_s^{\mu}(\tau_s)$, власним часом $\tau_s$ та 4-швидкістю $u_s^{\mu}=dx_s^{\mu}/ds_s$ є $\omega_0 = (d/d\tau_s)\,\Omega(x_s^{\mu}(\tau_s)) = ck_{\mu}u_s^{\mu}$. Ця формула інваріантна, її можна використовувати у будь-якій системі.
+Отримаємо формулу ефекту Доплера, який полягає у зміні спостережуваної частоти випромінювання залежно від руху джерела відносно спостерігача. Аналогічно~\eqref{eq:freq_observer} власна частота коливань випромінювача з траєкторією $x_s^{\mu}(\tau_s)$, власним часом $\tau_s$ та 4-швидкістю $u_s^{\mu}=dx_s^{\mu}/ds_s$ є $\omega_0 = (d/d\tau_s)\,\Omega(x_s^{\mu}(\tau_s)) = ck_{\mu}u_s^{\mu}$. Ця формула інваріантна, її можна використовувати у будь-якій системі.
 
 Далі усі величини розглянемо у системі спостерігача, де його 4-швидкість $u_{\text{obs}}^{\mu}=\{1,0,0,0\}$, а виміряна ним частота $\omega_{\text{obs}}=ck_{\mu}u_{\text{obs}}^{\mu}=ck_0=ck^0$. Напрям поширення хвиль, що реєструє спостерігач, є протилежним напрямку від спостерігача на джерело випромінювання $\vect{n}=-\vect{k}/|\vect{k}|=-\vect{k}/k^0$.
 
@@ -525,9 +523,10 @@ $\int f(x-x')g(x')\,d^4\vect{x}'$; символ <<$*$>> у~\eqref{eq:retarded_po
     \qquad x_{\text{ret}}^0 \equiv x^0 - |\vect{r}-\vect{r}'|.
 \end{align*}
 
-Розв'язок описує електромагнітне поле обмеженої системи з 4-вектором густини струму $j^{\nu}$. Функція $D_{\text{ret}}(x)$ є скаляром відносно власних перетворень Лоренца, оскільки тут аргумент $\delta$-функції залежить від квадрата інтервалу, а в $\theta(x^0)$ аргумент не змінює знак при цих перетвореннях. Тому з~\eqref{eq:retarded_potentials} випливає, що $A^{\nu}$ \textbf{є чотиривектором відносно перетворень власної групи Лоренца\index{Група Лоренца}, оскільки} $j^{\nu}$ \textbf{--- чотиривектор}.
+Розв'язок описує електромагнітне поле обмеженої системи з 4-вектором густини струму $j^{\nu}$. Функція $D_\text{ret}(x)$ є скаляром відносно власних перетворень Лоренца, 
+оскільки тут аргумент $\delta$-функції залежить від квадрата інтервалу, а в $\theta(x^0)$ аргумент не змінює знак при цих перетвореннях. Тому з~\eqref{eq:retarded_potentials} випливає, що $A^{\nu}$ \textbf{є 4-вектором відносно перетворень власної групи Лоренца\index{Група Лоренца}, оскільки $j^{\nu}$ --- 4-вектор}.
 
-Формула~\eqref{eq:retarded_potentials}, що явно гарантує властивості $A^{\nu}$ як чотири-вектора, дозволяє прямо обчислити за допомогою~\eqref{eq:4potential_def} закон перетворення компонент $F_{\mu\nu}$ при переході в іншу систему відліку. Це дає змогу встановити, що $F_{\mu\nu}$ \textbf{--- двічі коваріантний тензор}.
+Формула~\eqref{eq:retarded_potentials}, що явно гарантує властивості $A^{\nu}$ як 4-вектора, дозволяє прямо обчислити за допомогою~\eqref{eq:4potential_def} закон перетворення компонент $F_{\mu\nu}$ при переході в іншу систему відліку. Це дає змогу встановити, що $F_{\mu\nu}$ --- \textbf{двічі коваріантний тензор}.
 
 Користуючись рівнянням~\eqref{eq:retarded_potentials}, перевіримо також калібрувальну умову~\eqref{eq:Lorenz_gauge}. Маємо
 \begin{align*}
