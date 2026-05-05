@@ -75,7 +75,6 @@
 	\setsansfont{Roboto}%{Arial}
 	\setmonofont{JetBrains Mono}%{Consolas}
 	\defaultfontfeatures{Ligatures={TeX}}
-    \newfontfamily\Alexander{Alexander}
 	\RequirePackage{luacolor}
 \else
 	\RequirePackage[T2A,T1]{fontenc}
@@ -279,7 +278,7 @@
 \pgfplotsset{
 	%every tick label/.append style={scale=0.5},
 	every axis label/.append style={font=\small},
-	compat=newest,
+	compat=1.18,
 }
 \tikzset{every picture/.style={font=\small}}
 \tikzset{

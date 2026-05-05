@@ -1,4 +1,5 @@
 _minted*/
+build/
 *.aux
 *.synctex.gz
 *.synctex(busy)
