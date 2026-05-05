@@ -1,0 +1,54 @@
+{
+  "[latex]": {
+      "editor.wordBasedSuggestions": "off",
+      "editor.tabCompletion": "onlySnippets"
+  },
+  "latex-workshop.formatting.latex": "latexindent",
+  "latex-workshop.bind.altKeymap.enabled": false,
+  "latex-workshop.latex.clean.fileTypes": [
+    "*.aux", "*.bak*", "*.bbl", "*.blg", "*.bcf", "*.idx", "*.ind",
+    "*.log", "*.lof", "*.lot", "*.out", "*.toc", "*.acn", "*.acr",
+    "*.alg", "*.glg", "*.glo", "*.gls", "*.fls", "*.xml", "*.fdb_latexmk",
+    "*.snm", "*.synctex(busy)", "*.synctex.gz(busy)", "*.synctex.gz",
+    "*.nav", "*.vrb", "*.xdv", "*.run", "*.run.xml"
+  ],
+  "latex-workshop.latex.magic.args": [
+    "-shell-escape", "-synctex=1", "-interaction=nonstopmode",
+    "-file-line-error", "%DOC%"
+  ],
+  "latex-workshop.view.pdf.zoom": "page-width",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "workbench.editorAssociations": {
+    "*.pdf": "latex-workshop-pdf-hook"
+  },
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk",
+      "tools": ["latexmk"]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-f",
+        "-synctex=1",
+        "-interaction=nonstopmode",
+        "%DOC%"
+      ]
+    }
+  ],
+  "latex-workshop.latex.recipe.default": "latexmk",
+  "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.linting.chktex.enabled": true,
+  "latex-workshop.linting.run": "onSave",
+  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+  "latex-workshop.linting.chktex.exec.args": [
+    "-wall",
+    "-n19",
+    "-n22",
+    "-n30",
+    "-q"
+]
+}

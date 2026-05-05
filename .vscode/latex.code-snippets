@@ -1,0 +1,46 @@
+{
+    "TeX Magic Comments": {
+        "prefix": "mc",
+        "body": [
+            "% !TeX program = lualatex",
+            "% !TeX encoding = utf8",
+            "% !TeX spellcheck = uk_UA",
+            "% !BIB program = biber",
+            ""
+        ],
+        "description": "TeX magic comments"
+    },
+    "LaTeX Packages": {
+        "prefix": "lng",
+        "body": [
+            "\\usepackage{fontsetup}",
+            "\\usepackage[english, russian, ukrainian]{babel}",
+            ""
+        ],
+        "description": "LaTeX packages"
+    },
+    "Problem/Solution": {
+        "prefix": "prb",
+        "body": [
+            "%=========================================================",
+            "\\begin{problem}%",
+            "    %<problem%>",
+            "\\begin{solution}",
+            "\t$1",
+            "\\end{solution}",
+            "\\end{problem}",
+            "%========================================================="
+        ],
+        "description": "Problem/Solution environment"
+    },
+    "Section": {
+    "prefix": "sec",
+    "body": [
+            "%%% --------------------------------------------------------",
+            "\\section*{$1}",
+            "%%% --------------------------------------------------------",
+            ""
+    ],
+    "description": "Section"
+    }
+}
