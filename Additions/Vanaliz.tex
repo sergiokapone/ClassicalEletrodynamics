@@ -568,17 +568,17 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
 Існує багато способів регуляризації дельта-функції Дірака; зокрема, використовуються наступні наближення:
 
 \begin{equation}
-\delta_{\varepsilon}(x) = \frac{1}{\pi} \frac{\sin(x/\varepsilon)}{x},
+    \delta_{\varepsilon}(x) = \frac{1}{\pi} \frac{\sin(x/\varepsilon)}{x},
 \label{eq:delta_sin}
 \end{equation}
 
 \begin{equation}
-\delta_{\varepsilon}(x) = \frac{1}{\pi} \frac{\varepsilon}{x^2 + \varepsilon^2},
+    \delta_{\varepsilon}(x) = \frac{1}{\pi} \frac{\varepsilon}{x^2 + \varepsilon^2},
 \label{eq:delta_lorentz}
 \end{equation}
 
 \begin{equation}
-\delta_{\varepsilon}(x) = \frac{1}{\pi} \frac{\sin^2(x/\varepsilon)}{x^2},
+    \delta_{\varepsilon}(x) = \frac{1}{\pi} \frac{\sin^2(x/\varepsilon)}{x^2},
 \label{eq:delta_sin2}
 \end{equation}
 де \( x \in \mathbb{R} \).
@@ -588,9 +588,8 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
 називають \textit{регулярною}, якщо існує інтегровна функція \( f(x) \), така, що відповідний функціонал можна подати у вигляді звичайного інтегралу
 Лебега:
 
-\begin{equation}
-(F, \chi) = \int dx \, f(x) \chi(x).
-\label{eq:regular_functional}
+\begin{equation}\label{eq:regular_functional}
+    (F, \chi) = \int dx \, f(x) \chi(x).
 \end{equation}
 
 Якщо це неможливо, \( F \) називають \textit{сингулярною узагальненою функцією}. Прикладом такої функції є \(\delta\)-функція Дірака. Тим не менш, в
@@ -604,15 +603,14 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
 
 Визначимо похідну \( \partial_i F(x) \) від узагальненої функції \( F \) співвідношенням:
 
-\begin{equation}
-(\partial_i F, \chi) = - (F, \partial_i \chi), \quad x \in \mathbb{R}^n.
-\label{eq:derivative_definition}
+\begin{equation}\label{eq:derivative_definition}
+    (\partial_i F, \chi) = - (F, \partial_i \chi), \quad x \in \mathbb{R}^n.
 \end{equation}
 
 Для регулярної диференційовної функції \( F \) це співвідношення є очевидним наслідком інтегрування за частинами:
 
 \begin{equation*}
-\int dx \, \partial_i F(x) \chi(x) = - \int dx \, F(x) \partial_i \chi(x)
+    \int dx \, \partial_i F(x) \chi(x) = - \int dx \, F(x) \partial_i \chi(x)
 \end{equation*}
 
 з урахуванням того, що \( \chi(x) \) є фінітною.
@@ -621,9 +619,8 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
 
 \emph{Фундаментальним розв’язком оператора \( \hat{L} \)} називають узагальнену функцію \( G \), таку, що:
 
-\begin{equation}
-\hat{L} G = \delta(x).
-\label{eq:fundamental_solution}
+\begin{equation}\label{eq:fundamental_solution}
+    \hat{L} G = \delta(x).
 \end{equation}
 
 
@@ -631,9 +628,8 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
 
 Нехай  \( x = \vect{r} = (x_1, x_2, x_3) \in \mathbb{R}^3 \), покажемо, що:
 
-\begin{equation}
-\Delta \left( -\frac{1}{r} \right) = -4\pi \delta(\vect{r}),
-\label{eq:laplace_fundamental}
+\begin{equation}\label{eq:laplace_fundamental}
+    \Delta \left( -\frac{1}{r} \right) = -4\pi \delta(\vect{r}),
 \end{equation}
 
 де в правій частині фігурує тривимірна \(\delta\)-функція,
