@@ -200,7 +200,8 @@
 
 \NewDocumentCommand{\emphx}{m}{\emph{\textcolor{malina}{#1}}}
 
-\RequirePackage{mhchem, chemfig}
+\RequirePackage[version=4]{mhchem}
+\RequirePackage{chemfig}
 % ------------------------- Таблиці --------------------------------------------
 \newcommand{\localinput}[1]{\input{\currfilebase/tikz/#1}}
 \RequirePackage{booktabs}
