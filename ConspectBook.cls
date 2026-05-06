@@ -12,6 +12,8 @@
 \newif\ifbiblatex
 \newif\ifmarginversioninfo
 
+\tracinglostchars=1
+
 \DeclareOption{print}{
 	\PassOptionsToPackage{colorlinks=false}{hyperref}
 	\PassOptionsToPackage{pdfsubject={Version for Printing}}{hyperref}
