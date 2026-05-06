@@ -44,7 +44,7 @@
 %
 %Перед тим, як перейти до конкретних задач, пов’язаних з вивченням випромінювання електромагнітних хвиль, зауважимо, що при цьому нас цікавить передусім
 %характер поля на великих відстанях: \( r \gg \lambda \), де \( \lambda = \frac{2\pi c}{\omega} \) --- довжина хвилі; також вважаємо, що \( r \) значно
-%більше за розміри системи, що випромінює. Цю область називають хвильовою зоною, абозоною випромінювання. Тут, далеко від джерел, поле можна подати як суперпозицію сферичних
+%більше за розміри системи, що випромінює. Цю область називають хвильовою зоною, або зоною випромінювання. Тут, далеко від джерел, поле можна подати як суперпозицію сферичних
 %хвиль \( \sim \frac{e^{i(kr - \omega t)}}{r} \), де \( k = \frac{2\pi}{\lambda} = \frac{\omega}{c} \). Похідні від хвильового поля в основному
 %визначаються експоненціальним співмножинком. Зокрема:
 %
@@ -241,7 +241,7 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 де позначено:
 
 \begin{equation*}
-	Z_q = 1 - (\vect{n}_q \cdot \vect{v}_q), \quad \vect{n}_q = \frac{\vect{R}_q}{R_q}.
+	Z_q = 1 - \frac{\vect{n}_q \cdot \vect{v}_q}{c}, \quad \vect{n}_q = \frac{\vect{R}_q}{R_q}.
 \end{equation*}
 
 На великих відстанях, відкидаючи члени порядку \( \sim \frac{1}{r^2} \), дістанемо:
@@ -329,11 +329,13 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 	dI = \frac{q^2}{4\pi c^3} \left( \frac{\dot{\vect{v}}_q^2}{z^4} - \frac{\left(1 - \frac{v_q^2}{c^2}\right) (\vect{n} \cdot \dot{\vect{v}}_q)^2}{z^6}
 		\right) do,
 \end{equation}
-де
-
+тут позначено:
 \begin{equation*}
-	z = 1 - \frac{\vect{v}_q \cdot \vect{n}}{c}.
+	z = 1 - \frac{\vect{v}_q \cdot \vect{n}}{c},
 \end{equation*}
+%
+де $\vect{n} = \vect{r}/r$ --- напрямок спостереження; у хвильовій зоні
+$\vect{n} \approx \vect{n}_q$, тому $z \approx Z_q$.
 
 %% --------------------------------------------------------
 \subsection*{Коловий рух}
@@ -348,11 +350,12 @@ t_q(t, \vect{r}) \). Похідні від \( t_q \) визначаються з
 Для колового руху в магнітному полі \( \Bfield \) частота обертання\footnote{Ця частота, ще називається \emph{циклотронною}, або \emph{гіромагнітною} частотою.}:
 
 \begin{equation*}
-	\omega_c = \frac{v_q}{r_q} = \frac{eB}{m c}\sqrt{1 - \frac{v_q^2}{c^2}},
+	\omega_c = \frac{v_q}{r_q} = \frac{qB}{m c}\sqrt{1 - \frac{v_q^2}{c^2}},
 \end{equation*}
 прискорення:
 \begin{equation*}
-    \ddot{\vect{r}}_q =  \dot{\vect{v}}_q = \frac{q}{mc}\left[\vect{v}_q\times\Bfield\right]\sqrt{1 - \frac{v_q^2}{c^2}}.
+    \dot{\vect{v}}_q = \frac{q}{\gamma mc}\left[\vect{v}_q\times\Bfield\right]
+= \frac{q}{mc}\sqrt{1 - \frac{v_q^2}{c^2}}\left[\vect{v}_q\times\Bfield\right].
 \end{equation*}
 
 
@@ -475,7 +478,7 @@ r' \) маємо:
 дає:
 
 \begin{equation}
-	\vect{A}_0 = \frac{\dot{\vect{d}}(t_r)}{c r},
+	\vect{A}_\text{дип} = \frac{\dot{\vect{d}}(t_r)}{cr},
 	\label{eq:dipole_potential}
 \end{equation}
 %
@@ -489,12 +492,12 @@ r' \) маємо:
 
 З урахуванням~\eqref{eq:poynting_vector_far_field} дістанемо потік енергії системи через сферу радіусу \( r \gg \lambda \):
 
-\begin{equation*}	\label{eq:energy_flux}
+\begin{equation*}
 	\frac{d\mathcal{E}}{dt} = \int \vect{\Pi} \cdot d\vect{S} = \frac{1}{4\pi c^3} \int\limits_0^{2\pi} d\varphi \int\limits_0^\pi d\theta \, \ddot{\vect{d}}^2
 	\sin^3
 	\theta
 	=
-	\frac{2}{3c} \ddot{\vect{d}}^2(t_r).
+	\frac{2}{3c^3} \ddot{\vect{d}}^2(t_r).
 \end{equation*}
 
 
@@ -524,10 +527,14 @@ r' \) маємо:
 Для обмеженої системи струмів інтеграл від лівої частини дорівнює нулю. Звідси:
 
 \begin{equation*}
-	\int dV (x_i j_j + x_j j_i) = \int dV x_i x_j \frac{\partial \rho}{\partial t} \Rightarrow \int dV (x_i j_j + x_j j_i) = \int dV x_i x_j
-	\frac{\partial^2 \rho}{\partial t^2}.
+    \int dV (x_i j_j + x_j j_i) = \int dV\, x_i x_j \frac{\partial \rho}{\partial t}.
 \end{equation*}
-
+%
+Диференціюючи за часом:
+\begin{equation*}
+    \int dV\,(\dot{j}_i x_j + \dot{j}_j x_i) = \int dV\, x_i x_j \frac{\partial^2\rho}{\partial t^2}.
+\end{equation*}
+%
 Тоді:
 
 \begin{equation*}
@@ -749,7 +756,7 @@ m \ddot{\vect{r}} = q \Efield,
 отримуємо:
 
 \begin{equation*}
-\ddot{\vect{r}} = -\frac{q \Efield}{m \omega^2}.
+\ddot{\vect{r}} = \frac{q \Efield}{m \omega^2}.
 \end{equation*}
 
 Дипольний момент системи:
