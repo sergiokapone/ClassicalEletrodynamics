@@ -145,7 +145,7 @@
 \begin{equation*}
 \Div \vect{A} \equiv \partial_j A_j;
 \end{equation*}
-
+%
 градієнт:
 
 \begin{equation*}
@@ -167,8 +167,8 @@
 \begin{equation*}
 [\vect{A} \times \Bfield]_i = \varepsilon_{ijk} A_j B_k
 \end{equation*}
-
-\((A_i, B_i\) --- компоненти векторів \(\vect{A}\) та \(\Bfield)\), а також ротор:
+%
+де \((A_i, B_i\) --- компоненти векторів \(\vect{A}\) та \(\Bfield)\), а також ротор:
 
 \begin{equation*}
 \Rot(\vect{A})_i = \varepsilon_{ijk} \partial_j A_k.
@@ -187,7 +187,7 @@
 \begin{equation*}
 \Rot(F \vect{A})_i = \varepsilon_{ijk} \partial_j (F A_k) = \varepsilon_{ijk} (\grad F)_j A_k + F \varepsilon_{ijk} \partial_j A_k,
 \end{equation*}
-
+%
 або
 
 \begin{equation*}
@@ -217,7 +217,7 @@ B_k \varepsilon_{kij} \partial_i A_j - A_j \varepsilon_{ijk} \partial_i B_k = \\
 \delta_{k1} & \delta_{k2} & \delta_{k3}
 \end{vmatrix},
 \end{equation*}
-
+%
 де \(\delta_{ij}\) --- символ Кронекера, а також:
 
 \begin{equation*}
@@ -520,7 +520,7 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
 \begin{equation}
 \rho(\vect{r}) = q \delta(\vect{r} - \vect{r}_0),
 \end{equation}
-
+%
 де \( q \) --- величина заряду, \( \vect{r} \) --- його положення, \( \delta \) --- функція Дірака, що визначається умовою:
 
 \begin{equation}
@@ -736,10 +736,10 @@ G(x) = \frac{1}{2\pi} \delta \left[ t^2 - x^2 \right] \theta(t) = \frac{1}{4\pi 
 розширити на
 випадок \( f \in D \).
 
-Звідси маємо такі розв’язки рівнянь:
+Звідси маємо такі розв'язки рівнянь:
 
 \begin{equation}
-\Delta \phi = -4\pi \rho \implies \phi = \int dV' \, \frac{\rho(\vect{r}')}{|\vect{r} - \vect{r}'|}, \quad \phi = \varphi(\vect{r}),
+\Delta \phi = -4\pi \rho \implies \phi = \int dV' \, \frac{\rho(\vect{r}')}{|\vect{r} - \vect{r}'|}, \quad \phi = \phi(\vect{r}),
 \end{equation}
 
 \begin{equation}
@@ -749,7 +749,7 @@ G(x) = \frac{1}{2\pi} \delta \left[ t^2 - x^2 \right] \theta(t) = \frac{1}{4\pi 
 \end{equation}
 
 \begin{equation}
-\Delta \phi + k^2 \phi = -4\pi \rho \implies \varphi(\vect{r}) = \int \frac{e^{ik|\vect{r} - \vect{r}'|}}{|\vect{r} - \vect{r}'|}
+\Delta \phi + k^2 \phi = -4\pi \rho \implies \phi(\vect{r}) = \int \frac{e^{ik|\vect{r} - \vect{r}'|}}{|\vect{r} - \vect{r}'|}
 \rho{\vect{r}'}
 dV'.
 \end{equation}
