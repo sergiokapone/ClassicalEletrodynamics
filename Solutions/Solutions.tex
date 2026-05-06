@@ -108,8 +108,8 @@ $\vect{A}$ потенціалів. Вибір зручної \emph{калібр�
 	\Div \vect{A}' + \frac{1}{c} \frac{\partial \phi'}{\partial t} =
 	f - \frac{1}{c^2} \pparttime{\chi} + \nabla^2\chi.
 \end{equation*}
-Підбираючи функцію $\chi$ таким чином, щоб $f = \mdlgwhtsquare\,  \chi$
-(де $\mdlgwhtsquare\,  = \nabla^2 - \frac{1}{c^2} \frac{\partial^2}{\partial t^2}$ --- оператор Даламбера), бачимо, що нові потенціали $(\phi',
+Підбираючи функцію $\chi$ таким чином, щоб $f = \Dalambertian  \chi$
+(де $\Dalambertian  = \nabla^2 - \frac{1}{c^2} \frac{\partial^2}{\partial t^2}$ --- оператор Даламбера), бачимо, що нові потенціали $(\phi',
 	\vect{A}')$
 задовольняють калібрувальній умові Лоренца~\eqref{eq:LorenzCondition}.
 
@@ -124,7 +124,7 @@ $\vect{A}$ потенціалів. Вибір зручної \emph{калібр�
 \end{equation*}
 Тоді з рівняння~\eqref{eq:M1D} маємо:
 \begin{equation}\label{eq:Dphi}
-	\mdlgwhtsquare\  \phi = -4\pi \rho.
+	\Dalambertian  \phi = -4\pi \rho.
 \end{equation}
 
 Підставимо~\eqref{eq:potB} та~\eqref{eq:potE} в~\eqref{eq:M4D}:
@@ -139,13 +139,13 @@ $\vect{A}$ потенціалів. Вибір зручної \emph{калібр�
 де враховано умову Лоренца~\eqref{eq:LorenzCondition}. Оскільки члени з скалярним потенціалом
 $\phi$ в останній формулі скорочуються, отримуємо:
 \begin{equation}\label{eq:DA}
-	\mdlgwhtsquare\  \vect{A} = -\frac{4\pi}{c} \vect{j}.
+	\Dalambertian  \vect{A} = -\frac{4\pi}{c} \vect{j}.
 \end{equation}
 
 Перевіримо, чи сумісні рівняння~\eqref{eq:Dphi} та~\eqref{eq:DA} з умовою Лоренца~\eqref{eq:LorenzCondition}.
 Комбінування рівнянь $\frac1c \parttime{}~\eqref{eq:Dphi} + \Div~\eqref{eq:DA}$ дає:
 \begin{equation}
-	\mdlgwhtsquare\ \left( \frac1c \parttime{\phi} + \Div\vect{A} \right) = \frac{4\pi}c \left( \parttime{\rho} + \Div\vect{j}\right)  .
+	\Dalambertian \left( \frac1c \parttime{\phi} + \Div\vect{A} \right) = \frac{4\pi}c \left( \parttime{\rho} + \Div\vect{j}\right)  .
 \end{equation}
 За умови Лоренца права частина дорівнює нулю, тобто закон збереження
 заряду є необхідною умовою існування розв’язку. Навпаки, якщо цей закон
@@ -161,7 +161,7 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 само по собі не гарантує $f \equiv 0$, оскільки розв`язок
 рівняння:
 \begin{equation}\label{eq:Df}
-	\mdlgwhtsquare\ f = 0
+	\Dalambertian f = 0
 \end{equation}
 не є єдиним (воно має, наприклад, хвильові розв'язки\index{Хвильове рівняння}). Але за умови
 відсутності зовнішнього випромінювання, коли розглядається обмежена
@@ -189,13 +189,13 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 Рівняння~\eqref{eq:M4D} перепишеться, з урахуванням~\eqref{eq:potB} та~\eqref{eq:potE}, так:
 \begin{equation}\label{eq:DA_for_Hamilton1}
-	\mdlgwhtsquare\, \vect{A}  - \nabla \Div\vect{A} = -\frac{4\pi}{c} \vect{j}.
+	\Dalambertian \vect{A}  - \nabla \Div\vect{A} = -\frac{4\pi}{c} \vect{j}.
 \end{equation}
 
 Перевіримо, чи сумісні рівняння ці рівняння. Застосування
 дивергенції до лівої частини останнього рівняння дає:
 \begin{equation*}
-	\Div(\mdlgwhtsquare\ \vect{A}  - \nabla \Div\vect{A}) = \frac1{c^2} \pparttime{} \Div\vect{A} - \nabla^2\Div\vect{A} + \nabla^2\Div\vect{A},
+	\Div(\Dalambertian \vect{A}  - \nabla \Div\vect{A}) = \frac1{c^2} \pparttime{} \Div\vect{A} - \nabla^2\Div\vect{A} + \nabla^2\Div\vect{A},
 \end{equation*}
 або
 \begin{equation}\label{eq:DA_for_Hamilton2}
@@ -228,7 +228,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 З іншого рівняння Максвелла~\eqref{eq:M4D} дістаємо:
 \begin{equation}\label{eq:ColumbCondition_DA}
-	\mdlgwhtsquare\, \vect{A} = \frac{4\pi}c \vect{j} - \frac1c \nabla \parttime{\phi}.
+	\Dalambertian \vect{A} = \frac{4\pi}c \vect{j} - \frac1c \nabla \parttime{\phi}.
 \end{equation}
 
 Для перевірки сумісності~\eqref{eq:ColumbCondition_Puasson} та~\eqref{eq:ColumbCondition_DA} обчислимо з останнього рівняння з
@@ -313,7 +313,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 Зараз ми зацікавлені у знаходженні розв’язку, що описує поле ізольованої системи джерел. Розглянемо спочатку розв’язок, що відповідає сферично
 симетричному точковому джерелу, та задовольняє рівнянню:
 \begin{equation*}
-	\mdlgwhtsquare\ \phi = \delta(\vect{r} - \vect{r}_0)\chi(t, \vect{r}_0),
+	\Dalambertian \phi = \delta(\vect{r} - \vect{r}_0)\chi(t, \vect{r}_0),
 \end{equation*}
 де $\chi(t, \vect{r}_0) = 4\pi\rho(t, \vect{r}_0)$. Очевидно, розв’язок~\eqref{eq:Dphi} можна подати, як суперпозицію
 таких розв’язків з різними $\vect{r}_0$.
@@ -321,11 +321,11 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 Нехай $\vect{r}_0 = 0$. Поле, що створюється точковим джерелом у точці $\vect{r}$, є сферично-симетричним $\phi = \phi(t, r)$, $r = |\vect{r}|$. Завдяки
 сферичній симетрії:
 \begin{equation*}
-	\mdlgwhtsquare\ \phi = \frac1{c^2}\pparttime{\phi} - \frac1{r^2} \diff{}{r}\left(r^2 \diff{\phi}{r} \right) .
+	\Dalambertian \phi = \frac1{c^2}\pparttime{\phi} - \frac1{r^2} \diff{}{r}\left(r^2 \diff{\phi}{r} \right) .
 \end{equation*}
 Покладемо $\phi = \frac{\psi}{r}$, тоді за $r>0$:
 \begin{equation*}
-	\mdlgwhtsquare\ \phi = \frac1r \left( \frac1{c^2}\pparttime{\psi} - \ddiff{\psi}{r}\right) =0 .
+	\Dalambertian \phi = \frac1r \left( \frac1{c^2}\pparttime{\psi} - \ddiff{\psi}{r}\right) =0 .
 \end{equation*}
 Це одновимірне хвильове рівняння\index{Хвильове рівняння!одновимірне}, яке має загальний розв’язок:
 \begin{equation*}

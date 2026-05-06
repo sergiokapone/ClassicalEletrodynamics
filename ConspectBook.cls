@@ -187,7 +187,7 @@
 \def\ddiff#1#2{\frac{\partial^2 #1}{\partial #2^2}}
 \def\parttime#1{\frac{\partial{#1}}{\partial t}}
 \def\pparttime#1{\frac{\partial^2{#1}}{\partial t^2}}
-\def\Dalambertian{\mdlgwhtsquare\ }
+\def\Dalambertian{\mdlgwhtsquare\, }
 
 \AtBeginDocument{%
 %	\let\phi\varphi
