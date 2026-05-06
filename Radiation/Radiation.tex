@@ -125,7 +125,7 @@ $r \to \infty$, і з'являються вони виключно для при
 
 Для точкового заряду \( q \) з траєкторією \( \vect{r} = \vect{r}_q(t) \) густина заряду і густина струму мають вигляд:
 
-\begin{equation}	\label{eq:charge_density}
+\begin{equation}\label{eq:charge_density}
 	\rho(t, \vect{r}) = q \delta^3(\vect{r} - \vect{r}_q(t)),
 \end{equation}
 
@@ -137,7 +137,7 @@ $r \to \infty$, і з'являються вони виключно для при
 де \( \delta^3 \) --- тривимірна \( \delta \)-функція.
 
 
-За загальними формулами~\eqref{eq:D},~\eqref{eq:2.2.18},~\eqref{eq:2.2.19} для потенціалів:
+За загальними формулами~\eqref{eq:G}, \eqref{eq:2.2.18}, \eqref{eq:2.2.19} для потенціалів:
 
 \begin{equation*}
 	\phi(t, \vect{r}) = \frac{2}{c} \int dt' \int d^3\vect{r}' \delta \left[ (t - t')^2 - \frac{1}{c^2} (\vect{r} - \vect{r}')^2 \right] \theta (t - t')
@@ -490,15 +490,15 @@ r' \) маємо:
 	\Bfield = \Rot\vect{A}_\text{дип} = -\frac{[\vect{n} \times \ddot{\vect{d}}(t_r)]}{c r}.
 \end{equation*}
 
-З урахуванням~\eqref{eq:poynting_vector_far_field} дістанемо потік енергії системи через сферу радіусу \( r \gg \lambda \):
+З урахуванням~\eqref{eq:poynting_vector_far_field} дістанемо потік енергії системи через сферу радіуса \( r \gg \lambda \):
 
-\begin{equation*}
+\begin{equation}\label{eq:energy_flux}
 	\frac{d\mathcal{E}}{dt} = \int \vect{\Pi} \cdot d\vect{S} = \frac{1}{4\pi c^3} \int\limits_0^{2\pi} d\varphi \int\limits_0^\pi d\theta \, \ddot{\vect{d}}^2
 	\sin^3
 	\theta
 	=
 	\frac{2}{3c^3} \ddot{\vect{d}}^2(t_r).
-\end{equation*}
+\end{equation}
 
 
 %\begin{equation}
