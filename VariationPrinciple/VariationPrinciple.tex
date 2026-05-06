@@ -77,7 +77,7 @@
 \end{equation*}
 де $ds/dp = \sqrt{\eta_{\mu\nu}\dot{x}^{\mu}\dot{x}^{\nu}}$.
 
-Перейдемо від параметра $p$ до $s=\int_{p_1}^{p}(ds/dp')\,dp'$:
+Перейдемо від параметра $p$ до $s=\int\limits_{p_1}^{p}(ds/dp')\,dp'$:
 \begin{equation*}
     \frac{d}{ds}\!\left(mc\,\eta_{\mu\nu}\frac{dx^{\nu}}{ds}
     + \frac{q}{c}A_{\mu}\right)
@@ -146,7 +146,7 @@
 Оскільки поля задано в усьому просторі, функціонал дії повинен містити інтегрування по чотиривимірному об'єму, а не тільки по траєкторіях, як у випадку частинок. Тому подаватимемо $S_{\text{int}}+S_f$ у вигляді такого інтеграла:
 \begin{equation}\label{eq:S_field_int}
     S_{\text{int}} + S_f
-    = \int_{\Omega} d^4\vect{x}\,\Lambda_{\text{tot}}\!\left(A_{\mu}(x),\,A_{\mu,\nu}(x)\right),
+    = \int\limits_{\Omega} d^4\vect{x}\,\Lambda_{\text{tot}}\!\left(A_{\mu}(x),\,A_{\mu,\nu}(x)\right),
     \qquad \Lambda_{\text{tot}} = \Lambda_{\text{int}} + \Lambda_f.
 \end{equation}
 \emph{Незалежними змінними, відносно яких обчислюватиметься варіація, вважаємо компоненти 4-вектора потенціалу} $A_{\mu}$. Область інтегрування $\Omega$ може охоплювати весь простір, а може бути скінченною. Варіацію функціоналу дії розглядаємо за умови, що \emph{зміни польових функцій обертаються на нуль на межі області інтегрування} $\partial\Omega$.
@@ -217,28 +217,28 @@
     - \frac{1}{c^2}A_{\mu}j^{\mu}.
 \end{equation*}
 
-Нагадаємо, що незалежними польовими змінними в~\eqref{eq:Sf_Sint_total} вважаємо $A_{\mu}$, $\mu=0,1,2,3$. Обчислимо $\delta(S_f+S_{\text{int}})=\int_{\Omega}d^4\vect{x}\,\delta\Lambda$ за умови, що варіації польових змінних на межі області інтегрування зникають:
+Нагадаємо, що незалежними польовими змінними в~\eqref{eq:Sf_Sint_total} вважаємо $A_{\mu}$, $\mu=0,1,2,3$. Обчислимо $\delta(S_f+S_{\text{int}})=\int\limits_{\Omega}d^4\vect{x}\,\delta\Lambda$ за умови, що варіації польових змінних на межі області інтегрування зникають:
 \begin{equation*}
     \delta A_{\mu}(x)\big|_{\partial\Omega} = 0.
 \end{equation*}
 Маємо
 \begin{equation*}
-    \delta S_{\text{int}} = -\frac{1}{c^2}\int_{\Omega}d^4\vect{x}\,j^{\nu}(x)\,\delta A_{\nu}(x);
+    \delta S_{\text{int}} = -\frac{1}{c^2}\int\limits_{\Omega}d^4\vect{x}\,j^{\nu}(x)\,\delta A_{\nu}(x);
 \end{equation*}
 \begin{align*}
-    \delta\int_{\Omega}d^4\vect{x}\,I_1
-    &= 2\int_{\Omega}d^4\vect{x}\,F^{\mu\nu}\delta F_{\mu\nu}
-    = 2\int_{\Omega}d^4\vect{x}\,F^{\mu\nu}(\partial_{\mu}\delta A_{\nu}
+    \delta\int\limits_{\Omega}d^4\vect{x}\,I_1
+    &= 2\int\limits_{\Omega}d^4\vect{x}\,F^{\mu\nu}\delta F_{\mu\nu}
+    = 2\int\limits_{\Omega}d^4\vect{x}\,F^{\mu\nu}(\partial_{\mu}\delta A_{\nu}
     - \partial_{\nu}\delta A_{\mu}) \\
-    &= 4\int_{\Omega}d^4\vect{x}\,F^{\mu\nu}\partial_{\mu}\delta A_{\nu}
-    = 4\int_{\Omega}d^4\vect{x}\,\Big[\partial_{\mu}(F^{\mu\nu}\delta A_{\nu})
+    &= 4\int\limits_{\Omega}d^4\vect{x}\,F^{\mu\nu}\partial_{\mu}\delta A_{\nu}
+    = 4\int\limits_{\Omega}d^4\vect{x}\,\Big[\partial_{\mu}(F^{\mu\nu}\delta A_{\nu})
     - \partial_{\mu}F^{\mu\nu}\,\delta A_{\nu}\Big] \\
-    &= -4\int_{\Omega}d^4\vect{x}\,\partial_{\mu}F^{\mu\nu}\,\delta A_{\nu},
+    &= -4\int\limits_{\Omega}d^4\vect{x}\,\partial_{\mu}F^{\mu\nu}\,\delta A_{\nu},
 \end{align*}
 де застосовано формулу Остроградського-Гауса і враховано умову на $\partial\Omega$. Звідси
 \begin{equation*}
     \delta(S_f + S_{\text{int}})
-    = \int_{\Omega}d^4\vect{x}\,\left(\frac{1}{4\pi c}\partial_{\mu}F^{\mu\nu}
+    = \int\limits_{\Omega}d^4\vect{x}\,\left(\frac{1}{4\pi c}\partial_{\mu}F^{\mu\nu}
     - \frac{1}{c^2}j^{\nu}\right)\delta A_{\nu}(x).
 \end{equation*}
 Згідно з принципом стаціонарної дії, цей вираз має дорівнювати нулю для довільних варіацій $\delta A_{\nu}(x)$ всередині $\Omega$. Це можливо лише коли вираз в дужках дорівнює нулю, або остаточно:
