@@ -3,7 +3,9 @@
   "ltex.enabled": ["latex"],
   "[latex]": {
       "editor.wordBasedSuggestions": "off",
-      "editor.tabCompletion": "onlySnippets"
+      "editor.tabCompletion": "onlySnippets",
+      "editor.unicodeHighlight.ambiguousCharacters": true,
+      "editor.unicodeHighlight.invisibleCharacters": true
   },
   "latex-workshop.formatting.latex": "latexindent",
   "latex-workshop.bind.altKeymap.enabled": false,
