@@ -101,15 +101,15 @@ $\vect{A}$ потенціалів. Вибір зручної \emph{калібр�
 Цю умову можна задовольнити за допомогою перетворень~\eqref{eq:A'},~\eqref{eq:phi'}.
 Дійсно, припустимо, що:
 \begin{equation*}
-	\Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t} = f \neq 0?
+	\Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t} = f \neq 0,
 \end{equation*}
 та перейдемо до нових потенціалів $(\phi', \vect{A}')$ за формулами~\eqref{eq:A'},~\eqref{eq:phi'}. Тоді:
 \begin{equation*}
 	\Div \vect{A}' + \frac{1}{c} \frac{\partial \phi'}{\partial t} =
 	f - \frac{1}{c^2} \pparttime{\chi} + \nabla^2\chi.
 \end{equation*}
-Підбираючи функцію $\chi$ таким чином, щоб $f = \mdlgwhtsquare\  \chi$
-(де $\mdlgwhtsquare\  = \nabla^2 - \frac{1}{c^2} \frac{\partial^2}{\partial t^2}$ --- оператор Даламбера), бачимо, що нові потенціали $(\phi',
+Підбираючи функцію $\chi$ таким чином, щоб $f = \mdlgwhtsquare\,  \chi$
+(де $\mdlgwhtsquare\,  = \nabla^2 - \frac{1}{c^2} \frac{\partial^2}{\partial t^2}$ --- оператор Даламбера), бачимо, що нові потенціали $(\phi',
 	\vect{A}')$
 задовольняють калібрувальній умові Лоренца~\eqref{eq:LorenzCondition}.
 
@@ -151,7 +151,7 @@ $\phi$ в останній формулі скорочуються, отриму
 заряду є необхідною умовою існування розв’язку. Навпаки, якщо цей закон
 виконується, то:
 \begin{equation}\label{eq:LorentzCalibr}
-	\left( \frac1c \parttime{\phi} + \Div\vect{A} \right) = 0.
+	\frac1c \parttime{\phi} + \Div\vect{A} = 0.
 \end{equation}
 
 Співвідношення~\eqref{eq:LorentzCalibr}, якщо його розглядати як рівняння для:
@@ -189,7 +189,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 Рівняння~\eqref{eq:M4D} перепишеться, з урахуванням~\eqref{eq:potB} та~\eqref{eq:potE}, так:
 \begin{equation}\label{eq:DA_for_Hamilton1}
-	\mdlgwhtsquare\ \vect{A}  + \nabla \Div\vect{A} = -\frac{4\pi}{c} \vect{j}.
+	\mdlgwhtsquare\, \vect{A}  - \nabla \Div\vect{A} = -\frac{4\pi}{c} \vect{j}.
 \end{equation}
 
 Перевіримо, чи сумісні рівняння ці рівняння. Застосування
@@ -228,13 +228,13 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 З іншого рівняння Максвелла~\eqref{eq:M4D} дістаємо:
 \begin{equation}\label{eq:ColumbCondition_DA}
-	\mdlgwhtsquare\ \vect{A} = \frac{4\pi}c \vect{j} - \frac1c \nabla \parttime{\phi}.
+	\mdlgwhtsquare\, \vect{A} = \frac{4\pi}c \vect{j} - \frac1c \nabla \parttime{\phi}.
 \end{equation}
 
 Для перевірки сумісності~\eqref{eq:ColumbCondition_Puasson} та~\eqref{eq:ColumbCondition_DA} обчислимо з останнього рівняння з
 урахуванням~\eqref{eq:ColumbCondition}:
 \begin{equation*}
-	\mdlgwhtsquare\Div\vect{A} = \frac{4\pi}c \Div\vect{j} - \frac1c \nabla^2 \parttime{\phi} = \frac{4\pi}c\left( \Div\vect{j} +
+	\mdlgwhtsquare\Div\vect{A} = \frac{4\pi}c \Div\vect{j} + \frac1c \nabla^2 \parttime{\phi} = \frac{4\pi}c\left( \Div\vect{j} +
 	\parttime{\phi}\right),
 \end{equation*}
 де підставлено $\nabla^2\phi$ з~\eqref{eq:ColumbCondition_Puasson}. Знову рівняння неперервності --- закон збереження
@@ -267,7 +267,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 Позначимо:
 \begin{equation}\label{eq:tilde_phi}
-	\tilde{\phi}(\omega, \vec{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \phi(t, \vect{r}).
+	\tilde{\phi}(\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \phi(t, \vect{r}).
 \end{equation}
 \begin{equation}\label{eq:tilde_A}
 	\tilde{\vect{A}}(\omega, \vect{r}) = \frac{1}{\sqrt{2\pi}} \int\limits_{-\infty}^{+\infty} dt \, e^{i \omega t} \vect{A}(t, \vect{r}).
@@ -276,7 +276,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 Оскільки диференціювання за часом індукує множення фур’є-образів на \((-i \omega)\), аналог калібрувальної умови Лоренца~\eqref{eq:LorenzCondition} має
 вигляд:
 \begin{equation}
-	-\frac{i \omega}{c} \tilde{\phi} + \Div \tilde{\vect{A}} = 0.
+	\Div \tilde{\vect{A}} - \frac{i \omega}{c} \tilde{\phi} = 0.
 \end{equation}
 
 З закону збереження заряду~\eqref{eq:charge_conservation_low_diff} маємо:
@@ -309,7 +309,7 @@ $f=0$. Ця ситуація відповідає запізнюючим роз�
 
 
 Систему зарядів і струмів називатимемо ізольованою, якщо вона зосереджена в обмеженій області за відсутності зовнішнього випромінювання, що йде з
-нескінченності. Зосередимось на пошуку розв’язку рівняння~\eqref{eq:Dphi} та його фур’є-образу~\eqref{eq:Dphi_Fourier}для скалярного потенціалу $\phi$.
+нескінченності. Зосередимось на пошуку розв’язку рівняння~\eqref{eq:Dphi} та його фур’є-образу~\eqref{eq:Dphi_Fourier} для скалярного потенціалу $\phi$.
 Зараз ми зацікавлені у знаходженні розв’язку, що описує поле ізольованої системи джерел. Розглянемо спочатку розв’язок, що відповідає сферично
 симетричному точковому джерелу, та задовольняє рівнянню:
 \begin{equation*}
@@ -474,16 +474,16 @@ $\Delta \phi$. Тому асимптотика розв’язку за $r \to 0
 
 Зауважимо, що~\eqref{eq:phi_ret},~\eqref{eq:A_ret} можна записати у вигляді згортки фундаментального розв’язку оператора Даламбера з правими частинами
 рівнянь~\eqref{eq:Dphi},~\eqref{eq:DA} (див. додаток~\ref{sec:GeneralizedFunctions}). Цей фундаментальний розв’язок має вигляд:
-\begin{equation}\label{eq:D}
-	D(t, \vect{r}) = \frac{1}{2\pi c} \delta \left( t^2 - r^2 / c^2 \right) \theta(t).
+\begin{equation}\label{eq:G}
+	G(t, \vect{r}) = \frac{1}{2\pi c} \delta \left( t^2 - r^2 / c^2 \right) \theta(t).
 \end{equation}
 
 Згортка з правою частиною~\eqref{eq:Dphi}:
 \begin{equation}\label{eq:2.2.18}
-	\phi (t, \vect{r}) = 4\pi \int dt' dV' D(t - t', \vect{r} - \vect{r}') \rho (t', \vect{r}').
+	\phi (t, \vect{r}) = 4\pi \int dt' dV' G(t - t', \vect{r} - \vect{r}') \rho (t', \vect{r}').
 \end{equation}
 
-Підставимо~\eqref{eq:D}:
+Підставимо~\eqref{eq:G}:
 \begin{multline*}
 	\phi (t, \vect{r}) = \frac2c \int dt' dV' \delta \left[ \left( t - t' \right)^2 - \frac{(\vect{r} - \vect{r}')^2}{c^2} \right] \theta (t - t') \rho (t',
 	\vect{r}') = \\
@@ -493,14 +493,14 @@ $\Delta \phi$. Тому асимптотика розв’язку за $r \to 0
 
 Аналогічно:
 \begin{equation}\label{eq:2.2.19}
-	\vect{A'} (t, \vect{r}) = \frac{4\pi}{c} \int dt' dV' G(t - t', \vect{r} - \vect{r}') \vect{j} (t', \vect{r}').
+	\vect{A}' (t, \vect{r}) = \frac{4\pi}{c} \int dt' dV' G(t - t', \vect{r} - \vect{r}') \vect{j} (t', \vect{r}').
 \end{equation}
 
 Перевіримо виконання калібрувальної умови Лоренца для розв’язків~\eqref{eq:2.2.18},~\eqref{eq:2.2.19}:
 
 \begin{multline*}
-	\frac{1}{c} \frac{\partial \phi}{\partial t} + \Div\vect{A} = \\
-	= \frac{4\pi}{c} \int dt' dV' \left[ \left( \frac{\partial}{\partial t} G(t - t', \vect{r} - \vect{r}') \right) \rho (t, \vect{r}) + \left(
+	\frac1c \frac{\partial \phi}{\partial t} + \Div\vect{A} = \\
+	= \frac{4\pi}{c} \int dt' dV' \left[ \left( \frac{\partial}{\partial t} G(t - t', \vect{r} - \vect{r}') \right) \rho (t', \vect{r}') + \left(
 		\frac{\partial}{\partial x_i} G(t - t', \vect{r} - \vect{r}') \right) j_i (t', \vect{r}') \right] = \\
 	= \frac{4\pi}{c} \int dt' dV' \left[ - \left( \frac{\partial}{\partial t'} G(t - t', \vect{r} - \vect{r}') \right) \rho (t', \vect{r}') - \left(
 		\frac{\partial}{\partial x'_i} G(t - t', \vect{r} - \vect{r}') \right) j_i (t', \vect{r}') \right] = \\
@@ -708,9 +708,7 @@ $\Delta \phi$. Тому асимптотика розв’язку за $r \to 0
 
 %=========================================================
 \begin{problem}%
-Вектор-потенціал стаціонарного магнітного поля обмеженої системи струмів на великих відстанях можна наближено подати як \( \vect{A}(\vect{r}) =
-c^{-1} r^{-3} \int dV \, \vect{j}(\vect{r}')(\vect{r} \cdot \vect{r}') \). Записати цей вираз через магнітний момент \( \vect{m} = (2c)^{-1} \int dV \,
-[\vect{r} \times \vect{j}] \). Відповідь: \( \vect{A}(\vect{r}) = [\vect{m} \times \vect{r}] / r^3 \).
+Вектор-потенціал стаціонарного магнітного поля обмеженої системи струмів на великих відстанях можна наближено подати як \( \vect{A}(\vect{r}) = \frac{1}{cr^{3}} \int dV\, \vect{j}(\vect{r}')(\vect{r}\cdot\vect{r}') \). Записати цей вираз через магнітний момент \( \vect{m} = \frac{1}{2c}\int dV\,[\vect{r}\times\vect{j}] \). Відповідь: \( \vect{A}(\vect{r}) = [\vect{m} \times \vect{r}] / r^3 \).
 \end{problem}
 
 
