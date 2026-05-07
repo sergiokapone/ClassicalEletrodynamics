@@ -496,13 +496,13 @@ $\Delta \phi$. Тому асимптотика розв'язку за $r \to 0$ 
 	\vect{A}' (t, \vect{r}) = \frac{4\pi}{c} \int dt' dV' \, G(t - t', \vect{r} - \vect{r}') \, \vect{j} (t', \vect{r}').
 \end{equation}
 
-Перевіримо виконання калібрувальної умови Лоренца для розв'язків~\eqref{eq:2.2.18},~\eqref{eq:2.2.19}:
+Перевіримо виконання калібрувальної умови Лоренца для розв'язків~\eqref{eq:2.2.18}, \eqref{eq:2.2.19}:
 
 \begin{multline*}
 	\frac1c \frac{\partial \phi}{\partial t} + \Div\vect{A} = \\
 	= \frac{4\pi}{c} \int dt' dV' \left[ \left( \frac{\partial}{\partial t} G(t - t', \vect{r} - \vect{r}') \right) \rho (t', \vect{r}') + \left(
 		\frac{\partial}{\partial x_i} G(t - t', \vect{r} - \vect{r}') \right) j_i (t', \vect{r}') \right] = \\
-	= \frac{4\pi}{c} \int dt' dV' \left[ - \left( \frac{\partial}{\partial t'} G(t - t', \vect{r} - \vect{r}') \right) \rho (t', \vect{r}') - \left(
+	= -\frac{4\pi}{c} \int dt' dV' \left[  \left( \frac{\partial}{\partial t'} G(t - t', \vect{r} - \vect{r}') \right) \rho (t', \vect{r}') + \left(
 		\frac{\partial}{\partial x'_i} G(t - t', \vect{r} - \vect{r}') \right) j_i (t', \vect{r}') \right] = \\
 	= \frac{4\pi}{c} \int dt' dV' \left[ G(t - t', \vect{r} - \vect{r}') \frac{\partial}{\partial t'} \rho (t', \vect{r}') + G(t - t', \vect{r} -
 		\vect{r}') \frac{\partial}{\partial x'_i} j_i (t', \vect{r}') \right] = \\
