@@ -2,6 +2,8 @@
 chcp 65001 > nul
 title Project Build — ClassicalElectrodynamics
 
+SETLOCAL enabledelayedexpansion
+
 :: === Отримати реальний ESC-символ (0x1B) ===
 for /f %%a in ('echo prompt $E^| cmd') do set "ESC=%%a"
 
@@ -39,6 +41,23 @@ for /f "tokens=1-3 delims=:." %%a in ("%TIME%") do set /a "T0=%%a*3600+%%b*60+%%
 
 latexmk -f -g -lualatex ClassicalElectrodynamics.tex
 set "EC=%ERRORLEVEL%"
+
+:: --- Overfull hbox report ---
+set "LOGFILE=ClassicalElectrodynamics.log"
+set "OVF_THRESHOLD=5"
+
+set "found_ovf=0"
+set "OVF_LINES="
+for /f "delims=" %%w in ('grep -nE "Overfull .hbox \([0-9]+\.[0-9]+pt too wide\)" "%LOGFILE%" ^| gawk "match($0, /[0-9]+\.[0-9]+pt/, a) && substr(a[0], 1, length(a[0])-2)+0 > %OVF_THRESHOLD%"') do (
+    if !found_ovf!==0 (
+        echo  %YELLOW%-------------------------------------------------------%R%
+        echo  %BOLD%%WHITE%  Overfull hbox ^> %OVF_THRESHOLD%pt :%R%
+        echo  %YELLOW%-------------------------------------------------------%R%
+    )
+    echo  %RED%  %%w%R%
+    set "found_ovf=1"
+)
+echo.
 
 for /f "tokens=1-3 delims=:." %%a in ("%TIME%") do set /a "T1=%%a*3600+%%b*60+%%c"
 set /a "ELAPSED=T1-T0"
