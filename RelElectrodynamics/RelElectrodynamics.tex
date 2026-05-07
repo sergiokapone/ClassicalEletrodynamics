@@ -126,16 +126,16 @@
 \end{equation}
 За властивостями тензорів, ці величини можна диференціювати, утворюючи нові тензори, утворювати лінійні комбінації з тензорами аналогічної будови тощо. Оскільки, за припущенням, $F_{\alpha\beta}$ є розв'язком рівнянь Максвелла~\eqref{eq:Maxwell_4D_1},~\eqref{eq:Maxwell_4D_2} в системі $S$:
 \begin{equation*}
-    \frac{\partial F^{\alpha\nu}}{\partial x^{\nu}} + \frac{4\pi}{c}j^{\alpha} = 0,
+    \frac{\partial F^{\alpha\nu}}{\partial x^{\nu}} - \frac{4\pi}{c}j^{\alpha} = 0,
     \qquad
     \partial_{\mu}F_{\nu\lambda} + \partial_{\nu}F_{\lambda\mu}
     + \partial_{\lambda}F_{\mu\nu} = 0,
 \end{equation*}
 аналогічне співвідношення маємо для тензорів в лівій частині рівнянь і в системі $S'$:
 \begin{align*}
-    \frac{\partial F'^{\mu\nu}}{\partial x'^{\nu}} + \frac{4\pi}{c}J'^{\mu}
+    \frac{\partial F'^{\mu\nu}}{\partial x'^{\nu}} - \frac{4\pi}{c}J'^{\mu}
     &= L^{\mu}{}_{\alpha}\!\left(\frac{\partial F^{\alpha\nu}}{\partial x^{\nu}}
-    + \frac{4\pi}{c}j^{\alpha}\right) = 0, \\
+    - \frac{4\pi}{c}j^{\alpha}\right) = 0, \\
     \partial'_{\alpha}F'_{\beta\gamma} + \partial'_{\beta}F'_{\gamma\alpha}
     + \partial'_{\gamma}F'_{\alpha\beta}
     &= (L^{-1})^{\mu}{}_{\alpha}(L^{-1})^{\nu}{}_{\beta}(L^{-1})^{\lambda}{}_{\gamma}
@@ -193,8 +193,8 @@
 \end{equation*}
 тоді
 \begin{equation*}
-    \boldsymbol{\beta} \Bfield_\perp = (0, -\beta B_z, \beta B_y), \quad
-    \boldsymbol{\beta} \Efield_\perp = (0, -\beta E_z, \beta E_y).
+    [\vect{\beta}\times \Bfield_\perp] = (0, -\beta B_z, \beta B_y), \quad
+    [\vect{\beta}\times \Efield_\perp] = (0, -\beta E_z, \beta E_y).
 \end{equation*}
 
 Отже,
@@ -350,10 +350,10 @@
 \begin{align*}
     ct &= \frac{c\gamma}{\omega_E}\sh(\omega_E\tau),
     &z &= \frac{c\gamma}{\omega_E}\!\left(\ch(\omega_E\tau)-1\right), \\
-    x &= \frac{v\gamma}{\omega_H}\sin(\omega_H\tau),
-    &y &= \frac{v\gamma}{\omega_H}\!\left(\cos(\omega_H\tau)-1\right),
+    x &= \frac{v\gamma}{\omega_B}\sin(\omega_B\tau),
+    &y &= \frac{v\gamma}{\omega_B}\!\left(\cos(\omega_B\tau)-1\right),
 \end{align*}
-де $\omega_E = \dfrac{qE}{mc}$, $\omega_H = \dfrac{qH}{mc}$, $\gamma = \dfrac{1}{\sqrt{1-v^2/c^2}}$.
+де $\omega_E = \dfrac{qE}{mc}$, $\omega_B = \dfrac{qB}{mc}$, $\gamma = \dfrac{1}{\sqrt{1-v^2/c^2}}$.
 \end{problem}
 
 %% --------------------------------------------------------
@@ -412,7 +412,8 @@
 
 Отримаємо формулу ефекту Доплера, який полягає у зміні спостережуваної частоти випромінювання залежно від руху джерела відносно спостерігача. Аналогічно~\eqref{eq:freq_observer} власна частота коливань випромінювача з траєкторією $x_s^{\mu}(\tau_s)$, власним часом $\tau_s$ та 4-швидкістю $u_s^{\mu}=dx_s^{\mu}/ds_s$ є $\omega_0 = (d/d\tau_s)\,\Omega(x_s^{\mu}(\tau_s)) = ck_{\mu}u_s^{\mu}$. Ця формула інваріантна, її можна використовувати у будь-якій системі.
 
-Далі усі величини розглянемо у системі спостерігача, де його 4-швидкість $u_{\text{obs}}^{\mu}=\{1,0,0,0\}$, а виміряна ним частота $\omega_{\text{obs}}=ck_{\mu}u_{\text{obs}}^{\mu}=ck_0=ck^0$. Напрям поширення хвиль, що реєструє спостерігач, є протилежним напрямку від спостерігача на джерело випромінювання $\vect{n}=-\vect{k}/|\vect{k}|=-\vect{k}/k^0$.
+Далі усі величини розглянемо у системі спостерігача, де його 4-швидкість $u_{\text{obs}}^{\mu}=\{1,0,0,0\}$, а виміряна ним частота $\omega_{\text{obs}}=ck_{\mu}u_{\text{obs}}^{\mu}=ck_0=ck^0$. Напрям поширення хвиль, що реєструє спостерігач, збігається з напрямком
+від джерела до спостерігача $\vect{n}=\vect{k}/|\vect{k}|=\vect{k}/k^0$.
 
 Після переходу в систему спостерігача маємо
 \begin{equation}\label{eq:Dopler}
@@ -420,7 +421,7 @@
     = \frac{k_{\mu}u_{\text{obs}}^{\mu}}{k_{\mu}u_0^{\mu}}
     = \frac{k_0}{k_{\mu}u_0^{\mu}}
     = \frac{1}{u_0^0(1+\vect{n}\cdot\vect{v}/c)}
-    = \frac{\sqrt{1-\vect{v}^2/c^2}}{1+\vect{n}\cdot\vect{v}/c},
+    = \frac{\sqrt{1-\vect{v}^2/c^2}}{1-\vect{n}\cdot\vect{v}/c},
 \end{equation}
 де $\vect{v}$ --- швидкість джерела відносно спостерігача. За нерелятивістських швидкостей корінь у чисельнику можна наближено замінити на одиницю.
 
@@ -452,7 +453,7 @@
     \[
         \frac{\omega}{c} = \gamma\frac{\omega_0}{c}(1+\beta\cos\theta_0),
     \]
-    що збігається з формулою~\eqref{eq:Dopler} при $\vect{n}\cdot\vect{v}/c = -\beta\cos\theta_0$. Для просторових компонент:
+    що збігається з формулою~\eqref{eq:Dopler} при $\vect{n}\cdot\vect{v}/c = \beta\cos\theta_0$ (де $\vect{n}=\vect{k}/|\vect{k}|$ --- напрямок поширення хвилі у системі спостерігача). Для просторових компонент:
     \[
         k_x = \frac{\omega}{c}\cos\theta = \gamma\frac{\omega_0}{c}(\cos\theta_0+\beta), \qquad
         k_y = \frac{\omega}{c}\sin\theta = \frac{\omega_0}{c}\sin\theta_0.
@@ -503,7 +504,7 @@
     G_{\text{ret}}(x) = \frac{1}{2\pi}\,\theta(x^0)\,\delta[(x^0)^2 - \vect{r}^2],
     \qquad x\equiv\{x^{\alpha}\}\equiv(x^0,\vect{r}),
 \end{equation*}
-де $\theta(t)\equiv\{0,\,x<0;\;1,\,x>0\}$ --- функція Хевісайда, $\delta$ --- функція Дірака; цей розв'язок, за визначенням, задовольняє рівнянню
+де $\theta(t)\equiv\{0,\,t<0;\;1,\,t>0\}$ --- функція Хевісайда, $\delta$ --- функція Дірака; цей розв'язок, за визначенням, задовольняє рівнянню
 \begin{equation*}
     \Dalambertian G_{\text{ret}}(x) = \delta^4(x)
     \equiv \delta(x^0)\,\delta(x^1)\,\delta(x^2)\,\delta(x^3).
@@ -532,8 +533,8 @@ $\int f(x-x')g(x')\,d^4\vect{x}'$; символ <<$*$>> у~\eqref{eq:retarded_po
 \begin{align*}
     \partial_{\nu}A^{\nu}
     &= \frac{4\pi}{c}\,\partial_{\nu}\{G_{\text{ret}}*j^{\nu}\}
-    \equiv \frac{4\pi}{c}\int\frac{\partial}{\partial x^{\nu}}D(x-x')\,j^{\nu}(x')\,d^4\vect{x}' \\
-    &= \frac{4\pi}{c}\int G(x-x')\,\frac{\partial}{\partial x'^{\nu}}j^{\nu}(x')\,d^4\vect{x}'
+    \equiv \frac{4\pi}{c}\int\frac{\partial}{\partial x^{\nu}}G_\text{ret}(x-x')\,j^{\nu}(x')\,d^4\vect{x}' \\
+    &= \frac{4\pi}{c}\int G_\text{ret}(x-x')\,\frac{\partial}{\partial x'^{\nu}}j^{\nu}(x')\,d^4\vect{x}'
     \equiv \frac{4\pi}{c}\,G_{\text{ret}}*\partial_{\nu}j^{\nu} = 0,
 \end{align*}
 внаслідок закону збереження заряду~\eqref{eq:charge_conservation}. За умови Лоренца з рівнянь~\eqref{eq:Lorenz_gauge},~\eqref{eq:wave_eq_A} випливає~\eqref{eq:Maxwell_4D_1}.
