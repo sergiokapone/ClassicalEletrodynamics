@@ -733,7 +733,7 @@
 		      \xi_1 = \frac{2A\cos\delta}{1 + A^2}, \quad
 		      \xi_2 = \frac{2A\sin\delta}{1 + A^2}
 	      \end{equation*}
-		  %	
+		  %
 	      причому \(\xi_1^2 + \xi_2^2 + \xi_3^2 = 1\). Лінійна (\(\delta = 0,\, \pi\))
 	      та кругова (\(A = 1,\, \delta = \pm\pi/2\)) поляризації є граничними випадками.
 	      %---------------------------------------------------------
@@ -1107,15 +1107,14 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 	\right|^2
 	= \\ =
 	%
-	\frac{1}{8\pi c^2} \int d^3\vect{k} \, \omega_{\vect{k}}^2 \left(
-	\vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) -
+	\frac{1}{8\pi c^2} \int d^3\vect{k} \, \omega_{\vect{k}}^2 \left[
+	\vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) +
 	\vect{a}^*(-\vect{k}) \cdot \vect{a}(-\vect{k})
 	\right.
 	- \\ -
 	%
 	\left. 2\Re \left( \vect{a}(\vect{k}) \cdot \vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right)
-	\right)
-	\label{eq:W_E}
+	\right]
 \end{multline*}
 
 Оскільки:
@@ -1126,8 +1125,8 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 маємо:
 
 \begin{equation}
-	W_E = \frac{1}{4\pi c^2} \int d^3\vect{k} \, \omega_{\vect{k}}^2 \left\{ \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) - \Re \left[ \vect{a}(\vect{k})
-		\cdot \vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right] \right\}
+	W_E = \frac{1}{4\pi c^2} \int d^3\vect{k} \, \omega_{\vect{k}}^2 \left[ \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) - \Re \left( \vect{a}(\vect{k})
+		\cdot \vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right) \right]
 	\label{eq:W_E_final}
 \end{equation}
 
@@ -1160,8 +1159,8 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 Звідси, аналогічно~\eqref{eq:W_E_final}:
 
 \begin{equation}
-	W_B = \frac{1}{4\pi} \int d^3\vect{k} \, \vect{k}^2\  \left( \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) + \Re \left[ \vect{a}(\vect{k}) \cdot
-		\vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right] \right)
+	W_B = \frac{1}{4\pi} \int d^3\vect{k} \, \vect{k}^2\  \left[ \vect{a}^*(\vect{k}) \cdot \vect{a}(\vect{k}) + \Re \left( \vect{a}(\vect{k}) \cdot
+		\vect{a}(-\vect{k}) e^{-2i\omega_{\vect{k}} t} \right) \right]
 	\label{eq:W_B_final}
 \end{equation}
 
