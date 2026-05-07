@@ -1,11 +1,53 @@
 {
+  "editor.tokenColorCustomizations": {
+    "[PSM Theme]": {
+      "textMateRules": [
+        {
+          "scope": "support.function.be.latex",
+          "settings": { "foreground": "#00ffc8", "fontStyle": "" }
+        },
+        {
+          "scope": "variable.parameter.function.latex",
+          "settings": { "foreground": "#ffff7fc5", "fontStyle": "" }
+        },
+        {
+          "scope": "constant.character.math.tex",
+          "settings": { "foreground": "#7bc459", "fontStyle": "" }
+        },
+        {
+          "scope": "constant.other.general.math.tex",
+          "settings": { "foreground": "#ffc59eda", "fontStyle": "" }
+        },
+        {
+          "scope": "support.class.math.block.environment.latex",
+          "settings": { "foreground": "#56b6c2" }
+        },
+        {
+          "scope": "keyword.control.label.latex",
+          "settings": { "foreground": "#c678dd" }
+        },
+        {
+          "scope": "keyword.control.ref.latex",
+          "settings": { "foreground": "#56b6c2", "fontStyle": "underline" }
+        },
+        {
+          "scope": "punctuation.definition.constant.math.tex",
+          "settings": { "foreground": "#98c379", "fontStyle": "" }
+        },
+        {
+          "scope": "comment.line.percentage.tex",
+          "settings": { "foreground": "#5c6370", "fontStyle": "italic" }
+        }
+      ]
+    }
+  },
   "ltex.language": "uk-UA",
   "ltex.enabled": ["latex"],
   "[latex]": {
-      "editor.wordBasedSuggestions": "off",
-      "editor.tabCompletion": "onlySnippets",
-      "editor.unicodeHighlight.ambiguousCharacters": true,
-      "editor.unicodeHighlight.invisibleCharacters": true
+    "editor.wordBasedSuggestions": "off",
+    "editor.tabCompletion": "onlySnippets",
+    "editor.unicodeHighlight.ambiguousCharacters": true,
+    "editor.unicodeHighlight.invisibleCharacters": true
   },
   "latex-workshop.formatting.latex": "latexindent",
   "latex-workshop.bind.altKeymap.enabled": false,
@@ -18,8 +60,8 @@
   ],
   "latex-workshop.latex.magic.args": [
     "-shell-escape", "-synctex=1", "-interaction=nonstopmode",
-    "-file-line-error", "%DOC%" 
-   ],
+    "-file-line-error", "%DOC%"
+  ],
   "latex-workshop.view.pdf.zoom": "page-width",
   "latex-workshop.view.pdf.viewer": "tab",
   "workbench.editorAssociations": {
@@ -51,7 +93,7 @@
   "latex-workshop.synctex.afterBuild.enabled": true,
   "latex-workshop.linting.chktex.enabled": true,
   "latex-workshop.linting.run": "onSave",
-  "latex-workshop.latex.autoClean.run" : "onBuilt",
+  "latex-workshop.latex.autoClean.run": "onBuilt",
   "latex-workshop.hover.preview.enabled": true,
   "latex-workshop.hover.citation.enabled": true,
   "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
@@ -61,5 +103,5 @@
     "-n22",
     "-n30",
     "-q"
-]
+  ]
 }
