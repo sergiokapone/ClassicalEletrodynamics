@@ -108,8 +108,8 @@
     \frac{mc^2}{\sqrt{1-v^2/c^2}} + \frac{\alpha}{r} = \mathcal{E}.\label{eq:energy_integral}
 \end{equation}
 В сферичних координатах в площині $\theta=\pi/2$ інтеграл моменту є
-\begin{equation}
-    \frac{mr^2\dot{\varphi}}{\sqrt{1-v^2/c^2}} = L.\label{eq:angular_integral}
+\begin{equation}\label{eq:angular_integral}
+    \frac{mr^2\dot{\varphi}}{\sqrt{1-v^2/c^2}} = L.
 \end{equation}
 Комбінуючи~\eqref{eq:energy_integral} та~\eqref{eq:angular_integral}, позбавимось $\sqrt{1-v^2/c^2}$ та отримаємо:
 \begin{equation*}
@@ -163,10 +163,10 @@
 \end{equation}
 Як було зазначено, ці вирази слід подати у вигляді інтегралів. Зробимо це лише для $S_{\text{int}}$, оскільки $S_0$ не впливає на виведення рівнянь поля при обчисленні варіації $\delta S$ по $\delta A_{\mu}$. Для неперервного розподілу ми зіставляємо до кожного елементу заряду $dq$ його траєкторію $x_q^{\mu}(t)$; відповідно
 \begin{equation*}
-    dq\,\frac{dx_q^{\mu}}{dt} = \rho(\boldsymbol{x})\,d^3\vect{r}\,\frac{dx_q^{\mu}}{dt}
+    dq\,\frac{dx_q^{\mu}}{dt} = \rho(vect{r})\,d^3\vect{r}\,\frac{dx_q^{\mu}}{dt}
     = j^{\mu}(\boldsymbol{x})\,d^3\vect{r},
 \end{equation*}
-де $\rho$ --- об'ємна густина заряду, $\boldsymbol{x}=\boldsymbol{x}_q(t)$, $j^{\mu}=\rho\,dx^{\mu}/dt$ --- 4-вектор густини струму\index{Чотиривектор!густини струму}. Тоді, переходячи в $S_{\text{int}}$ до інтеграла по області $\Omega$ чотиривимірного простору, маємо:
+де $\rho$ --- об'ємна густина заряду, $\vect{r}=\vect{r}_q(t)$, $j^{\mu}=\rho\,dx^{\mu}/dt$ --- 4-вектор густини струму\index{Чотиривектор!густини струму}. Тоді, переходячи в $S_{\text{int}}$ до інтеграла по області $\Omega$ чотиривимірного простору, маємо:
 \begin{multline}\label{eq:Sint_4D}
     S_{\text{int}} = -\frac{1}{c}\int\limits_{\Omega} dq\,A_{\mu}(x_e)\frac{dx_q^{\mu}}{dt}\,dt
     = -\frac{1}{c}\int\limits_{\Omega} dt\,d^3\vect{r}\,A_{\mu}(x)j^{\mu}(x) = \\
