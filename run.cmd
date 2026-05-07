@@ -42,8 +42,13 @@ for /f "tokens=1-3 delims=:." %%a in ("%TIME%") do set /a "T0=%%a*3600+%%b*60+%%
 latexmk -f -g -lualatex ClassicalElectrodynamics.tex
 set "EC=%ERRORLEVEL%"
 
-:: --- Overfull hbox report ---
 set "LOGFILE=ClassicalElectrodynamics.log"
+
+echo  %YELLOW%-------------------------------------------------------%R%
+echo  %BOLD%%WHITE%  Build summary:%R%
+echo  %YELLOW%-------------------------------------------------------%R%
+
+:: --- Overfull hbox report ---
 set "OVF_THRESHOLD=5"
 
 set "found_ovf=0"
@@ -59,6 +64,39 @@ for /f "delims=" %%w in ('grep -nE "Overfull .hbox \([0-9]+\.[0-9]+pt too wide\)
 )
 echo.
 
+
+:: --- Warnings ---
+for /f %%n in ('grep -c "LaTeX Warning" "%LOGFILE%"') do (
+    if %%n GTR 0 (
+        echo  %GRAY%  Warnings: %YELLOW%%%n%R%
+    ) else (
+        echo  %GRAY%  Warnings: %GREEN%0%R%
+    )
+)
+
+:: --- Nullfont ---
+for /f %%n in ('grep -c "nullfont" "%LOGFILE%"') do (
+    if %%n GTR 0 (
+        echo  %GRAY%  Nullfont: %YELLOW%%%n ^(pgfplots^)%R%
+    ) else (
+        echo  %GRAY%  Nullfont: %GREEN%0%R%
+    )
+)
+
+:: --- Missing chars ---
+for /f %%n in ('grep -ic "missing character" "%LOGFILE%"') do (
+    if %%n GTR 0 (
+        echo  %GRAY%  Missing : %RED%%%n char^(s^)%R%
+    ) else (
+        echo  %GRAY%  Missing : %GREEN%none%R%
+    )
+)
+
+:: --- Pages + size ---
+for /f "tokens=*" %%s in ('grep -oE "[0-9]+ pages, [0-9]+ bytes" "%LOGFILE%"') do (
+    echo  %GRAY%  PDF     : %WHITE%%%s%R%
+)
+
 for /f "tokens=1-3 delims=:." %%a in ("%TIME%") do set /a "T1=%%a*3600+%%b*60+%%c"
 set /a "ELAPSED=T1-T0"
 
@@ -67,7 +105,6 @@ echo  %YELLOW%-------------------------------------------------------%R%
 
 if %EC%==0 (
     echo  %BOLD%%GREEN%  [ SUCCESS ]  Build completed%R%
-    echo  %GRAY%  PDF     : %WHITE%ClassicalElectrodynamics.pdf%R%
     echo  %GRAY%  Elapsed : %WHITE%%ELAPSED% s%R%
     echo  %GRAY%  Code    : %GREEN%0%R%
 ) else (
@@ -81,4 +118,5 @@ if %EC%==0 (
 
 echo  %YELLOW%-------------------------------------------------------%R%
 echo.
+
 pause
