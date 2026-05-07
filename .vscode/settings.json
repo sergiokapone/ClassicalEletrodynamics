@@ -73,6 +73,7 @@
   "ltex.language": "uk-UA",
   "ltex.enabled": ["latex"],
   "[latex]": {
+    "rewrap.wrappingColumn": 120,
     "editor.wordBasedSuggestions": "off",
     "editor.tabCompletion": "onlySnippets",
     "editor.unicodeHighlight.ambiguousCharacters": true,
