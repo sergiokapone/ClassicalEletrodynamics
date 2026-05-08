@@ -1,3 +1,29 @@
+::=======================================================
+:: Build script for ClassicalElectrodynamics (LuaLaTeX)
+::=======================================================
+::
+:: Requirements:
+::
+::   1. MiKTeX  -- https://miktex.org/
+::      latexmk, lualatex, upmendex, biber
+::
+::   2. Cygwin  -- https://www.cygwin.com/
+::      Packages: grep, gawk, tail
+::      PATH: C:\cygwin64\bin  має бути в системному PATH
+::
+::   3. platex  -- https://github.com/stefanhepp/pplatex
+::      Packages: pplatex
+::      PATH: d:\Programs\LaTeX\pplatex\bin  має бути в системному PATH
+::
+::   4. gnuplot  -- http://www.gnuplot.info
+::      Packages: gnuplot
+::      PATH: d:\Programs\GnuPlot\bin  має бути в системному PATH
+::
+:: Додати зміннів PATH можна через команду
+::   rundll32.exe sysdm.cpl,EditEnvironmentVariables
+::
+::=======================================================
+
 @echo off
 chcp 65001 > nul
 title Project Build — ClassicalElectrodynamics
@@ -43,6 +69,15 @@ latexmk -f -g -lualatex ClassicalElectrodynamics.tex
 set "EC=%ERRORLEVEL%"
 
 set "LOGFILE=ClassicalElectrodynamics.log"
+set "PPLATEX=ppluatex.exe"
+
+echo.
+echo  %YELLOW%-------------------------------------------------------%R%
+echo  %BOLD%%WHITE%  pplatex log summary:%R%
+echo  %YELLOW%-------------------------------------------------------%R%
+echo.
+"%PPLATEX%" -i "%LOGFILE%"
+echo.
 
 echo  %YELLOW%-------------------------------------------------------%R%
 echo  %BOLD%%WHITE%  Build summary:%R%
