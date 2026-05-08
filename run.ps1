@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-    Build script for ClassicalElectrodynamics (LuaLaTeX)
+    Build script for tex-file
 
 .REQUIREMENTS
     1. MiKTeX  -- https://miktex.org/
@@ -29,8 +29,11 @@
 chcp 65001 | Out-Null
 
 # --- Config ---
-$LOGFILE      = "ClassicalElectrodynamics.log"
-$PPLATEX      = "ppluatex.exe"
+$FOLDER        = Split-Path -Leaf $PSScriptRoot
+$TEXFILE       = "$FOLDER.tex"
+$LOGFILE       = "$FOLDER.log"
+$PPLATEX       = "ppluatex.exe"
+
 $OVF_THRESHOLD = 5
 
 # --- ANSI colors ---
@@ -45,22 +48,21 @@ $WHITE  = "$ESC[97m"
 $GRAY   = "$ESC[90m"
 
 $SEP  = "  ${YELLOW}-------------------------------------------------------${R}"
-$SEP2 = "  ${YELLOW}-------------------------------------------------------${R}"
+# $SEP2 = "  ${YELLOW}-------------------------------------------------------${R}"
 
 Clear-Host
 
 # --- Header ---
 Write-Host "${BOLD}${CYAN}+------------------------------------------------------+${R}"
-Write-Host "${BOLD}${CYAN}|   LaTeXmk Build  --  Classical Electrodynamics       |${R}"
-Write-Host "${BOLD}${CYAN}|   NN FTI, KPI im. Ihoria Sikorskoho                  |${R}"
+Write-Host "${BOLD}${CYAN}|   LaTeXmk Build  --  ${WHITE}${FOLDER}${R}"
 Write-Host "${BOLD}${CYAN}+------------------------------------------------------+${R}"
 Write-Host
 
 $now = Get-Date
 Write-Host "  ${GRAY}Started : ${WHITE}$($now.ToString('yyyy-MM-dd  HH:mm'))${R}"
-Write-Host "  ${GRAY}Target  : ${WHITE}ClassicalElectrodynamics.tex${R}"
+Write-Host "  ${GRAY}Target  : ${WHITE}${TEXFILE}${R}"
 Write-Host "  ${GRAY}Engine  : ${WHITE}LuaLaTeX  (latexmk -f -g)${R}"
-Write-Host "  ${GRAY}Output  : ${WHITE}ClassicalElectrodynamics.pdf${R}"
+Write-Host "  ${GRAY}Output  : ${WHITE}$FOLDER.pdf${R}"
 Write-Host
 Write-Host $SEP
 Write-Host "  ${BOLD}${YELLOW}Compiling ...${R}"
@@ -69,7 +71,7 @@ Write-Host
 
 # --- Compile ---
 $sw = [System.Diagnostics.Stopwatch]::StartNew()
-latexmk -f -g -lualatex ClassicalElectrodynamics.tex
+latexmk -f -g -lualatex $TEXFILE
 $EC = $LASTEXITCODE
 $sw.Stop()
 $elapsed = [int]$sw.Elapsed.TotalSeconds
