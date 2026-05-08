@@ -25,7 +25,7 @@ $biber = 'biber %O %B';
 $makeindex = 'upmendex -o %D %S';
 
 # --- Clean ---------------------------------------------
-$clean_ext = 'aux bbl blg bcf idx ind ilg log lof lot out toc acn acr alg glg glo gls fls fdb_latexmk snm nav vrb xdv synctex.gz run.xml thm gnuplot table';
+$clean_ext = 'aux bbl blg bcf idx ind ilg log lof lot out toc acn acr alg glg glo gls fls fdb_latexmk snm nav vrb xdv run.xml thm gnuplot table';
 
 # --- Прочее ----------------------------------------------
 $pdf_previewer = 'start %S';
