@@ -20,7 +20,7 @@
 	\electronicfalse
 }
 
-\DeclareOption{electronic}{\def\defcolor{\RequirePackage[usenames,dvipsnames,svgnames,table]{xcolor}\definecolor{malina}{rgb}{0.6,0.0,0.0}}
+\DeclareOption{electronic}{\def\defcolor{\RequirePackage[dvipsnames,svgnames,table]{xcolor}\definecolor{malina}{rgb}{0.6,0.0,0.0}}
 	\PassOptionsToPackage{linkcolor=malina}{hyperref}
 	\PassOptionsToPackage{colorlinks=true}{hyperref}
 	\PassOptionsToPackage{urlcolor=blue}{hyperref}
@@ -202,8 +202,8 @@
 
 \NewDocumentCommand{\emphx}{m}{\emph{\textcolor{malina}{#1}}}
 
-\RequirePackage[version=4]{mhchem}
-\RequirePackage{chemfig}
+% \RequirePackage[version=4]{mhchem}
+% \RequirePackage{chemfig}
 % ------------------------- Таблиці --------------------------------------------
 \newcommand{\localinput}[1]{\input{\currfilebase/tikz/#1}}
 \RequirePackage{booktabs}
@@ -276,7 +276,7 @@
 \usetikzlibrary{quotes,angles,tikzmark}
 \pgfdeclarelayer{bg}    % declare background layer
 \pgfsetlayers{bg, main}  % set the order of the layers (main is the standard layer)
-\usetikzlibrary{shapes.geometric,calc}
+\usetikzlibrary{shapes.geometric}
 \pgfplotsset{
   %every tick label/.append style={scale=0.5},
 	every axis label/.append style={font=\small},
