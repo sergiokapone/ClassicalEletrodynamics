@@ -512,7 +512,7 @@ postaction={ decorate,
 \newlength\chapnumb
 \setlength\chapnumb{4cm}
 
-\titleformat{\part}[display]{\bfseries\sffamily\huge}{\partname\ \thepart }{0pt}{\addvspace{1em}\Huge\centering #1}
+\titleformat{\part}[display]{\bfseries\sffamily\huge}{\partname\ \thepart }{0pt}{\addvspace{1em}\Huge\centering\color{themecolordark} #1}
 
 \titlecontents{part}%
 [0pt]{\sffamily\bfseries\large\protect\addvspace{25pt}\addvspace{1.5ex}}
