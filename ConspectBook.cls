@@ -277,12 +277,14 @@
 \pgfdeclarelayer{bg}    % declare background layer
 \pgfsetlayers{bg, main}  % set the order of the layers (main is the standard layer)
 \usetikzlibrary{shapes.geometric,calc}
-\usepgfplotslibrary{fillbetween}
 \pgfplotsset{
-	%every tick label/.append style={scale=0.5},
+  %every tick label/.append style={scale=0.5},
 	every axis label/.append style={font=\small},
 	compat=1.18,
-}
+  }
+  
+\usepgfplotslibrary{fillbetween}
+
 \tikzset{every picture/.style={font=\small}}
 \tikzset{
 	partial ellipse/.style args={#1:#2:#3}{
@@ -310,8 +312,8 @@
         		\draw [bend left=15, looseness=0.75, name path=C] (1.center) to (3.center);
         		\draw [bend right, name path=D] (3.center) to (2.center);
         		\draw [bend right=15, name path=B] (2.center) to (0.center);
-				\tikzfillbetween[of=A and B]{gray!20};
-				\tikzfillbetween[of=C and D]{gray!20};
+				\tikzfillbetween[of=A and B, on layer=main]{gray!20};
+				\tikzfillbetween[of=C and D, on layer=main]{gray!20};
 			}
 }
 
