@@ -86,8 +86,8 @@ Write-Host
 Write-Host
 
 Write-Host $SEP
-Write-Host "  ${GRAY}  Overfull hbox  : прийнятно < 2pt, терпимо < 5pt${R}"
-Write-Host "  ${GRAY}  Underfull vbox : badness 0-1000 ok, 1000-5000 терпимо, 5000+ погано, 10000 = здався${R}"
+Write-Host "  ${GRAY}  Overfull hbox  : acceptable < 2pt, tolerant < 5pt${R}"
+Write-Host "  ${GRAY}  Underfull vbox : badness 0-1000 ok, 1000-5000 tolerant, 5000+ badly, 10000 = hopeless${R}"
 Write-Host $SEP
 Write-Host
 
