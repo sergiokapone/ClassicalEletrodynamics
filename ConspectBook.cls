@@ -376,7 +376,7 @@
 % команди для роботи з іменами файлів — використовується у \localinput.
 \RequirePackage{currfile}
 % ---------------------------- Пакети LaTeX3 -----------------------------------
-% --------------------------------------------------------------------------------
+% expl3: основа для програмування в стилі LaTeX3 (розширені макроси, змінні,
 % epigraph: оформлення епіграфів на початку розділів/частин.
 \RequirePackage{epigraph}
 % Ширина блоку епіграфа — 80% від ширини тексту.
@@ -489,7 +489,7 @@
 % Оголошення фонового шару «background» для tornpage.
 % Шари: background малюється першим (під «main»).
 \pgfdeclarelayer{background}
-\pgfsetlayers{background}
+\pgfsetlayers{background, main}
 
 % fillbetween: заливка області між двома кривими на графіку.
 \usepgfplotslibrary{fillbetween}
