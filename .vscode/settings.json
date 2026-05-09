@@ -66,6 +66,25 @@
             "foreground": "#5c6370",
             "fontStyle": "italic"
           }
+        },
+        {
+          "scope": "keyword.other.item.latex",
+          "settings": {
+            "foreground": "#00ffc8"
+          }
+        },
+        {
+          "scope": "support.function.math.latex",
+          "settings": {
+            "foreground": "#FF9D00"
+          }
+        },
+        {
+          "scope": "meta.function.environment.latex.tikz",
+          "settings": {
+            "foreground": "#fff9f0",
+            "fontStyle": ""
+          }
         }
       ]
     }
