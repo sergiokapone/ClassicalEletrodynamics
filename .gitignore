@@ -25,6 +25,7 @@ build/
 ClassicalElectrodynamics_*.pdf
 *.docx
 /!Save
+test.*
 ClassicalElectrodynamics.parable*.gnuplot
 ClassicalElectrodynamics.parable*.table
 FreeField/uncert.tex
