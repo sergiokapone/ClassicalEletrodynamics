@@ -446,6 +446,8 @@
 \RequirePackage[outline]{contour}
 \contourlength{1.1pt}
 
+\RequirePackage{fontawesome5}
+
 
 % Закоментований блок зовнішньої компіляції tikz-рисунків:
 % tikzexternalize зберігає рисунки у PDF-файлах для прискорення
