@@ -1,7 +1,13 @@
-% !TeX program = lualatex !TeX encoding = utf8 !TeX spellcheck = uk_UA !TEX indexprogram = upmendex !TeX root =
-% ../ClassicalElectrodynamics.tex
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !TEX indexprogram = upmendex
+% !TeX root = ../ClassicalElectrodynamics.tex
 
-% chktex-file 3 chktex-file 7 chktex-file 12 chktex-file 25
+% chktex-file 3
+% chktex-file 7
+% chktex-file 12
+% chktex-file 25
 
 %=========================================================
 \chapter{Електродинаміка у просторі Мінковського}\label{\currfilebase}
@@ -625,9 +631,9 @@ $u_{\text{obs}}^{\mu} = \{1,\,0,\,0,\,0\}$, тому виміряна ним ч�
     \omega_{\text{obs}} = c k_{\mu} u_{\text{obs}}^{\mu} = c k_0 = c k^0.
 \end{equation}
 %
-Напрям поширення хвилі, що реєструє спостерігач, збігається з
-напрямком від джерела до спостерігача: $\vect{n} = \vect{k}/k^0$,
-тобто $k^{\mu} = k^0\{1,\,\vect{n}\}$.
+Введемо одиничний вектор $\vect{n}$ у напрямку від спостерігача
+до джерела. Тоді $\vect{k} = -k^0\vect{n}$, і 4-вектор хвилі
+набуває вигляду $k^{\mu} = k^0\{1,\,-\vect{n}\}$.
 
 Розкладемо тепер $k_{\mu}u_s^{\mu}$ у цій самій системі.
 4-швидкість джерела, що рухається зі швидкістю $\vect{v}$ відносно
@@ -638,7 +644,7 @@ $u_s^{\mu} = \gamma\{1,\,\vect{v}/c\}$,
 %
 \begin{equation}
     k_{\mu} u_s^{\mu}
-        = k^0\,\gamma\!\left(1 - \frac{\vect{n}\cdot\vect{v}}{c}\right).
+        = k^0\,\gamma\!\left(1 + \frac{\vect{n}\cdot\vect{v}}{c}\right).
 \end{equation}
 %
 Беручи відношення двох інваріантних частот, отримуємо формулу
@@ -648,12 +654,12 @@ $u_s^{\mu} = \gamma\{1,\,\vect{v}/c\}$,
     \frac{\omega_{\text{obs}}}{\omega_0}
         = \frac{k_{\mu}\,u_{\text{obs}}^{\mu}}{k_{\mu}\,u_s^{\mu}}
         = \frac{k^0}{k^0\,\gamma\!\left(1
-            - \dfrac{\vect{n}\cdot\vect{v}}{c}\right)}
-        = \frac{\sqrt{1 - v^2/c^2}}{1 - \vect{n}\cdot\vect{v}/c},
+            + \dfrac{\vect{n}\cdot\vect{v}}{c}\right)}
+        = \frac{\sqrt{1 - v^2/c^2}}{1 + \vect{n}\cdot\vect{v}/c},
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 де $\vect{v}$ --- швидкість джерела відносно спостерігача,
-$\vect{n}$ --- одиничний вектор від джерела до спостерігача.
+$\vect{n}$ --- одиничний вектор від спостерігача до джерела.
 За нерелятивістських швидкостей ($v \ll c$) корінь у чисельнику
 наближено дорівнює одиниці.
 
@@ -661,23 +667,23 @@ $\vect{n}$ --- одиничний вектор від джерела до спо
 тобто $\vect{n}\cdot\vect{v} = \pm v$, де $v = |\vect{v}|$.
 Підставляючи в~\eqref{eq:Dopler}, отримуємо два випадки.
 
-Коли джерело \emph{віддаляється} від спостерігача
-($\vect{n}\cdot\vect{v} = +v$, знак «$+$» відповідає руху вздовж
-напрямку від джерела до спостерігача):
-%>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
-\begin{equation*}
-    \frac{\omega_{\text{obs}}}{\omega_0}
-    = \left(\frac{1 - v/c}{1 + v/c}\right)^{\!1/2} < 1
-    \qquad \text{(червоний зсув)}.
-\end{equation*}
-%<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Коли джерело \emph{наближається} до спостерігача
-($\vect{n}\cdot\vect{v} = -v$):
+($\vect{n}\cdot\vect{v} = +v$, вектори $\vect{n}$ і $\vect{v}$
+паралельні --- джерело летить у бік спостерігача):
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
     \frac{\omega_{\text{obs}}}{\omega_0}
     = \left(\frac{1 + v/c}{1 - v/c}\right)^{\!1/2} > 1
     \qquad \text{(блакитний зсув)}.
+\end{equation*}
+%<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Коли джерело \emph{віддаляється} від спостерігача
+($\vect{n}\cdot\vect{v} = -v$, вектори антипаралельні):
+%>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
+\begin{equation*}
+    \frac{\omega_{\text{obs}}}{\omega_0}
+    = \left(\frac{1 - v/c}{1 + v/c}\right)^{\!1/2} < 1
+    \qquad \text{(червоний зсув)}.
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 Обидва вирази є взаємно оберненими, що відображає симетрію: якщо
@@ -707,11 +713,13 @@ $\vect{n}$ --- одиничний вектор від джерела до спо
     $\gamma = 1/\sqrt{1-\beta^2}$) дає часову компоненту:
     \[
         \frac{\omega}{c} = \gamma\,\frac{\omega_0}{c}
-                           \left(1 + \beta\cos\theta_0\right),
+                           \left(1 + \beta\cos\theta_0\right).
     \]
-    що є формулою~\eqref{eq:Dopler} при $\vect{n}\cdot\vect{v}/c =
-    -\beta\cos\theta_0$ --- зв'язок між кутами $\theta$ і $\theta_0$
-    буде встановлено нижче. Просторові компоненти:
+    Порівняємо з формулою~\eqref{eq:Dopler}: оскільки
+    $\vect{k} = -k^0\vect{n}$, тому просторова компонента вздовж $x$
+    дає $-n_x = \cos\theta$, тобто $\vect{n}\cdot\vect{v}/c =
+    \beta\cos\theta_0$ --- зв'язок між кутами буде встановлено нижче.
+    Просторові компоненти хвильового вектора:
     \[
         k_x = \frac{\omega}{c}\cos\theta
             = \gamma\,\frac{\omega_0}{c}\!\left(\cos\theta_0+\beta\right),
@@ -724,12 +732,15 @@ $\vect{n}$ --- одиничний вектор від джерела до спо
         \tan\theta =
             \frac{\sin\theta_0}{\gamma\!\left(\cos\theta_0+\beta\right)}.
     \]
+    Кут $\theta$ тут --- кут між $\vect{k}$ і віссю $x$, тобто між
+    напрямком поширення хвилі і напрямком руху джерела; відповідно
+    $\vect{n}$ утворює кут $\pi - \theta$ з віссю $x$.
 
     \medskip
     \textbf{Умова $\omega = \omega_0$.}
-    З формули Доплера:
+    З формули Доплера~\eqref{eq:Dopler}:
     \[
-        \gamma\!\left(1+\beta\cos\theta_0\right) = 1
+        \gamma\!\left(1 + \beta\cos\theta_0\right) = 1
         \;\implies\;
         \cos\theta_0
             = -\frac{\beta}{1+\sqrt{1-\beta^2}}.
@@ -751,15 +762,23 @@ $\vect{n}$ --- одиничний вектор від джерела до спо
     Розкладаючи до першого порядку по $\beta$:
     \[
         \tan\theta
-        \approx \tan\theta_0
-                \left(1 - \frac{\beta}{\cos\theta_0}\right)
-                \cdot\frac{\cos^2\theta_0}{\cos^2\theta_0}
         \approx \tan(\theta_0 - \beta\sin\theta_0),
     \]
     тобто $\theta \approx \theta_0 - \beta\sin\theta_0$: хвиля
     зміщується вперед у бік руху джерела на кут
     $\delta\theta = \beta\sin\theta_0$.
 \end{problem}
+
+%  \begin{figure}[h]
+%  \centering
+%  \localinput{aberration.tikz}
+%  \caption{Геометрія аберації світла. Ліворуч~--- власна система
+%  джерела, праворуч~--- система спостерігача. Вектор $\vect{n}$~---
+%  одиничний вектор від джерела до спостерігача; кути $\theta_0$
+%  та $\theta$ пов'язані формулою аберації.}
+%  \label{fig:aberration}
+%  \end{figure}
+
 
 %% --------------------------------------------------------
 \section{Вектор-потенціал електромагнітного поля у випадку ізольованої системи}

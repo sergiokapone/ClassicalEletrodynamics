@@ -1,0 +1,75 @@
+ \begin{tikzpicture}[>=latex, thick, scale=1.0]
+
+ %% ---- ЛІВА ПАНЕЛЬ: власна система джерела ----
+ \begin{scope}[xshift=0cm]
+   \draw[dashed, gray!50] (-2.2,-2.2) rectangle (2.8,2.8);
+   \node[gray, font=\small] at (0.3, 3.5) {власна система джерела};
+
+   \draw[->] (-2,0) -- (2.6,0) node[right] {$x_0$};
+   \draw[->] (0,-2) -- (0,2.6) node[above] {$y_0$};
+
+   \filldraw[blue!70!black] (0,0) circle (2.5pt);
+   \node[font=\footnotesize, below=4pt] at (0,0) {джерело};
+
+   \def\thz{50}
+
+   % k_s
+   \draw[->, blue!70!black, very thick]
+     (0,0) -- ({2.0*cos(\thz)}, {2.0*sin(\thz)})
+     node[above right] {$\vect{k}_s$};
+
+   % дуга theta_0
+   \draw[blue!60!black]
+     (0.7,0) arc (0:\thz:0.7)
+     node[midway, right, yshift=2pt] {$\theta_0$};
+
+   % вектор швидкості
+   \draw[->, red!70!black, thick]
+     (0,-1.3) -- (1.0,-1.3) node[right] {$\vect{v}$};
+
+ \end{scope}
+
+ %% ---- ПРАВА ПАНЕЛЬ: система спостерігача ----
+ \begin{scope}[xshift=6.5cm]
+ %   \draw[gray!40] (-2.2,-2.2) rectangle (2.8,2.8);
+   \node[gray, font=\small] at (0.3, 3.5) {система спостерігача};
+
+   \draw[->] (-2,0) -- (2.6,0) node[right] {$x$};
+   \draw[->] (0,-2) -- (0,2.6) node[above] {$y$};
+
+   \filldraw[teal!70!black] (0,0) circle (2.5pt);
+   \node[font=\footnotesize, below=4pt] at (0,0) {джерело};
+
+   % спостерігач
+   \filldraw[gray!60] (2.0,0) circle (2.5pt)
+     node[below right, font=\footnotesize] {спост.};
+
+   \def\th{30}
+
+   % n (коротший, блідіший) — від джерела до спостерігача
+   \draw[->, teal!40!black, thick]
+     (0,0) -- ({1.0*cos(\th)}, {1.0*sin(\th)})
+     node[above left, font=\small] {$\vect{n}$};
+
+   % k (довший, та сама пряма)
+   \draw[->, teal!70!black, very thick]
+     (0,0) -- ({2.0*cos(\th)}, {2.0*sin(\th)})
+     node[above right] {$\vect{k}$};
+
+   % дуга theta
+   \draw[teal!60!black]
+     (0.7,0) arc (0:\th:0.7)
+     node[midway, right, yshift=2pt] {$\theta$};
+
+   % вектор швидкості
+   \draw[->, red!70!black, thick]
+     (0,-1.3) -- (1.0,-1.3) node[right] {$\vect{v}$};
+
+ \end{scope}
+
+ %% ---- підпис ----
+ \node[font=\footnotesize, gray, text width=12cm, align=center]
+   at (3.25, -2.9)
+   {аберація: $\theta < \theta_0$ при русі джерела до спостерігача};
+
+ \end{tikzpicture}
