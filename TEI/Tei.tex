@@ -262,7 +262,7 @@ $\vect{\Pi}$ --- вектор Пойнтінга.
 та для \emph{густини потоку енергії}:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:Poynting}
-    \vect{\Pi} = \frac{c}{4\pi}\Efield\times\Bfield.
+    \vect{\Pi} = \frac{c}{4\pi}[\Efield\times\Bfield].
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 Як видно з~\eqref{eq:conservation_integral} при $\mu=0$, $\oint\limits_{\partial\Omega_3}\vect{\Pi}\cdot d\vect{S}$ ---
@@ -413,9 +413,9 @@ $\mathcal{I}_1$~\eqref{eq:inv1} та $\mathcal{I}_2$~\eqref{eq:inv2} і пока
 Використовуючи явні вирази для компонент $T^{\mu\nu}$ через
 густину енергії $w$ та вектор Пойнтінга $\vec{S}$,
 \begin{equation*}
-    T^{00} = w = \frac{E^2 + B^2}{8\pi},
+    T^{00} = w = \frac{\Efield^2 + \Bfield^2}{8\pi},
     \qquad
-    T^{0i} = \frac{\Pi^i}{c} = \frac{(\vec{E}\times\vec{B})^i}{4\pi c},
+    T^{0i} = \frac{\Pi^i}{c} = \frac{[\Efield\times\Bfield]^i}{4\pi c},
 \end{equation*}
 показати, що
 \begin{equation*}
