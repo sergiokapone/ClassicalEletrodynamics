@@ -735,7 +735,7 @@
 % (зручно для підручника, де виноски рідкісні і короткі).
 \@newctr{footnote}[page]
 
-
+\RequirePackage[user,titleref]{zref}
 
 % titlesec: гнучке налаштування форматів заголовків (\chapter, \section...).
 %   pagestyles — дозволяє визначати стилі сторінок через titlesec
@@ -750,7 +750,11 @@
 
 % Формат заголовка \part: великий жирний sans-serif, номер частини
 % перед назвою, назва — по центру темно-синього кольору.
-\titleformat{\part}[display]{\bfseries\sffamily\huge}{\partname\ \thepart }{0pt}{\addvspace{1em}\Huge\centering\color{themecolordark} #1}
+%\titleformat{\part}[display]{\bfseries\sffamily\huge}{\partname\ \thepart }{0pt}{\addvspace{1em}\Huge\centering\color{themecolordark} #1}
+
+\titleformat{\part}[display]{\bfseries\sffamily\huge}{\partname\ \thepart}{0pt}%
+  {\addvspace{1em}\Huge\centering\color{themecolordark} #1%
+   \begingroup\def\\{ }\xdef\@currentlabelname{#1}\endgroup}
 
 % Запис частини у зміст: великий жирний sans-serif, з вертикальним
 % відступом, горизонтальною лінією після і номером сторінки праворуч.
@@ -952,6 +956,9 @@
 % hypcap: виправляє позицію якоря гіперпосилань для рисунків і таблиць
 % (без нього посилання веде до підпису, а не до рисунка).
 \RequirePackage[all]{hypcap}
+
+\NewDocumentCommand{\partref}{m}{\partname~\ref{#1}:~\nameref{#1}}
+
 
 % Патч для \autoref: в українській мові \chapterautorefname дає
 % «розділ», але в книзі прийнято не додавати слово «розділ» перед
