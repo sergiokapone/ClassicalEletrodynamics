@@ -128,35 +128,83 @@ $\vect{v}(t) = \vect{v}_0 \exp(t/\tau_0)$, тобто прискорення з�
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:LAD_force}
 	f^{\mu} = \frac{2q^2}{3c}
-	\left( \frac{dw^{\mu}}{ds} - w^{\nu}w_{\nu}\, u^{\mu} \right).
+	\left( \frac{dw^{\mu}}{ds} + w^{\nu}w_{\nu}\, u^{\mu} \right).
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-Це \emph{сила Лоренца–Абрагама–Дірака}. Ортогональність легко перевіряється безпосередньо: $f^{\mu}u_{\mu} = \frac{2q^2}{3c}(dw^{\mu}u_{\mu}/ds - w^{\nu}w_{\nu})$, а оскільки $d(w^{\mu}u_{\mu})/ds = (dw^{\mu}/ds)\,u_{\mu} + w^{\mu}w_{\mu} = 0$, то $f^{\mu}u_{\mu} = 0$. Нерелятивістська границя відновлює формулу~\eqref{eq:AL_force}, що може бути перевірено безпосередньою підстановкою.
+Це \emph{сила Лоренца–Абрагама–Дірака}. Ортогональність легко перевіряється безпосередньо: $f^{\mu}u_{\mu} = \frac{2q^2}{3c}(u_{\mu}dw^{\mu}/ds + w^{\nu}w_{\nu})$, а оскільки $d(w^{\mu}u_{\mu})/ds = (dw^{\mu}/ds)\,u_{\mu} + w^{\mu}w_{\mu} = 0$, то $f^{\mu}u_{\mu} = 0$. Нерелятивістська границя відновлює формулу~\eqref{eq:AL_force}, що може бути перевірено безпосередньою підстановкою.
 
 %% --------------------------------------------------------
 \section{Наближення Ландау–Ліфшиця}
 %% --------------------------------------------------------
 
-Для практичних розрахунків за умови, що реакція випромінювання є малою поправкою до руху під дією зовнішньої сили, зручним є наближення, запропоноване Ландау та Ліфшицем. У нульовому наближенні рівняння руху має вигляд~\eqref{eq:rel_motion}:
+Для практичних розрахунків за умови, що реакція випромінювання є малою
+поправкою до руху під дією зовнішньої сили, зручним є наближення,
+запропоноване Ландау та Ліфшицем~\cite{LandauLifshitz2003}. Параметр малості ---
+відношення $\tau_0/T \ll 1$, де $T$ --- характерний час зміни зовнішнього поля.
+
+Повне рівняння руху з урахуванням сили~\eqref{eq:LAD_force}:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
-\begin{equation*}
-	mc^2\frac{du^{\mu}}{ds} = qF^{\mu}{}_{\nu}u^{\nu},
-\end{equation*}
+\begin{equation}\label{eq:full_EOM}
+	mc\,\frac{du^{\mu}}{ds} = \frac{q}{c}F^{\mu\nu}u_{\nu}
+	+ \frac{2q^2}{3c}\left(\frac{dw^{\mu}}{ds} + w^{\nu}w_{\nu}\,u^{\mu}\right).
+\end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-звідки 4-прискорення $w^{\mu} = \frac{q}{mc^2}F^{\mu}{}_{\nu}u^{\nu}$. Підставляючи це у~\eqref{eq:LAD_force} та
-використовуючи нульове наближення для $dw^{\mu}/ds$, отримуємо \emph{силу Ландау–Ліфшиця}:
+Оскільки другий доданок малий, у ньому достатньо використати нульове
+наближення для 4-прискорення, тобто покласти
+%>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
+\begin{equation}\label{eq:w_zero}
+	w^{\mu} = \frac{q}{mc^2}F^{\mu\nu}u_{\nu}.
+\end{equation}
+%<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
+Другий доданок у~\eqref{eq:LAD_force} обчислюється підстановкою~\eqref{eq:w_zero}
+безпосередньо:
+%>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
+\begin{equation}\label{eq:ww}
+	w^{\nu}w_{\nu} = \frac{q^2}{m^2c^4}\,
+	\bigl(F^{\nu\alpha}u_{\alpha}\bigr)\bigl(F_{\nu\beta}u^{\beta}\bigr).
+\end{equation}
+%<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
+Для першого доданка диференціюємо~\eqref{eq:w_zero} по $s$:
+%>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
+\begin{equation}\label{eq:dw_ds}
+	\frac{dw^{\mu}}{ds}
+	= \frac{q}{mc^2}\frac{d}{ds}\bigl(F^{\mu\nu}u_{\nu}\bigr)
+	= \frac{q}{mc^2}\left(
+		\partial_{\alpha}F^{\mu\nu}\,u^{\alpha}u_{\nu}
+		+ F^{\mu\nu}\frac{du_{\nu}}{ds}
+	  \right).
+\end{equation}
+%<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
+У другому доданку~\eqref{eq:dw_ds} знову підставляємо нульове наближення
+$du_{\nu}/ds = w_{\nu}$, визначене формулою~\eqref{eq:w_zero}:
+%>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
+\begin{equation}\label{eq:Fw}
+	F^{\mu\nu}w_{\nu}
+	= \frac{q}{mc^2}F^{\mu\nu}F_{\nu\alpha}u^{\alpha}.
+\end{equation}
+%<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
+Підставляючи~\eqref{eq:ww}--\eqref{eq:Fw} у вираз для сили~\eqref{eq:LAD_force},
+отримуємо \emph{наближення Ландау–Ліфшиця}:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:LL_force}
-	f^{\mu}_\text{ЛЛ} = \frac{2q^3}{3m c^3}\!
+	f^{\mu}_\text{ЛЛ} = \frac{2q^3}{3mc^3}
 	\left[
-	\partial_{\alpha}F^{\mu}{}_{\nu}\,u^{\alpha}u^{\nu}
-	+ \frac{q}{mc^2}F^{\mu}{}_{\alpha}F^{\alpha}{}_{\nu}u^{\nu}
-	- \frac{q}{m^2c^4}F_{\alpha\nu}F^{\alpha\nu}{}_{\text{}}u^{\mu}
-	\bigl(F_{\lambda\rho}u^{\lambda}u^{\rho}\bigr)
+		\partial_{\alpha}F^{\mu\nu}\,u^{\alpha}u_{\nu}
+		+ \frac{q}{mc^2}F^{\mu\alpha}F_{\alpha\nu}u^{\nu}
+		+ \frac{q}{m^2c^4}
+		  \bigl(F_{\alpha\nu}u^{\nu}\bigr)\!\bigl(F^{\alpha\beta}u_{\beta}\bigr)
+		  u^{\mu}
 	\right].
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-Ця сила не дає саморозгінних розв'язків і передприскорення, оскільки містить лише першу похідну за часом, а не третю, як у~\eqref{eq:EOM_AL}. Вона є коректним описом реакції випромінювання у всіх практичних ситуаціях, де $\tau_0 \ll T$, а $T$ --- характерний час зміни зовнішнього поля.
+Три доданки мають прозорий зміст: перший враховує неоднорідність поля
+вздовж траєкторії, другий --- подвійну дію поля на 4-швидкість, третій
+забезпечує ортогональність $f^{\mu}_\text{ЛЛ}u_{\mu}=0$, яку легко
+перевірити безпосередньо. Сила~\eqref{eq:LL_force} не породжує
+саморозгінних розв'язків і передприскорення, оскільки містить лише
+першу похідну за власним часом, а не третю, як рівняння~\eqref{eq:EOM_AL}.
+Вона є коректним описом реакції випромінювання у всіх практичних
+ситуаціях, де $\tau_0 \ll T$.
 
 %% --------------------------------------------------------
 \section*{Задачі}
@@ -200,4 +248,169 @@ $\vect{v}(t) = \vect{v}_0 \exp(t/\tau_0)$, тобто прискорення з�
 %	$t_{\text{гальм}} = \dfrac{3m^3c^5}{2q^4B^2}\cdot\dfrac{1}{v_0^2}\cdot\left(1 - \dfrac{v^2}{v_0^2}\right)^{-1}$
 %	у початковий момент, або повна кінетична енергія $\mathcal{E}_k(t) = \dfrac{\mathcal{E}_{k0}}{1+t/t^*}$, де
 %	$t^* = \dfrac{3m^3c^5}{4q^4B^2 v_0^{-2}}$.
+\end{problem}
+
+% ============================================================
+
+\begin{problem}\label{prb:LL_crossed}
+    Релятивістська заряджена частинка з масою $m$ та зарядом $q$ рухається
+    в однорідних схрещених полях $\Efield \perp \Bfield$, $E < B$.
+    Знайти силу реакції випромінювання в наближенні Ландау--Ліфшиця
+    та показати, що вона має компоненту, перпендикулярну до швидкості,
+    яка спричиняє дрейф траєкторії у напрямку $\Efield\times\Bfield$.
+
+    \emph{Вказівка.} Для однорідних полів $\partial_{\alpha}F^{\mu}{}_{\nu}=0$.
+    Скористатись лоренц-інваріантом $F_{\alpha\nu}F^{\alpha\nu} = 2(\Bfield^2 - \Efield^2) > 0$.
+
+
+% ============================================================
+%  РОЗВ'ЯЗОК
+% ============================================================
+
+%\vspace{1ex}
+
+%\emph{Розв'язок}
+%
+%\textbf{1. Спрощення сили ЛЛ.}
+%Поля однорідні, тому перший доданок у~\eqref{eq:LL_force} тотожно зникає,
+%$\partial_{\alpha}F^{\mu}{}_{\nu} = 0$, і сила ЛЛ набуває вигляду:
+%%
+%\begin{equation}\label{eq:LL_crossed_simplified}
+%    f^{\mu}_\text{ЛЛ} = \frac{2q^4}{3m^2c^5}
+%    \left[
+%        F^{\mu}{}_{\alpha}F^{\alpha}{}_{\nu}u^{\nu}
+%        - \mathcal{I}\,u^{\mu}
+%    \right],
+%\end{equation}
+%%
+%де введено лоренц-скаляр
+%%
+%\begin{equation}\label{eq:I_def}
+%    \mathcal{I} \equiv \bigl(F_{\alpha\nu}u^{\nu}\bigr)
+%                       \bigl(F^{\alpha}{}_{\beta}u^{\beta}\bigr)
+%                     = (Fu)^{\alpha}(Fu)_{\alpha}.
+%\end{equation}
+%%
+%Зауважимо, що $\mathcal{I}$ --- це \emph{не} $F_{\alpha\nu}u^{\alpha}u^{\nu}$,
+%яке тотожно нуль через антисиметрію $F_{\alpha\nu}=-F_{\nu\alpha}$,
+%а квадрат 4-вектора лоренц-сили.
+%
+%\textbf{2. Система координат і тензор поля.}
+%Покладемо $\vect{B} = B\,\hat{z}$, $\vect{E} = E\,\hat{x}$.
+%У гауссовій системі ($F^{0i}=E^i$, $F^{ij}=-\varepsilon^{ijk}B_k$)
+%ненульові компоненти матриці $F^{\mu}{}_{\nu}$:
+%%
+%\begin{equation}\label{eq:F_components}
+%    F^{0}{}_{1} = E, \quad
+%    F^{1}{}_{0} = -E, \quad
+%    F^{1}{}_{2} = B, \quad
+%    F^{2}{}_{1} = -B.
+%\end{equation}
+%
+%\textbf{3. Лоренц-інваріанти поля.}
+%Перший інваріант:
+%%
+%\begin{equation}\label{eq:inv1}
+%    F_{\alpha\nu}F^{\alpha\nu} = 2(B^2 - E^2) \equiv 2\mathcal{F} > 0,
+%\end{equation}
+%%
+%що підтверджує «магнітний» характер поля при $E < B$.
+%Другий інваріант $\tfrac{1}{2}\varepsilon^{\alpha\nu\lambda\rho}F_{\alpha\nu}F_{\lambda\rho}
+%= 4\,\vect{E}\cdot\vect{B} = 0$, оскільки $\vect{E}\perp\vect{B}$.
+%
+%\textbf{4. Вектор лоренц-сили $(Fu)^{\mu}$.}
+%При $u^{\mu} = \gamma(1,\,v_x/c,\,v_y/c,\,0)$:
+%%
+%\begin{align}\label{eq:Fu}
+%    (Fu)^{0} &= E\,\gamma v_x/c, \notag\\
+%    (Fu)^{1} &= -E\gamma + B\gamma v_y/c, \notag\\
+%    (Fu)^{2} &= -B\gamma v_x/c, \notag\\
+%    (Fu)^{3} &= 0.
+%\end{align}
+%%
+%Скалярний інваріант~\eqref{eq:I_def} у метриці $(+{-}{-}{-})$:
+%%
+%\begin{align}\label{eq:I_explicit}
+%    \mathcal{I}
+%    &= \bigl[(Fu)^{0}\bigr]^2 - \bigl[(Fu)^{1}\bigr]^2 - \bigl[(Fu)^{2}\bigr]^2
+%    \notag\\
+%    &= \gamma^2\!\left[
+%        \frac{E^2 v_x^2}{c^2}
+%        - \!\left(E - \frac{Bv_y}{c}\right)^{\!2}
+%        - \frac{B^2 v_x^2}{c^2}
+%    \right]
+%    \notag\\
+%    &= \gamma^2\!\left[
+%        -E^2\!\left(1 - \frac{v_x^2}{c^2}\right)
+%        + \frac{2EBv_y}{c}
+%        - \frac{B^2(v_x^2+v_y^2)}{c^2}
+%    \right].
+%\end{align}
+%
+%\textbf{5. Подвійна дія тензора поля: $(F^2 u)^{\mu}$.}
+%%
+%\begin{align}\label{eq:F2u}
+%    (F^2 u)^{0} &= F^{0}{}_{1}(Fu)^{1}
+%                 = \gamma E\!\left(-E + \frac{Bv_y}{c}\right), \notag\\
+%    (F^2 u)^{1} &= F^{1}{}_{0}(Fu)^{0} + F^{1}{}_{2}(Fu)^{2}
+%                 = -\frac{\gamma v_x}{c}(E^2 + B^2), \notag\\
+%    (F^2 u)^{2} &= F^{2}{}_{1}(Fu)^{1}
+%                 = \gamma B\!\left(E - \frac{Bv_y}{c}\right), \notag\\
+%    (F^2 u)^{3} &= 0.
+%\end{align}
+%
+%\textbf{6. Просторові компоненти сили ЛЛ.}
+%З~\eqref{eq:LL_crossed_simplified} і~\eqref{eq:F2u}, використовуючи
+%$u^i = \gamma v^i/c$:
+%%
+%\begin{align}\label{eq:fLL_components}
+%    f^{x}_\text{ЛЛ} &= \frac{2q^4}{3m^2c^5}
+%        \left[-\frac{\gamma v_x}{c}(E^2+B^2) - \mathcal{I}\,\frac{\gamma v_x}{c}\right],
+%    \notag\\
+%    f^{y}_\text{ЛЛ} &= \frac{2q^4}{3m^2c^5}
+%        \left[\gamma B\!\left(E - \frac{Bv_y}{c}\right) - \mathcal{I}\,\frac{\gamma v_y}{c}\right].
+%\end{align}
+%%
+%Доданок $\mathcal{I}\,u^i$ в обох компонентах спрямований вздовж $\vect{v}$ ---
+%це гальмівна складова сили. Натомість доданок $\gamma B(E - Bv_y/c)\,\hat{y}$
+%у другій рядку є перпендикулярним до $\vect{v}$ (при $v_x \neq 0$)
+%і відхиляє траєкторію.
+%
+%\textbf{7. Фізичний зміст.}
+%Звичайний $\vect{E}\times\vect{B}$-дрейф:
+%%
+%\begin{equation}\label{eq:ExB_drift}
+%    \vect{v}_d = c\,\frac{\vect{E}\times\vect{B}}{B^2} = \frac{cE}{B}\,\hat{y}.
+%\end{equation}
+%%
+%При $v_y = cE/B$ (режим чистого дрейфу) поперечний доданок
+%$\gamma B(E - Bv_y/c)$ у~\eqref{eq:fLL_components} обертається на нуль:
+%частинка у режимі дрейфу радіаційного відхилення не відчуває.
+%Як тільки $v_y \neq cE/B$ (наявний циклотронний оберт), з'являється
+%ненульова поперечна сила, що прагне повернути частинку до дрейфового
+%режиму --- ефект, принципово відсутній без урахування реакції випромінювання.
+%
+%Умова застосовності наближення ЛЛ:
+%%
+%\begin{equation}\label{eq:LL_validity}
+%    \frac{|\vect{f}_\text{ЛЛ}|}{|q\vect{E}|} \sim \tau_0\gamma^2\omega_c \ll 1,
+%\end{equation}
+%%
+%де $\omega_c = qB/(mc)$ --- нерелятивістська циклотронна частота.
+%
+%\textbf{Відповідь.}
+%%
+%\begin{equation}\label{eq:fLL_answer}
+%    \vect{f}_\text{ЛЛ} = \frac{2q^4\gamma}{3m^2c^6}
+%    \left\{
+%        -v_x(E^2+B^2)\,\hat{x}
+%        + cB\!\left(E - \frac{Bv_y}{c}\right)\hat{y}
+%        - \frac{\mathcal{I}\,\vect{v}}{c}
+%    \right\},
+%\end{equation}
+%%
+%де $\mathcal{I}$ визначено формулою~\eqref{eq:I_explicit}.
+%Перші два доданки відповідають за дрейф траєкторії,
+%третій --- за гальмування.
+%
 \end{problem}
