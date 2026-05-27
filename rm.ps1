@@ -1,7 +1,7 @@
 $base = (Get-Item .).Name
 
 # LaTeX core
-'aux', 'log', 'out', 'toc', 'lof', 'lot',
+'aux', 'log', 'out', 'lof', 'lot',
 # makeindex
 'idx', 'ind', 'ilg',
 # biber
