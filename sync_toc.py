@@ -233,13 +233,11 @@ _MD_END   = '<!-- TOC:END -->'
 
 def generate_md_toc(preamble: list[Chapter], parts: list[Part], postamble: list[Chapter]) -> str:
     lines: list[str] = []
+
+    # Передмова — без номерів, простий список
     for ch in preamble:
-        folder = _CHAPTER_FOLDERS.get(ch.title)
-        prefix = f'{ch.number}. ' if ch.number else ''
-        if folder:
-            lines.append(f'- [**{prefix}{ch.title}**]({folder}/*)')
-        else:
-            lines.append(f'- **{prefix}{ch.title}**')
+        lines.append(f'- {ch.title}')
+
     for part in parts:
         if part.title:
             if lines:
@@ -248,23 +246,27 @@ def generate_md_toc(preamble: list[Chapter], parts: list[Part], postamble: list[
             lines.append('')
         for ch in part.chapters:
             folder = _CHAPTER_FOLDERS.get(ch.title)
-            prefix = f'{ch.number}. ' if ch.number else ''
+            # numbered list: "1. [Назва](Folder/)" або "1. Назва"
+            num = ch.number if ch.number else ''
             if folder:
-                lines.append(f'- [**{prefix}{ch.title}**]({folder}/)')
+                lines.append(f'{num}. [{ch.title}]({folder}/)')
             else:
-                lines.append(f'- **{prefix}{ch.title}**')
+                lines.append(f'- {ch.title}')
             for sec in ch.sections:
                 pre = f'{sec.number} ' if sec.number else ''
-                lines.append(f'  - {pre}{sec.title}')
+                lines.append(f'   - {pre}{sec.title}')
+
     if postamble:
         lines.append('')
-        lines.append('## Додатки')
+        lines.append('### Додатки')
         lines.append('')
         for ch in postamble:
             for sec in ch.sections:
                 pre = f'{sec.number} ' if sec.number else ''
                 lines.append(f'- {pre}{sec.title}')
+
     return '\n'.join(lines)
+
 
 def update_readme(readme_path: Path, toc_md: str) -> bool:
     text = readme_path.read_text(encoding='utf-8')
