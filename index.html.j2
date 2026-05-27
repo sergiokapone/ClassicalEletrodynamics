@@ -89,7 +89,7 @@
         {%- for part in toc %}
 
         <div class="section">
-            <h2 class="section-heading">{{ part.title }}</h2>
+            <h2 class="section-heading">{% if part.number %}<span class="part-num">Частина {{ part.number }}:</span> {% endif %}{{ part.title }}</h2>
             <ul class="toc-list">
             {%- for ch in part.chapters %}
                 <li>

@@ -19,6 +19,12 @@ from pathlib import Path
 from dataclasses import dataclass, field
 from typing import Optional
 
+_ROMAN = ['I','II','III','IV','V','VI','VII','VIII','IX','X']
+
+def roman(n: int) -> str:
+    return _ROMAN[n - 1] if 1 <= n <= len(_ROMAN) else str(n)
+
+
 try:
     from jinja2 import Environment, FileSystemLoader, StrictUndefined
 except ImportError:
@@ -41,6 +47,7 @@ class Chapter:
 
 @dataclass
 class Part:
+    number: str   # римський: "I", "II", …
     title: str
     chapters: list[Chapter] = field(default_factory=list)
 
@@ -81,6 +88,11 @@ def _replace_math(text: str) -> str:
         expr = re.sub(r'\s+', '', expr)   # у math пробіли не потрібні (F_μ ν → F_μν)
         return expr.strip()
     return re.sub(r'\$([^$]+)\$', convert, text)
+
+def extract_part_number(raw_content: str) -> str:
+    """З 'I\\hspace {1em}Назва' витягує 'I'."""
+    m = re.match(r'(\S+)\\hspace', raw_content)
+    return m.group(1) if m else ''
 
 def clean_latex(text: str) -> str:
     """Прибирає LaTeX-команди, повертає читабельний Unicode-рядок."""
@@ -128,6 +140,9 @@ def parse_toc(toc_path: Path) -> list[TocEntry]:
         if num_m:
             number = num_m.group(1).strip()
             title  = clean_latex(_NUMBERLINE.sub('', content))
+        elif level == 'part':
+            number = extract_part_number(content)
+            title  = clean_latex(content)
         else:
             number = ''
             title  = clean_latex(content)
@@ -164,7 +179,7 @@ def build_toc_tree(entries: list[TocEntry]) -> tuple[list[Chapter], list[Part], 
 
     for e in entries:
         if e.level == 'part':
-            current_part = Part(title=e.title)
+            current_part = Part(number=e.number, title=e.title)
             parts.append(current_part)
             current_chapter = None
 
@@ -238,11 +253,11 @@ def generate_md_toc(preamble: list[Chapter], parts: list[Part], postamble: list[
     for ch in preamble:
         lines.append(f'- {ch.title}')
 
-    for part in parts:
+    for part_idx, part in enumerate(parts, 1):
         if part.title:
             if lines:
                 lines.append('')
-            lines.append(f'### {part.title}')
+            lines.append(f'### {roman(part_idx)} {part.title}')
             lines.append('')
         for ch in part.chapters:
             folder = _CHAPTER_FOLDERS.get(ch.title)
