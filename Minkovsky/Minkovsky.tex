@@ -30,7 +30,7 @@
 \stepcounter{elements}
 \newcommand{\element}{\textbf{\theelements}\stepcounter{elements}}
 
-\element. \textbf{Сігнатура.} Ми використовуємо сігнатуру $(+\, -\, -\, -\,)$ з квадратом інтервалу у формі \eqref{eq:6.1}, що відповідає \cite{LandauLifshitz2003}. У цілому система нотацій, що далі  використовується, найбільш відповідає книзі~\cite{gusynin2023vstup}. Це так звана \enquote{західнобережна} конвенція (West Coast convention).
+\element. \textbf{Сигнатура.} Ми використовуємо сигнатуру $(+,-,-,-)$~\eqref{eq:sinature}, що відповідає \cite{LandauLifshitz2003,bogoliubov1980introduction}. У цілому система нотацій, що далі  використовується, найбільш відповідає книзі~\cite{gusynin2023vstup}. Це так звана \enquote{західнобережна} конвенція (West Coast convention).
 
 \element. \textbf{Індекси.} \textit{Далі усі грецькі індекси (штриховані та нештриховані) пробігають значення $0,1,2,3$;
 латинські індекси --- $1,2,3$.}
@@ -155,7 +155,7 @@ x^{\prime\alpha'}}{\partial x^\alpha} \frac{\partial x^{\prime\gamma'}}{\partial
 де $\Delta x^\mu = x_1^\mu - x_2^\mu$, а матриця
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
-\begin{equation*}
+\begin{equation}\label{eq:sinature}
   \|\eta_{\mu\nu}\| \equiv \|\eta\| \equiv \mathrm{diag}(1,-1,-1,-1) =
   \begin{pmatrix}
     1 & 0  & 0  & 0  \\
@@ -163,7 +163,7 @@ x^{\prime\alpha'}}{\partial x^\alpha} \frac{\partial x^{\prime\gamma'}}{\partial
     0 & 0  & -1 & 0  \\
     0 & 0  & 0  & -1
   \end{pmatrix}
-\end{equation*}
+\end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 має назву \textbf{тензора Мінковського}. Матриця $\|\eta_{\mu\nu}\|$ збігається зі своєю оберненою, тому тензор
 Мінковського можна писати також з верхніми індексами: $\eta^{\mu\nu} = \eta_{\mu\nu}$. Забігаючи вперед, відзначимо, що
