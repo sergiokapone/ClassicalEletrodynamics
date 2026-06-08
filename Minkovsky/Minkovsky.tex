@@ -3,10 +3,10 @@
 % !TeX spellcheck = uk_UA
 % !TeX root =../ClassicalElectrodynamics.tex
 
-% chktex-file 3 
-% chktex-file 7 
-% chktex-file 12 
-% chktex-file 25 
+% chktex-file 3
+% chktex-file 7
+% chktex-file 12
+% chktex-file 25
 
 %=========================================================
 \chapter{Співвідношення СТВ у просторі Мінковського}\label{\currfilebase}
@@ -28,7 +28,9 @@
 
 \newcounter{elements}
 \stepcounter{elements}
-\newcommand{\element}{\textbf{\theelements}\stepcounter{elements}} 
+\newcommand{\element}{\textbf{\theelements}\stepcounter{elements}}
+
+\element. \textbf{Сігнатура.} Ми використовуємо сігнатуру $(+\, -\, -\, -\,)$ з квадратом інтервалу у формі \eqref{eq:6.1}, що відповідає \cite{LandauLifshitz2003}. У цілому система нотацій, що далі  використовується, найбільш відповідає книзі~\cite{gusynin2023vstup}. Це так звана \enquote{західнобережна} конвенція (West Coast convention).
 
 \element. \textbf{Індекси.} \textit{Далі усі грецькі індекси (штриховані та нештриховані) пробігають значення $0,1,2,3$;
 латинські індекси --- $1,2,3$.}
@@ -173,10 +175,9 @@ x^{\prime\alpha'}}{\partial x^\alpha} \frac{\partial x^{\prime\gamma'}}{\partial
 інтервалу залишається тим самим в обох системах. Інваріантність квадрата інтервалу при перетворенні координат $x^\mu \to
 x^{\prime\mu'}$:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
-\begin{equation}
+\begin{equation}\label{eq:2.1}
   \eta_{\mu\nu}\,\Delta x^\mu\,\Delta x^\nu
   = \eta_{\mu'\nu'}\,\Delta x^{\prime\mu'}\,\Delta x^{\prime\nu'}
-  \label{eq:2.1}
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 нагадує умову інваріантності квадрата відстані між точками при просторових поворотах у тривимірному просторі.

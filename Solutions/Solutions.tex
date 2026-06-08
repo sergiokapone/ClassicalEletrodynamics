@@ -24,8 +24,8 @@
 поширення електромагнітних збурень.
 
 Другий підхід --- постановка \emph{задачі Коші} --- дозволяє однозначно визначити еволюцію електромагнітного поля з
-заданих початкових умов. Доводиться, що початкові умови, задані на множині просторових точок, визначають поле лише в
-межах відповідного <<конуса минулого>> --- ще один прояв принципу причинності в електродинаміці.
+заданих початкових умов. Показано, що початкові умови, задані в області простору, визначають поле лише в
+межах відповідного \enquote{конуса майбутнього} цієї області --- прояв принципу причинності в електродинаміці.
 
 %% --------------------------------------------------------
 \section{Потенціали електромагнітного поля}
@@ -104,7 +104,7 @@ $\phi'$, $\vect{A}'$ подібно до $\phi$, $\vect{A}$:
 
 
 Калібрувальна інваріантність дозволяє накладати додаткові умови на потенціали $(\phi, \vect{A})$, за допомогою яких
-можна звести рівняння до зручнішого вигляду.
+можна звести рівняння до більш зручного вигляду.
 
 Розглянемо умову Лоренца для $(\phi, \vect{A})$:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
@@ -122,11 +122,14 @@ $\phi'$, $\vect{A}'$ подібно до $\phi$, $\vect{A}$:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
 	\Div \vect{A}' + \frac{1}{c} \frac{\partial \phi'}{\partial t} =
-	f - \frac{1}{c^2} \pparttime{\chi} + \nabla^2\chi.
+	f - \frac{1}{c^2} \pparttime{\chi} + \Laplasian\chi.
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-Підбираючи функцію $\chi$ таким чином, щоб $f = \Dalambertian  \chi$ (де $\Dalambertian  = \nabla^2 - \frac{1}{c^2}
-\frac{\partial^2}{\partial t^2}$ --- хвильовий оператор), бачимо, що нові потенціали $(\phi', \vect{A}')$ задовольняють
+Підбираючи функцію $\chi$ таким чином, щоб $f = \Dalambertian  \chi$, де
+\begin{equation}\label{eq:wvae_operator}
+    \Dalambertian  = \frac{1}{c^2} \frac{\partial^2}{\partial t^2} - \Laplasian,
+\end{equation}
+хвильовий оператор\footnote{Цей оператор також називають оператором Дламбера, або даламбертіаном.}, бачимо, що нові потенціали $(\phi', \vect{A}')$ задовольняють
 калібрувальній умові Лоренца~\eqref{eq:LorenzCondition}.
 
 Отримаємо рівняння для $(\phi, \vect{A})$, припускаючи тепер, що умова~\eqref{eq:LorenzCondition} виконана. З подальшого
@@ -135,14 +138,14 @@ $\phi'$, $\vect{A}'$ подібно до $\phi$, $\vect{A}$:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\Div\Efield = \Div\left( -\nabla\phi - \frac1c \parttime{\vect{A}}\right) = - \nabla^2\phi - \frac1c \parttime{}\Div\vect{A} =
-	\frac1{c^2}\pparttime{\phi} - \nabla^2\phi.
+	\Div\Efield = \Div\left( -\nabla\phi - \frac1c \parttime{\vect{A}}\right) = - \Laplasian\phi - \frac1c \parttime{}\Div\vect{A} =
+	\frac1{c^2}\pparttime{\phi} - \Laplasian\phi.
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 Тоді з рівняння~\eqref{eq:M1D} маємо:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:Dphi}
-	\Dalambertian  \phi = -4\pi \rho.
+	\Dalambertian  \phi = 4\pi \rho.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -156,14 +159,13 @@ $\phi'$, $\vect{A}'$ подібно до $\phi$, $\vect{A}$:
 В лівій частині:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\Rot(\Rot\vect{A}) = \nabla \Div\vect{A} - \nabla^2\vect{A} = -\frac1c \nabla \parttime\phi - \nabla^2\vect{A}.
+	\Rot(\Rot\vect{A}) = \nabla \Div\vect{A} - \Laplasian\vect{A} = -\frac1c \nabla \parttime\phi - \Laplasian\vect{A}.
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-де враховано умову Лоренца~\eqref{eq:LorenzCondition}. Оскільки члени зі скалярним потенціалом $\phi$ в останній формулі
-скорочуються, отримуємо:
+де враховано умову Лоренца~\eqref{eq:LorenzCondition}. Післі скорочень, отримуємо:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:DA}
-	\Dalambertian  \vect{A} = -\frac{4\pi}{c} \vect{j}.
+	\Dalambertian  \vect{A} = \frac{4\pi}{c} \vect{j}.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -203,7 +205,7 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 \subsection*{Калібрування Гамільтона}
 %% --------------------------------------------------------
 
-Розглянемо іншу калібрувальну умову Гамільтона:
+Розглянемо іншу калібрувальну умову (Гамільтона):
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:HamiltonCondition}
 	\phi = 0.
@@ -214,22 +216,22 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 перетворень~\eqref{eq:A'},~\eqref{eq:phi'}. Тоді за умови~\eqref{eq:HamiltonCondition} рівняння поля~\eqref{eq:M1D}
 перепишеться, з урахуванням~\eqref{eq:potE}, так:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
-\begin{equation}
-	-\frac1c \parttime{} (\Div \vect{A}) = -4\pi \rho.
+\begin{equation}\label{eq:DA_for_Hamilton}
+	-\frac1c \parttime{} (\Div \vect{A}) = +4\pi \rho.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
 Рівняння~\eqref{eq:M4D} перепишеться, з урахуванням~\eqref{eq:potB} та~\eqref{eq:potE}, так:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:DA_for_Hamilton1}
-	\Dalambertian \vect{A}  - \nabla \Div\vect{A} = -\frac{4\pi}{c} \vect{j}.
+	\Dalambertian \vect{A}  + \nabla \Div\vect{A} = \frac{4\pi}{c} \vect{j}.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
-Перевіримо, чи сумісні рівняння ці рівняння. Застосування дивергенції до лівої частини останнього рівняння дає:
+Перевіримо, чи сумісні ці рівняння. Застосування дивергенції до лівої частини останнього рівняння дає:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\Div(\Dalambertian \vect{A}  - \nabla \Div\vect{A}) = \frac1{c^2} \pparttime{} \Div\vect{A} - \nabla^2\Div\vect{A} + \nabla^2\Div\vect{A},
+	\Div(\Dalambertian \vect{A}  + \nabla \Div\vect{A}) = \frac1{c^2} \pparttime{} \Div\vect{A} - \Laplasian\Div\vect{A} + \Laplasian\Div\vect{A},
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 або
@@ -238,7 +240,7 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 	-\frac1c \parttime{} \left[ \frac1c \parttime{} (\Div\vect{A})\right] + \frac{4\pi}c \Div\vect{j} = 0.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-Якщо врахувати~\eqref{eq:DA_for_Hamilton1}, маємо:
+Якщо врахувати~\eqref{eq:DA_for_Hamilton}, маємо:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
 	\frac{4\pi}c \left[\Div \vect{j} + \frac{\partial \rho}{\partial t}\right] = 0,
@@ -264,7 +266,7 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 За умовою~\eqref{eq:ColumbCondition} з~\eqref{eq:M1D} маємо рівняння Пуассона для потенціалу~$\phi$:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:ColumbCondition_Puasson}
-	\nabla^2 \phi = -4\pi \rho
+	\Laplasian \phi = -4\pi \rho
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 аналогічно електростатиці.
@@ -280,11 +282,11 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 рівняння з урахуванням~\eqref{eq:ColumbCondition}:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\mdlgwhtsquare\Div\vect{A} = \frac{4\pi}c \Div\vect{j} + \frac1c \nabla^2 \parttime{\phi} = \frac{4\pi}c\left( \Div\vect{j} +
+	\mdlgwhtsquare\Div\vect{A} = \frac{4\pi}c \Div\vect{j} + \frac1c \Laplasian \parttime{\phi} = \frac{4\pi}c\left( \Div\vect{j} +
 	\parttime{\phi}\right),
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-де підставлено $\nabla^2\phi$ з~\eqref{eq:ColumbCondition_Puasson}. Знову рівняння неперервності --- закон збереження
+де підставлено $\Laplasian\phi$ з~\eqref{eq:ColumbCondition_Puasson}. Знову рівняння неперервності --- закон збереження
 заряду --- виступає як необхідна умова існування розв'язку при заданій калібрувальній умові. Навпаки, якщо виконується
 рівняння неперервності, для розв'язку~\eqref{eq:ColumbCondition_DA} маємо $\mdlgwhtsquare\Div\vect{A} = 0$ і за
 відповідних граничних умов дістанемо~\eqref{eq:ColumbCondition}.
@@ -391,7 +393,7 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 	\Dalambertian \phi = \frac1{c^2}\pparttime{\phi} - \frac1{r^2} \diff{}{r}\left(r^2 \diff{\phi}{r} \right) .
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-Покладемо $\phi = \frac{\psi}{r}$, тоді за $r>0$:
+Покладемо $\phi = r^{-1}\psi$, тоді за $r>0$:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
 	\Dalambertian \phi = \frac1r \left( \frac1{c^2}\pparttime{\psi} - \ddiff{\psi}{r}\right) =0 .
@@ -453,6 +455,8 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
+Більш строго умови випромінювання (умови вихідних хвиль) формулюють за допомогою так званих умов Зоммерфельда.
+
 Розв'язок рівняння Гельмгольца, що задовольняє умовам випромінювання, у випадку обмеженої системи джерел має бути
 суперпозицією розв'язків типу~\eqref{eq:rad_phi_sph} з різними $\vect{r}_0$ і мати асимптотику
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
@@ -479,7 +483,7 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:Dphi_Fourier}:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\nabla^2\tilde{G} + k^2\tilde{G} = \delta(\vect{r})
+	\Laplasian\tilde{G} + k^2\tilde{G} = \delta(\vect{r})
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -525,7 +529,7 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 див. додаток~\ref{sec:GeneralizedFunctions}.
 
 З урахуванням~\eqref{eq:tildeGr}, за принципом суперпозиції розв'язки рівнянь~\eqref{eq:tilde_phi}, \eqref{eq:tilde_A}
-за умови випромінювання можна подати згортками:
+за умови випромінювання можна подати:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:tilde_phi_bundle}
 	\tilde{\phi} (\omega, \vect{r}) = \int \frac{dV'}{|\vect{r} - \vect{r}'|} \exp \left[ i \frac{\omega}{c} |\vect{r} - \vect{r}'| \right]
@@ -586,7 +590,7 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
-Згортка з правою частиною~\eqref{eq:Dphi}:
+Згортка з правою частиною~\eqref{eq:Dphi} дає:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:2.2.18}
 	\phi (t, \vect{r}) = 4\pi \int dt' dV' G(t - t', \vect{r} - \vect{r}') \rho (t', \vect{r}').
@@ -636,7 +640,7 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 
 
 Як зазначено на початку попереднього розділу, задача Коші, на відміну від розгляду ізольованої системи, оперує лише з
-полями \( t \geqslant t_0 \). Поведінка джерел та полів за \( t < t_0 \), яка може впливати на стан системи за \( t
+полями за \( t \geqslant t_0 \). Поведінка джерел та полів за \( t < t_0 \), яка може впливати на стан системи за \( t
 \geqslant t_0 \), є невідомою. Тому, на відміну від п.~\ref{sec:Potentials_of_isolated_system}, окрім задання функцій \(
 \rho(t, \vect{r}) \), \( \vect{j}(t, \vect{r}) \) за \( t \geqslant t_0 \) необхідно задавати певні \emph{початкові
 умови}.
