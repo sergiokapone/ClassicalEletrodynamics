@@ -317,7 +317,9 @@
 % Оператор Даламбера (хвильовий оператор □): символ білого квадрата
 % з тонким пробілом після нього.
 \def\Dalambertian{\mdlgwhtsquare\, }
-
+% Лапласіан ∆ — визначено як \Delta (стандартний символ).
+\newcommand{\Laplasian}{\Delta}
+\newcommand{\D}{\bar{\Delta}}
 % Команди, що визначаються після завантаження всіх пакетів (\AtBeginDocument),
 % оскільки деякі залежать від стану після \begin{document}:
 \AtBeginDocument{%
@@ -333,8 +335,6 @@
   \DeclareMathOperator{\Rot}{rot}      % ротор (текстова форма)
   \DeclareMathOperator{\Grad}{grad}    % градієнт (текстова форма)
   \DeclareMathOperator{\inv}{inv}      % інваріант
-  % Лапласіан ∆ — визначено як \Delta (стандартний символ).
-  \newcommand{\Laplasian}{\Delta}
 }
 
 % \emphx{текст} — виділений текст кольором малина + курсив.

@@ -157,7 +157,7 @@
 та оператор Лапласа:
 
 \begin{equation*}
-\Delta F \equiv \partial_j \partial_j F.
+\Laplasian F \equiv \partial_j \partial_j F.
 \end{equation*}
 
 
@@ -284,10 +284,10 @@ B_k \varepsilon_{kij} \partial_i A_j - A_j \varepsilon_{ijk} \partial_i B_k = \\
 \partial_j A_i.
 \end{equation*}
 
-За означенням, \(\partial_j A_j \equiv \Div \vect{A}\) та \(\partial_j \partial_j A_i \equiv \Delta A_i\). Звідси маємо:
+За означенням, \(\partial_j A_j \equiv \Div \vect{A}\) та \(\partial_j \partial_j A_i \equiv \Laplasian A_i\). Звідси маємо:
 
 \begin{equation*}
-\Rot \Rot \vect{A} = \grad \Div \vect{A} - \Delta \vect{A}.
+\Rot \Rot \vect{A} = \grad \Div \vect{A} - \Laplasian \vect{A}.
 \end{equation*}
 
 %% --------------------------------------------------------
@@ -629,7 +629,7 @@ P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac 
 Нехай  \( x = \vect{r} = (x_1, x_2, x_3) \in \mathbb{R}^3 \), покажемо, що:
 
 \begin{equation}\label{eq:laplace_fundamental}
-    \Delta \left( -\frac{1}{r} \right) = -4\pi \delta(\vect{r}),
+    \Laplasian \left( -\frac{1}{r} \right) = -4\pi \delta(\vect{r}),
 \end{equation}
 
 де в правій частині фігурує тривимірна \(\delta\)-функція,
@@ -641,13 +641,13 @@ r = |\vect{r}| = \sqrt{x_1^2 + x_2^2 + x_3^2}.
 За означенням похідної:
 
 \begin{equation*}
-\int \Delta \left( \frac{1}{r} \right) \chi(\vect{r}) dV = \int \frac{1}{r} \Delta \chi dV
+\int \Laplasian \left( \frac{1}{r} \right) \chi(\vect{r}) dV = \int \frac{1}{r} \Laplasian \chi dV
 \end{equation*}
 
 Права частина означена як звичайний невласний інтеграл, який можна обчислювати у сферичних координатах:
 
 \begin{multline*}
-\int \frac{\Delta \chi}{r}  r^2 \sin \theta \, d\theta \, d\varphi \, dr = \\
+\int \frac{\Laplasian \chi}{r}  r^2 \sin \theta \, d\theta \, d\varphi \, dr = \\
 =
 \int \frac{1}{r} \left[ \frac{\partial}{\partial r} \left( r^2
 \frac{\partial \chi}{\partial r} \right) + \frac{1}{\sin \theta} \frac{\partial}{\partial \theta} \left( \sin \theta \frac{\partial \chi}{\partial
@@ -681,7 +681,7 @@ r = |\vect{r}| = \sqrt{x_1^2 + x_2^2 + x_3^2}.
 
 \subsubsection{Фундаментальний розв'язок оператора Даламбера (хвильового оператора)}
 
-Нехай \( c = 1 \), \( \Dalambertian = \frac{\partial^2}{\partial t^2} - \Delta \), \( x = (t, x_1, x_2, x_3) \in \mathbb{R}^4 \).
+Нехай \( c = 1 \), \( \Dalambertian = \frac{\partial^2}{\partial t^2} - \Laplasian \), \( x = (t, x_1, x_2, x_3) \in \mathbb{R}^4 \).
 
 Визначимо функцію \( G(x) \) співвідношенням:
 
@@ -708,7 +708,7 @@ G(x) = \frac{1}{2\pi} \delta \left[ t^2 - x^2 \right] \theta(t) = \frac{1}{4\pi 
 Покажіть, що:
 
 \begin{equation}
-\left( \Delta + k^2 \right) \frac{e^{ikr}}{r}, \quad \chi = \int \frac{e^{ikr}}{r} (\Delta + k^2) \chi \, dV = -4\pi \chi(0).
+\left( \Laplasian + k^2 \right) \frac{e^{ikr}}{r}, \quad \chi = \int \frac{e^{ikr}}{r} (\Laplasian + k^2) \chi \, dV = -4\pi \chi(0).
 \label{eq:helmholtz_fundamental}
 \end{equation}
 
@@ -739,7 +739,7 @@ G(x) = \frac{1}{2\pi} \delta \left[ t^2 - x^2 \right] \theta(t) = \frac{1}{4\pi 
 Звідси маємо такі розв'язки рівнянь:
 
 \begin{equation}
-\Delta \phi = -4\pi \rho \implies \phi = \int dV' \, \frac{\rho(\vect{r}')}{|\vect{r} - \vect{r}'|}, \quad \phi = \phi(\vect{r}),
+\Laplasian \phi = -4\pi \rho \implies \phi = \int dV' \, \frac{\rho(\vect{r}')}{|\vect{r} - \vect{r}'|}, \quad \phi = \phi(\vect{r}),
 \end{equation}
 
 \begin{equation}
@@ -749,7 +749,7 @@ G(x) = \frac{1}{2\pi} \delta \left[ t^2 - x^2 \right] \theta(t) = \frac{1}{4\pi 
 \end{equation}
 
 \begin{equation}
-\Delta \phi + k^2 \phi = -4\pi \rho \implies \phi(\vect{r}) = \int \frac{e^{ik|\vect{r} - \vect{r}'|}}{|\vect{r} - \vect{r}'|}
+\Laplasian \phi + k^2 \phi = -4\pi \rho \implies \phi(\vect{r}) = \int \frac{e^{ik|\vect{r} - \vect{r}'|}}{|\vect{r} - \vect{r}'|}
 \rho{\vect{r}'}
 dV'.
 \end{equation}

@@ -356,12 +356,12 @@ f = \Div \vect{A} + \frac{1}{c} \frac{\partial \phi}{\partial t},
 отримаємо \emph{рівняння Гельмгольца}:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:Dphi_Fourier}
-	\Delta \tilde{\phi} + k^2 \tilde{\phi} = -4\pi \tilde{\rho}, \quad \text{де} \quad k = \frac{\omega}{c}.
+	\Laplasian \tilde{\phi} + k^2 \tilde{\phi} = -4\pi \tilde{\rho}, \quad \text{де} \quad k = \frac{\omega}{c}.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:DA_Fourier}
-	\Delta \tilde{\vect{A}} + k^2 \tilde{\vect{A}} = -\frac{4\pi}{c} \tilde{\vect{j}}.
+	\Laplasian \tilde{\vect{A}} + k^2 \tilde{\vect{A}} = -\frac{4\pi}{c} \tilde{\vect{j}}.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -510,11 +510,11 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
 Залишається визначити $C_1(k)$. Коли $r \to 0$, поведінку розв'язку визначає співмножник $C_1/r$, а в лівій частині
-рівняння~\eqref{eq:rad_phi_sph} домінує доданок $\Delta \phi$. Тому асимптотика розв'язку за $r \to 0$ повинна збігатися
+рівняння~\eqref{eq:rad_phi_sph} домінує доданок $\Laplasian \phi$. Тому асимптотика розв'язку за $r \to 0$ повинна збігатися
 з розв'язком рівняння Пуассона для точкового заряду:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}
-	\Delta \left( \frac{q}{r} \right) = -4\pi q \delta (\vect{r}).
+	\Laplasian \left( \frac{q}{r} \right) = -4\pi q \delta (\vect{r}).
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -726,13 +726,13 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 однозначно визначають напруженості поля у точці \( \vect{r}_0 = (x_0, y_0, z_0) \) в момент \( t = T \). Припустимо, що
 існують два розв'язки рівнянь Максвелла \( \{\Efield(t, \vect{r}), \Bfield(t, \vect{r})\} \) та \( \{\Efield'(t,
 \vect{r}), \Bfield'(t, \vect{r})\} \) з однаковими початковими умовами в області~\eqref{eq:2.3.5} та розглянемо їхню
-різницю \( \Delta \Efield = \Efield - \Efield' \), \( \Delta \Bfield = \Bfield - \Bfield' \), яка, очевидно, задовольняє
+різницю \( \D \Efield = \Efield - \Efield' \), \( \D \Bfield = \Bfield - \Bfield' \), яка, очевидно, задовольняє
 рівняння:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\frac{\partial \Delta \Efield}{\partial t} = c  \Rot(\Delta \Bfield), \quad \frac{\partial \Delta \Bfield}{\partial t} = -c
-	\Rot(\Delta \Efield).
+	\frac{\partial \D \Efield}{\partial t} = c  \Rot(\D \Bfield), \quad \frac{\partial \D \Bfield}{\partial t} = -c
+	\Rot(\D \Efield).
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -767,15 +767,15 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{multline}\label{eq:2.3.6}
-	\frac{1}{8\pi} \frac{\partial}{\partial t} (\Delta \Efield^2 + \Delta \Bfield^2)
+	\frac{1}{8\pi} \frac{\partial}{\partial t} (\D \Efield^2 + \D \Bfield^2)
 	=
-	\frac1{4\pi} \left(\Delta\Efield \frac{\partial\Delta\Efield}{\partial t}
+	\frac1{4\pi} \left(\D\Efield \frac{\partial\D\Efield}{\partial t}
 	+
-	\Delta\Bfield \frac{\partial\Delta\Bfield}{\partial t}
+	\D\Bfield \frac{\partial\D\Bfield}{\partial t}
 	\right) =
 	%
-	\\ = \frac{c}{4\pi}\left( \Delta\Efield\Rot(\Delta\Bfield) - \Delta\Bfield\Rot(\Delta\Efield )\right) =
-	-\frac{c}{4\pi} \Div [\Delta \Efield \times \Delta
+	\\ = \frac{c}{4\pi}\left( \D\Efield\Rot(\D\Bfield) - \D\Bfield\Rot(\D\Efield )\right) =
+	-\frac{c}{4\pi} \Div [\D \Efield \times \D
 		\Bfield]
 \end{multline}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
@@ -783,10 +783,10 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\frac{\partial W}{\partial t} = -\frac{c}{4\pi} \Div [\Delta \Efield \times \Delta \Bfield],
+	\frac{\partial W}{\partial t} = -\frac{c}{4\pi} \Div [\D \Efield \times \D \Bfield],
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-де \( W = \frac{1}{8\pi} (\Delta \Efield^2 + \Delta \Bfield^2) \).
+де \( W = \frac{1}{8\pi} (\D \Efield^2 + \D \Bfield^2) \).
 
 Розглянемо невід'ємну величину:
 
@@ -816,10 +816,10 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{multline}\label{eq:2.3.8}
 	\frac{dU}{dt} = -c R^2(t) \int d\Omega \, W(t, R(t), \theta, \varphi) + \int_{K(t)} \frac{\partial W}{\partial t} \, dV = \\
-	= -c R^2 \int d\Omega \,  W(t, R(t), \theta, \varphi) - \frac{c}{4\pi} \int_{K(t)} \Div [\Delta \Efield \times \Delta \Bfield] \, dV = \\
+	= -c R^2 \int d\Omega \,  W(t, R(t), \theta, \varphi) - \frac{c}{4\pi} \int_{K(t)} \Div [\D \Efield \times \D \Bfield] \, dV = \\
 	\text{(за формулою Остроградського-Гауса)}\\
-	= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int\limits_{\partial K(t)} (d\vect{S} \cdot [\Delta \Efield \times \Delta \Bfield]) = \\
-	= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int d\Omega \, R^2(t) [\Delta \Efield \times \Delta \Bfield] \cdot \vect{n},
+	= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int\limits_{\partial K(t)} (d\vect{S} \cdot [\D \Efield \times \D \Bfield]) = \\
+	= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int d\Omega \, R^2(t) [\D \Efield \times \D \Bfield] \cdot \vect{n},
 \end{multline}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 де \( \partial K(t) \) --- поверхня сфери \( r = R(t) \), \( \vect{n} = \vect{r} / r = \{\sin \theta \cos \varphi, \sin
@@ -830,15 +830,15 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	| \left[ \Delta \Efield \times \Delta \Bfield \right]  \cdot \vect{n} | \leqslant | \Delta \Efield | \cdot | \Delta \Bfield | \leqslant \frac{\Delta \Efield^2 +
-		\Delta \Bfield^2}{2} \leqslant 4\pi W,
+	| \left[ \D \Efield \times \D \Bfield \right]  \cdot \vect{n} | \leqslant | \D \Efield | \cdot | \D \Bfield | \leqslant \frac{\D \Efield^2 +
+		\D \Bfield^2}{2} \leqslant 4\pi W,
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 з~\eqref{eq:2.3.8} випливає:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:2.3.9}
-	\frac{dU}{dt} = -c R^2 \int d\Omega \left[ W + \frac1{4\pi}  [\Delta \Efield \times \Delta \Bfield] \cdot \vect{n} \right]\leqslant 0.
+	\frac{dU}{dt} = -c R^2 \int d\Omega \left[ W + \frac1{4\pi}  [\D \Efield \times \D \Bfield] \cdot \vect{n} \right]\leqslant 0.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -846,7 +846,7 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\Delta \Efield(0, \vect{r}) = \Delta \Bfield(0, \vect{r}) \equiv 0,
+	\D \Efield(0, \vect{r}) = \D \Bfield(0, \vect{r}) \equiv 0,
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 %
@@ -883,7 +883,7 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 Знайти загальний сферично симетричний розв'язок  \( \tilde\phi \equiv \tilde\phi(k, r) \) рівняння Гельмгольца в
 вакуумі:
 \[
-	\Delta \tilde\phi + k^2 \tilde\phi = 0 \quad \text{в області} \quad r \geqslant R > 0.
+	\Laplasian \tilde\phi + k^2 \tilde\phi = 0 \quad \text{в області} \quad r \geqslant R > 0.
 \]
 Що в цьому розв'язку залишиться після врахування умови випромінювання (тобто за відсутності зовнішніх хвиль, що
 приходять до центру)?
@@ -894,7 +894,7 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 Знайти розв'язок \( \tilde\phi \equiv \tilde\phi(k, r) \) рівняння Гельмгольца:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\Delta \tilde\phi + k^2 \tilde\phi = -4\pi\tilde\rho
+	\Laplasian \tilde\phi + k^2 \tilde\phi = -4\pi\tilde\rho
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 у випадку сферичної симетрії \( \tilde\rho \equiv \tilde\rho(k, r) \), за умови відсутності зовнішнього випромінювання.
