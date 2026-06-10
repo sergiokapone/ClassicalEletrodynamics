@@ -979,7 +979,7 @@
 Вважатимемо, що $\phi(t)$ та $\tilde{\phi}(\omega)$ досить швидко спадають, якщо відповідно $|t| \to \infty$ та
 $|\omega| \to \infty$.
 
-Введемо величини, що характеризують тривалість сигналу $\Delta t$ та ширину його спектру $\Delta\omega$. Середні
+Введемо величини, що характеризують тривалість сигналу $\D t$ та ширину його спектру $\D\omega$. Середні
 значення фізичних величин, що відповідають $\phi(t)$, обчислюватимемо з вагою $|\phi(t)|^2$ в $t$-просторі, а в
 $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, причому, не зменшуючи загальності, приймемо умову
 нормування\footnote{%
@@ -1010,7 +1010,7 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 Природно оцінити тривалість процесу $\phi(t)$ через середньоквадратичне відхилення $\sqrt{\langle t^2 \rangle}$, де
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:Delta_t}
-	\langle \Delta t^2 \rangle
+	\langle \D t^2 \rangle
 	= \int\limits_{-\infty}^{+\infty} (t - \langle t \rangle)^2\, |\phi(t)|^2\, dt
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
@@ -1025,13 +1025,13 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 а ширину спектра частот опишемо величиною
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:Delta_omega}
-	\langle \Delta\omega^2 \rangle
+	\langle \D\omega^2 \rangle
 	= \int\limits_{-\infty}^{+\infty}
 	(\omega - \langle\omega\rangle)^2\, |\tilde{\phi}(\omega)|^2\, d\omega.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
-Покажемо, що існує спільне обмеження на величини $\langle \Delta t^2 \rangle$ та $\langle \Delta\omega^2 \rangle$. Для
+Покажемо, що існує спільне обмеження на величини $\langle \D t^2 \rangle$ та $\langle \D\omega^2 \rangle$. Для
 цього перепишемо~\eqref{eq:Delta_t} через перетворення Фур'є.
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
@@ -1045,7 +1045,7 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}
-	\langle \Delta t^2 \rangle =
+	\langle \D t^2 \rangle =
 	%
 	\int dt \cdot t^2 |\phi(t)|^2  =
 	%
@@ -1071,9 +1071,9 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	0 \leqslant  x^2 \langle \Delta t^2 \rangle
+	0 \leqslant  x^2 \langle \D t^2 \rangle
 	+
-	\langle \Delta \omega^2 \rangle
+	\langle \D \omega^2 \rangle
 	+
 	x \int d\omega (\omega - \omega_a) \left[ \frac{d\tilde\phi}{d\omega}
 		\tilde\phi^{*} + \frac{d\tilde\phi^{*}}{d\omega} \tilde\phi \right].
@@ -1093,7 +1093,7 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	x^2 \langle \Delta t^2 \rangle + \langle \Delta \omega^2 \rangle - x \geqslant0.
+	x^2 \langle \D t^2 \rangle + \langle \D \omega^2 \rangle - x \geqslant0.
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -1101,7 +1101,7 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 маємо нерівність:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:uncertainty}
-	\langle \Delta t^2 \rangle \cdot \langle \Delta \omega^2 \rangle\geqslant \frac14,
+	\langle \D t^2 \rangle \cdot \langle \D \omega^2 \rangle\geqslant \frac14,
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 яку часто називають \emph{співвідношенням невизначеностей}\index{Співвідношення невизначеностей}\footnote{У квантовій
@@ -1539,6 +1539,6 @@ $\omega$-просторі~--- з вагою $|\tilde{\phi}(\omega)|^2$, прич
 	Знайти умову на поле \( \varphi(t) \) (див. п.~\ref{sec:signal_spectrum}), коли співвідношення
 	невизначеностей~\eqref{eq:uncertainty} перетворюється на точну рівність:
 	\[
-		\left\langle \Delta t^2 \right\rangle \left\langle \Delta \omega^2 \right\rangle = \frac14.
+		\left\langle \D t^2 \right\rangle \left\langle \D \omega^2 \right\rangle = \frac14.
 	\]
 \end{problem}

@@ -319,7 +319,7 @@
 \def\Dalambertian{\mdlgwhtsquare\, }
 % Лапласіан ∆ — визначено як \Delta (стандартний символ).
 \newcommand{\Laplasian}{\Delta}
-\newcommand{\D}{\bar{\Delta}}
+\newcommand{\D}{\varDelta}
 % Команди, що визначаються після завантаження всіх пакетів (\AtBeginDocument),
 % оскільки деякі залежать від стану після \begin{document}:
 \AtBeginDocument{%
