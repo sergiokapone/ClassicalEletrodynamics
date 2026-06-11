@@ -726,13 +726,13 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 однозначно визначають напруженості поля у точці \( \vect{r}_0 = (x_0, y_0, z_0) \) в момент \( t = T \). Припустимо, що
 існують два розв'язки рівнянь Максвелла \( \{\Efield(t, \vect{r}), \Bfield(t, \vect{r})\} \) та \( \{\Efield'(t,
 \vect{r}), \Bfield'(t, \vect{r})\} \) з однаковими початковими умовами в області~\eqref{eq:2.3.5} та розглянемо їхню
-різницю \( \D \Efield = \Efield - \Efield' \), \( \D \Bfield = \Bfield - \Bfield' \), яка, очевидно, задовольняє
+різницю \( \Efield'' = \Efield - \Efield' \), \( \Bfield'' = \Bfield - \Bfield' \), яка, очевидно, задовольняє
 рівняння:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\frac{\partial \D \Efield}{\partial t} = c  \Rot(\D \Bfield), \quad \frac{\partial \D \Bfield}{\partial t} = -c
-	\Rot(\D \Efield).
+	\frac{\partial \Efield''}{\partial t} = c  \Rot(\Bfield''), \quad \frac{\partial \Bfield''}{\partial t} = -c
+	\Rot(\Efield'').
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -767,7 +767,7 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{multline}\label{eq:2.3.6}
-	\frac{1}{8\pi} \frac{\partial}{\partial t} (\D \Efield^2 + \D \Bfield^2)
+	\frac{1}{8\pi} \frac{\partial}{\partial t} (\Efield''^2 + \Bfield''^2)
 	=
 	\frac1{4\pi} \left(\D\Efield \frac{\partial\D\Efield}{\partial t}
 	+
@@ -775,18 +775,17 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 	\right) =
 	%
 	\\ = \frac{c}{4\pi}\left( \D\Efield\Rot(\D\Bfield) - \D\Bfield\Rot(\D\Efield )\right) =
-	-\frac{c}{4\pi} \Div [\D \Efield \times \D
-		\Bfield]
+	-\frac{c}{4\pi} \Div [\Efield'' \times 	\Bfield'']
 \end{multline}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 маємо співвідношення, аналогічне закону збереження енергії\index{Закон збереження!енергії} в диференціальній формі:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\frac{\partial W}{\partial t} = -\frac{c}{4\pi} \Div [\D \Efield \times \D \Bfield],
+	\frac{\partial W}{\partial t} = -\frac{c}{4\pi} \Div [\Efield'' \times \Bfield''],
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
-де \( W = \frac{1}{8\pi} (\D \Efield^2 + \D \Bfield^2) \).
+де \( W = \frac{1}{8\pi} (\Efield''^2 + \Bfield''^2) \).
 
 Розглянемо невід'ємну величину:
 
@@ -816,10 +815,10 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{multline}\label{eq:2.3.8}
 	\frac{dU}{dt} = -c R^2(t) \int d\Omega \, W(t, R(t), \theta, \varphi) + \int_{K(t)} \frac{\partial W}{\partial t} \, dV = \\
-	= -c R^2 \int d\Omega \,  W(t, R(t), \theta, \varphi) - \frac{c}{4\pi} \int_{K(t)} \Div [\D \Efield \times \D \Bfield] \, dV = \\
+	= -c R^2 \int d\Omega \,  W(t, R(t), \theta, \varphi) - \frac{c}{4\pi} \int_{K(t)} \Div [\Efield'' \times \Bfield''] \, dV = \\
 	\text{(за формулою Остроградського-Гауса)}\\
-	= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int\limits_{\partial K(t)} (d\vect{S} \cdot [\D \Efield \times \D \Bfield]) = \\
-	= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int d\Omega \, R^2(t) [\D \Efield \times \D \Bfield] \cdot \vect{n},
+	= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int\limits_{\partial K(t)} (d\vect{S} \cdot [\Efield'' \times \Bfield'']) = \\
+	= -c R^2 \int d\Omega \, W - \frac{c}{4\pi} \int d\Omega \, R^2(t) [\Efield'' \times \Bfield''] \cdot \vect{n},
 \end{multline}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 де \( \partial K(t) \) --- поверхня сфери \( r = R(t) \), \( \vect{n} = \vect{r} / r = \{\sin \theta \cos \varphi, \sin
@@ -830,15 +829,15 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	| \left[ \D \Efield \times \D \Bfield \right]  \cdot \vect{n} | \leqslant | \D \Efield | \cdot | \D \Bfield | \leqslant \frac{\D \Efield^2 +
-		\D \Bfield^2}{2} \leqslant 4\pi W,
+	| \left[ \Efield'' \times \Bfield'' \right]  \cdot \vect{n} | \leqslant | \Efield'' | \cdot | \Bfield'' | \leqslant \frac{\Efield''^2 +
+		\Bfield''^2}{2} \leqslant 4\pi W,
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 з~\eqref{eq:2.3.8} випливає:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation}\label{eq:2.3.9}
-	\frac{dU}{dt} = -c R^2 \int d\Omega \left[ W + \frac1{4\pi}  [\D \Efield \times \D \Bfield] \cdot \vect{n} \right]\leqslant 0.
+	\frac{dU}{dt} = -c R^2 \int d\Omega \left[ W + \frac1{4\pi}  [\Efield'' \times \Bfield''] \cdot \vect{n} \right]\leqslant 0.
 \end{equation}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 
@@ -846,7 +845,7 @@ $\tilde{G}(\vect{r})$ оператора в лівій частині~\eqref{eq:
 
 %>> - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - ->>
 \begin{equation*}
-	\D \Efield(0, \vect{r}) = \D \Bfield(0, \vect{r}) \equiv 0,
+	\Efield''(0, \vect{r}) = \Bfield''(0, \vect{r}) \equiv 0,
 \end{equation*}
 %<< - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -<<
 %
