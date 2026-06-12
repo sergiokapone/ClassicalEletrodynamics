@@ -1,0 +1,168 @@
+% !TeX program = lualatex
+% !TeX encoding = utf8
+% !TeX spellcheck = uk_UA
+% !TeX root =../ClassicalElectrodynamics.tex
+
+% chktex-file 3
+% chktex-file 21
+% chktex-file 25
+% chktex-file 46
+
+%% --------------------------------------------------------
+\section{Спеціальні функції}\label{sec:special_functions}
+%% --------------------------------------------------------
+
+%% --------------------------------------------------------
+\subsection{Поліноми Лежандра}\label{Polinoms}
+%% --------------------------------------------------------
+
+Поліноми Лежандра застосовуються у теорії потенціалу при розкладанні виразу в околі точки $\vect{r}$:
+\begin{equation*}
+    \frac{1}{|\vect{r} - \vect{r}_0|} = \frac{1}{\sqrt{r^2 - 2rr_0 \cos\chi + r_0^2 }}  =  \sum\limits_{l = 0}^{\infty} \frac{r^l_<}{r^{l+1}_>} P_l(\cos\chi),
+\end{equation*}
+де $r_>$, $r_<$~--- більша і менша із величин $|\vect{r}|$ та $\vect{r}_0$, відповідно, $\cos\chi$~--- кут між векторами $\vect{r}$ та $|\vect{r}_0|$.
+
+\medskip%
+\textbf{Деякі поліноми Лежандра}
+
+\begin{align*}
+P_{0}(\cos\chi)  = 1, &\quad P_{1}(\cos\chi)  = \cos\chi, \\
+P_{2}(\cos\chi)  = \frac {1}{2}(3\cos^2\chi-1), &\quad P_{3}(\cos\chi)  = \frac {1}{2}(5\cos^2\chi-3\cos\chi).
+\end{align*}
+
+%% --------------------------------------------------------
+\subsection{Сферичні гармоніки}\label{Spherical_Harmonics}
+%% --------------------------------------------------------
+
+Сферичні функції, що залежать від полярних кутів визначаються формулою:
+\begin{equation*}
+    Y_{lm}(\theta,\phi) = (-1)^{(m+|m|)/2} \sqrt{\frac{2l+1}{4\pi}\frac{(l-m)!}{(l+m)!}}P_l^{|m|}(\cos \theta) e^{im\phi},
+\end{equation*}
+де $l = 0,1,2, \ldots$, $m$ пробігає значення від $-l$ до $l$, а $P_l^{|m|}(x)$~--- приєднані функції Лежандра.
+
+Вони утворюють повну ортонормовану систему функцій:
+\[
+    \int\limits_{\theta=0}^{\pi} \int\limits_{\phi=0}^{2\pi} Y^*_{l',m'}(\theta, \phi) Y_{l,m}(\theta, \phi) \sin\theta d\theta d\phi  = \delta_{l,l'} \delta_{m,m'}.
+\]
+
+Деякі сферичні гармоніки:
+\begin{align*}
+	Y_{0,0}(\theta,\phi)     & =\sqrt{\frac{1} {4  \pi}},                                            \\
+	Y_{1,\pm 1}(\theta,\phi) & =\sqrt{\frac{3} {8  \pi}} \, \sin\theta \, e^{\pm i\phi},             \\
+	Y_{1,0}(\theta,\phi)     & =\sqrt{\frac{3} {4  \pi}}\, \cos\theta ,                              \\
+	Y_{2,0}(\theta,\phi)     & =\sqrt{\frac{5} {16 \pi}}\, (3\cos^{2}\theta-1),                     \\
+	Y_{2,\pm 1}(\theta,\phi) & =\sqrt{\frac{15}{8  \pi}}\, \sin\theta\, \cos\theta\, e^{\pm i\phi}, \\
+	Y_{2,\pm 2}(\theta,\phi) & =\sqrt{\frac{15}{32 \pi}} \, \sin^{2}\theta \, e^{\pm2i\phi}.
+\end{align*}
+
+%% --------------------------------------------------------
+\subsection{Циліндричні функції}\setcounter{equation}{0}
+%% --------------------------------------------------------
+
+Рівняння, що виникають в задачах з циліндричною симетрією, мають вигляд:
+	\begin{equation}\label{eq:Bessel_eq}
+		\frac{d^2y}{dx^2} + \frac1x\frac{dy}{dx} + \left(1 - \frac{m^2}{x^2} \right) y = 0,
+	\end{equation}
+	розв'язок яких можна представити за допомогою функцій Бесселя $J_m(x)$ та Неймана $N_m$ у вигляді лінійної комбінації $y(x) = A J_m(x) + B N_m(x)$ або у вигляді лінійної комбінації $y(x) = A H^{(1)}_m(x) + B H^{(2)}_m(x)$, де функції $H_m^{(1,2)} =J_m \pm i N_m$~--- називаються функціями Ганкеля 1-го та 2-го роду, відповідно. Доцільність введення функцій Ганкеля обумовлена тим, що вони мають прості асимптотичні розкладання при $|x| \gg 1$ і зручні для задач, пов'язаних з поширенням хвиль.
+
+Для $m = 0,1,2,\ldots$ функції Неймана нескінченні в точці $x = 0$, тобто $\lim\limits_{x\to0}N_m(x) = -\infty$.
+
+Функції Бесселя можна представити за допомогою ряду (в околі точки $x = 0$ для цілих, або невід'ємних $m$):
+\begin{equation}\label{eq:J}
+    J_m(x) = \sum_{n=0}^\infty \frac{(-1)^n}{n! \Gamma(n+m+1)} {\left({\frac{x}{2}}\right)}^{2n+m},
+\end{equation}
+де $ \Gamma$~--- \href{https://en.wikipedia.org/wiki/Gamma_function}{гамма-функція}. Для $m \in \mathbb{Z}$ повинна виконуватись рівність $J_{-m}(x)  = (-1)^m J_m(x)$.
+
+\begin{center}
+  \begin{tikzpicture}
+    \begin{axis}[axis lines = middle,
+			axis line style={-stealth},
+			minor grid style = {line width=.1pt,draw=gray!10},
+            width=\textwidth, height=0.5*\textwidth, xlabel=$x$,
+            xtick=\empty,
+%            ytick={-0.5,0.5,1},
+            legend style={draw=none},
+    ]
+    \addplot+[id=parable,domain=-20:20, samples=500, mark=none, width=2pt, color=red, thick]
+    gnuplot{besj0(x)};% node[pin=95:{$J_0(x)$}]{};
+    \addplot+[id=parable,domain=-20:20, samples=500, mark=none, width=2pt, color=blue, thick]
+    gnuplot{besj1(x)};% node[pin=130:{$J_1(x)$}]{};
+    \addplot+[id=parable2,domain=-20:20, samples=500, mark=none, width=2pt, color=green!50!black, thick]
+    gnuplot{2*1/x*besj1(x)-besj0(x)};% node[pin=-140:{$J_2(x)$}]{};
+    \legend{$J_0(x)$,$J_1(x)$,$J_2(x)$}
+   \end{axis}
+  \end{tikzpicture}
+
+    {Графіки функцій Бесселя $J_m$ для $m = 0,1,2$.}
+\end{center}
+
+\begin{center}
+  \begin{tikzpicture}
+    \begin{axis}[axis lines = middle,
+			axis line style={-stealth},
+			minor grid style = {line width=.1pt,draw=gray!10},
+            width=\textwidth, height=0.5*\textwidth, xlabel=$x$,
+            xtick=\empty,
+%            ytick={-0.5,0.5,1},
+            legend style={at={(current axis.south east)}, anchor = south east, draw=none},
+    ]
+    \addplot+[id=parable,domain=0:40, restrict y to domain=-1.5:1, samples=500, mark=none, width=2pt, color=red, thick]
+    gnuplot{besy0(x)};% node[pin=95:{$J_0(x)$}]{};
+    \addplot+[id=parable,domain=0:40, restrict y to domain=-1.5:1, samples=1000, mark=none, width=2pt, color=blue, thick]
+    gnuplot{besy1(x)};% node[pin=130:{$J_1(x)$}]{};
+    \addplot+[id=parable2,domain=0:40, restrict y to domain=-1.5:1, samples=1000, mark=none, width=2pt, color=green!50!black, thick]
+    gnuplot{2*1/x*besy1(x)-besy0(x)};% node[pin=-140:{$J_2(x)$}]{};
+    \legend{$N_0(x)$,$N_1(x)$,$N_2(x)$}
+   \end{axis}
+  \end{tikzpicture}
+
+    {Графіки функцій Неймана $N_m$ для $m = 0,1,2$.}
+\end{center}
+
+Функції Неймана визначаються через функції Бесселя як:
+\begin{equation}\label{eq:NG}
+    N_m(x) = \frac{J_m(x)\cos m\pi - J_{-m}(x)}{\sin m\pi}.
+\end{equation}
+
+
+Деякі рекурентні співвідношення:
+\begin{equation}
+    J_{m + 1}(x) + J_{m - 1}(x) = \frac{2m}{x}J_m(x).
+\end{equation}
+
+Деякі диференціальні та інтегральні співвідношення для нецілих $m$ (для цілих $m$ ці функції можна визначити за допомогою граничного переходу).:
+\begin{align}
+    \frac{d}{dx} J_0(x) = - J_1(x), \\
+    \frac{d}{dx} \left( x^{-m}J_m(x)\right)  = - x^{-m}J_{m+1}(x), \\
+     \int\limits_0^{x} x^{\prime m+1} J_m(x') dx' &= x^{m+1}J_{m+1}. \label{eq:recInt}
+\end{align}
+
+Інтеграли від добутків:
+\begin{equation}
+    \int\limits_0^x  J_m(k_1x')J_m(k_2x') x' dx' = \frac{x\left( k_2J_m(k_1x)J'_m(k_2x) - k_1J_m(k_2x)J'_m(k_1x)\right)}{k_1^2-k_2^{2}}   \label{eq:JJ0*}.
+\end{equation}
+
+В задачах, зазвичай, часто необхідно знайти наближений вигляд циліндричних функцій при малих та великих значеннях аргументу $x$:
+
+при $|x| \ll 1$ з~\eqref{eq:J}
+
+\begin{equation}
+    J_0(x) \approx 1 - \frac{x^2}{4}, \quad
+    J_m \approx \frac{x^m}{2^m m!}, \ m \ge 1,\, m \in \mathbb{N};
+\end{equation}
+
+при $|x| \gg 1$
+
+\begin{align}
+    J_m &\approx \sqrt{\frac{2}{\pi x}}  \cos\left( x - m\frac{\pi}{2} - \frac{\pi}{4}\right),
+      \label{eq:Jxgg1}\\
+    N_m &\approx \sqrt{\frac{2}{\pi x}}  \sin\left( x - m\frac{\pi}{2} - \frac{\pi}{4}\right),
+  \label{eq:Yxgg1}\\
+    H_m^{(1,2)} &\approx \sqrt{\frac{2}{\pi x}}  e^{\pm i \left( x - m\frac{\pi}{2} - \frac{\pi}{4}\right) }. \label{eq:Hxgg1}
+\end{align}
+
+Співвідношення Якобі-Ангера (розкладання за функціями Бесселя):
+\begin{equation}\label{eq:JacobiAnger}
+    e^{ix\cos\theta} = \sum\limits_{m= - \infty}^{\infty} i^mJ_m(x)e^{im\theta}, \quad
+    e^{ix\sin\theta} = \sum\limits_{m= - \infty}^{\infty} J_m(x)e^{im\theta}. \\
+\end{equation}
