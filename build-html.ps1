@@ -188,9 +188,19 @@ Step "biber $main" { biber $main }
 # --- 3. HTML ---------------------------------------------------------------------
 Stage 3 'HTML build (lwarpmk, several passes - this is the long step)'
 # lwarpmk does not notice changes of the class or of included files: force the rebuild.
-Step 'lwarpmk again' { lwarpmk again -p $main }
-Step 'lwarpmk html' { lwarpmk html -p $main } "${main}_html.log"
-Step 'Fix MathJax position for sidetoc' { & $py fix_sidetoc.py }
+# 1. Перший прогін: LuaLaTeX збирає елементи індексу в ${main}_html.idx
+Step 'lwarpmk html (Pass 1)' { lwarpmk html -p $main }
+
+# 2. upmendex обробляє _html.idx зі стилем lwarp.ist і створює _html.ind
+Step 'Build Index (upmendex)' { 
+    upmendex -s lwarp.ist -o "${main}_html.ind" "${main}_html.idx" 
+}
+
+# 3. Другий прогін: lwarp зчитує ${main}_html.ind і верстає покажчик на HTML-сторінці
+Step 'lwarpmk html (Pass 2)' { lwarpmk html -p $main }
+
+# 4. Пост-обробка скриптами Python
+Step 'Fix Sidetoc & MathJax' { & $py fix_sidetoc.py }
 Step 'Sync TOC to index.html' { & $py sync_toc.py }
 
 # --- 4. checks ---------------------------------------------------------------------
@@ -275,3 +285,10 @@ if ($script:problems -gt 0) {
 } else {
     Write-Host ("Done in {0:mm\:ss}. Open {1}.html in a browser (internet is needed for MathJax)." -f $sw.Elapsed, $main) -ForegroundColor Green
 }
+
+Step 'Generate Search Index (Pagefind)' { npx -y pagefind --site . }
+
+Write-Host $SEP
+Write-Host
+Read-Host "Press Enter to continue"
+

@@ -215,6 +215,8 @@ MathJax = {
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 ></script>
 
+<link href="pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="pagefind/pagefind-ui.js"></script>
 </head>
 <body>
 <!--MathJax customizations:-->
@@ -901,12 +903,12 @@ MathJax = {
 \(\newcommand {\mitpi }{\pi }\)
 
 \(\newcommand {\mitrho }{\rho }\)
-
 \(\newcommand {\mitsigma }{\sigma }\)
 
 \(\newcommand {\mittau }{\tau }\)
 
 \(\newcommand {\mitupsilon }{\upsilon }\)
+
 \(\newcommand {\mitphi }{\phi }\)
 
 \(\newcommand {\mitchi }{\chi }\)
@@ -1063,6 +1065,8 @@ MathJax = {
 
 
 
+
+
 <a id="ClassicalElectrodynamics-html-autopage-125"></a>
 <div class="pagegrid">
 
@@ -1085,6 +1089,13 @@ Home</a></nav>
 Contents
 </p>
 </div>
+<div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true, resetFilters: false });
+  });
+</script>
+
 
 
 <div class="sidetoccontents">
@@ -1469,6 +1480,13 @@ Home</a>
 <p>
 <a href="ch10.html#autosec-273" class="tocsection" >
 <span class="sectionnumber">Д</span>&#x2003;Спеціальні функції</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-283" class="tocchapter" >
+Предметний покажчик</a>
 </p>
 
 
@@ -3391,7 +3409,7 @@ href="ch4.html#eq:4.2.12">4.29</a>)</span> дає внесок, що вже об
 </p>
 
 <p>
-Для опису цих процесів вводять <em>диференціальний переріз розсіювання в тілесний кут</em> \(do \):
+Для опису цих процесів вводять <em>диференціальний переріз розсіювання в тілесний кут</em><a id="LWRindex-39"></a> \(do \):
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{4.}{33}\)</span>
@@ -3418,7 +3436,7 @@ d\sigma = \frac {dI}{\Pi }, \label {eq:differential_cross_section}
 </p>
 
 <p>
-<i>Повний переріз розсіювання</i> є:
+<i>Повний переріз розсіювання</i><a id="LWRindex-40"></a> є:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{4.}{34}\)</span>
@@ -3443,7 +3461,7 @@ d\sigma = \frac {dI}{\Pi }, \label {eq:differential_cross_section}
 </p>
 
 <p>
-<i>Перерізом поглинання</i> називають величину:
+<i>Перерізом поглинання</i><a id="LWRindex-41"></a> називають величину:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{4.}{35}\)</span>
@@ -3709,7 +3727,8 @@ d\sigma = \left ( \frac {q^2}{mc^2} \right )^2 \sin ^2 \theta \, do. \label {eq:
 </p>
 
 <p>
-Цікаво, що цей вираз не залежить від частоти. Повний переріз отримаємо, інтегруючи&nbsp;<span class="textup">(<a href="ch4.html#eq:differential_cross_section_thomson">4.40</a>)</span> по усіх напрямках:
+Цікаво, що цей вираз не залежить від частоти. Повний переріз<a id="LWRindex-42"></a> отримаємо, інтегруючи&nbsp;<span class="textup">(<a href="ch4.html#eq:differential_cross_section_thomson">4.40</a>)</span> по усіх
+напрямках:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{4.}{40}\)</span>
@@ -3742,9 +3761,9 @@ d\sigma = \left ( \frac {q^2}{mc^2} \right )^2 \sin ^2 \theta \, do. \label {eq:
 
 
 <p>
-Формула&nbsp;<span class="textup">(<a href="ch3.html#eq:intensity">3.15</a>)</span> дає диференціальний переріз розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі присутні усі напрямки
-\(\Efield \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з&nbsp;<span class="textup">(<a href="ch4.html#eq:dipole_moment">4.38</a>)</span>, рівноймовірними є усі напрямки дипольного моменту
-з&nbsp;<span class="textup">(<a href="ch3.html#eq:intensity">3.15</a>)</span>.
+Формула&nbsp;<span class="textup">(<a href="ch3.html#eq:intensity">3.15</a>)</span> дає диференціальний переріз<a id="LWRindex-43"></a> розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі
+присутні усі напрямки \(\Efield \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з&nbsp;<span class="textup">(<a href="ch4.html#eq:dipole_moment">4.38</a>)</span>, рівноймовірними є усі напрямки
+дипольного моменту з&nbsp;<span class="textup">(<a href="ch3.html#eq:intensity">3.15</a>)</span>.
 </p>
 
 <p>
@@ -3756,7 +3775,7 @@ d\sigma = \left ( \frac {q^2}{mc^2} \right )^2 \sin ^2 \theta \, do. \label {eq:
 <!--
 
 
-                                                                                                 𝐧 = {sin 𝜃0 cos 𝜑, sin 𝜃0 sin 𝜑, cos 𝜃0 }
+                                                                                                𝐧 = {sin 𝜃0 cos 𝜑, sin 𝜃0 sin 𝜑, cos 𝜃0 }
 
 -->
 
@@ -3777,7 +3796,7 @@ d\sigma = \left ( \frac {q^2}{mc^2} \right )^2 \sin ^2 \theta \, do. \label {eq:
 <!--
 
 
-                                                                                                              𝐧0 = {0, 0, 1}.
+                                                                                                             𝐧0 = {0, 0, 1}.
 
 -->
 
@@ -3798,7 +3817,7 @@ d\sigma = \left ( \frac {q^2}{mc^2} \right )^2 \sin ^2 \theta \, do. \label {eq:
 <!--
 
 
-                                                                                                        𝐧𝑑 = {cos 𝜑′ , sin 𝜑′ , 0},
+                                                                                                       𝐧𝑑 = {cos 𝜑′ , sin 𝜑′ , 0},
 
 -->
 
@@ -3826,9 +3845,9 @@ d\sigma = \left ( \frac {q^2}{mc^2} \right )^2 \sin ^2 \theta \, do. \label {eq:
 
 
   ⟨sin2 𝜃⟩ = ⟨1 − cos2 𝜃⟩ = ⟨1 − sin2 𝜃0 cos2 (𝜑 − 𝜑0 )⟩ =
-                                                                                                                                                                                                          1          1
-                                                                                                                                                                                                    =1−     sin2 𝜃0 = (1 + cos2 𝜃0 ).
-                                                                                                                                                                                                          2          2
+                                                                                                                                                                                                        1          1
+                                                                                                                                                                                                  =1−     sin2 𝜃0 = (1 + cos2 𝜃0 ).
+                                                                                                                                                                                                        2          2
 
 
 -->
@@ -3851,10 +3870,10 @@ _0).
 
 <!--
 
-                                                                                                                    2
-                                                                                                            1 𝑞2
-                                                                                                   ⟨𝑑𝜍⟩ =    (    ) (1 + cos2 𝜃0 ) 𝑑𝑜,
-                                                                                                            2 𝑚𝑐2
+                                                                                                                   2
+                                                                                                          1 𝑞2
+                                                                                                 ⟨𝑑𝜍⟩ =    (    ) (1 + cos2 𝜃0 ) 𝑑𝑜,
+                                                                                                          2 𝑚𝑐2
 
 -->
 

@@ -317,7 +317,7 @@ for f in sorted(glob.glob('*/tikz/*.tikz')):
 capfixed, tabfixed, tabskipped = [], [], []
 for f in sorted(glob.glob('*/*.tex')):
     d, b = os.path.split(f)
-    if d.startswith(('_html', '.')) or b != d + '.tex': continue
+    if d.startswith(('_html', '.')) : continue
     raw = open(f, 'rb').read().decode('utf-8', errors='surrogateescape')
     new, n = fix_captions(raw)
     new, nt, sk = convert_tables(new)

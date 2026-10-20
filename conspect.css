@@ -435,6 +435,75 @@ nav.toc .tocsection .sectionnumber{font-variant-numeric:tabular-nums}
 nav.toc .tocsection:not(:has(.sectionnumber)){display:block;padding-left:calc(3.2rem + 1em);font-style:italic}
 nav.toc a:hover{color:var(--indigo)}
 
+/* ── Стилізація Pagefind під темну бокову панель ─────────────── */
+#search {
+  --pagefind-ui-scale: 0.78;
+  --pagefind-ui-primary: var(--gold, #c99a2e);
+  --pagefind-ui-text: var(--side-ink, #d9e2f3);
+  --pagefind-ui-background: rgba(0, 0, 0, 0.25);
+  --pagefind-ui-border: rgba(255, 255, 255, 0.15);
+  --pagefind-ui-tag-background: rgba(255, 255, 255, 0.1);
+  --pagefind-ui-font: var(--sans);
+  padding: 0.6rem 0.6rem 0.2rem;
+}
+
+#search .pagefind-ui__search-input {
+  color: #fff !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  border-radius: 4px;
+}
+
+#search .pagefind-ui__search-clear {
+  color: var(--side-dim, #8fa3c6) !important;
+  background: transparent !important;
+}
+
+#search .pagefind-ui__drawer {
+  max-height: 55vh;
+  overflow-y: auto;
+  margin-top: 0.5rem;
+  scrollbar-width: thin;
+}
+
+#search .pagefind-ui__result-title a {
+  color: var(--gold, #c99a2e) !important;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+#search .pagefind-ui__result-title a:hover {
+  text-decoration: underline;
+}
+
+#search .pagefind-ui__result-excerpt {
+  color: var(--side-ink, #d9e2f3) !important;
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+#search .pagefind-ui__message {
+  color: var(--side-dim, #8fa3c6) !important;
+  font-size: 0.8rem;
+}
+
+#search mark {
+  background-color: rgba(201, 154, 46, 0.3);
+  color: #fff;
+  border-radius: 2px;
+  padding: 0 2px;
+}
+
+/* ── Мобільна адаптація пошуку ──────────────────────────────── */
+@media (max-width: 980px) {
+  #search .pagefind-ui__search-input {
+    font-size: 16px !important; /* Запобігає небажаному зуму в iOS Safari */
+  }
+
+  #search .pagefind-ui__drawer {
+    max-height: 45vh; /* Трохи зменшуємо висоту результатів, щоб залишалося місце для віртуальної клавіатури */
+  }
+}
+
 /* ── Вузькі екрани: бічний зміст — висувна шухляда ──────────── */
 @media (min-width:1180px){
   .textbody{max-width:calc(var(--measure) + 11rem);padding-left:5.5rem;padding-right:5.5rem}

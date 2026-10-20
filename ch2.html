@@ -215,6 +215,8 @@ MathJax = {
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 ></script>
 
+<link href="pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="pagefind/pagefind-ui.js"></script>
 </head>
 <body>
 <!--MathJax customizations:-->
@@ -901,12 +903,12 @@ MathJax = {
 \(\newcommand {\mitpi }{\pi }\)
 
 \(\newcommand {\mitrho }{\rho }\)
-
 \(\newcommand {\mitsigma }{\sigma }\)
 
 \(\newcommand {\mittau }{\tau }\)
 
 \(\newcommand {\mitupsilon }{\upsilon }\)
+
 \(\newcommand {\mitphi }{\phi }\)
 
 \(\newcommand {\mitchi }{\chi }\)
@@ -1063,6 +1065,8 @@ MathJax = {
 
 
 
+
+
 <a id="ClassicalElectrodynamics-html-autopage-56"></a>
 <div class="pagegrid">
 
@@ -1085,6 +1089,13 @@ Home</a></nav>
 Contents
 </p>
 </div>
+<div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true, resetFilters: false });
+  });
+</script>
+
 
 
 <div class="sidetoccontents">
@@ -1472,6 +1483,13 @@ Home</a>
 </p>
 
 
+
+<p>
+<a href="ch10.html#autosec-283" class="tocchapter" >
+Предметний покажчик</a>
+</p>
+
+
 </div>
 
 </nav>
@@ -1690,7 +1708,7 @@ class="textup">(<a href="ch1.html#eq:M2D">1.27</a>)</span>, <span class="textup"
 <p>
 Таким чином, потенціали \((\phi , \vect {A})\) містять деякі ступені свободи, що ніяк не впливають на фізичну ситуацію. Цю обставину називають <em>калібрувальною інваріантністю</em> рівнянь поля, а перетворення&nbsp;<span
 class="textup">(<a href="ch2.html#eq:A'">2.3</a>)</span>, <span class="textup">(<a href="ch2.html#eq:phi'">2.4</a>)</span>, або інші, що не впливають на спостережувані величини \((\Efield , \Bfield )\), називають
-<em>калібрувальними перетвореннями</em>.
+<em>калібрувальними перетвореннями</em><a id="LWRindex-28"></a>.
 </p>
 <!--
 ...... subsection Калібрувальна умова Лоренца ......
@@ -1713,7 +1731,7 @@ class="textup">(<a href="ch2.html#eq:A'">2.3</a>)</span>, <span class="textup">(
 
 
                                                                             1 𝜕𝜑
-                                                                  div 𝐀 +        = 0.                                                                             (2.6)                    --><a id="eq:LorenzCondition"></a><!--
+                                                                  div 𝐀 +        = 0.                                                                             (2.6)                      --><a id="eq:LorenzCondition"></a><!--
                                                                             𝑐 𝜕𝑡
 
 -->
@@ -1783,7 +1801,7 @@ href="ch2.html#eq:phi'">2.4</a>)</span>. Тоді:
 
 
                                                                             1 𝜕2
-                                                                    □ =            − Δ,                                                                             (2.7)                   --><a id="eq:wave_operator"></a><!--
+                                                                    □ =            − Δ,                                                                             (2.7)                      --><a id="eq:wave_operator"></a><!--
                                                                             𝑐2 𝜕𝑡2
 
 -->
@@ -1835,7 +1853,7 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span> маємо:
 <!--
 
 
-                                                                              □ 𝜑 = 4𝜋𝜌.                                                                                    (2.8)                     --><a id="eq:Dphi"></a><!--
+                                                                              □ 𝜑 = 4𝜋𝜌.                                                                                    (2.8)                        --><a id="eq:Dphi"></a><!--
 
 -->
 
@@ -1902,7 +1920,7 @@ href="ch1.html#eq:M4D">1.29</a>)</span>:
 <!--
 
                                                                                           4𝜋
-                                                                               □𝐀 =          𝐣.                                                                               (2.9)                     --><a id="eq:DA"></a><!--
+                                                                               □𝐀 =          𝐣.                                                                               (2.9)                        --><a id="eq:DA"></a><!--
                                                                                            𝑐
 
 -->
@@ -1926,7 +1944,7 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span>. Комбінування р�
 
 
                                                                                                                   1 𝜕𝜑            4𝜋 𝜕𝜌
-                                                                                                             □(        + div 𝐀) =   (   + div 𝐣) .                                                                           (2.10)
+                                                                                                             □(        + div 𝐀) =   (   + div 𝐣) .                                                                                  (2.10)
                                                                                                                   𝑐 𝜕𝑡             𝑐 𝜕𝑡
 
 -->
@@ -1949,7 +1967,7 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span>. Комбінування р�
 
 
                                                                    1 𝜕𝜑
-                                                                        + div 𝐀 = 0.                                                                               (2.11)                   --><a id="eq:LorentzCalibr"></a><!--
+                                                                        + div 𝐀 = 0.                                                                               (2.11)                      --><a id="eq:LorentzCalibr"></a><!--
                                                                    𝑐 𝜕𝑡
 
 -->
@@ -1972,7 +1990,7 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span>. Комбінування р�
 <!--
 
 
-                                                                                 □𝑓 = 0                                                                                      (2.12)                     --><a id="eq:Df"></a><!--
+                                                                                 □𝑓 = 0                                                                                      (2.12)                        --><a id="eq:Df"></a><!--
 
 -->
 
@@ -1985,7 +2003,7 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span>. Комбінування р�
 </p>
 
 <p>
-не є єдиним (воно має, наприклад, хвильові розв’язки). Але за умови відсутності зовнішнього випромінювання, коли розглядається обмежена система зарядів і струмів, рівняння&nbsp;<span class="textup">(<a
+не є єдиним (воно має, наприклад, хвильові розв’язки<a id="LWRindex-29"></a>). Але за умови відсутності зовнішнього випромінювання, коли розглядається обмежена система зарядів і струмів, рівняння&nbsp;<span class="textup">(<a
 href="ch2.html#eq:Df">2.12</a>)</span> має тільки тривіальний розв’язок \(f=0\). Ця ситуація відповідає запізнюючим розв’язкам рівнянь&nbsp;<span class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та&nbsp;<span
 class="textup">(<a href="ch2.html#eq:DA">2.9</a>)</span>, що розглядаються нижче.
 </p>
@@ -2544,7 +2562,7 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 </p>
 
 <p>
-Це одновимірне хвильове рівняння, яке має загальний розв’язок:
+Це одновимірне хвильове рівняння<a id="LWRindex-30"></a>, яке має загальний розв’язок:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{2.}{27}\)</span>
@@ -3530,7 +3548,7 @@ href="ch2.html#eq:2.3.2">2.44</a>)</span> також і при \(t &gt; 0 \)?
 + \Bfield &apos;&apos; \frac {\partial \Bfield &apos;&apos;}{\partial t} \right ) = \\ = \frac {c}{4\pi }\left (\Efield &apos;&apos;\Rot (\Bfield &apos;&apos;) - \Bfield &apos;&apos;\Rot (\Efield
 &apos;&apos;)\right ) = -\frac {c}{4\pi } \Div [\Efield &apos;&apos; \times \Bfield &apos;&apos;]
 \end{multline}
-маємо співвідношення, аналогічне закону збереження енергії в диференціальній формі:
+маємо співвідношення, аналогічне закону збереження енергії<a id="LWRindex-31"></a> в диференціальній формі:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{2.}{48}\)</span>

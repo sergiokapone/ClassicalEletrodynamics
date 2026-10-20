@@ -1,4 +1,6 @@
 % !TeX program = lualatex
+% !TEX indexprogram = upmendex
+
 \documentclass{ConspectBookHTML}
 
 %=================================================================================
@@ -58,5 +60,9 @@
 
 %------------------- Бібліографія ----------------
 \printbibliography[heading=bibintoc]
+
+\cleardoublepage
+\printindex
+\addcontentsline{toc}{chapter}{Предметний покажчик}
 
 \end{document}

@@ -2,13 +2,7 @@ import glob
 import re
 
 APP_MAP = {
-    '.1': 'А',
-    '.2': 'Б',
-    '.3': 'В',
-    '.4': 'Г',
-    '.5': 'Д',
-    '.6': 'Е',
-    '.7': 'Є'
+    '.1': 'А', '.2': 'Б', '.3': 'В', '.4': 'Г', '.5': 'Д', '.6': 'Е', '.7': 'Є'
 }
 
 def fix_sidetoc_and_mathjax():
@@ -21,7 +15,32 @@ def fix_sidetoc_and_mathjax():
 
         new_content = content
 
-        # 1. Перенесення макросів MathJax на початок <body> (щоб sidetoc одразу їх бачив)
+        # 1. Підключення CSS та JS для Pagefind у <head>
+        if 'pagefind/pagefind-ui.js' not in new_content:
+            search_assets = (
+                '<link href="pagefind/pagefind-ui.css" rel="stylesheet">\n'
+                '<script src="pagefind/pagefind-ui.js"></script>\n'
+            )
+            new_content = new_content.replace('</head>', f'{search_assets}</head>')
+
+        # 2. Вставка вікна пошуку в sidetoc під заголовком
+        if 'id="search"' not in new_content:
+            search_box = (
+                '<div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>\n'
+                '<script>\n'
+                '  window.addEventListener("DOMContentLoaded", (event) => {\n'
+                '    new PagefindUI({ element: "#search", showSubResults: true, resetFilters: false });\n'
+                '  });\n'
+                '</script>\n'
+            )
+            new_content = re.sub(
+                r'(<div class="sidetoctitle">.*?</div>)',
+                r'\1\n' + search_box,
+                new_content,
+                flags=re.DOTALL
+            )
+
+        # 3. Перенесення макросів MathJax на початок <body>
         match = re.search(
             r'(<!--MathJax customizations:-->\s*<div data-nosnippet[^>]*>.*?</div>)',
             new_content,
@@ -37,7 +56,7 @@ def fix_sidetoc_and_mathjax():
                 count=1
             )
 
-        # 2. Вставка розділювача "Додатки" в sidetoc перед першим додатком (.1)
+        # 4. Вставка розділювача "Додатки" в sidetoc перед першим додатком (.1)
         if '.1' in new_content and 'sidetoc-appendix-title' not in new_content:
             appendix_header = (
                 '<div class="sidetoc-appendix-title" style="margin-top:1.2rem; padding:.4rem .8rem; '
@@ -52,18 +71,22 @@ def fix_sidetoc_and_mathjax():
                 count=1
             )
 
-        # 3. Заміна крапкової нумерації .1, .2, .3 на літери А, Б, В...
+        # 5. Заміна крапкової нумерації .1, .2 на літери А, Б...
         for num_str, letter in APP_MAP.items():
             pattern = rf'(<span class="sectionnumber">\s*){re.escape(num_str)}(\s*)'
             replacement = rf'\1{letter}\2'
             new_content = re.sub(pattern, replacement, new_content)
+
+        # 6. Безпечна заміна "section 1.1" / "section A.1" на "розділ 1.1" у покажчику
+        # Регулярка спрацьовує ТІЛЬКИ у видимому тексті посилань (>section або , section)
+        new_content = re.sub(r'(>|,\s*)section\s+([a-zA-Z\d\.]+)', r'\1розділ \2', new_content)
 
         if new_content != content:
             with open(filepath, "w", encoding="utf-8") as f:
                 f.write(new_content)
             count += 1
 
-    print(f"Оновлено {count} HTML-файлів: MathJax перенесено, додатки прономеровано (А, Б, В...).")
+    print(f"Оновлено {count} HTML-файлів: додано пошук Pagefind, покажчик, додатки А, Б, В...")
 
 if __name__ == "__main__":
     fix_sidetoc_and_mathjax()

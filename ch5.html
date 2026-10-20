@@ -215,6 +215,8 @@ MathJax = {
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 ></script>
 
+<link href="pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="pagefind/pagefind-ui.js"></script>
 </head>
 <body>
 <!--MathJax customizations:-->
@@ -901,12 +903,12 @@ MathJax = {
 \(\newcommand {\mitpi }{\pi }\)
 
 \(\newcommand {\mitrho }{\rho }\)
-
 \(\newcommand {\mitsigma }{\sigma }\)
 
 \(\newcommand {\mittau }{\tau }\)
 
 \(\newcommand {\mitupsilon }{\upsilon }\)
+
 \(\newcommand {\mitphi }{\phi }\)
 
 \(\newcommand {\mitchi }{\chi }\)
@@ -1063,6 +1065,8 @@ MathJax = {
 
 
 
+
+
 <a id="ClassicalElectrodynamics-html-autopage-149"></a>
 <div class="pagegrid">
 
@@ -1085,6 +1089,13 @@ Home</a></nav>
 Contents
 </p>
 </div>
+<div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true, resetFilters: false });
+  });
+</script>
+
 
 
 <div class="sidetoccontents">
@@ -1469,6 +1480,13 @@ Home</a>
 <p>
 <a href="ch10.html#autosec-273" class="tocsection" >
 <span class="sectionnumber">Д</span>&#x2003;Спеціальні функції</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-283" class="tocchapter" >
+Предметний покажчик</a>
 </p>
 
 
@@ -2401,7 +2419,7 @@ u_B=\frac {u_A+u_{BA}}{1+\frac {u_Au_{BA}}{c^2}}.
 </p>
 
 <p>
-яку називають <em>бистротою</em> (від англ. <em>rapidity</em>), є адитивною<sup>5</sup>.
+яку називають <em>бистротою</em><a id="LWRindex-44"></a> (від англ. <em>rapidity</em>), є адитивною<sup>5</sup>.
 </p>
 <div role="note" class="footnotes">
 
@@ -2542,7 +2560,7 @@ ds^2=c^2dt^2-d\vect {r}^2.
 
 <p>
 Узагальнимо твердження про інваріантність квадрата інтервалу на довільні відносні рухи інерціальних систем. Нехай \((t_1,x_1),\ (t_2,x_2)\) — координати будь-яких подій в СВ \(S\), а \((t&apos;_1,x&apos;_1),\
-(t&apos;_2,x&apos;_2)\) — відповідні координати в \(S&apos;\), яка рухається в напрямку осі \(OX\) відносно \(S\). Позначаємо \(\D x=x_2-x_1,�\D t=t_2-t_1\), в \(S\) та \(\D x&apos;=x&apos;_2-x&apos;_1,�\D
+(t&apos;_2,x&apos;_2)\) — відповідні координати в \(S&apos;\), яка рухається в напрямку осі \(OX\) відносно \(S\). Позначаємо \(\D x=x_2-x_1,\D t=t_2-t_1\), в \(S\) та \(\D x&apos;=x&apos;_2-x&apos;_1,\D
 t&apos;=t&apos;_2-t&apos;_1\) в \(S&apos;\), маємо, за формулами&nbsp;<span class="textup">(<a href="ch5.html#eq:LT_1_10">5.10</a>)</span>:
 </p>
 

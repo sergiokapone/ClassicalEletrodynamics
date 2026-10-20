@@ -27,6 +27,15 @@
 \IfFontExistsTF{JetBrains Mono}{\setmonofont{JetBrains Mono}[RawFeature={-calt,-liga}]}{\setmonofont{FreeMono}}
 \defaultfontfeatures{Ligatures={TeX}}
 \RequirePackage[english,russian,ukrainian]{babel}
+
+%===============================================================================
+%
+%                                    INDEX
+%
+%===============================================================================
+\RequirePackage{makeidx}
+\makeindex
+
 \RequirePackage[unicode]{hyperref}   % lwarp patches it
 % ---- ссылки на части: \partref{part:I} -> "Частина I: <назва>" ----
 \NewDocumentCommand{\partref}{m}{\partname~\ref{#1}:~\nameref{#1}}

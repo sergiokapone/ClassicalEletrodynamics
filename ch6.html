@@ -215,6 +215,8 @@ MathJax = {
     src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
 ></script>
 
+<link href="pagefind/pagefind-ui.css" rel="stylesheet">
+<script src="pagefind/pagefind-ui.js"></script>
 </head>
 <body>
 <!--MathJax customizations:-->
@@ -901,12 +903,12 @@ MathJax = {
 \(\newcommand {\mitpi }{\pi }\)
 
 \(\newcommand {\mitrho }{\rho }\)
-
 \(\newcommand {\mitsigma }{\sigma }\)
 
 \(\newcommand {\mittau }{\tau }\)
 
 \(\newcommand {\mitupsilon }{\upsilon }\)
+
 \(\newcommand {\mitphi }{\phi }\)
 
 \(\newcommand {\mitchi }{\chi }\)
@@ -1063,6 +1065,8 @@ MathJax = {
 
 
 
+
+
 <a id="ClassicalElectrodynamics-html-autopage-184"></a>
 <div class="pagegrid">
 
@@ -1085,6 +1089,13 @@ Home</a></nav>
 Contents
 </p>
 </div>
+<div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>
+<script>
+  window.addEventListener("DOMContentLoaded", (event) => {
+    new PagefindUI({ element: "#search", showSubResults: true, resetFilters: false });
+  });
+</script>
+
 
 
 <div class="sidetoccontents">
@@ -1469,6 +1480,13 @@ Home</a>
 <p>
 <a href="ch10.html#autosec-273" class="tocsection" >
 <span class="sectionnumber">Д</span>&#x2003;Спеціальні функції</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-283" class="tocchapter" >
+Предметний покажчик</a>
 </p>
 
 
@@ -2107,7 +2125,7 @@ x^{\prime 0} = \gamma (x^0 - \beta x^1),\quad x^{\prime 1} = \gamma (x^1 - \beta
 </p>
 
 <p>
-Іноді цю матрицю зручно записати через швидкісний параметр&nbsp;\(\psi \), використовуючи співвідношення:
+Іноді цю матрицю зручно записати через швидкісний параметр&nbsp;\(\psi \), використовуючи співвідношення<a id="LWRindex-45"></a>:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{6.}{6}\)</span>
