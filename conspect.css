@@ -435,69 +435,65 @@ nav.toc .tocsection .sectionnumber{font-variant-numeric:tabular-nums}
 nav.toc .tocsection:not(:has(.sectionnumber)){display:block;padding-left:calc(3.2rem + 1em);font-style:italic}
 nav.toc a:hover{color:var(--indigo)}
 
-/* ── Стилізація Pagefind під темну бокову панель ─────────────── */
+/* ════════════════════════════════════════════════════════════════
+   Примусова темна тема для показу результатів Pagefind у sidetoc
+   ════════════════════════════════════════════════════════════════ */
 #search {
-  --pagefind-ui-scale: 0.78;
-  --pagefind-ui-primary: var(--gold, #c99a2e);
-  --pagefind-ui-text: var(--side-ink, #d9e2f3);
-  --pagefind-ui-background: rgba(0, 0, 0, 0.25);
+  --pagefind-ui-scale: 0.82;
+  --pagefind-ui-primary: #f1c40f;
+  --pagefind-ui-text: #e6ebf6;
+  --pagefind-ui-subtext: #8fa3c6;
+  --pagefind-ui-background: #080f1f;
   --pagefind-ui-border: rgba(255, 255, 255, 0.15);
-  --pagefind-ui-tag-background: rgba(255, 255, 255, 0.1);
   --pagefind-ui-font: var(--sans);
-  padding: 0.6rem 0.6rem 0.2rem;
 }
 
-#search .pagefind-ui__search-input {
-  color: #fff !important;
-  background-color: rgba(0, 0, 0, 0.3) !important;
-  border-radius: 4px;
+/* 1. Перекриваємо глобальне правило a { color: #2b2bb0 }, яке робило текст синім */
+#search, #search * {
+  color: #d9e2f3 !important;
 }
 
-#search .pagefind-ui__search-clear {
-  color: var(--side-dim, #8fa3c6) !important;
-  background: transparent !important;
-}
-
-#search .pagefind-ui__drawer {
-  max-height: 55vh;
-  overflow-y: auto;
-  margin-top: 0.5rem;
-  scrollbar-width: thin;
-}
-
-/* Перекриваємо колір для ГОЛОВНИХ та ВКЛАДЕНИХ посилань/заголовків */
+/* 2. Назви розділів та посилання підрозділів — яскраві золото-жовті */
+#search a,
 #search .pagefind-ui__result-title,
-#search .pagefind-ui__result-title a,
-#search .pagefind-ui__result-link {
-  color: var(--gold, #c99a2e) !important;
-  text-decoration: none;
-  font-weight: 600;
+#search .pagefind-ui__result-link,
+#search .pagefind-ui__result-nested a {
+  color: #f1c40f !important;
+  text-decoration: none !important;
 }
 
-#search .pagefind-ui__result-title a:hover,
-#search .pagefind-ui__result-link:hover {
-  text-decoration: underline;
+#search a:hover {
+  text-decoration: underline !important;
 }
 
-/* Перекриваємо колір для ТЕКСТУ уривків та вкладених блоків (showSubResults) */
+/* 3. Текст знайдених уривків — чіткий світло-сірий */
 #search .pagefind-ui__result-excerpt,
+#search .pagefind-ui__result-excerpt *,
 #search .pagefind-ui__result-nested,
 #search .pagefind-ui__result-nested * {
-  color: var(--side-ink, #d9e2f3) !important;
-  font-size: 0.8rem;
+  color: #d1d5db !important;
+  font-size: 0.82rem;
   line-height: 1.35;
 }
 
-#search .pagefind-ui__message {
-  color: var(--side-dim, #8fa3c6) !important;
-  font-size: 0.8rem;
+/* 4. Поле вводу пошуку */
+#search input {
+  color: #ffffff !important;
+  background-color: rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
+#search .pagefind-ui__message {
+  color: #94a3b8 !important;
+}
+
+/* 5. Жовтий маркер підсвітки тексту з темним контрастним текстом */
 #search mark {
-  background-color: rgba(201, 154, 46, 0.4);
-  color: #fff !important;
+  background-color: #f59e0b !important;
+  color: #0f172a !important;
   border-radius: 2px;
-  padding: 0 2px;
+  padding: 0 3px;
+  font-weight: 600;
 }
 
 /* ── Мобільна адаптація пошуку ──────────────────────────────── */
