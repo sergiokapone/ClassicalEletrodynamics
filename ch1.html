@@ -856,8 +856,6 @@ MathJax = {
 
 \(\newcommand {\Laplasian }{\Delta }\)
 
-\(\newcommand {\Dalambertian }{\square \,}\)
-
 \(\DeclareMathOperator {\const }{const}\)
 
 \(\DeclareMathOperator {\Div }{div}\)
@@ -868,64 +866,17 @@ MathJax = {
 
 \(\DeclareMathOperator {\inv }{inv}\)
 
-\(\newcommand {\D }{\varDelta }\)
-
 \(\newcommand {\emf }{\mathcal {E}}\)
 
-\(\newcommand {\mitalpha }{\alpha }\)
+\(\newcommand {\tikzmarknode }[2]{#2}\)
 
-\(\newcommand {\mitbeta }{\beta }\)
-
-\(\newcommand {\mitgamma }{\gamma }\)
-
-\(\newcommand {\mitdelta }{\delta }\)
-
-\(\newcommand {\mitepsilon }{\epsilon }\)
-
-\(\newcommand {\mitzeta }{\zeta }\)
-
-\(\newcommand {\miteta }{\eta }\)
-
-\(\newcommand {\mittheta }{\theta }\)
-
-\(\newcommand {\mitiota }{\iota }\)
-
-\(\newcommand {\mitkappa }{\kappa }\)
-
-\(\newcommand {\mitlambda }{\lambda }\)
-
-\(\newcommand {\mitmu }{\mu }\)
-
-\(\newcommand {\mitnu }{\nu }\)
-
-\(\newcommand {\mitxi }{\xi }\)
-
-\(\newcommand {\mitpi }{\pi }\)
-
-\(\newcommand {\mitrho }{\rho }\)
-\(\newcommand {\mitsigma }{\sigma }\)
-
-\(\newcommand {\mittau }{\tau }\)
-
-\(\newcommand {\mitupsilon }{\upsilon }\)
-
-\(\newcommand {\mitphi }{\phi }\)
-
-\(\newcommand {\mitchi }{\chi }\)
-
-\(\newcommand {\mitpsi }{\psi }\)
-
-\(\newcommand {\mitomega }{\omega }\)
-
-\(\newcommand {\mitvarphi }{\varphi }\)
-
-\(\newcommand {\mitvarepsilon }{\varepsilon }\)
-
-\(\newcommand {\mitvartheta }{\vartheta }\)
+\(\newcommand {\tikzmark }[1]{}\)
 
 \(\DeclareMathOperator {\sh }{sh}\)
 
 \(\DeclareMathOperator {\ch }{ch}\)
+
+\(\DeclareMathOperator {\th }{th}\)
 
 \(\DeclareMathOperator {\tg }{tg}\)
 
@@ -952,7 +903,6 @@ MathJax = {
 \(\def\Delta{\unicode{x0394}}\)
 
 \(\def\Epsilon{\unicode{x0395}}\)
-
 \(\def\Zeta{\unicode{x0396}}\)
 
 \(\def\Eta{\unicode{x0397}}\)
@@ -1089,7 +1039,7 @@ Contents
 <div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>
 <script>
   window.addEventListener("DOMContentLoaded", (event) => {
-    new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false });
+    new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false, processResult: function (r) { var n = function (x) { return (x || "").replace(/\s+/g, " ").trim(); }; var t = n(r.meta && r.meta.title); for (var i = 0, a = r.sub_results || []; i < a.length; i++) { if (n(a[i].title) === t) { a[i].title = "Початок розділу"; } } return r; } });
   });
 </script>
 

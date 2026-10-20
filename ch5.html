@@ -856,8 +856,6 @@ MathJax = {
 
 \(\newcommand {\Laplasian }{\Delta }\)
 
-\(\newcommand {\Dalambertian }{\square \,}\)
-
 \(\DeclareMathOperator {\const }{const}\)
 
 \(\DeclareMathOperator {\Div }{div}\)
@@ -868,64 +866,17 @@ MathJax = {
 
 \(\DeclareMathOperator {\inv }{inv}\)
 
-\(\newcommand {\D }{\varDelta }\)
-
 \(\newcommand {\emf }{\mathcal {E}}\)
 
-\(\newcommand {\mitalpha }{\alpha }\)
+\(\newcommand {\tikzmarknode }[2]{#2}\)
 
-\(\newcommand {\mitbeta }{\beta }\)
-
-\(\newcommand {\mitgamma }{\gamma }\)
-
-\(\newcommand {\mitdelta }{\delta }\)
-
-\(\newcommand {\mitepsilon }{\epsilon }\)
-
-\(\newcommand {\mitzeta }{\zeta }\)
-
-\(\newcommand {\miteta }{\eta }\)
-
-\(\newcommand {\mittheta }{\theta }\)
-
-\(\newcommand {\mitiota }{\iota }\)
-
-\(\newcommand {\mitkappa }{\kappa }\)
-
-\(\newcommand {\mitlambda }{\lambda }\)
-
-\(\newcommand {\mitmu }{\mu }\)
-
-\(\newcommand {\mitnu }{\nu }\)
-
-\(\newcommand {\mitxi }{\xi }\)
-
-\(\newcommand {\mitpi }{\pi }\)
-
-\(\newcommand {\mitrho }{\rho }\)
-\(\newcommand {\mitsigma }{\sigma }\)
-
-\(\newcommand {\mittau }{\tau }\)
-
-\(\newcommand {\mitupsilon }{\upsilon }\)
-
-\(\newcommand {\mitphi }{\phi }\)
-
-\(\newcommand {\mitchi }{\chi }\)
-
-\(\newcommand {\mitpsi }{\psi }\)
-
-\(\newcommand {\mitomega }{\omega }\)
-
-\(\newcommand {\mitvarphi }{\varphi }\)
-
-\(\newcommand {\mitvarepsilon }{\varepsilon }\)
-
-\(\newcommand {\mitvartheta }{\vartheta }\)
+\(\newcommand {\tikzmark }[1]{}\)
 
 \(\DeclareMathOperator {\sh }{sh}\)
 
 \(\DeclareMathOperator {\ch }{ch}\)
+
+\(\DeclareMathOperator {\th }{th}\)
 
 \(\DeclareMathOperator {\tg }{tg}\)
 
@@ -952,7 +903,6 @@ MathJax = {
 \(\def\Delta{\unicode{x0394}}\)
 
 \(\def\Epsilon{\unicode{x0395}}\)
-
 \(\def\Zeta{\unicode{x0396}}\)
 
 \(\def\Eta{\unicode{x0397}}\)
@@ -1089,7 +1039,7 @@ Contents
 <div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>
 <script>
   window.addEventListener("DOMContentLoaded", (event) => {
-    new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false });
+    new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false, processResult: function (r) { var n = function (x) { return (x || "").replace(/\s+/g, " ").trim(); }; var t = n(r.meta && r.meta.title); for (var i = 0, a = r.sub_results || []; i < a.length; i++) { if (n(a[i].title) === t) { a[i].title = "Початок розділу"; } } return r; } });
   });
 </script>
 
@@ -2757,7 +2707,7 @@ ds^2=c^2dt^2-d\vect {r}^2=\left (c^2-\dot {\vect {r}}^2\right )dt^2&gt;0
 <!--
 
 
-                                                                                                                    𝑥1′ = 𝛾(𝑥1 − 𝑣𝑡), 𝑥2′ = 𝛾(𝑥2 − 𝑣𝑡),
+                                                                                                                   𝑥1′ = 𝛾(𝑥1 − 𝑣𝑡), 𝑥2′ = 𝛾(𝑥2 − 𝑣𝑡),
 
 -->
 
@@ -2779,7 +2729,7 @@ x&apos;_1=\gamma (x_1-vt), x&apos;_2=\gamma (x_2-vt),
 
 
                                                                                            𝑣
-                                                              ∆𝑙 = ∆𝑙0 √1 − 𝛽 2 ,     𝛽=     .                                                                               (5.18)                          --><a id="eq:LT_1_16"></a><!--
+                                                              ∆𝑙 = ∆𝑙0 √1 − 𝛽 2 ,     𝛽=     .                                                                                (5.18)                         --><a id="eq:LT_1_16"></a><!--
                                                                                            𝑐
 
 -->
@@ -2801,7 +2751,7 @@ x&apos;_1=\gamma (x_1-vt), x&apos;_2=\gamma (x_2-vt),
 <!--
 
                                                                              ∆𝜏
-                                                                    ∆𝑡 =              ,                                                                                      (5.19)                          --><a id="eq:LT_1_17"></a><!--
+                                                                    ∆𝑡 =              ,                                                                                       (5.19)                         --><a id="eq:LT_1_17"></a><!--
                                                                            √1 − 𝛽 2
 
 -->
@@ -2835,13 +2785,13 @@ x&apos;_1=\gamma (x_1-vt), x&apos;_2=\gamma (x_2-vt),
 <p>
 
 \begin{equation*}
-x&apos;\in [x&apos;_0,x&apos;_0+\D x&apos;],\quad �y&apos;\in [y&apos;_0,y&apos;_0+\D y&apos;],\quad �z&apos;\in [z&apos;_0,z&apos;_0+\D z&apos;];
+x&apos;\in [x&apos;_0,x&apos;_0+\D x&apos;],\quad y&apos;\in [y&apos;_0,y&apos;_0+\D y&apos;],\quad z&apos;\in [z&apos;_0,z&apos;_0+\D z&apos;];
 \end{equation*}
 
 </p>
 
 <p>
-відповідний елемент об’єму \(\D \tilde {V}=\D x&apos;\D y&apos;\D z&apos;\). Враховуючи, що \(\D y&apos;=\D y,�\D z&apos;=\D z\), маємо в лабораторній системі, відносно якої об’єм рухається зі швидкістю \(v\),
+відповідний елемент об’єму \(\D \tilde {V}=\D x&apos;\D y&apos;\D z&apos;\). Враховуючи, що \(\D y&apos;=\D y, \D z&apos;=\D z\), маємо в лабораторній системі, відносно якої об’єм рухається зі швидкістю \(v\),
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{5.}{19}\)</span>
@@ -2849,7 +2799,7 @@ x&apos;\in [x&apos;_0,x&apos;_0+\D x&apos;],\quad �y&apos;\in [y&apos;_0,y&apo
 <!--
 
 
-                                                                 ∆𝑉 = ∆𝑉0 √1 − 𝛽 2 .                                                                                         (5.20)                          --><a id="eq:LT_1_18"></a><!--
+                                                                 ∆𝑉 = ∆𝑉0 √1 − 𝛽 2 .                                                                                          (5.20)                         --><a id="eq:LT_1_18"></a><!--
 
 -->
 

@@ -6,7 +6,13 @@ APP_MAP = {
     '.1': 'А', '.2': 'Б', '.3': 'В', '.4': 'Г', '.5': 'Д', '.6': 'Е', '.7': 'Є'
 }
 
-PF_INIT = 'new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false });'
+PF_INIT = (
+    'new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false, '
+    'processResult: function (r) { var n = function (x) { return (x || "").replace(/\\s+/g, " ").trim(); }; '
+    'var t = n(r.meta && r.meta.title); '
+    'for (var i = 0, a = r.sub_results || []; i < a.length; i++) { '
+    'if (n(a[i].title) === t) { a[i].title = "Початок розділу"; } } return r; } });'
+)
 TEXTBODY = re.compile(r'<(?:div|section)\b[^>]*\bclass="textbody"[^>]*>')
 
 
@@ -41,13 +47,13 @@ def fix_sidetoc_and_mathjax():
             )
             new_content = re.sub(
                 r'(<div class="sidetoctitle">.*?</div>)',
-                r'\1\n' + search_box,
+                lambda m: m.group(1) + '\n' + search_box,
                 new_content,
                 flags=re.DOTALL
             )
 
         # 2б. Оновлюємо налаштування пошуку й у вже оброблених файлах
-        new_content = re.sub(r'new PagefindUI\(\{[^}]*\}\);', lambda m: PF_INIT, new_content)
+        new_content = re.sub(r'new PagefindUI\(\{.*?\}\);', lambda m: PF_INIT, new_content)
 
         # 3. Перенесення макросів MathJax на початок <body>
         match = re.search(
