@@ -14,6 +14,15 @@ RENEW = {'phi', 'epsilon', 'iint', 'iiint'}        # already defined in MathJax
 # Macros that MathJax must always have, even if mathjax-macros.tex lacks them or defines them in a way MathJax cannot read.
 # \emf (package emf) is \mathemf{E} in LaTeX: a calligraphic E in the BOONDOX-cal alphabet; MathJax has no such alphabet.
 ALWAYS = {'emf': r'\newcommand{\emf}{\mathcal{E}}'}
+# Автоматичне виправлення внутрішніх \mit<літера> команд lwarp для TOC:
+GREEK_LETTERS = [
+    'alpha', 'beta', 'gamma', 'delta', 'epsilon', 'zeta', 'eta', 'theta',
+    'iota', 'kappa', 'lambda', 'mu', 'nu', 'xi', 'pi', 'rho', 'sigma',
+    'tau', 'upsilon', 'phi', 'chi', 'psi', 'omega',
+    'varphi', 'varepsilon', 'vartheta'
+]
+for g in GREEK_LETTERS:
+    ALWAYS[f'mit{g}'] = f'\\newcommand{{\\mit{g}}}{{\\{g}}}'
 
 # Math operators that come from babel (Ukrainian/Russian), not from the class, so mathjax-macros.tex does not have them.
 BABEL_OPS = [('sh', 'sh'), ('ch', 'ch'), ('tg', 'tg'), ('ctg', 'ctg'), ('arctg', 'arctg'), ('arcctg', 'arcctg'), ('cth', 'cth'), ('cosec', 'cosec')]

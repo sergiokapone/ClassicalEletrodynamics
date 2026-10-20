@@ -190,6 +190,8 @@ Stage 3 'HTML build (lwarpmk, several passes - this is the long step)'
 # lwarpmk does not notice changes of the class or of included files: force the rebuild.
 Step 'lwarpmk again' { lwarpmk again -p $main }
 Step 'lwarpmk html' { lwarpmk html -p $main } "${main}_html.log"
+Step 'Fix MathJax position for sidetoc' { & $py fix_sidetoc.py }
+Step 'Sync TOC to index.html' { & $py sync_toc.py }
 
 # --- 4. checks ---------------------------------------------------------------------
 Stage 4 'Checks'

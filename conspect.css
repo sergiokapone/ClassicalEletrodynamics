@@ -120,8 +120,10 @@ main.bodycontainer{grid-column:2;grid-row:2;min-width:0}
 .sidetoccontents .sectionnumber{text-indent:0}
 .sidetoccontents .tocchapter .sectionnumber{color:var(--gold);font-variant-numeric:tabular-nums}
 .sidetoccontents .tocsection{
-  display:grid;grid-template-columns:2.7rem 1fr;align-items:baseline;
-  padding-left:1.6rem;color:var(--side-dim);
+  display: block;
+  padding-left: 4.3rem;
+  text-indent: -2.7rem;
+  color: var(--side-dim);
 }
 .sidetoccontents .tocsection .sectionnumber{font-variant-numeric:tabular-nums;opacity:.8}
 .sidetoccontents .tocsection:not(:has(.sectionnumber)){display:block;padding-left:calc(4.3rem + 1em);font-style:italic}
