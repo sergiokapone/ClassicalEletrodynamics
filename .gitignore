@@ -28,7 +28,7 @@ test.*
 _minted*/
 build/
 lateximages/
-*-images/
+# *-images/
 
 # === Конфігурація та скрипти Lwarp ===
 lwarpmk.conf
