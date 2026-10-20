@@ -78,15 +78,35 @@ def fix_sidetoc_and_mathjax():
             new_content = re.sub(pattern, replacement, new_content)
 
         # 6. Безпечна заміна "section 1.1" / "section A.1" на "розділ 1.1" у покажчику
-        # Регулярка спрацьовує ТІЛЬКИ у видимому тексті посилань (>section або , section)
         new_content = re.sub(r'(>|,\s*)section\s+([a-zA-Z\d\.]+)', r'\1розділ \2', new_content)
+
+        # 7. Усунення дублювання результатів у Pagefind:
+        # А) Завжди ігноруємо сайдбар (sidetoccontainer)
+        if 'data-pagefind-ignore' not in new_content:
+            new_content = new_content.replace(
+                '<div class="sidetoccontainer"',
+                '<div class="sidetoccontainer" data-pagefind-ignore'
+            )
+
+        # Б) Головний сукупний файл (ClassicalElectrodynamics-html.html або index.html) повністю ігноруємо
+        if filepath.endswith("-html.html") or filepath == "index.html":
+            if 'data-pagefind-ignore' not in new_content:
+                new_content = re.sub(r'(<body[^>]*>)', r'\1\n<div data-pagefind-ignore>', new_content, count=1)
+                new_content = new_content.replace('</body>', '</div>\n</body>')
+        else:
+            # В) В окремих файлах розділів (ch1.html, ch10.html) індексуємо ТІЛЬКИ блок контенту
+            if 'data-pagefind-body' not in new_content:
+                new_content = new_content.replace(
+                    '<div class="textbody">',
+                    '<div class="textbody" data-pagefind-body>'
+                )
 
         if new_content != content:
             with open(filepath, "w", encoding="utf-8") as f:
                 f.write(new_content)
             count += 1
 
-    print(f"Оновлено {count} HTML-файлів: додано пошук Pagefind, покажчик, додатки А, Б, В...")
+    print(f"Оновлено {count} HTML-файлів: додано пошук Pagefind, покажчик, додатки А, Б, В та оптимізовано індексацію.")
 
 if __name__ == "__main__":
     fix_sidetoc_and_mathjax()
