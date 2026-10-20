@@ -1,4 +1,5 @@
 import glob
+import os
 import re
 
 APP_MAP = {
@@ -10,6 +11,7 @@ def fix_sidetoc_and_mathjax():
     count = 0
 
     for filepath in html_files:
+        filename = os.path.basename(filepath)
         with open(filepath, "r", encoding="utf-8") as f:
             content = f.read()
 
@@ -80,33 +82,47 @@ def fix_sidetoc_and_mathjax():
         # 6. Безпечна заміна "section 1.1" / "section A.1" на "розділ 1.1" у покажчику
         new_content = re.sub(r'(>|,\s*)section\s+([a-zA-Z\d\.]+)', r'\1розділ \2', new_content)
 
-        # 7. Усунення дублювання результатів у Pagefind:
-        # А) Завжди ігноруємо сайдбар (sidetoccontainer)
+        # 7. Чітке розмежування індексації для Pagefind
+        # А) Завжди ігноруємо бокову панель
         if 'data-pagefind-ignore' not in new_content:
             new_content = new_content.replace(
                 '<div class="sidetoccontainer"',
                 '<div class="sidetoccontainer" data-pagefind-ignore'
             )
 
-        # Б) Головний сукупний файл (ClassicalElectrodynamics-html.html або index.html) повністю ігноруємо
-        if filepath.endswith("-html.html") or filepath == "index.html":
-            if 'data-pagefind-ignore' not in new_content:
-                new_content = re.sub(r'(<body[^>]*>)', r'\1\n<div data-pagefind-ignore>', new_content, count=1)
-                new_content = new_content.replace('</body>', '</div>\n</body>')
-        else:
-            # В) В окремих файлах розділів (ch1.html, ch10.html) індексуємо ТІЛЬКИ блок контенту
+        # Б) Перевіряємо, чи це окремий файл розділу/додатка (наприклад, ch1.html, ch10.html, app1.html)
+        is_chapter_file = bool(re.match(r'^(ch|app)\d+.*\.html$', filename, re.IGNORECASE))
+
+        if is_chapter_file:
+            # Позначаємо контент розділу для індексу
             if 'data-pagefind-body' not in new_content:
                 new_content = new_content.replace(
                     '<div class="textbody">',
                     '<div class="textbody" data-pagefind-body>'
                 )
 
+            # Ховаємо загальний h1 "Класична електродинаміка" від Pagefind,
+            # щоб заголовком картки стала назва розділу z h3
+            if 'data-pagefind-ignore' not in new_content.split('<div class="textbody">')[-1][:150]:
+                new_content = re.sub(
+                    r'(<div class="textbody"[^>]*>\s*)(<h1>.*?</h1>)',
+                    r'\1<div data-pagefind-ignore>\2</div>',
+                    new_content,
+                    flags=re.DOTALL,
+                    count=1
+                )
+        else:
+            # Всі інші сукупні файли (ClassicalElectrodynamics.html, index.html) блокуємо повністю
+            if 'data-pagefind-ignore' not in new_content:
+                new_content = re.sub(r'(<body[^>]*>)', r'\1\n<div data-pagefind-ignore>', new_content, count=1)
+                new_content = new_content.replace('</body>', '</div>\n</body>')
+
         if new_content != content:
             with open(filepath, "w", encoding="utf-8") as f:
                 f.write(new_content)
             count += 1
 
-    print(f"Оновлено {count} HTML-файлів: додано пошук Pagefind, покажчик, додатки А, Б, В та оптимізовано індексацію.")
+    print(f"Оновлено {count} HTML-файлів: додано пошук Pagefind, покажчик, додатки А, Б, В та налаштовано унікальну індексацію.")
 
 if __name__ == "__main__":
     fix_sidetoc_and_mathjax()
