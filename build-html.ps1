@@ -286,7 +286,13 @@ if ($script:problems -gt 0) {
     Write-Host ("Done in {0:mm\:ss}. Open {1}.html in a browser (internet is needed for MathJax)." -f $sw.Elapsed, $main) -ForegroundColor Green
 }
 
-Step 'Generate Search Index (Pagefind)' { npx -y pagefind --site . }
+# Index only the split chapter pages (ch*.html). Without --glob Pagefind also picks up the monolithic
+# ${main}_html.html, ${main}.html and Basics/Basics.html, which duplicate the chapters -> every hit shows twice.
+# The old pagefind/ folder is removed first so stale hashed index files do not pile up.
+Step 'Generate Search Index (Pagefind)' {
+    if (Test-Path 'pagefind') { Remove-Item 'pagefind' -Recurse -Force }
+    npx -y pagefind --site . --glob 'ch*.html'
+}
 
 Write-Host $SEP
 Write-Host
