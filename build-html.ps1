@@ -291,7 +291,7 @@ if ($script:problems -gt 0) {
 # The old pagefind/ folder is removed first so stale hashed index files do not pile up.
 Step 'Generate Search Index (Pagefind)' {
     if (Test-Path 'pagefind') { Remove-Item 'pagefind' -Recurse -Force }
-    npx -y pagefind --site . --glob 'ch*.html'
+    npx -y pagefind --site . --glob '{ch,app}*.html'
 }
 
 Write-Host $SEP

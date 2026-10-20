@@ -6,6 +6,10 @@ APP_MAP = {
     '.1': 'А', '.2': 'Б', '.3': 'В', '.4': 'Г', '.5': 'Д', '.6': 'Е', '.7': 'Є'
 }
 
+PF_INIT = 'new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false });'
+TEXTBODY = re.compile(r'<(?:div|section)\b[^>]*\bclass="textbody"[^>]*>')
+
+
 def fix_sidetoc_and_mathjax():
     html_files = glob.glob("*.html")
     count = 0
@@ -31,7 +35,7 @@ def fix_sidetoc_and_mathjax():
                 '<div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>\n'
                 '<script>\n'
                 '  window.addEventListener("DOMContentLoaded", (event) => {\n'
-                '    new PagefindUI({ element: "#search", showSubResults: true, resetFilters: false });\n'
+                f'    {PF_INIT}\n'
                 '  });\n'
                 '</script>\n'
             )
@@ -42,13 +46,16 @@ def fix_sidetoc_and_mathjax():
                 flags=re.DOTALL
             )
 
+        # 2б. Оновлюємо налаштування пошуку й у вже оброблених файлах
+        new_content = re.sub(r'new PagefindUI\(\{[^}]*\}\);', lambda m: PF_INIT, new_content)
+
         # 3. Перенесення макросів MathJax на початок <body>
         match = re.search(
             r'(<!--MathJax customizations:-->\s*<div data-nosnippet[^>]*>.*?</div>)',
             new_content,
             re.DOTALL
         )
-        if match:
+        if match and not re.search(r'<body[^>]*>\s*' + re.escape(match.group(1)), new_content):
             block = match.group(1)
             content_clean = new_content.replace(block, "")
             new_content = re.sub(
@@ -94,23 +101,31 @@ def fix_sidetoc_and_mathjax():
         is_chapter_file = bool(re.match(r'^(ch|app)\d+.*\.html$', filename, re.IGNORECASE))
 
         if is_chapter_file:
-            # Позначаємо контент розділу для індексу
-            if 'data-pagefind-body' not in new_content:
-                new_content = new_content.replace(
-                    '<div class="textbody">',
-                    '<div class="textbody" data-pagefind-body>'
-                )
+            # Блок тексту може бути <section class="textbody"> або <div class="textbody">
+            m = TEXTBODY.search(new_content)
+            if m:
+                tag = m.group(0)
+                # Позначаємо контент розділу для індексу
+                if 'data-pagefind-body' not in tag:
+                    new_content = new_content.replace(tag, tag[:-1] + ' data-pagefind-body>', 1)
+                    m = TEXTBODY.search(new_content)
 
-            # Ховаємо загальний h1 "Класична електродинаміка" від Pagefind,
-            # щоб заголовком картки стала назва розділу z h3
-            if 'data-pagefind-ignore' not in new_content.split('<div class="textbody">')[-1][:150]:
+                # Ховаємо загальний h1 "Класична електродинаміка" від Pagefind
                 new_content = re.sub(
-                    r'(<div class="textbody"[^>]*>\s*)(<h1>.*?</h1>)',
+                    r'(<(?:div|section)\b[^>]*\bclass="textbody"[^>]*>\s*)(<h1>.*?</h1>)',
                     r'\1<div data-pagefind-ignore>\2</div>',
                     new_content,
-                    flags=re.DOTALL,
-                    count=1
+                    count=1,
+                    flags=re.DOTALL
                 )
+
+                # Заголовком картки в пошуку стає назва розділу (перший h3 тексту)
+                m = TEXTBODY.search(new_content)
+                head, body = new_content[:m.end()], new_content[m.end():]
+                if 'data-pagefind-meta="title"' not in body:
+                    body = re.sub(r'<h3 (id="[^"]*")>', r'<h3 \1 data-pagefind-meta="title">', body, count=1)
+                new_content = head + body
+
         else:
             # Всі інші сукупні файли (ClassicalElectrodynamics.html, index.html) блокуємо повністю
             if 'data-pagefind-ignore' not in new_content:
