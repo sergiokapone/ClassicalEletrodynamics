@@ -465,17 +465,24 @@ nav.toc a:hover{color:var(--indigo)}
   scrollbar-width: thin;
 }
 
-#search .pagefind-ui__result-title a {
+/* Перекриваємо колір для ГОЛОВНИХ та ВКЛАДЕНИХ посилань/заголовків */
+#search .pagefind-ui__result-title,
+#search .pagefind-ui__result-title a,
+#search .pagefind-ui__result-link {
   color: var(--gold, #c99a2e) !important;
   text-decoration: none;
   font-weight: 600;
 }
 
-#search .pagefind-ui__result-title a:hover {
+#search .pagefind-ui__result-title a:hover,
+#search .pagefind-ui__result-link:hover {
   text-decoration: underline;
 }
 
-#search .pagefind-ui__result-excerpt {
+/* Перекриваємо колір для ТЕКСТУ уривків та вкладених блоків (showSubResults) */
+#search .pagefind-ui__result-excerpt,
+#search .pagefind-ui__result-nested,
+#search .pagefind-ui__result-nested * {
   color: var(--side-ink, #d9e2f3) !important;
   font-size: 0.8rem;
   line-height: 1.35;
@@ -487,8 +494,8 @@ nav.toc a:hover{color:var(--indigo)}
 }
 
 #search mark {
-  background-color: rgba(201, 154, 46, 0.3);
-  color: #fff;
+  background-color: rgba(201, 154, 46, 0.4);
+  color: #fff !important;
   border-radius: 2px;
   padding: 0 2px;
 }
