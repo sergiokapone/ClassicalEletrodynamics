@@ -1,0 +1,62 @@
+% !TeX program = lualatex
+\documentclass{ConspectBookHTML}
+
+%=================================================================================
+%							Вихідні дані документа
+%=================================================================================
+
+\title{Класична електродинаміка}
+\def\subtitle{Мікроскопічна теорія}
+\author{В.~І.~Жданов \and С.~М.~Пономаренко \and В.~Б.~Долгошей}
+
+%============================ Бібліографія =======================================
+
+\addbibresource{./bibliography/books.bib}
+
+%=================================================================================
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\input{preface}
+\input{measures}
+
+%------------------- Частина І -------------------
+\part{Класична електродинаміка}
+\label{part:I}
+\epigraph{Неможливо позбутися відчуття, що ці математичні формули існують незалежно від нас і володіють власним розумом, що вони мудріші за нас, мудріше навіть тих, хто їх відкрив, і що ми дістаємо з них більше, ніж спочатку було закладено\ldots}{Heinrich Hertz}
+
+\multiinclude{
+	Basics,
+	Solutions,
+	FreeField,
+	Radiation
+}[]
+
+%------------------- Частина IІ ------------------
+\part{Чотиривимірне формулювання класичної електродинаміки}
+\label{part:II}
+\epigraph{Рівняння Максвелла інваріантні відносно перетворень Лоренца~--- саме тому їх і можна записати красиво.}{Richard Feynman, \textit{The Feynman Lectures on Physics}, Vol.~II, Ch.~25}
+
+\multiinclude{
+	LorentzTransform,
+	Minkovsky,
+	RelElectrodynamics,
+	VariationPrinciple,
+	Tei,
+	RadiationReaction
+}[]
+
+%------------------- Додатки ---------------------
+\appendix
+\input{Additions/SGStoSI}
+\input{Additions/Vanaliz}
+\input{Additions/GeneralizedFunctions}
+\input{Additions/SpecialFunctions}
+
+%------------------- Бібліографія ----------------
+\printbibliography[heading=bibintoc]
+
+\end{document}

@@ -1,0 +1,4308 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Класична електродинаміка — Реакція випромінювання</title>
+<link rel="stylesheet" type="text/css" href="conspect.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+   subequations: "0",
+   section: "",
+   loader: {
+     load: ['[tex]/tagformat', '[tex]/textmacros'],
+   },
+   startup: {
+     ready() {
+       // These would be replaced by import commands if you wanted to make
+       // a proper extension.
+       const Configuration = MathJax._.input.tex.Configuration.Configuration;
+       const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+       const Macro = MathJax._.input.tex.Symbol.Macro;
+       const TexError = MathJax._.input.tex.TexError.default;
+       const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+       const expandable = MathJax._.util.Options.expandable;
+
+        // Insert the replacement string into the TeX string, and check
+        // that there haven't been too many maxro substitutions (prevents
+        // infinite loops).
+        const useArgument = (parser, text) => {
+          parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+          parser.i = 0;
+          if (++parser.macroCount > parser.configuration.options.maxMacros) {
+            throw new TexError('MaxMacroSub1',
+            'MathJax maximum macro substitution count exceeded; ' +
+            'is there a recursive macro call?');
+          }
+        }
+
+        // Create the command map for:
+        //     \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+        new CommandMap('Lwarp-macros', {
+          ifstar: 'IfstarFunction',
+          ifnextchar: 'IfnextcharFunction',
+          ifblank: 'IfblankFunction',
+          ifstrequal: 'IfstrequalFunction',
+          gsubstitute: 'GsubstituteFunction',
+          seteqnumber: 'SeteqnumberFunction'
+        }, {
+          // This function implements an ifstar macro.
+          IfstarFunction(parser, name) {
+             const resultstar = parser.GetArgument(name);
+             const resultnostar = parser.GetArgument(name);
+             const star = parser.GetStar();                 // true if there is a *
+             useArgument(parser, star ? resultstar : resultnostar);
+          },
+
+          // This function implements an ifnextchar macro.
+          IfnextcharFunction(parser, name) {
+             let whichchar = parser.GetArgument(name);
+             if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+               // $ syntax highlighting
+               whichchar = String.fromCodePoint(parseInt(whichchar));
+             }
+             const resultnextchar = parser.GetArgument(name);
+             const resultnotnextchar = parser.GetArgument(name);
+             const gotchar = (parser.GetNext() === whichchar);
+             useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+          },
+
+          // This function implements an ifblank macro.
+          IfblankFunction(parser, name) {
+             const blankarg = parser.GetArgument(name);
+             const resultblank = parser.GetArgument(name);
+             const resultnotblank = parser.GetArgument(name);
+             const isblank = (blankarg.trim() == "");
+             useArgument(parser, isblank ? resultblank : resultnotblank);
+          },
+
+          // This function implements an ifstrequal macro.
+          IfstrequalFunction(parser, name) {
+             const strequalfirst = parser.GetArgument(name);
+             const strequalsecond = parser.GetArgument(name);
+             const resultequal = parser.GetArgument(name);
+             const resultnotequal = parser.GetArgument(name);
+             const isequal = (strequalfirst == strequalsecond);
+             useArgument(parser, isequal ? resultequal : resultnotequal);
+          },
+
+          // This function implements a gsub macro.
+          GsubstituteFunction(parser, name) {
+             const gsubfirst = parser.GetArgument(name);
+             const gsubsecond = parser.GetArgument(name);
+             const gsubthird = parser.GetArgument(name);
+             let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+             useArgument(parser, gsubresult);
+          },
+
+          // This function modifies the equation numbers.
+          SeteqnumberFunction(parser, name) {
+              // Get the macro parameters
+              const star = parser.GetStar();                  // true if there is a *
+              const optBrackets = parser.GetBrackets(name);   // contents of optional brackets
+              const newsubequations = parser.GetArgument(name); // the subequations argument
+              const neweqsection = parser.GetArgument(name); // the eq section argument
+              const neweqnumber = parser.GetArgument(name);   // the eq number argument
+              MathJax.config.subequations=newsubequations ;   // a string with boolean meaning
+              MathJax.config.section=neweqsection ;           // a string with numeric meaning
+              parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+          }
+
+        });
+
+        // Create the Lwarp-macros package
+        Configuration.create('Lwarp-macros', {
+          handler: {macro: ['Lwarp-macros']}
+        });
+
+        MathJax.startup.defaultReady();
+
+        // For forward references:
+        MathJax.startup.input[0].preFilters.add(({math}) => {
+          if (math.inputData.recompile){
+              MathJax.config.subequations = math.inputData.recompile.subequations;
+              MathJax.config.section = math.inputData.recompile.section;
+          }
+        });
+        MathJax.startup.input[0].postFilters.add(({math}) => {
+          if (math.inputData.recompile){
+              math.inputData.recompile.subequations = MathJax.config.subequations;
+              math.inputData.recompile.section = MathJax.config.section;
+          }
+        });
+
+          // For \left, \right with unicode-math:
+          const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+          const {Symbol} = MathJax._.input.tex.Symbol;
+          const {MapHandler} = MathJax._.input.tex.MapHandler;
+          const delimiter = MapHandler.getMap('delimiter');
+          delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+          delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+          delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+          delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+          delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+          delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+          delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+          delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+          delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+          delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+          delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+          delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+          delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+          delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+          delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+          delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+          delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+          delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+          delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+          delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+          delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+          delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+          delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+          delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+          delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+          delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+          delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+          delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+          delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+          delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+          delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+          delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+          delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+          delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+          delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+          delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+          delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+          delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+          delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+    }     // ready
+  },      // startup
+
+  tex: {
+    packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+    tags: "ams",
+         tagformat: {
+             number: function (n) {
+                 if(MathJax.config.subequations==0)
+                      return(MathJax.config.section + n);
+                 else
+                      return(MathJax.config.section + String.fromCharCode(96+n));
+             },
+         },
+  }
+}
+</script>
+
+<script
+    id="MathJax-script"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="ClassicalElectrodynamics-html-autopage-235"></a>
+<div class="pagegrid">
+
+
+<nav class="topnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Home</a></nav>
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">Класична електродинаміка</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-4" class="tocchapter" >
+Передмова</a>
+</p>
+
+
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-5" class="tocchapter" >
+Вибір системи одиниць</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-8" class="tocpart" >
+<span class="sectionnumber">I</span>&#x2003;Класична електродинаміка</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-9" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Базові поняття та рівняння</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-10" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Величини, що спостерігаються в електродинаміці</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-25" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;Рівняння електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-42" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Закони збереження</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-46" class="tocsection" >
+<span class="sectionnumber">1.4</span>&#x2003;Межі застосовності класичної електродинаміки</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-58" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Розв’язки рівнянь Максвелла</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-59" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;Потенціали електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-65" class="tocsection" >
+<span class="sectionnumber">2.2</span>&#x2003;Потенціали ізольованої системи зарядів і струмів</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-70" class="tocsection" >
+<span class="sectionnumber">2.3</span>&#x2003;Задача Коші для рівнянь Максвелла</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-82" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Вільне електромагнітне поле</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-83" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Спектральний розклад і плоскі хвилі</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-89" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Випадкові поля випромінювання</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-116" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Співвідношення між тривалістю сигналу та шириною його спектру</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-118" class="tocsection" >
+<span class="sectionnumber">3.4</span>&#x2003;Загальний розв’язок рівнянь вільного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-127" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Випромінювання</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-128" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Поле прискореного заряду</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Випромінювання малих систем</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-138" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Розсіювання електромагнітних хвиль</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-151" class="tocpart" >
+<span class="sectionnumber">II</span>&#x2003;Чотиривимірне формулювання класичної електродинаміки</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-152" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Перетворення Лоренца як наслідок постулатів Айнштайна</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Простір-час, системи відліку</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-155" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Перетворення Лоренца для одновимірних рухів систем відліку</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-164" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Власний час</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-165" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Квадрат інтервалу</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-169" class="tocsection" >
+<span class="sectionnumber">5.5</span>&#x2003;Перетворення довжини та об’єму</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-186" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Співвідношення СТВ у просторі Мінковського</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-189" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Загальні та власні перетворення Лоренца</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-191" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Вектори і тензори в просторі Мінковського</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-193" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Світові лінії та чотиривектор швидкості</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-199" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Електродинаміка у просторі Мінковського</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-200" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Чотиривимірна форма рівнянь Максвелла</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-203" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Трансформаційні властивості \(F_{\mitmu \mitnu }\)</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-208" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Рівняння руху зарядженої частинки</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-210" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Плоскі монохроматичні хвилі</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-211" class="tocsection" >
+<span class="sectionnumber">7.5</span>&#x2003;Ефект Доплера</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-216" class="tocsection" >
+<span class="sectionnumber">7.6</span>&#x2003;Вектор-потенціал електромагнітного поля у випадку ізольованої системи</a>
+</p>
+
+
+
+<p>
+<a href="ch8.html#autosec-220" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Варіаційний принцип для рівнянь електродинаміки</a>
+</p>
+
+
+
+<p>
+<a href="ch8.html#autosec-221" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;Заряд у зовнішньому електромагнітному полі</a>
+</p>
+
+
+
+<p>
+<a href="ch8.html#autosec-223" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Дія для електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-226" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Тензор енергії-імпульсу і закони збереження</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-227" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Чотири-імпульс системи тіл</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-231" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Енергія-імпульс електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-232" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;Тензор моменту імпульсу електромагнітної системи</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-237" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Реакція випромінювання</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-238" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Нерелятивістська сила Абрагама–Лоренца</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-240" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Релятивістське узагальнення</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-249" class="tocsection" >
+<span class="sectionnumber">.1</span>&#x2003;Таблиця переходу між гаусовою системою одиниць та SI</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-255" class="tocsection" >
+<span class="sectionnumber">.2</span>&#x2003;Основні формули векторного аналізу</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-271" class="tocsection" >
+<span class="sectionnumber">.3</span>&#x2003;Узагальнені функції</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-272" class="tocsection" >
+<span class="sectionnumber">.4</span>&#x2003;Фундаментальні розв’язки</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-273" class="tocsection" >
+<span class="sectionnumber">.5</span>&#x2003;Спеціальні функції</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>Класична електродинаміка</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+   style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\require {colortbl}\)
+
+\(\let \LWRorigcolumncolor \columncolor \)
+
+\(\renewcommand {\columncolor }[2][named]{\LWRorigcolumncolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\let \LWRorigrowcolor \rowcolor \)
+
+\(\renewcommand {\rowcolor }[2][named]{\LWRorigrowcolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\let \LWRorigcellcolor \cellcolor \)
+
+\(\renewcommand {\cellcolor }[2][named]{\LWRorigcellcolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\let \symnormal \mathit \)
+
+\(\let \symliteral \mathrm \)
+
+\(\let \symbb \mathbb \)
+
+\(\let \symbbit \mathbb \)
+
+\(\let \symcal \mathcal \)
+
+\(\let \symscr \mathscr \)
+
+\(\let \symfrak \mathfrak \)
+
+\(\let \symsfup \mathsf \)
+
+\(\let \symsfit \mathit \)
+
+\(\let \symbfsf \mathbf \)
+
+\(\let \symbfup \mathbf \)
+
+\(\newcommand {\symbfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symbfcal \mathcal \)
+
+\(\let \symbfscr \mathscr \)
+
+\(\let \symbffrak \mathfrak \)
+
+\(\let \symbfsfup \mathbf \)
+
+\(\newcommand {\symbfsfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symup \mathrm \)
+
+\(\let \symbf \mathbf \)
+
+\(\let \symit \mathit \)
+
+\(\let \symtt \mathtt \)
+
+\(\let \symbffrac \mathbffrac \)
+
+\(\newcommand {\mathfence }[1]{\mathord {#1}}\)
+
+\(\newcommand {\mathover }[1]{#1}\)
+
+\(\newcommand {\mathunder }[1]{#1}\)
+
+\(\newcommand {\mathaccent }[1]{#1}\)
+
+\(\newcommand {\mathbotaccent }[1]{#1}\)
+
+\(\newcommand {\mathalpha }[1]{\mathord {#1}}\)
+
+\(\def\upAlpha{\unicode{x0391}}\)
+
+\(\def\upBeta{\unicode{x0392}}\)
+
+\(\def\upGamma{\unicode{x0393}}\)
+
+\(\def\upDigamma{\unicode{x03DC}}\)
+
+\(\def\upDelta{\unicode{x0394}}\)
+
+\(\def\upEpsilon{\unicode{x0395}}\)
+
+\(\def\upZeta{\unicode{x0396}}\)
+
+\(\def\upEta{\unicode{x0397}}\)
+
+\(\def\upTheta{\unicode{x0398}}\)
+
+\(\def\upVartheta{\unicode{x03F4}}\)
+
+\(\def\upIota{\unicode{x0399}}\)
+
+\(\def\upKappa{\unicode{x039A}}\)
+
+\(\def\upLambda{\unicode{x039B}}\)
+
+\(\def\upMu{\unicode{x039C}}\)
+
+\(\def\upNu{\unicode{x039D}}\)
+
+\(\def\upXi{\unicode{x039E}}\)
+
+\(\def\upOmicron{\unicode{x039F}}\)
+
+\(\def\upPi{\unicode{x03A0}}\)
+
+\(\def\upVarpi{\unicode{x03D6}}\)
+
+\(\def\upRho{\unicode{x03A1}}\)
+
+\(\def\upSigma{\unicode{x03A3}}\)
+
+\(\def\upTau{\unicode{x03A4}}\)
+
+\(\def\upUpsilon{\unicode{x03A5}}\)
+
+\(\def\upPhi{\unicode{x03A6}}\)
+
+\(\def\upChi{\unicode{x03A7}}\)
+
+\(\def\upPsi{\unicode{x03A8}}\)
+
+\(\def\upOmega{\unicode{x03A9}}\)
+
+\(\def\itAlpha{\unicode{x1D6E2}}\)
+
+\(\def\itBeta{\unicode{x1D6E3}}\)
+
+\(\def\itGamma{\unicode{x1D6E4}}\)
+
+\(\def\itDigamma{\mathit{\unicode{x03DC}}}\)
+
+\(\def\itDelta{\unicode{x1D6E5}}\)
+
+\(\def\itEpsilon{\unicode{x1D6E6}}\)
+
+\(\def\itZeta{\unicode{x1D6E7}}\)
+
+\(\def\itEta{\unicode{x1D6E8}}\)
+
+\(\def\itTheta{\unicode{x1D6E9}}\)
+
+\(\def\itVartheta{\unicode{x1D6F3}}\)
+
+\(\def\itIota{\unicode{x1D6EA}}\)
+
+\(\def\itKappa{\unicode{x1D6EB}}\)
+
+\(\def\itLambda{\unicode{x1D6EC}}\)
+
+\(\def\itMu{\unicode{x1D6ED}}\)
+
+\(\def\itNu{\unicode{x1D6EE}}\)
+
+\(\def\itXi{\unicode{x1D6EF}}\)
+
+\(\def\itOmicron{\unicode{x1D6F0}}\)
+
+\(\def\itPi{\unicode{x1D6F1}}\)
+
+\(\def\itRho{\unicode{x1D6F2}}\)
+
+\(\def\itSigma{\unicode{x1D6F4}}\)
+
+\(\def\itTau{\unicode{x1D6F5}}\)
+
+\(\def\itUpsilon{\unicode{x1D6F6}}\)
+
+\(\def\itPhi{\unicode{x1D6F7}}\)
+
+\(\def\itChi{\unicode{x1D6F8}}\)
+
+\(\def\itPsi{\unicode{x1D6F9}}\)
+
+\(\def\itOmega{\unicode{x1D6FA}}\)
+
+\(\def\upalpha{\unicode{x03B1}}\)
+
+\(\def\upbeta{\unicode{x03B2}}\)
+
+\(\def\upvarbeta{\unicode{x03D0}}\)
+
+\(\def\upgamma{\unicode{x03B3}}\)
+
+\(\def\updigamma{\unicode{x03DD}}\)
+
+\(\def\updelta{\unicode{x03B4}}\)
+
+\(\def\upepsilon{\unicode{x03F5}}\)
+
+\(\def\upvarepsilon{\unicode{x03B5}}\)
+
+\(\def\upzeta{\unicode{x03B6}}\)
+
+\(\def\upeta{\unicode{x03B7}}\)
+
+\(\def\uptheta{\unicode{x03B8}}\)
+
+\(\def\upvartheta{\unicode{x03D1}}\)
+
+\(\def\upiota{\unicode{x03B9}}\)
+
+\(\def\upkappa{\unicode{x03BA}}\)
+
+\(\def\upvarkappa{\unicode{x03F0}}\)
+
+\(\def\uplambda{\unicode{x03BB}}\)
+
+\(\def\upmu{\unicode{x03BC}}\)
+
+\(\def\upnu{\unicode{x03BD}}\)
+
+\(\def\upxi{\unicode{x03BE}}\)
+
+\(\def\upomicron{\unicode{x03BF}}\)
+
+\(\def\uppi{\unicode{x03C0}}\)
+
+\(\def\upvarpi{\unicode{x03D6}}\)
+
+\(\def\uprho{\unicode{x03C1}}\)
+
+\(\def\upvarrho{\unicode{x03F1}}\)
+
+\(\def\upsigma{\unicode{x03C3}}\)
+
+\(\def\upvarsigma{\unicode{x03C2}}\)
+
+\(\def\uptau{\unicode{x03C4}}\)
+
+\(\def\upupsilon{\unicode{x03C5}}\)
+
+\(\def\upphi{\unicode{x03D5}}\)
+
+\(\def\upvarphi{\unicode{x03C6}}\)
+
+\(\def\upchi{\unicode{x03C7}}\)
+
+\(\def\uppsi{\unicode{x03C8}}\)
+
+\(\def\upomega{\unicode{x03C9}}\)
+
+\(\def\italpha{\unicode{x1D6FC}}\)
+
+\(\def\itbeta{\unicode{x1D6FD}}\)
+
+\(\def\itvarbeta{\unicode{x03D0}}\)
+
+\(\def\itgamma{\unicode{x1D6FE}}\)
+
+\(\def\itdigamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\itdelta{\unicode{x1D6FF}}\)
+
+\(\def\itepsilon{\unicode{x1D716}}\)
+
+\(\def\itvarepsilon{\unicode{x1D700}}\)
+
+\(\def\itzeta{\unicode{x1D701}}\)
+
+\(\def\iteta{\unicode{x1D702}}\)
+
+\(\def\ittheta{\unicode{x1D703}}\)
+
+\(\def\itvartheta{\unicode{x1D717}}\)
+
+\(\def\itiota{\unicode{x1D704}}\)
+
+\(\def\itkappa{\unicode{x1D705}}\)
+
+\(\def\itvarkappa{\unicode{x1D718}}\)
+
+\(\def\itlambda{\unicode{x1D706}}\)
+
+\(\def\itmu{\unicode{x1D707}}\)
+
+\(\def\itnu{\unicode{x1D708}}\)
+
+\(\def\itxi{\unicode{x1D709}}\)
+
+\(\def\itomicron{\unicode{x1D70A}}\)
+
+\(\def\itpi{\unicode{x1D70B}}\)
+
+\(\def\itvarpi{\unicode{x1D71B}}\)
+
+\(\def\itrho{\unicode{x1D70C}}\)
+
+\(\def\itvarrho{\unicode{x1D71A}}\)
+
+\(\def\itsigma{\unicode{x1D70E}}\)
+
+\(\def\itvarsigma{\unicode{x1D70D}}\)
+
+\(\def\ittau{\unicode{x1D70F}}\)
+
+\(\def\itupsilon{\unicode{x1D710}}\)
+
+\(\def\itphi{\unicode{x1D719}}\)
+
+\(\def\itvarphi{\unicode{x1D711}}\)
+
+\(\def\itchi{\unicode{x1D712}}\)
+
+\(\def\itpsi{\unicode{x1D713}}\)
+
+\(\def\itomega{\unicode{x1D714}}\)
+
+\(\let \lparen (\)
+
+\(\let \rparen )\)
+
+\(\newcommand {\cuberoot }[1]{\,{}^3\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\fourthroot }[1]{\,{}^4\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\longdivision }[1]{\mathord {\unicode {x027CC}#1}}\)
+
+\(\newcommand {\mathcomma }{,}\)
+
+\(\newcommand {\mathcolon }{:}\)
+
+\(\newcommand {\mathsemicolon }{;}\)
+
+\(\newcommand {\overbracket }[1]{\mathinner {\overline {\ulcorner {#1}\urcorner }}}\)
+
+\(\newcommand {\underbracket }[1]{\mathinner {\underline {\llcorner {#1}\lrcorner }}}\)
+
+\(\newcommand {\overbar }[1]{\mathord {#1\unicode {x00305}}}\)
+
+\(\newcommand {\ovhook }[1]{\mathord {#1\unicode {x00309}}}\)
+
+\(\newcommand {\ocirc }[1]{\mathord {#1\unicode {x0030A}}}\)
+
+\(\newcommand {\candra }[1]{\mathord {#1\unicode {x00310}}}\)
+
+\(\newcommand {\oturnedcomma }[1]{\mathord {#1\unicode {x00312}}}\)
+
+\(\newcommand {\ocommatopright }[1]{\mathord {#1\unicode {x00315}}}\)
+
+\(\newcommand {\droang }[1]{\mathord {#1\unicode {x0031A}}}\)
+
+\(\newcommand {\leftharpoonaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\rightharpoonaccent }[1]{\mathord {#1\unicode {x020D1}}}\)
+
+\(\newcommand {\vertoverlay }[1]{\mathord {#1\unicode {x020D2}}}\)
+
+\(\newcommand {\leftarrowaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\annuity }[1]{\mathord {#1\unicode {x020E7}}}\)
+
+\(\newcommand {\widebridgeabove }[1]{\mathord {#1\unicode {x020E9}}}\)
+
+\(\newcommand {\asteraccent }[1]{\mathord {#1\unicode {x020F0}}}\)
+
+\(\newcommand {\threeunderdot }[1]{\mathord {#1\unicode {x020E8}}}\)
+
+\(\newcommand {\Bbbsum }{\mathop {\unicode {x2140}}\limits }\)
+
+\(\newcommand {\oiint }{\mathop {\unicode {x222F}}\limits }\)
+
+\(\newcommand {\oiiint }{\mathop {\unicode {x2230}}\limits }\)
+
+\(\newcommand {\intclockwise }{\mathop {\unicode {x2231}}\limits }\)
+
+\(\newcommand {\ointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\ointctrclockwise }{\mathop {\unicode {x2233}}\limits }\)
+
+\(\newcommand {\varointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\leftouterjoin }{\mathop {\unicode {x27D5}}\limits }\)
+
+\(\newcommand {\rightouterjoin }{\mathop {\unicode {x27D6}}\limits }\)
+
+\(\newcommand {\fullouterjoin }{\mathop {\unicode {x27D7}}\limits }\)
+
+\(\newcommand {\bigbot }{\mathop {\unicode {x27D8}}\limits }\)
+
+\(\newcommand {\bigtop }{\mathop {\unicode {x27D9}}\limits }\)
+
+\(\newcommand {\xsol }{\mathop {\unicode {x29F8}}\limits }\)
+
+\(\newcommand {\xbsol }{\mathop {\unicode {x29F9}}\limits }\)
+
+\(\newcommand {\bigcupdot }{\mathop {\unicode {x2A03}}\limits }\)
+
+\(\newcommand {\bigsqcap }{\mathop {\unicode {x2A05}}\limits }\)
+
+\(\newcommand {\conjquant }{\mathop {\unicode {x2A07}}\limits }\)
+
+\(\newcommand {\disjquant }{\mathop {\unicode {x2A08}}\limits }\)
+
+\(\newcommand {\bigtimes }{\mathop {\unicode {x2A09}}\limits }\)
+
+\(\newcommand {\modtwosum }{\mathop {\unicode {x2A0A}}\limits }\)
+
+\(\newcommand {\sumint }{\mathop {\unicode {x2A0B}}\limits }\)
+
+\(\newcommand {\intbar }{\mathop {\unicode {x2A0D}}\limits }\)
+
+\(\newcommand {\intBar }{\mathop {\unicode {x2A0E}}\limits }\)
+
+\(\newcommand {\fint }{\mathop {\unicode {x2A0F}}\limits }\)
+
+\(\newcommand {\cirfnint }{\mathop {\unicode {x2A10}}\limits }\)
+
+\(\newcommand {\awint }{\mathop {\unicode {x2A11}}\limits }\)
+
+\(\newcommand {\rppolint }{\mathop {\unicode {x2A12}}\limits }\)
+
+\(\newcommand {\scpolint }{\mathop {\unicode {x2A13}}\limits }\)
+
+\(\newcommand {\npolint }{\mathop {\unicode {x2A14}}\limits }\)
+
+\(\newcommand {\pointint }{\mathop {\unicode {x2A15}}\limits }\)
+
+\(\newcommand {\sqint }{\mathop {\unicode {x2A16}}\limits }\)
+
+\(\newcommand {\intlarhk }{\mathop {\unicode {x2A17}}\limits }\)
+
+\(\newcommand {\intx }{\mathop {\unicode {x2A18}}\limits }\)
+
+\(\newcommand {\intcap }{\mathop {\unicode {x2A19}}\limits }\)
+
+\(\newcommand {\intcup }{\mathop {\unicode {x2A1A}}\limits }\)
+
+\(\newcommand {\upint }{\mathop {\unicode {x2A1B}}\limits }\)
+
+\(\newcommand {\lowint }{\mathop {\unicode {x2A1C}}\limits }\)
+
+\(\newcommand {\bigtriangleleft }{\mathop {\unicode {x2A1E}}\limits }\)
+
+\(\newcommand {\zcmp }{\mathop {\unicode {x2A1F}}\limits }\)
+
+\(\newcommand {\zpipe }{\mathop {\unicode {x2A20}}\limits }\)
+
+\(\newcommand {\zproject }{\mathop {\unicode {x2A21}}\limits }\)
+
+\(\newcommand {\biginterleave }{\mathop {\unicode {x2AFC}}\limits }\)
+
+\(\newcommand {\bigtalloblong }{\mathop {\unicode {x2AFF}}\limits }\)
+
+\(\newcommand {\arabicmaj }{\mathop {\unicode {x1EEF0}}\limits }\)
+
+\(\newcommand {\arabichad }{\mathop {\unicode {x1EEF1}}\limits }\)
+
+\(\newcommand {\nicefrac }[3][]{\mathinner {{}^{#2}\!/\!_{#3}}}\)
+
+\(\require {mhchem}\)
+
+\(\newcommand {\toprule }[1][]{\hline }\)
+
+\(\let \midrule \toprule \)
+
+\(\let \bottomrule \toprule \)
+
+\(\def \LWRbooktabscmidruleparen (#1)#2{}\)
+
+\(\newcommand {\LWRbooktabscmidrulenoparen }[1]{}\)
+
+\(\newcommand {\cmidrule }[1][]{\ifnextchar (\LWRbooktabscmidruleparen \LWRbooktabscmidrulenoparen }\)
+
+\(\newcommand {\morecmidrules }{}\)
+
+\(\newcommand {\specialrule }[3]{\hline }\)
+
+\(\newcommand {\addlinespace }[1][]{}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\newcommand {\nfrac }[2]{{}^{#1}\!/{}_{#2}}\)
+
+\(\newcommand {\vect }[1]{\mathbf {#1}}\)
+
+\(\newcommand {\Efield }{\mathbf {E}}\)
+
+\(\newcommand {\Dfield }{\mathbf {D}}\)
+
+\(\newcommand {\Bfield }{\mathbf {B}}\)
+
+\(\newcommand {\Hfield }{\mathbf {H}}\)
+
+\(\newcommand {\rot }{\boldsymbol {\nabla }\times }\)
+
+\(\newcommand {\divg }{\boldsymbol {\nabla }\cdot }\)
+
+\(\newcommand {\grad }{\boldsymbol {\nabla }}\)
+
+\(\newcommand {\diff }[2]{\frac {\partial #1}{\partial #2}}\)
+
+\(\newcommand {\ddiff }[2]{\frac {\partial ^2 #1}{\partial #2^2}}\)
+
+\(\newcommand {\parttime }[1]{\frac {\partial {#1}}{\partial t}}\)
+
+\(\newcommand {\pparttime }[1]{\frac {\partial ^2{#1}}{\partial t^2}}\)
+
+\(\newcommand {\Laplasian }{\Delta }\)
+
+\(\newcommand {\Dalambertian }{\square \,}\)
+
+\(\DeclareMathOperator {\const }{const}\)
+
+\(\DeclareMathOperator {\Div }{div}\)
+
+\(\DeclareMathOperator {\Rot }{rot}\)
+
+\(\DeclareMathOperator {\Grad }{grad}\)
+
+\(\DeclareMathOperator {\inv }{inv}\)
+
+\(\newcommand {\emf }{\mathcal {E}}\)
+
+\(\DeclareMathOperator {\sh }{sh}\)
+
+\(\DeclareMathOperator {\ch }{ch}\)
+
+\(\DeclareMathOperator {\tg }{tg}\)
+
+\(\DeclareMathOperator {\ctg }{ctg}\)
+
+\(\DeclareMathOperator {\arctg }{arctg}\)
+
+\(\DeclareMathOperator {\arcctg }{arcctg}\)
+
+\(\DeclareMathOperator {\cth }{cth}\)
+
+\(\DeclareMathOperator {\cosec }{cosec}\)
+
+\(\let \symsf \symsfup \)
+
+\(\def\Alpha{\unicode{x0391}}\)
+
+\(\def\Beta{\unicode{x0392}}\)
+
+\(\def\Gamma{\unicode{x0393}}\)
+
+\(\def\Digamma{\unicode{x03DC}}\)
+
+\(\def\Delta{\unicode{x0394}}\)
+
+\(\def\Epsilon{\unicode{x0395}}\)
+
+\(\def\Zeta{\unicode{x0396}}\)
+
+\(\def\Eta{\unicode{x0397}}\)
+
+\(\def\Theta{\unicode{x0398}}\)
+
+\(\def\Vartheta{\unicode{x03F4}}\)
+
+\(\def\Iota{\unicode{x0399}}\)
+\(\def\Kappa{\unicode{x039A}}\)
+
+\(\def\Lambda{\unicode{x039B}}\)
+
+\(\def\Mu{\unicode{x039C}}\)
+
+\(\def\Nu{\unicode{x039D}}\)
+
+\(\def\Xi{\unicode{x039E}}\)
+
+\(\def\Omicron{\unicode{x039F}}\)
+
+\(\def\Pi{\unicode{x03A0}}\)
+
+\(\def\Varpi{\unicode{x03D6}}\)
+
+\(\def\Rho{\unicode{x03A1}}\)
+
+\(\def\Sigma{\unicode{x03A3}}\)
+
+\(\def\Tau{\unicode{x03A4}}\)
+
+\(\def\Upsilon{\unicode{x03A5}}\)
+
+\(\def\Phi{\unicode{x03A6}}\)
+
+\(\def\Chi{\unicode{x03A7}}\)
+
+\(\def\Psi{\unicode{x03A8}}\)
+
+\(\def\Omega{\unicode{x03A9}}\)
+
+\(\def\alpha{\unicode{x1D6FC}}\)
+
+\(\def\beta{\unicode{x1D6FD}}\)
+
+\(\def\varbeta{\unicode{x03D0}}\)
+
+\(\def\gamma{\unicode{x1D6FE}}\)
+
+\(\def\digamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\delta{\unicode{x1D6FF}}\)
+
+\(\def\epsilon{\unicode{x1D716}}\)
+
+\(\def\varepsilon{\unicode{x1D700}}\)
+
+\(\def\zeta{\unicode{x1D701}}\)
+
+\(\def\eta{\unicode{x1D702}}\)
+
+\(\def\theta{\unicode{x1D703}}\)
+
+\(\def\vartheta{\unicode{x1D717}}\)
+
+\(\def\iota{\unicode{x1D704}}\)
+
+\(\def\kappa{\unicode{x1D705}}\)
+
+\(\def\varkappa{\unicode{x1D718}}\)
+
+\(\def\lambda{\unicode{x1D706}}\)
+
+\(\def\mu{\unicode{x1D707}}\)
+
+\(\def\nu{\unicode{x1D708}}\)
+
+\(\def\xi{\unicode{x1D709}}\)
+
+\(\def\omicron{\unicode{x1D70A}}\)
+
+\(\def\pi{\unicode{x1D70B}}\)
+
+\(\def\varpi{\unicode{x1D71B}}\)
+
+\(\def\rho{\unicode{x1D70C}}\)
+
+\(\def\varrho{\unicode{x1D71A}}\)
+
+\(\def\sigma{\unicode{x1D70E}}\)
+
+\(\def\varsigma{\unicode{x1D70D}}\)
+
+\(\def\tau{\unicode{x1D70F}}\)
+
+\(\def\upsilon{\unicode{x1D710}}\)
+
+\(\def\phi{\unicode{x1D719}}\)
+
+\(\def\varphi{\unicode{x1D711}}\)
+
+\(\def\chi{\unicode{x1D712}}\)
+
+\(\def\psi{\unicode{x1D713}}\)
+
+\(\def\omega{\unicode{x1D714}}\)
+
+</div>
+
+<!--
+...... chapter Реакція випромінювання ......
+-->
+<h3 id="autosec-237">Розділ&nbsp;<span class="sectionnumber">10&#x2003;</span>Реакція випромінювання</h3>
+<a id="ClassicalElectrodynamics-html-autopage-237"></a>
+<a id="ClassicalElectrodynamics-html-autofile-10"></a>
+
+<a id="RadiationReaction"></a>
+
+<p>
+Досі при розгляді руху зарядженої частинки в зовнішньому полі ми нехтували впливом власного поля частинки на її рух. Такий підхід є послідовним у нерелятивістській границі, де власна енергія частинки незмінна, та й у загальному випадку є
+коректним наближенням, коли зміна кінетичної енергії за час порядку \(\tau _0 = q^2/(mc^3)\) мала порівняно з кінетичною енергією. Проте ситуація принципово змінюється, коли частинка рухається з прискоренням: вона
+випромінює&nbsp;<span class="textup">(<a href="ch4.html#eq:total_power_nonrel">4.11</a>)</span>, і це випромінювання переносить енергію та імпульс від частинки до поля. Виникає питання: яка саме сила уповільнює рух і відбирає в
+частинки енергію, що йде на випромінювання?
+</p>
+<!--
+...... section Нерелятивістська сила Абрагама–Лоренца ......
+-->
+<h4 id="autosec-238"><span class="sectionnumber">10.1&#x2003;</span>Нерелятивістська сила Абрагама–Лоренца</h4>
+<a id="ClassicalElectrodynamics-html-autopage-238"></a>
+
+
+<p>
+За наявності прискорення заряджена частинка випромінює, а її поле переносить енергію та імпульс. Згідно до законів збереження, таким чином, має бути зворотня реакція поля на рух частинки. У випадку континуальної системи з неперервними
+розподілами зарядів і струмів тут не виникає проблем. Натомість при розгляді точкових зарядів виникає потреба оцінювати самодію власного поля випромінювання на прискорену точкову частинку, а тут ми виходимо за межі застосування
+класичної електродинаміки. Тим не менш, за певних умов можна оцінити цю силу самодії (сила Абрагама-Лоренца; у релятивістському варіанті — сила Лоренца-Дірака). В літературі цю силу також називають силою реакції випромінювання (сила
+радіаційного гальмування, променеве тертя).
+</p>
+
+<p>
+Розглянемо нерелятивістський рух частинки із зарядом \(q\) та масою \(m\). Згідно з <span class="textup">(<a href="ch4.html#eq:total_power_nonrel">4.11</a>)</span>, потужність, що витрачається на випромінювання:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{0}\)</span>
+
+<!--
+
+
+                                                                         2𝑞2 2
+                                                                   𝑁=        𝐯̇ .                                                                             (10.1)                                       --><a id="eq:Larmor"></a><!--
+                                                                         3𝑐3
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Larmor} N = \frac {2q^2}{3c^3}\,\dot {\vect {v}}^2.
+\end{equation}
+
+</p>
+
+<p>
+За законом збереження енергії це дорівнює потужності (з протилежним знаком), яку витрачає сила реакції випромінювання \(\vect {f}_{r}\), яка діє на заряд:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{1}\)</span>
+
+<!--
+
+
+                                                            𝐟𝑟 ⋅ 𝐯 = −𝑁.                                                                         (10.2)                                            --><a id="eq:power_balance"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:power_balance} \vect {f}_{r} \cdot \vect {v} = -N.
+\end{equation}
+
+</p>
+
+<p>
+Формула <span class="textup">(<a href="ch10.html#eq:Larmor">10.1</a>)</span> описує потік енергії через сферу великого радіусу (а не безпосередньо в околі заряду); тому, строго кажучи, в баланс енергії треба включити енергію поля між
+частинкою та цією сферою. Застосуємо ці формули для фінітного руху, тоді енергію поля між частинкою та сферою великого радіусу будемо в середньому вважати незмінною і для руху з обмеженим прискоренням і швидкістю можна вимагати
+виконання балансу <span class="textup">(<a href="ch10.html#eq:Larmor">10.1</a>)</span> і <span class="textup">(<a href="ch10.html#eq:power_balance">10.2</a>)</span> для усереднених за часом величин.
+</p>
+
+<p>
+Усереднення за часом величини \(F(t)\) приймемо у вигляді
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{2}\)</span>
+
+<!--
+
+
+                                                                                                                                    ˆ
+                                                                                                                                    𝑡+𝑇
+                                                                                                                              1
+                                                                                                              ⟨𝐹(𝑡)⟩ = lim                 𝐹(𝑡)𝑑𝑡.
+                                                                                                                         𝑡→∞ 2𝑇
+                                                                                                                                   𝑡−𝑇
+
+-->
+
+<p>
+
+\begin{equation*}
+\langle F(t) \rangle =\lim \limits _{t\to \infty }\frac {1}{2T}\int \limits _{t-T}^{t+T}F(t)dt.
+\end{equation*}
+
+</p>
+
+<p>
+Зокрема,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{2}\)</span>
+
+<!--
+
+
+                                                                                                                    2𝑞2 2       2𝑞2
+                                                                                                                ⟨       𝐯̇ ⟩ = − 3 ⟨𝐯̈ ⋅ 𝐯⟩;                                                                                          (10.3)
+                                                                                                                    3𝑐3         3𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\left \langle \frac {2q^2}{3c^3}\,\dot {\vect {v}}^2 \right \rangle = -\frac {2q^2}{3c^3} \langle \ddot {\vect {v}}\cdot \vect {v} \rangle ;
+\end{equation}
+
+</p>
+
+<p>
+при виведенні цієї формули використано інтегрування частинами
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{3}\)</span>
+
+<!--
+
+
+                                                                                                       ˆ
+                                                                                                       𝑡+𝑇                                           ˆ
+                                                                                                                                                     𝑡+𝑇
+                                                                                                   1                           1          𝑡+𝑇
+                                                                                               lim           𝐯̇ ⋅ 𝐯̇ 𝑑𝑡 = lim    {[𝐯̇ ⋅ 𝐯]𝑡−𝑇 −            𝐯̈ ⋅ 𝐯𝑑𝑡}                                                                  (10.4)
+                                                                                              𝑡→∞ 2𝑇                      𝑡→∞ 2𝑇
+                                                                                                       𝑡−𝑇                                           𝑡−𝑇
+
+-->
+
+<p>
+
+\begin{equation}
+\lim \limits _{t\to \infty } \frac {1}{2T}\int \limits _{t-T}^{t+T} \dot {\vect {v}}\cdot \dot {\vect {v}}\, dt = \lim \limits _{t\to \infty } \frac {1}{2T}\left \{\left [\dot { \vect {v}}\cdot \vect {v}\right
+]_{t-T}^{t+T} -\int \limits _{t-T}^{t+T}\ddot { \vect {v}}\cdot \vect {v}dt\right \}
+\end{equation}
+
+</p>
+
+<p>
+та враховано, що при фінітному русі величина \(\dot { \vect {v}}\cdot \vect {v}\) є скінченною. З <span class="textup">(<a href="ch10.html#eq:Larmor">10.1</a>)</span>, <span class="textup">(<a
+href="ch10.html#eq:power_balance">10.2</a>)</span> маємо, що середній баланс енергії має місце, якщо покласти
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{4}\)</span>
+
+<!--
+
+
+                                                                   2𝑞2
+                                                            𝐟𝑟 =       𝐯̈ = 𝑚𝜏0 𝐚,̇                                                                        (10.5)                                       --><a id="eq:AL_force"></a><!--
+                                                                   3𝑐3
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:AL_force} \vect {f}_{r} = \frac {2q^2}{3c^3}\,\ddot {\vect {v}}=m\tau _0\vect {\dot a},
+\end{equation}
+
+</p>
+
+<p>
+де \(\vect {a} = \dot {\vect {v}}\) — прискорення, \(\tau _0 = 2q^2/(3mc^3)\) масштаб часу, властивий зарядженій частинці, \(m\) — її маса. Це — <em>формула Абрагама–Лоренца</em>.
+</p>
+
+<p>
+Для електрона характерний час становить \(\tau _0 \approx 6.3 \cdot 10^{-24}\)&nbsp;с. Просторовий масштаб, який з точністю до чисельного множника визначає <em>класичний радіус електрона</em> (див. розділ <a
+href="ch4.html#sec:scattering">4.3</a>):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{5}\)</span>
+
+<!--
+
+
+                                                                    𝑒2
+                                                           𝑅𝑒 =          ≈ 2.8 ⋅ 10−13 см.                                                                          (10.6)                                    --><a id="eq:Rcl"></a><!--
+                                                                   𝑚𝑒 𝑐2
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Rcl} R_e = \frac {e^2}{m_ec^2} \approx 2.8 \cdot 10^{-13}\text {~см}.
+\end{equation}
+
+</p>
+
+<p>
+Очевидно, подане виведення формули <span class="textup">(<a href="ch10.html#eq:AL_force">10.5</a>)</span> є нестрогим і навіть неоднозначним. Наприклад, до сили \(\vect {f}_r\) при усередненні можна додавати похідні за часом,
+які формально не змінюють енергетичного балансу. Але формулу <span class="textup">(<a href="ch10.html#eq:AL_force">10.5</a>)</span> можна отримати іншими способами, які, однак, стикаються з проблемами, що обумовлені
+обмеженими можливостями класичної електродинаміки для опису точкового електрона (див. розділ&nbsp;<a href="ch1.html#sec:CED_limits">1.4</a>).
+</p>
+
+<p>
+Найбільш прямий спосіб, який тут не наводимо, полягає у розгляді протяжної частинки скінченного радіусу. За допомогою потенціалів Лієнара-Віхерта можна розрахувати силу, з якою на окремий елемент частинки діють усі інші елементи, та
+обчислити сумарний внесок в рівняння руху. Якщо йдеться про електрон, який є точковою безструктурною частинкою <sup>1</sup>, далі розглядають границю \(R\to 0\). Втім, в межах класичної електродинаміки побудовати послідовну,
+самоузгоджену, модель точкової зарядженої частинки неможливо. З одного боку, при \(R\to 0\) електромагнітна енергія точкового заряду стає нескінченною. З іншого боку, для забезпечення стабільності частинки, щоб вона не руйнувалася
+завдяки відштовхуванню однойменних зарядів, необхідно вводити додаткові компенсуючі поля, які також можуть давати внесок в радіаційне тертя.
+</p>
+
+<p>
+Рівняння руху частинки з урахуванням зовнішньої сили \(\vect {F}\) та реакції випромінювання набуває вигляду:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{6}\)</span>
+
+<!--
+
+
+                                                                   𝑚𝐯̇ = 𝐅 + 𝐟𝑟 .                                                                             (10.7)                                       --><a id="eq:EOM_AL"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:EOM_AL} m\dot {\vect {v}} = \vect {F} + \vect f_r.
+\end{equation}
+
+</p>
+
+<p>
+Формула має сенс, якщо зміни власної енергії частинки під час руху є достатньо малими. Це — рівняння третього порядку відносно траєкторії частинки \(\vect {r}(t)\) і для визначення розв’язку при \(t&gt;0\) формально вимагає задавати
+початкове прискорення \(\ddot {\vect {r}}(0)\) (окрім початкових координати \(\vect {r}_0\) та швидкості \(\vect {v}_0\)), що не властиво класичній механіці. Крім того, якщо покласти \(\vect {F}\equiv 0\), рівняння <span
+class="textup">(<a href="ch10.html#eq:EOM_AL">10.7</a>)</span> допускає нефізичні <em>саморозгінні розв’язки</em> виду \(\vect {a}(t) = \vect {a}_0 \exp (t/\tau _0)\), тобто прискорення зростає необмежено з часом за відсутності
+зовнішніх сил. Це є наслідком переходу \(R\to 0\) і свідчить про обмежений характер рівняння <span class="textup">(<a href="ch10.html#eq:EOM_AL">10.7</a>)</span>. Умовою застосовності <span class="textup">(<a
+href="ch10.html#eq:EOM_AL">10.7</a>)</span> вважають
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{7}\)</span>
+
+<!--
+
+
+                                                                   |𝐟𝑟 | ≪ |𝐅| ,                                                                           (10.8)                                       --><a id="cond_approx"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {cond_approx} |\vect f_r|\ll |\vect {F}| \,,
+\end{equation}
+
+</p>
+
+<p>
+яке виключає саморозгінні розв’язки.
+</p>
+
+<p>
+За цієї умови замість <span class="textup">(<a href="ch10.html#eq:EOM_AL">10.7</a>)</span> часто використовують наближене рівняння, яке будують наступним чином. У нульовому наближенні розглядають <span class="textup">(<a
+href="ch10.html#eq:EOM_AL">10.7</a>)</span>) з силою \(\vect {F(\vect {\dot {r}, r})}\) без радіаційного тертя
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{8}\)</span>
+
+<!--
+
+
+                                                                                                                        𝑚𝐯̇ = 𝐅(𝐫,̇ 𝐫) .                                                                                              (10.9)
+
+-->
+
+<p>
+
+\begin{equation}
+m\dot {\vect {v}} = \vect {F(\dot r, r)}\,.
+\end{equation}
+
+</p>
+
+<p>
+Звідси
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{9}\)</span>
+
+<!--
+
+
+                                                                                                         𝑑             𝜕𝐅       𝜕𝐅      1 𝜕𝐅     𝜕𝐅
+                                                                                                𝑚𝐚̇ =       𝐅(𝑟,̇ 𝐫) =     𝐫̈ +    𝐫̇ ≈       𝐅+    𝐫.̇
+                                                                                                         𝑑𝑡            𝜕𝐫̇      𝜕𝐫      𝑚 𝜕𝐫̇    𝜕𝐫
+
+-->
+
+<p>
+
+\begin{equation*}
+m{\vect {\dot a}} = \frac {d}{dt}\vect {F}(\dot {r}, \vect {r}) = \frac {\partial \vect {F}}{\partial \dot {\vect {r}}}\ddot {\vect {r}} + \frac {\partial \vect {F} }{\partial \vect {r} }\dot {\vect {r}}
+\approx \frac {1}{m} \frac {\partial \vect {F}}{\partial \dot {\vect {r}}} \vect {F} + \frac {\partial \vect {F}}{\partial \vect {r}}\dot {\vect {r}}.
+\end{equation*}
+
+</p>
+
+<p>
+Звідси отримуємо другу похідну від швидкості \(\vect {\ddot v}\), яку слід підставити в <span class="textup">(<a href="ch10.html#eq:AL_force">10.5</a>)</span>
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{9}\)</span>
+
+<!--
+
+                                                                          1 𝜕𝐅     𝜕𝐅
+                                                     𝐟𝑟 = 𝑚𝜏0 𝐚̇ = 𝜏0 [         𝐅+    𝐫]̇ .                                                                 (10.10)                                        --><a id="AL_approx"></a><!--
+                                                                          𝑚 𝜕𝐫̇    𝜕𝐫
+
+-->
+
+<p>
+
+\begin{equation}
+\label {AL_approx} \vect {f}_{r} = m\tau _0\vect {\dot a} = \tau _0\left [ \frac {1}{m} \frac {\partial \vect {F} }{\partial \dot {\vect {r}}} \vect {F} +\frac {\partial \vect {F}}{\partial \vect {r}}\dot
+{\vect {r}} \right ].
+\end{equation}
+
+</p>
+
+<p>
+Підстановка <span class="textup">(<a href="ch10.html#AL_approx">10.10</a>)</span> в <span class="textup">(<a href="ch10.html#eq:EOM_AL">10.7</a>)</span> дає вже рівняння другого порядку відносно траєкторії частинки, яке не
+породжує саморозгінних розв’язків.
+</p>
+
+<p>
+Якщо сила \(\vect {F}\) обумовлена дією зовнішнього електромагнітного випромінювання з довжиною хвилі \(\lambda \), можна показати, що <span class="textup">(<a href="ch10.html#cond_approx">10.8</a>)</span> приводить до умови
+\(\lambda \gg R_e \) або \(\tau _0 \ll T\), де \(T\) — характерний час змін зовнішнього поля.
+</p>
+<div role="note" class="footnotes">
+
+<a id="ClassicalElectrodynamics-html-autopage-239"></a>
+<p>
+<sup>1</sup>&nbsp;Про це свідчать існуючі експериментальні дані по розсіюванню за участю електронів
+</p>
+
+
+</div>
+<!--
+...... section Релятивістське узагальнення ......
+-->
+<h4 id="autosec-240"><span class="sectionnumber">10.2&#x2003;</span>Релятивістське узагальнення</h4>
+<a id="ClassicalElectrodynamics-html-autopage-240"></a>
+
+
+<p>
+Для отримання релятивістського аналога&nbsp;<span class="textup">(<a href="ch10.html#eq:AL_force">10.5</a>)</span> зауважимо, що шукана 4-сила \(f^{\mu }\) повинна:
+</p>
+<ul class="itemize" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">•</span> задовольняти умові ортогональності до 4-швидкості: \(f_{\mu }u^{\mu } = 0\) (див.&nbsp;<span class="textup">(<a href="ch7.html#eq:force_orthohomality">7.8</a>)</span>);
+</p>
+
+</li>
+<li>
+
+<p>
+<span class="listmarker">•</span> переходити у&nbsp;<span class="textup">(<a href="ch10.html#eq:AL_force">10.5</a>)</span> в нерелятивістській границі.
+</p>
+</li>
+</ul>
+
+<p>
+З цих умов єдиний можливий вираз є:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{10}\)</span>
+
+<!--
+
+
+                                                            2𝑞2 𝑑𝑤𝜇
+                                                    𝑓𝜇 =       (    + 𝑤𝜈 𝑤𝜈 ᵆ𝜇 ) .                                           (10.11)                                                         --><a id="eq:LAD_force"></a><!--
+                                                             3   𝑑𝑠
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:LAD_force} f^{\mu } = \frac {2q^2}{3} \left ( \frac {dw^{\mu }}{ds} + w^{\nu }w_{\nu }\, u^{\mu } \right ).
+\end{equation}
+
+</p>
+
+<p>
+Це <em>сила Лоренца–Абрагама–Дірака</em>. Ортогональність легко перевіряється безпосередньо: \(f^{\mu }u_{\mu } = \frac {2q^2}{3}(u_{\mu }dw^{\mu }/ds + w^{\nu }w_{\nu })\), а оскільки \(d(w^{\mu }u_{\mu })/ds = (dw^{\mu
+}/ds)\,u_{\mu } + w^{\mu }w_{\mu } = 0\), то \(f^{\mu }u_{\mu } = 0\). Нерелятивістська границя відновлює формулу&nbsp;<span class="textup">(<a href="ch10.html#eq:AL_force">10.5</a>)</span>, що може бути перевірено
+безпосередньою підстановкою (див. задачу&nbsp;<a href="ch10.html#prb:AL">10.1</a>).
+</p>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-103"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 10.1.</span></span> <a id="autoid-104" ></a ><a id="prb:AL"></a> Покажіть, що у власній системі відліку частинки просторова частина 4-сили
+Лоренца-Абрагама-Дірака&nbsp;<span class="textup">(<a href="ch10.html#eq:LAD_force">10.11</a>)</span> переходить у нерелятивістську силу Абрагама-Лоренца&nbsp;<span class="textup">(<a
+href="ch10.html#eq:AL_force">10.5</a>)</span>, а часова компонента тотожно дорівнює нулю.
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+
+<p>
+Знайжемо релятивістський аналог наближення&nbsp;<span class="textup">(<a href="ch10.html#AL_approx">10.10</a>)</span>. Розглянемо рівняння руху:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{11}\)</span>
+
+<!--
+
+
+                                                      𝑑ᵆ𝜇              2𝑞2 𝑑𝑤𝜇
+                                                𝑚𝑐2       = 𝑞𝐹 𝜇𝜈 ᵆ𝜈 +    (    + 𝑤𝜈 𝑤𝜈 ᵆ𝜇 ) .                                   (10.12)                                                          --><a id="eq:full_EOM"></a><!--
+                                                       𝑑𝑠               3   𝑑𝑠
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:full_EOM} mc^2\,\frac {du^{\mu }}{ds} = qF^{\mu \nu }u_{\nu } + \frac {2q^2}{3}\left (\frac {dw^{\mu }}{ds} + w^{\nu }w_{\nu }\,u^{\mu }\right ).
+\end{equation}
+
+</p>
+
+<p>
+Оскільки другий доданок малий, у ньому достатньо використати нульове наближення для 4-прискорення, тобто покласти
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{12}\)</span>
+
+<!--
+
+                                                                        𝑞
+                                                                𝑤𝜇 =       𝐹 𝜇𝜈 ᵆ𝜈 .                                               (10.13)                                                         --><a id="eq:w_zero"></a><!--
+                                                                       𝑚𝑐2
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:w_zero} w^{\mu } = \frac {q}{mc^2}F^{\mu \nu }u_{\nu }.
+\end{equation}
+
+</p>
+
+<p>
+Другий доданок у&nbsp;<span class="textup">(<a href="ch10.html#eq:LAD_force">10.11</a>)</span> обчислюється підстановкою&nbsp;<span class="textup">(<a href="ch10.html#eq:w_zero">10.13</a>)</span> безпосередньо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{13}\)</span>
+
+<!--
+
+
+                                                                      𝑞2
+                                                           𝑤𝜈 𝑤𝜈 =         (𝐹 𝜈𝛼 ᵆ𝛼 )(𝐹𝜈𝛽 ᵆ𝛽 ).                                           (10.14)                                                       --><a id="eq:ww"></a><!--
+                                                                     𝑚2 𝑐4
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:ww} w^{\nu }w_{\nu } = \frac {q^2}{m^2c^4}\, \bigl (F^{\nu \alpha }u_{\alpha }\bigr )\bigl (F_{\nu \beta }u^{\beta }\bigr ).
+\end{equation}
+
+</p>
+
+<p>
+Для першого доданка диференціюємо&nbsp;<span class="textup">(<a href="ch10.html#eq:w_zero">10.13</a>)</span> по \(s\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{14}\)</span>
+
+<!--
+
+
+                                             𝑑𝑤𝜇    𝑞 𝑑                 𝑞                     𝑑ᵆ
+                                                 =        (𝐹 𝜇𝜈 ᵆ𝜈 ) =    (𝜕 𝐹 𝜇𝜈 ᵆ𝛼 ᵆ𝜈 + 𝐹 𝜇𝜈 𝜈 ) .                                (10.15)                                                         --><a id="eq:dw_ds"></a><!--
+                                              𝑑𝑠   𝑚𝑐2 𝑑𝑠              𝑚𝑐2 𝛼                   𝑑𝑠
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:dw_ds} \frac {dw^{\mu }}{ds} = \frac {q}{mc^2}\frac {d}{ds}\bigl (F^{\mu \nu }u_{\nu }\bigr ) = \frac {q}{mc^2}\left ( \partial _{\alpha }F^{\mu \nu }\,u^{\alpha }u_{\nu } + F^{\mu \nu }\frac
+{du_{\nu }}{ds} \right ).
+\end{equation}
+
+</p>
+
+<p>
+У другому доданку&nbsp;<span class="textup">(<a href="ch10.html#eq:dw_ds">10.15</a>)</span> знову підставляємо нульове наближення \(du_{\nu }/ds = w_{\nu }\), визначене формулою&nbsp;<span class="textup">(<a
+href="ch10.html#eq:w_zero">10.13</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{15}\)</span>
+
+<!--
+
+                                                                            𝑞
+                                                               𝐹 𝜇𝜈 𝑤𝜈 =       𝐹 𝜇𝜈 𝐹𝜈𝛼 ᵆ𝛼 .                                              (10.16)                                                       --><a id="eq:Fw"></a><!--
+                                                                           𝑚𝑐2
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Fw} F^{\mu \nu }w_{\nu } = \frac {q}{mc^2}F^{\mu \nu }F_{\nu \alpha }u^{\alpha }.
+\end{equation}
+
+</p>
+
+<p>
+Підставляючи&nbsp;<span class="textup">(<a href="ch10.html#eq:ww">10.14</a>)</span>–<span class="textup">(<a href="ch10.html#eq:Fw">10.16</a>)</span> у вираз для сили&nbsp;<span class="textup">(<a
+href="ch10.html#eq:LAD_force">10.11</a>)</span>, отримуємо релятивістське наближення формули&nbsp;<span class="textup">(<a href="ch10.html#AL_approx">10.10</a>)</span><sup>2</sup><a
+id="ClassicalElectrodynamics-html-autopage-241"></a>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{10.}{16}\)</span>
+
+<!--
+
+
+                                    𝜇       2𝑞3                  𝑞                 𝑞
+                                   𝑓ЛЛ =        [𝜕 𝐹 𝜇𝜈 ᵆ𝛼 ᵆ𝜈 +     𝐹 𝜇𝛼 𝐹𝛼𝜈 ᵆ𝜈 +    (𝐹 ᵆ𝜈 )(𝐹 𝛼𝛽 ᵆ𝛽 )ᵆ𝜇 ] .                    (10.17)                                                          --><a id="eq:LL_force"></a><!--
+                                           3𝑚𝑐2 𝛼               𝑚𝑐2               𝑚𝑐2 𝛼𝜈
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:LL_force} f^{\mu }_\text {ЛЛ} = \frac {2q^3}{3mc^2} \left [ \partial _{\alpha }F^{\mu \nu }\,u^{\alpha }u_{\nu } + \frac {q}{mc^2}F^{\mu \alpha }F_{\alpha \nu }u^{\nu } + \frac {q}{mc^2} \bigl
+(F_{\alpha \nu }u^{\nu }\bigr )\!\bigl (F^{\alpha \beta }u_{\beta }\bigr ) u^{\mu }\textsc {} \right ].
+\end{equation}
+
+</p>
+
+<p>
+Три доданки мають прозорий зміст: перший враховує неоднорідність поля вздовж траєкторії, другий — подвійну дію поля на 4-швидкість, третій забезпечує ортогональність \(f^{\mu }u_{\mu }=0\), яку легко перевірити безпосередньо.
+Сила&nbsp;<span class="textup">(<a href="ch10.html#eq:LL_force">10.17</a>)</span> не породжує саморозгінних розв’язків і передприскорення, оскільки містить лише першу похідну за власним часом, а не третю, як рівняння&nbsp;<span
+class="textup">(<a href="ch10.html#eq:EOM_AL">10.7</a>)</span>. Вона є коректним описом реакції випромінювання у всіх практичних ситуаціях, де \(\tau _0 \ll T\).
+</p>
+<div role="note" class="footnotes">
+
+<a id="ClassicalElectrodynamics-html-autopage-242"></a>
+<p>
+<sup>2</sup>&nbsp;Це наближення отримане в&nbsp;[LandauLifshitz2003], тому в літературі його також називають <em>наближенням Ландау-Ліфшиця</em>.
+</p>
+
+
+</div>
+<!--
+...... section Задачі ......
+-->
+<h4 id="autosec-243">Задачі</h4>
+<a id="ClassicalElectrodynamics-html-autopage-243"></a>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-105"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 10.2.</span></span> <a id="autoid-106" ></a >Довести, що в нерелятивістській границі 4-сила&nbsp;<span class="textup">(<a
+href="ch10.html#eq:LAD_force">10.11</a>)</span> зводиться до формули Абрагама–Лоренца <span class="textup">(<a href="ch10.html#eq:AL_force">10.5</a>)</span>. <em>Вказівка.</em> Покласти \(u^{\mu } \approx (1, \vect
+{v}/c)\), \(w^{\mu } = du^{\mu }/ds \approx (0, \dot {\vect {v}}/c^2)\), враховуючи, що \(ds \approx c\,dt\) при \(v \ll c\).
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-107"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 10.3.</span></span> <a id="autoid-108" ></a >Заряджений гармонічний осцилятор із зарядом \(q\), масою \(m\) та власною частотою \(\omega _0\) знаходиться під
+впливом сили реакції випромінювання. Показати, що в рівнянні руху з’являється «затухання», і знайти декремент загасання.
+</p>
+
+<p>
+
+
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-109"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 10.4.</span></span> <a id="autoid-110" ></a ><a id="prb:runaway"></a> Записати загальний розв’язок однорідного рівняння&nbsp;<span class="textup">(<a
+href="ch10.html#eq:EOM_AL">10.7</a>)</span> (при \(\vect {F}=0\)) і знайти умову на початкові дані, що виключає саморозгінний розв’язок.
+</p>
+
+<p>
+
+
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-111"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 10.5.</span></span> <a id="autoid-112" ></a >Частинка із зарядом \(q\) та масою \(m\) рухається в однорідному магнітному полі \(\Bfield \) по колу. Знайти час, за який
+частинка гальмується до зупинки внаслідок втрат на випромінювання, вважаючи нерелятивістський рух і початкову швидкість \(v_0 \ll c\). <em>Вказівка.</em> Скористатись формулою&nbsp;<span class="textup">(<a
+href="ch10.html#eq:Larmor">10.1</a>)</span> та законом збереження енергії. Прискорення при рівномірному русі по колу: \(|\dot {\vect {v}}| = \omega _c v\), \(\omega _c = qB/(mc)\).
+</p>
+
+<p>
+
+
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-113"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 10.6.</span></span> <a id="autoid-114" ></a ><a id="prb:LL_crossed"></a> Релятивістська заряджена частинка з масою \(m\) та зарядом \(q\) рухається в однорідних
+схрещених полях \(\Efield \perp \Bfield \), \(E &lt; B\). Знайти силу реакції випромінювання в наближенні Ландау–Ліфшиця та показати, що вона має компоненту, перпендикулярну до швидкості, яка спричиняє дрейф траєкторії у
+напрямку \(\Efield \times \Bfield \).
+</p>
+
+<p>
+<em>Вказівка.</em> Для однорідних полів \(\partial _{\alpha }F^{\mu }{}_{\nu }=0\). Скористатись лоренц-інваріантом <span class="textup">(<a href="ch7.html#eq:inv1">7.5</a>)</span>: \(\mathcal {I}_1 = F_{\alpha \nu
+}F^{\alpha \nu } = - 2(\Efield ^2 - \Bfield ^2) &gt; 0\).
+</p>
+
+<p>
+
+
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<!--
+...... section Таблиця переходу між гаусовою системою одиниць та SI ......
+-->
+<h4 id="autosec-249"><span class="sectionnumber">.1&#x2003;</span>Таблиця переходу між гаусовою системою одиниць та SI</h4>
+<a id="ClassicalElectrodynamics-html-autopage-249"></a>
+
+
+<a id="sec:SGStoSI"></a>
+
+<p>
+Для коректного читання та інтерпретації літератури з класичної електродинаміки необхідно вільно орієнтуватися в різних системах одиниць, зокрема в системі СІ та гаусовій системі (СГС). Це пов’язано з тим, що різні джерела використовують
+різні системи одиниць: фундаментальні теоретичні праці традиційно формулюються в СГС, тоді як у сучасній навчальній і прикладній літературі переважає система СІ. Тому необхідно впевнено володіти перевідними співвідношеннями між цими
+системами для основних фізичних величин.
+</p>
+
+<p>
+Перехід між системами одиниць не зводиться до простого масштабування величин, а супроводжується зміною вигляду рівнянь. У системі&nbsp;SI рівняння містять константи \(\varepsilon _0\) та \(\mu _0\), тоді як у гаусовій системі вони
+відсутні, і відповідні коефіцієнти з’являються у вигляді множників \(4 \pi \). Тому необхідно враховувати не лише перевідні співвідношення, але й зміну структури рівнянь.
+</p>
+
+<figure id="autoid-115" class="table ">
+<div class="center">
+
+
+<div class="figurecaption">
+Таблиця&nbsp;1. Перехід між гаусовою системою одиниць та SI
+
+</div>
+
+<a id="tab:CGStoSI"></a>
+
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-html-19"
+    class="lateximagesource"
+><!--
+           Величина              Система СГС   Система SI
+
+Швидкість світла                      𝑐        (𝜀0 𝜇0 )−1/2
+                                                 1
+Напруженість електричного поля      𝐄СГС               𝐄СГС
+                                               √4𝜋𝜀0
+                                                 1
+Електричний потенціал               𝜑СГС               𝜑СГС
+                                               √4𝜋𝜀0
+                                                 1
+Магнітна індукція                   𝐁СГС               𝐁СГС
+                                               √4𝜋𝜇0
+                                                 1
+Вектор-потенціал                    𝐀СГС               𝐀СГС
+                                               √4𝜋𝜇0
+
+Густина заряду                      𝜌СГС       √4𝜋𝜀0 𝜌СГС
+
+Заряд                               𝑞СГС       √4𝜋𝜀0 𝑞СГС
+
+Густина струму                      𝐣СГС       √4𝜋𝜀0 𝐣СГС
+--><img
+   src="ClassicalElectrodynamics-html-images\image-19.svg"
+   alt="(table)"
+   style=""
+   class="lateximage"
+></span>
+</p>
+</div>
+
+</figure>
+<!--
+...... subsection Приклад: переписування рівнянь Максвела з гаусової системи (СГС) в SI ......
+-->
+<h5 id="autosec-253">Приклад: переписування рівнянь Максвела з гаусової системи (СГС) в SI</h5>
+<a id="ClassicalElectrodynamics-html-autopage-253"></a>
+
+
+<p>
+Розглянемо перехід від гаусової системи (СГС) до системи&nbsp;SI на прикладі рівнянь Максвелла. Це дозволяє простежити зміну вигляду рівнянь при переході між системами одиниць.
+</p>
+
+<p>
+У гаусовій системі рівняння Максвела для вакууму мають вигляд:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+
+                                                                                                                                                      1 𝜕𝐁СГС
+                                                                                              div 𝐄СГС = 4𝜋𝜌СГС ,                  rot 𝐄СГС = −               ,
+                                                                                                                                                      𝑐 𝜕𝑡
+                                                                                                                                                  4𝜋      1 𝜕𝐄СГС
+                                                                                              div 𝐁СГС = 0,                        rot 𝐁СГС =        𝐣  +         .
+                                                                                                                                                   𝑐 СГС 𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\begin{aligned} \Div \Efield _{\text {СГС}} &amp; = 4\pi \rho _{\text {СГС}}, &amp; \qquad \Rot \Efield _{\text {СГС}} &amp; = -\frac {1}{c}\frac {\partial \Bfield _{\text {СГС}}}{\partial t}, \\[4pt] \Div
+\Bfield _{\text {СГС}} &amp; = 0, &amp; \qquad \Rot \Bfield _{\text {СГС}} &amp; = \frac {4\pi }{c}\vect {j}_{\text {СГС}} + \frac {1}{c}\frac {\partial \Efield _{\text {СГС}}}{\partial t}. \end {aligned}
+\end{equation*}
+
+</p>
+
+<p>
+З таблиці беремо перевідні співвідношення (позначимо величини в SI тим же символом без індексу):
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+
+<!--
+
+
+
+                                                                                                           𝐄СГС = √4𝜋𝜀0 𝐄,              𝐁СГС = √4𝜋𝜇0 𝐁,
+                                                                                                                           𝜌                      𝐣
+                                                                                                           𝜌СГС =              ,       𝐣СГС =           ,
+                                                                                                                      √4𝜋𝜀0                     √4𝜋𝜀0
+                                                                                                                  1
+                                                                                                           𝑐=          .
+                                                                                                                √𝜀0 𝜇0
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+&amp; \Efield _{\text {СГС}} = \sqrt {4\pi \varepsilon _0}\,\Efield , \quad \Bfield _{\text {СГС}} = \sqrt {4\pi \mu _0}\,\Bfield , \\ &amp; \rho _{\text {СГС}} = \frac {\rho }{\sqrt {4\pi \varepsilon _0}},
+\quad \vect {j}_{\text {СГС}} = \frac {\vect {j}}{\sqrt {4\pi \varepsilon _0}}, \\ &amp; c = \frac {1}{\sqrt {\varepsilon _0\mu _0}}.
+\end{align*}
+
+</p>
+
+<p>
+Підставимо в перше рівняння (теорема Гауса):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+
+                                                                                                                 𝜌                                      4𝜋              𝜌
+                                                                                       div(√4𝜋𝜀0 𝐄) = 4𝜋 ⋅                 ⟹ √4𝜋𝜀0 div 𝐄 =                  𝜌 ⟹ div 𝐄 =    .
+                                                                                                              √4𝜋𝜀0                                    √ 𝜀0             𝜀0
+
+-->
+
+<p>
+
+\begin{equation*}
+\Div \bigl ( \sqrt {4\pi \varepsilon _0}\,\Efield \bigr ) = 4\pi \cdot \frac {\rho }{\sqrt {4\pi \varepsilon _0}} \;\Longrightarrow \; \sqrt {4\pi \varepsilon _0}\,\Div \Efield = \sqrt {\frac {4\pi
+}{\varepsilon _0}}\,\rho \;\Longrightarrow \; \Div \Efield = \frac {\rho }{\varepsilon _0}.
+\end{equation*}
+
+</p>
+
+<p>
+Друге рівняння (закон електромагнітної індукції Фарадея):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+                                                                                                                                        1 𝜕
+                                                                                                             rot(√4𝜋𝜀0 𝐄) = −                (√4𝜋𝜇0 𝐁).
+                                                                                                                                        𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\Rot \bigl ( \sqrt {4\pi \varepsilon _0}\,\Efield \bigr ) = -\frac {1}{c}\frac {\partial }{\partial t}\bigl ( \sqrt {4\pi \mu _0}\,\Bfield \bigr ).
+\end{equation*}
+
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+
+                                                                                                                                         √4𝜋𝜇0 𝜕𝐁
+                                                                                                                √4𝜋𝜀0 rot 𝐄 = −                   .
+                                                                                                                                           𝑐   𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\sqrt {4\pi \varepsilon _0}\,\Rot \Efield = -\frac {\sqrt {4\pi \mu _0}}{c}\,\frac {\partial \Bfield }{\partial t}.
+\end{equation*}
+
+</p>
+
+<p>
+Оскільки \(c = 1/\sqrt {\varepsilon _0\mu _0}\), то \(\sqrt {\mu _0}/c = \sqrt {\mu _0}\sqrt {\varepsilon _0\mu _0} = \mu _0\sqrt {\varepsilon _0}\). Тоді:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+                                                                                                                                         𝜕𝐁             𝜕𝐁
+                                                                                                   √4𝜋𝜀0 rot 𝐄 = −√4𝜋𝜀0 𝜇0                  ⟹ rot 𝐄 = −    .
+                                                                                                                                         𝜕𝑡             𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\sqrt {4\pi \varepsilon _0}\,\Rot \Efield = -\sqrt {4\pi \varepsilon _0}\,\mu _0\,\frac {\partial \Bfield }{\partial t} \;\Longrightarrow \; \Rot \Efield = -\frac {\partial \Bfield }{\partial t}.
+\end{equation*}
+
+</p>
+
+<p>
+Третє рівняння:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+
+                                                                                                             div(√4𝜋𝜇0 𝐁) = 0 ⟹ div 𝐁 = 0.
+
+-->
+
+<p>
+
+\begin{equation*}
+\Div \bigl ( \sqrt {4\pi \mu _0}\,\Bfield \bigr ) = 0 \;\Longrightarrow \; \Div \Bfield = 0.
+\end{equation*}
+
+</p>
+
+<p>
+Четверте рівняння:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+
+                                                                                                                           4𝜋     𝐣     1 𝜕
+                                                                                                    rot(√4𝜋𝜇0 𝐁) =            ⋅       +      (√4𝜋𝜀0 𝐄).
+                                                                                                                            𝑐   √4𝜋𝜀0   𝑐 𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\Rot \bigl ( \sqrt {4\pi \mu _0}\,\Bfield \bigr ) = \frac {4\pi }{c}\cdot \frac {\vect {j}}{\sqrt {4\pi \varepsilon _0}} + \frac {1}{c}\frac {\partial }{\partial t}\bigl ( \sqrt {4\pi \varepsilon _0}\,\Efield
+\bigr ).
+\end{equation*}
+
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+
+                                                                                                                                   4𝜋            √4𝜋𝜀0 𝜕𝐄
+                                                                                                          √4𝜋𝜇0 rot 𝐁 =                    𝐣+             .
+                                                                                                                               𝑐√4𝜋𝜀0              𝑐   𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\sqrt {4\pi \mu _0}\,\Rot \Bfield = \frac {4\pi }{c\sqrt {4\pi \varepsilon _0}}\,\vect {j} + \frac {\sqrt {4\pi \varepsilon _0}}{c}\,\frac {\partial \Efield }{\partial t}.
+\end{equation*}
+
+</p>
+
+<p>
+Використаємо \(c = 1/\sqrt {\varepsilon _0\mu _0}\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+
+                                                                                              4𝜋                           1           4𝜋√𝜀0 𝜇0
+                                                                                                    = 4𝜋√𝜀0 𝜇0 ⋅                   =               = √4𝜋√𝜇0 = √4𝜋𝜇0 .
+                                                                                           𝑐√4𝜋𝜀0                      √4𝜋𝜀0            √4𝜋𝜀0
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {4\pi }{c\sqrt {4\pi \varepsilon _0}} = 4\pi \sqrt {\varepsilon _0\mu _0}\cdot \frac {1}{\sqrt {4\pi \varepsilon _0}} = \frac {4\pi \sqrt {\varepsilon _0\mu _0}}{\sqrt {4\pi \varepsilon _0}} = \sqrt {4\pi
+}\sqrt {\mu _0} = \sqrt {4\pi \mu _0}.
+\end{equation*}
+
+</p>
+
+<p>
+А другий доданок: \(\frac {\sqrt {4\pi \varepsilon _0}}{c} = \sqrt {4\pi \varepsilon _0}\sqrt {\varepsilon _0\mu _0} = \sqrt {4\pi }\,\varepsilon _0\sqrt {\mu _0}\).
+</p>
+
+<p>
+Отже:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+                                                                                                                                                              𝜕𝐄
+                                                                                                      √4𝜋𝜇0 rot 𝐁 = √4𝜋𝜇0 𝐣 + √4𝜋 𝜀0 √𝜇0                         .
+                                                                                                                                                              𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\sqrt {4\pi \mu _0}\,\Rot \Bfield = \sqrt {4\pi \mu _0}\,\vect {j} + \sqrt {4\pi }\,\varepsilon _0\sqrt {\mu _0}\,\frac {\partial \Efield }{\partial t}.
+\end{equation*}
+
+</p>
+
+<p>
+Поділимо на \(\sqrt {4\pi \mu _0}\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+
+                                                                                                          √4𝜋 𝜀0 √𝜇0 𝜕𝐄                 1 𝜕𝐄           𝜕𝐄
+                                                                                            rot 𝐁 = 𝐣 +                 = 𝐣 + 𝜀0 √𝜇0 ⋅        = 𝐣 + 𝜀0    .
+                                                                                                           √4𝜋𝜇0     𝜕𝑡                √𝜇0 𝜕𝑡          𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\Rot \Bfield = \vect {j} + \frac {\sqrt {4\pi }\,\varepsilon _0\sqrt {\mu _0}}{\sqrt {4\pi \mu _0}}\,\frac {\partial \Efield }{\partial t} = \vect {j} + \varepsilon _0\sqrt {\mu _0}\cdot \frac {1}{\sqrt {\mu
+_0}}\,\frac {\partial \Efield }{\partial t} = \vect {j} + \varepsilon _0\,\frac {\partial \Efield }{\partial t}.
+\end{equation*}
+
+</p>
+
+<p>
+Отримані рівняння Максвелла в системі SI для вакууму:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+                                                                                                                    𝜌                                       𝜕𝐁
+                                                                                                          div 𝐄 =      ,                        rot 𝐄 = −      ,
+                                                                                                                    𝜀0                                      𝜕𝑡
+                                                                                                                                                            𝜕𝐄
+                                                                                                          div 𝐁 = 0,               rot 𝐁 = 𝜇0 𝐣 + 𝜇0 𝜀0        .
+                                                                                                                                                            𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\begin{aligned} &amp; \Div \Efield = \frac {\rho }{\varepsilon _0}, \qquad &amp; \Rot \Efield = -\frac {\partial \Bfield }{\partial t}, \\[4pt] &amp; \Div \Bfield = 0, \qquad &amp; \Rot \Bfield = \mu _0\vect
+{j} + \mu _0\varepsilon _0\,\frac {\partial \Efield }{\partial t}. \end {aligned}
+\end{equation*}
+
+</p>
+
+<p>
+Слід зауважити, що навіть у вакуумі в системі SI часто вводять допоміжні вектори електричної індукції \(\Dfield \) та напруженості магнітного поля \(\Hfield \), які для вакууму визначаються як:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+                                                                                                                                                𝐁
+                                                                                                                     𝐃 = 𝜀0 𝐄,           𝐇=        .
+                                                                                                                                                𝜇0
+
+-->
+
+<p>
+
+\begin{equation*}
+\Dfield = \varepsilon _0 \Efield , \qquad \Hfield = \frac {\Bfield }{\mu _0}.
+\end{equation*}
+
+</p>
+
+<p>
+Підставляння цих визначень дозволяє переписати рівняння Максвелла в симетричнішій формі, де коефіцієнти \(\varepsilon _0\) та \(\mu _0\) зникають з правих частин<sup>3</sup>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+<!--
+
+                                                                                                                                                       𝜕𝐁
+                                                                                                             div 𝐃 = 𝜌,                   rot 𝐄 = −       ,
+                                                                                                                                                       𝜕𝑡
+                                                                                                                                                       𝜕𝐃
+                                                                                                             div 𝐁 = 0,                 rot 𝐇 = 𝐣 +       .
+                                                                                                                                                       𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\begin{aligned} &amp; \Div \Dfield = \rho , \qquad &amp; \Rot \Efield = -\frac {\partial \Bfield }{\partial t}, \\[4pt] &amp; \Div \Bfield = 0, \qquad &amp; \Rot \Hfield = \vect {j} + \frac {\partial \Dfield
+}{\partial t}. \end {aligned}
+\end{equation*}
+
+</p>
+<div role="note" class="footnotes">
+
+<a id="ClassicalElectrodynamics-html-autopage-254"></a>
+<p>
+<sup>3</sup>&nbsp;У такому записі рівняння Максвелла в SI набувають формально однакового вигляду як для вакууму, так і для середовищ, хоча у випадку середовищ \(\rho \) та \(\vect {j}\) позначають лише вільні заряди та струми, а поля
+\(\Dfield \) та \(\Hfield \) включають внесок зв’язаних зарядів і струмів намагніченості.
+</p>
+
+
+</div>
+<!--
+...... section Основні формули векторного аналізу ......
+-->
+<h4 id="autosec-255"><span class="sectionnumber">.2&#x2003;</span>Основні формули векторного аналізу</h4>
+<a id="ClassicalElectrodynamics-html-autopage-255"></a>
+
+
+<a id="Vanaliz"></a>
+<!--
+...... subsection Диференціальні операції в різних системах координат ......
+-->
+<h5 id="autosec-256"><span class="sectionnumber">.2.1&#x2003;</span>Диференціальні операції в різних системах координат</h5>
+<a id="ClassicalElectrodynamics-html-autopage-256"></a>
+<!--
+...... subsubsection Декартова система координат ......
+-->
+<h6 id="autosec-257">Декартова система координат</h6>
+<a id="ClassicalElectrodynamics-html-autopage-257"></a>
+
+
+<span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
+
+
+<!--
+
+
+                                                                                                 𝜕𝜓     𝜕𝜓     𝜕𝜓
+                                                                                grad 𝜓 ≡ 𝛁𝜓 =       𝐞 +    𝐞 +    𝐞             (18)                                                 --><a id="cartesian"></a><!--
+                                                                                                 𝜕𝑥 𝑥 𝜕𝑦 𝑦 𝜕𝑧 𝑧
+                                                                                               𝜕2 𝜓   𝜕2 𝜓   𝜕2 𝜓
+                                                                           div (grad 𝜓) ≡ Δ𝜓 =    2
+                                                                                                    +    2
+                                                                                                           +                                                                                                   (19)
+                                                                                               𝜕𝑥     𝜕𝑦      𝜕𝑧2
+                                                                                               𝜕𝐴𝑥    𝜕𝐴𝑦     𝜕𝐴𝑧
+                                                                               div 𝐀 ≡ 𝛁 ⋅ 𝐀 =      +      +                                                                                                   (20)
+                                                                                                𝜕𝑥     𝜕𝑦      𝜕𝑧
+                                                                                                𝜕𝐴𝑧    𝜕𝐴𝑦           𝜕𝐴𝑥   𝜕𝐴𝑧          𝜕𝐴𝑦   𝜕𝐴𝑥
+                                                                              rot 𝐀 ≡ 𝛁 × 𝐀 = (      −      ) 𝐞𝑥 + (     −     ) 𝐞𝑦 + (     −     ) 𝐞𝑧                                                         (21)
+                                                                                                 𝜕𝑦     𝜕𝑧            𝜕𝑧    𝜕𝑥           𝜕𝑥    𝜕𝑦
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\label {cartesian} \mathrm {grad}\,\psi \equiv \vect {\nabla }\psi &amp; = \frac {\partial \psi }{\partial x} \vect {e}_x + \frac {\partial \psi }{\partial y} \vect {e}_y + \frac {\partial \psi }{\partial z}
+\vect {e}_z \\ \mathrm {div}\,\left (\mathrm {grad}\,\psi \right ) \equiv \Laplasian \psi &amp; = \frac {\partial ^2 \psi }{\partial x^2} + \frac {\partial ^2 \psi }{\partial y^2} + \frac {\partial ^2 \psi
+}{\partial z^2} \\ \mathrm {div}\,\vect {A} \equiv \divg \vect {A} &amp; = \frac {\partial A_x}{\partial x} + \frac {\partial A_y}{\partial y} + \frac {\partial A_z}{\partial z} \\ \mathrm {rot}\,\vect {A}
+\equiv \rot \vect {A} &amp; = \left ( \frac {\partial A_z}{\partial y} - \frac {\partial A_y}{\partial z}\right ) \vect {e}_x + \left ( \frac {\partial A_x}{\partial z} - \frac {\partial A_z}{\partial x}\right
+) \vect {e}_y + \left ( \frac {\partial A_y}{\partial x} - \frac {\partial A_x}{\partial y}\right ) \vect {e}_z
+\end{align}
+
+</p>
+<!--
+...... subsubsection Циліндрична система координат ......
+-->
+<h6 id="autosec-258">Циліндрична система координат</h6>
+<a id="ClassicalElectrodynamics-html-autopage-258"></a>
+
+
+<span class="hidden"> \(\seteqnumber{0}{}{21}\)</span>
+
+
+<!--
+
+
+                                                                                               𝜕𝜓     1 𝜕𝜓     𝜕𝜓
+                                                                                        𝛁𝜓 =      𝐞 +      𝐞 +    𝐞                        (22)                                      --><a id="cylindric"></a><!--
+                                                                                               𝜕𝜌 𝜌 𝜌 𝜕𝜑 𝜑 𝜕𝑧 𝑧
+                                                                                               1 𝜕     𝜕𝜓    1 𝜕2 𝜓   𝜕2 𝜓
+                                                                                        Δ𝜓 =        (𝑟    )+ 2    2
+                                                                                                                    +                                                                                          (23)
+                                                                                               𝑟 𝜕𝑟    𝜕𝑟   𝑟 𝜕𝜑      𝜕𝑧2
+                                                                                         1 𝜕 (𝜌𝐴𝜌 )   1 𝜕𝐴𝜑     𝜕𝐴𝑧
+                                                                                      𝛁⋅𝐀=          +        +                                                                                                 (24)
+                                                                                         𝜌 𝜕𝜌         𝜌 𝜕𝜑       𝜕𝑧
+                                                                                           1 𝜕𝐴𝑧    𝜕𝐴𝜑          𝜕𝐴𝜌   𝜕𝐴𝑧
+                                                                                     𝛁×𝐀=(       −      ) 𝐞𝜌 + (     −     ) 𝐞𝜑 +
+                                                                                           𝜌 𝜕𝜑      𝜕𝑧           𝜕𝑧    𝜕𝜌
+                                                                                               1 𝜕(𝜌𝐴𝜑 )   𝜕𝐴𝜌
+                                                                                           +     (       −     ) 𝐞𝑧                                                                                            (25)
+                                                                                               𝜌   𝜕𝜌       𝜕𝜑
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\label {cylindric} \vect {\nabla }\psi &amp; = \frac {\partial \psi }{\partial \rho } \vect {e}_{\rho } + \frac {1}{\rho }\frac {\partial \psi }{\partial \phi } \vect {e}_{\phi } + \frac {\partial \psi
+}{\partial z} \vect {e}_{z} \\ \Laplasian \psi &amp; = \frac {1}{r} \frac {\partial }{\partial r} \left ( r \frac {\partial \psi }{\partial r} \right ) + \frac {1}{r^2} \frac {\partial ^2 \psi }{\partial \phi
+^2} + \frac {\partial ^2 \psi }{\partial z^2} \\ \divg \vect {A} &amp; = \frac {1}{\rho }\frac {\partial \left (\rho A_{\rho }\right )}{\partial \rho }+\frac {1}{\rho }\frac {\partial A_{\phi } }{\partial \phi
+}+\frac {\partial A_{z}}{\partial z} \\ \rot \vect {A} &amp; =\left ({\frac {1}{\rho }}{\frac {\partial A_{z}}{\partial \phi }}-{\frac {\partial A_{\phi }}{\partial z}}\right )\vect {e}_{\rho }+\left ({\frac
+{\partial A_{\rho }}{\partial z}}-{\frac {\partial A_{z}}{\partial \rho }}\right )\vect {e}_{\phi } + \nonumber \\ &amp; + {\frac {1}{\rho }}\left ({\frac {\partial (\rho A_{\phi })}{\partial \rho }}-{\frac
+{\partial A_{\rho }}{\partial \phi }}\right )\vect {e}_{z}
+\end{align}
+Орти циліндричної системи координат зв’язані з декартовими ортами як:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{25}\)</span>
+
+
+<!--
+
+
+
+                                                                                                 𝐞𝑟 = cos 𝜑 𝐞𝑥 + sin 𝜑 𝐞𝑦 ,                                                                                    (26)
+                                                                                                 𝐞𝜑 = − sin 𝜑 𝐞𝑥 + cos 𝜑 𝐞𝑦 ,                                                                                  (27)
+                                                                                                 𝐞𝑧 = 𝐞𝑧 .                                                                                                     (28)
+
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\label {} \vect {e}_r &amp;= \cos \phi \, \vect {e}_x + \sin \phi \, \vect {e}_y, \\ \vect {e}_{\phi } &amp;= -\sin \phi \, \vect {e}_x + \cos \phi \, \vect {e}_y, \\ \vect {e}_{z} &amp;= \vect {e}_z.
+\end{align}
+
+</p>
+<!--
+...... subsubsection Сферична система координат ......
+-->
+<h6 id="autosec-259">Сферична система координат</h6>
+<a id="ClassicalElectrodynamics-html-autopage-259"></a>
+
+
+<span class="hidden"> \(\seteqnumber{0}{}{28}\)</span>
+
+
+<!--
+
+
+                                                                                     𝜕𝜓     1 𝜕𝜓     1   𝜕𝜓
+                                                                              𝛁𝜓 =      𝐞 +      𝐞 +        𝐞                             (29)                                         --><a id="spheric"></a><!--
+                                                                                     𝜕𝑟 𝑟 𝑟 𝜕𝜃 𝜃 𝑟 sin 𝜃 𝜕𝜑 𝜑
+                                                                                     1 𝜕      𝜕𝜓      1    𝜕𝜓        𝜕𝜓        1    𝜕2 𝜓
+                                                                              Δ𝜓 =    2
+                                                                                          (𝑟2    )+ 2         (sin 𝜃    )+                                                                                     (30)
+                                                                                     𝑟 𝜕𝑟     𝜕𝑟   𝑟 sin 𝜃 𝜕𝜃        𝜕𝜃          2
+                                                                                                                           𝑟2 sin 𝜃 𝜕𝜑2
+                                                                                  1 𝜕 (𝑟2 𝐴𝑟 )      1     𝜕                  1   𝜕𝐴𝜑
+                                                                             𝛁⋅𝐀=              +            (𝐴𝜃 sin 𝜃) +                                                                                       (31)
+                                                                                 𝑟2    𝜕𝑟        𝑟 sin 𝜃 𝜕𝜃               𝑟 sin 𝜃 𝜕𝜑
+                                                                                    1      𝜕                𝜕𝐴𝜃         1     1 𝜕𝐴𝑟    𝜕
+                                                                            𝛁×𝐀=         (     (𝐴𝜑 sin 𝜃) −      ) 𝐞𝑟 + (            −    (𝑟𝐴𝜑 )) 𝐞𝜃 +
+                                                                                 𝑟 sin 𝜃 𝜕𝜃                  𝜕𝜑         𝑟 sin 𝜃 𝜕𝜑     𝜕𝑟
+                                                                                 1 𝜕              𝜕𝐴𝑟
+                                                                               + (      (𝑟𝐴𝜃 ) −       ) 𝐞𝜑                                                                                                    (32)
+                                                                                 𝑟 𝜕𝑟              𝜕𝜃
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\label {spheric} \vect {\nabla }\psi &amp; = \frac {\partial \psi }{\partial r} \vect {e}_{r} + \frac {1}{r}\frac {\partial \psi }{\partial \theta } \vect {e}_{\theta } + \frac {1}{r\sin \theta }\frac {\partial
+\psi }{\partial \phi } \vect {e}_{\phi } \\ \Laplasian \psi &amp; = \frac {1}{r^2} \frac {\partial }{\partial r} \left ( r^2 \frac {\partial \psi }{\partial r} \right ) + \frac {1}{r^2 \sin \theta } \frac
+{\partial \psi }{\partial \theta } \left ( \sin \theta \frac {\partial \psi }{\partial \theta } \right ) + \frac {1}{r^2\sin ^2 \theta } \frac {\partial ^2 \psi }{\partial \phi ^2} \\ \divg \vect {A} &amp;
+=\frac {1}{r^2}\frac {\partial \left (r^2A_r\right )}{\partial r} + \frac {1}{r\sin \theta }\frac {\partial }{\partial \theta }\left (A_{\theta }\sin \theta \right ) + \frac {1}{r\sin \theta }\frac {\partial
+A_{\phi }}{\partial \phi } \\ \rot \vect {A} &amp; = \frac {1}{r\sin \theta }\left (\frac {\partial }{\partial \theta }\left (A_{\phi }\sin \theta \right )-\frac {\partial A_{\theta }}{\partial \phi }\right
+)\vect {e}_{r} + \frac {1}{r}\left (\frac {1}{\sin \theta }\frac {\partial A_{r}}{\partial \phi }-\frac {\partial }{\partial r}\left (rA_{\phi }\right )\right )\vect {e}_{\theta } + \nonumber \\ &amp; + \frac
+{1}{r}\left (\frac {\partial }{\partial r}\left (rA_{\theta }\right )-\frac {\partial A_{r}}{\partial \theta }\right )\vect {e}_{\phi }
+\end{align}
+Орти сферичної системи координат зв’язані з декартовими ортами як:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{32}\)</span>
+
+
+<!--
+
+
+
+                                                                                          𝐞𝑟 = sin 𝜃 cos 𝜑 𝐞𝑥 + sin 𝜃 sin 𝜑 𝐞𝑦 + cos 𝜃 𝐞𝑧 ,                                                                    (33)
+                                                                                          𝐞𝜃 = cos 𝜃 cos 𝜑 𝐞𝑥 + cos 𝜃 sin 𝜑 𝐞𝑦 − sin 𝜃 𝐞𝑧 ,                                                                    (34)
+                                                                                          𝐞𝜑 = − sin 𝜑 𝐞𝑥 + cos 𝜑 𝐞𝑦 .                                                                                         (35)
+                                                                                                                                                                                                               (36)
+
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\label {} \vect {e}_r &amp;= \sin \theta \cos \phi \, \vect {e}_x + \sin \theta \sin \phi \, \vect {e}_y + \cos \theta \, \vect {e}_z, \\ \vect {e}_{\theta } &amp;= \cos \theta \cos \phi \, \vect {e}_x + \cos
+\theta \sin \phi \, \vect {e}_y - \sin \theta \, \vect {e}_z, \\ \vect {e}_{\phi } &amp;= -\sin \phi \, \vect {e}_x + \cos \phi \, \vect {e}_y. \\
+\end{align}
+
+</p>
+<!--
+...... subsection Другі похідні ......
+-->
+<h5 id="autosec-260"><span class="sectionnumber">.2.2&#x2003;</span>Другі похідні</h5>
+<a id="ClassicalElectrodynamics-html-autopage-260"></a>
+
+
+<span class="hidden"> \(\seteqnumber{0}{}{36}\)</span>
+
+
+<!--
+
+
+
+                                                                                         rot grad 𝜑 = 𝛁 × (𝛁𝜑) = 0                                                                                             (37)
+                                                                                          div rot 𝐀 = 𝛁 ⋅ (𝛁 × 𝐀) = 0                                                                                          (38)
+                                                                                          rot rot 𝐀 = 𝛁 × (𝛁 × 𝐀) = 𝛁(𝛁 ⋅ 𝐀) − Δ𝐀                                                                              (39)
+
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\mathrm {rot}\,\mathrm {grad}\,\phi &amp; = \rot (\vect {\nabla }\phi ) = 0 \\ \mathrm {div}\,\mathrm {rot}\,\vect {A} &amp; = \divg (\rot \vect {A}) = 0 \\ \mathrm {rot}\,\mathrm {rot}\,\vect {A} &amp; = \rot
+(\rot \vect {A}) = \vect {\nabla }(\divg \vect {A}) - \Laplasian \vect {A}
+\end{align}
+
+</p>
+<!--
+...... subsection Похідні від добутків ......
+-->
+<h5 id="autosec-261"><span class="sectionnumber">.2.3&#x2003;</span>Похідні від добутків</h5>
+<a id="ClassicalElectrodynamics-html-autopage-261"></a>
+
+
+<span class="hidden"> \(\seteqnumber{0}{}{39}\)</span>
+
+
+<!--
+
+
+
+                                                                                         grad (𝜑𝜓) = 𝜓 grad 𝜑 + 𝜑 grad 𝜓                                                                                          (40)
+                                                                                          div (𝜑𝐀) = 𝜑 div 𝐀 + 𝐀 grad 𝜑                                                                                           (41)
+                                                                                          rot (𝜑𝐀) = 𝜑 rot 𝐀 + grad 𝜑 × 𝐀                                                                                         (42)
+                                                                                       grad (𝐀 ⋅ 𝐁) = 𝐁 × rot 𝐀 + 𝐀 × rot 𝐁 + (𝐁𝛁) 𝐀 + (𝐀𝛁) 𝐁                                                                     (43)
+                                                                                       div (𝐀 × 𝐁) = 𝐁 ⋅ rot 𝐀 − 𝐀 ⋅ rot 𝐁                                                                                        (44)
+                                                                                        rot (𝐀 × 𝐁) = (𝐁𝛁) 𝐀 − (𝐀𝛁) 𝐁 + 𝐀 div 𝐁 − 𝐁 div 𝐀       (45)                                   --><a id="rotvect"></a><!--
+                                                                                          1
+                                                                                            grad 𝐴2 = (𝐀𝛁) 𝐀 + 𝐀 × rot 𝐀                                                                                          (46)
+                                                                                          2
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\mathrm {grad}\,(\phi \psi ) &amp; = \psi \,\mathrm {grad}\,\phi +\phi \, \mathrm {grad}\,\psi \\ \mathrm {div}\,(\phi \vect {A}) &amp; = \phi \,\mathrm {div}\,\vect {A} + \vect {A}\,\mathrm {grad}\,\phi \\
+\mathrm {rot}\,(\phi \vect {A}) &amp; = \phi \,\mathrm {rot}\,\vect {A} + \mathrm {grad}\,\phi \times \vect {A} \\ \mathrm {grad}\,(\vect {A}\cdot \Bfield ) &amp; = \Bfield \times \mathrm {rot}\,\vect {A} +
+\vect {A}\times \mathrm {rot}\,\Bfield + \left ( \Bfield \vect {\nabla }\right )\vect {A} + \left ( \vect {A}\vect {\nabla }\right )\Bfield \\ \mathrm {div}\,(\vect {A}\times \Bfield ) &amp; = \Bfield \cdot
+\mathrm {rot}\,\vect {A} - \vect {A}\cdot \mathrm {rot}\,\Bfield \\ \mathrm {rot}\,(\vect {A}\times \Bfield ) &amp; = \left ( \Bfield \vect {\nabla }\right )\vect {A} - \left ( \vect {A}\vect {\nabla }\right
+)\Bfield + \vect {A}\,\mathrm {div}\,\Bfield - \Bfield \,\mathrm {div}\,\vect {A} \label {rotvect} \\ \frac 12\mathrm {grad}\,A^2 &amp; = \left ( \vect {A}\vect {\nabla }\right )\vect {A} + \vect {A}\times
+\mathrm {rot}\,\vect {A}
+\end{align}
+
+</p>
+<!--
+...... subsection Індексна нотація формул векторного аналізу ......
+-->
+<h5 id="autosec-262"><span class="sectionnumber">.2.4&#x2003;</span>Індексна нотація формул векторного аналізу</h5>
+<a id="ClassicalElectrodynamics-html-autopage-262"></a>
+
+
+<p>
+Нагадаємо співвідношення з векторного аналізу, що будуть потрібні далі. Латинські індекси \(i\), \(j\), \(k\) пробігатимуть допустимі значення \(1\),\(2\),\(3\). Якщо індекси у виразі повторюються, це означатиме суму по цих індексах (правило
+Ейнштейна).
+</p>
+<!--
+...... subsubsection Тривимірний символ Леві-Чівіти ......
+-->
+<h6 id="autosec-263">Тривимірний символ Леві-Чівіти</h6>
+<a id="ClassicalElectrodynamics-html-autopage-263"></a>
+
+
+<a id="Levi-Chiv"></a>
+
+<p>
+Тривимірний символ Леві-Чівіти визначений співвідношеннями
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{46}\)</span>
+
+<!--
+
+
+                                                              𝜀𝑖𝑗𝑘 = −𝜀𝑗𝑖𝑘 = −𝜀𝑖𝑘𝑗 .                                                (47)                      --><a id="eq:Levi-Chiv"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Levi-Chiv} \epsilon _{ijk} = - \epsilon _{jik} = - \epsilon _{ikj}.
+\end{equation}
+
+</p>
+
+<p>
+Деякі співвідношення з цим символом:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{47}\)</span>
+
+
+<!--
+
+
+
+                                                                                               𝜀𝑖𝑗𝑘 𝜀𝑘𝑝𝑞 = 𝛿𝑖𝑝 𝛿𝑗𝑞 − 𝛿𝑖𝑞 𝛿𝑗𝑝 ,                                                            (48)
+                                                                                              𝜀𝑖𝑞𝑘 𝜀𝑝𝑞𝑘 = 2𝛿𝑖𝑝 .                                                                          (49)
+
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\epsilon _{ijk}\epsilon _{kpq} &amp;= \delta _{ip}\delta _{jq} - \delta _{iq}\delta _{jp}, \\ \epsilon _{iqk}\epsilon _{pqk} &amp;= 2\delta _{ip}.
+\end{align}
+
+</p>
+
+<p>
+Ротор та векторний добуток у декартових координатах \(\{x,y,z\} = \{x_1, x_2, x_3\}\):
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{49}\)</span>
+
+
+<!--
+
+
+
+                                                                                                  [𝛁 × 𝐀]𝑖 = 𝜀𝑖𝑗𝑘 𝜕𝑗 𝐴𝑘 ,                                                                 (50)
+                                                                                                  [𝐀 × 𝐁]𝑖 = 𝜀𝑖𝑗𝑘 𝐴𝑗 𝐵𝑘 ,                                                                 (51)
+
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\left [\rot \vect {A} \right ]_i &amp;= \epsilon _{ijk}{\partial _j}{A_k}, \\ \left [ \vect {A} \times \Bfield \right ]_i &amp;= \epsilon _{ijk}{A_j}{B_k},
+\end{align}
+всі індекси пробігають значення \(1\), \(2\), \(3\).
+</p>
+<!--
+...... subsubsection Диференціальні операції в декартових координатах ......
+-->
+<h6 id="autosec-264">Диференціальні операції в декартових координатах</h6>
+<a id="ClassicalElectrodynamics-html-autopage-264"></a>
+
+
+<p>
+У декартових координатах \(x_1, x_2, x_3 \) дивергенція:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                                         div 𝐀 ≡ 𝜕𝑗 𝐴𝑗 ;
+
+-->
+
+<p>
+
+\begin{equation*}
+\Div \vect {A} \equiv \partial _j A_j;
+\end{equation*}
+
+</p>
+
+<p>
+градієнт:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                                         (𝛁𝐹)𝑖 ≡ 𝜕𝑖 𝐹,
+
+-->
+
+<p>
+
+\begin{equation*}
+(\grad F)_i \equiv \partial _i F,
+\end{equation*}
+
+</p>
+
+<p>
+тут і надалі \((X)_i = X_i\) означає \(i\)-ту компоненту вектора \(\vect {r}\);
+</p>
+
+<p>
+та оператор Лапласа:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                                         Δ𝐹 ≡ 𝜕𝑗 𝜕𝑗 𝐹.
+
+-->
+
+<p>
+
+\begin{equation*}
+\Laplasian F \equiv \partial _j \partial _j F.
+\end{equation*}
+
+</p>
+
+<p>
+За допомогою&nbsp;<span class="textup">(<a href="ch10.html#eq:Levi-Chiv">47</a>)</span> можна записати \(i\)-ту компоненту векторного добутку:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                                      [𝐀 × 𝐁]𝑖 = 𝜀𝑖𝑗𝑘 𝐴𝑗 𝐵𝑘
+
+-->
+
+<p>
+
+\begin{equation*}
+[\vect {A} \times \Bfield ]_i = \varepsilon _{ijk} A_j B_k
+\end{equation*}
+
+</p>
+
+<p>
+де \((A_i, B_i\) — компоненти векторів \(\vect {A}\) та \(\Bfield )\), а також ротор:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                                      rot(𝐀)𝑖 = 𝜀𝑖𝑗𝑘 𝜕𝑗 𝐴𝑘 .
+
+-->
+
+<p>
+
+\begin{equation*}
+\Rot (\vect {A})_i = \varepsilon _{ijk} \partial _j A_k.
+\end{equation*}
+
+</p>
+<!--
+...... subsubsection Добуток скалярної та векторної функцій ......
+-->
+<h6 id="autosec-265">Добуток скалярної та векторної функцій</h6>
+<a id="ClassicalElectrodynamics-html-autopage-265"></a>
+
+
+<p>
+Легко перевірити такі співвідношення для добутку скалярної функції \(F(\vect {r}) \) та векторної \(\vect {A}(\vect {r}) \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                            div(𝐹𝐀) = 𝜕𝑖 (𝐹𝐴𝑖 ) = 𝐴𝑖 𝜕𝑖 𝐹 + 𝐹𝜕𝑖 𝐴𝑖 = 𝐀 ⋅ 𝛁𝐹 + 𝐹 div 𝐀;
+
+-->
+
+<p>
+
+\begin{equation*}
+\Div (F \vect {A}) = \partial _i (F A_i) = A_i \partial _i F + F \partial _i A_i = \vect {A} \cdot \grad F + F \Div \vect {A};
+\end{equation*}
+
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                             rot(𝐹𝐀)𝑖 = 𝜀𝑖𝑗𝑘 𝜕𝑗 (𝐹𝐴𝑘 ) = 𝜀𝑖𝑗𝑘 (𝛁𝐹)𝑗 𝐴𝑘 + 𝐹𝜀𝑖𝑗𝑘 𝜕𝑗 𝐴𝑘 ,
+
+-->
+
+<p>
+
+\begin{equation*}
+\Rot (F \vect {A})_i = \varepsilon _{ijk} \partial _j (F A_k) = \varepsilon _{ijk} (\grad F)_j A_k + F \varepsilon _{ijk} \partial _j A_k,
+\end{equation*}
+
+</p>
+
+<p>
+або
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                                         rot(𝐹𝐀) = [𝛁𝐹 × 𝐀] + 𝐹 rot 𝐀.
+
+-->
+
+<p>
+
+\begin{equation*}
+\Rot (F \vect {A}) = [\grad F \times \vect {A}] + F \Rot \vect {A}.
+\end{equation*}
+
+</p>
+<!--
+...... subsubsection Дивергенція векторного добутку ......
+-->
+<h6 id="autosec-266">Дивергенція векторного добутку</h6>
+<a id="ClassicalElectrodynamics-html-autopage-266"></a>
+
+
+<p>
+Дивергенція векторного добутку:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+
+<!--
+
+
+
+  div[𝐀 × 𝐁] = 𝜕𝑖 (𝜀𝑖𝑗𝑘 𝐴𝑗 𝐵𝑘 ) = 𝐵𝑘 𝜀𝑖𝑗𝑘 𝜕𝑖 𝐴𝑗 + 𝐴𝑗 𝜀𝑖𝑗𝑘 𝜕𝑖 𝐵𝑘 = 𝐵𝑘 𝜀𝑘𝑖𝑗 𝜕𝑖 𝐴𝑗 − 𝐴𝑗 𝜀𝑖𝑗𝑘 𝜕𝑖 𝐵𝑘 =
+                                                                                                                                                                                               = 𝐁 ⋅ rot 𝐀 − 𝐀 ⋅ rot 𝐁.
+
+
+
+-->
+
+
+<p>
+
+\begin{multline*}
+\Div [\vect {A} \times \Bfield ] = \partial _i (\varepsilon _{ijk} A_j B_k) = B_k \varepsilon _{ijk} \partial _i A_j + A_j \varepsilon _{ijk} \partial _i B_k = B_k \varepsilon _{kij} \partial _i A_j - A_j
+\varepsilon _{ijk} \partial _i B_k = \\ = \Bfield \cdot \Rot \vect {A} - \vect {A} \cdot \Rot \Bfield .
+\end{multline*}
+
+</p>
+<!--
+...... subsubsection Згортка символів ......
+-->
+<h6 id="autosec-267">Згортка символів \(\epsilon _{ijk}\)</h6>
+<a id="ClassicalElectrodynamics-html-autopage-267"></a>
+
+
+<p>
+Далі будуть потрібні формули для <em>згортки двох символів</em> \(\varepsilon _{ijk}\). Користуючись властивостями визначника, легко перевірити, що:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                                                            | 𝛿𝑖1      𝛿𝑖2     𝛿𝑖3 |
+                                                                                                                    𝜀𝑖𝑗𝑘 = || 𝛿𝑗1      𝛿𝑗2     𝛿𝑗3 || ,
+                                                                                                                            |𝛿𝑘1       𝛿𝑘2     𝛿𝑘3 |
+
+-->
+
+<p>
+
+\begin{equation*}
+\varepsilon _{ijk} = \begin{vmatrix} \delta _{i1} &amp; \delta _{i2} &amp; \delta _{i3} \\ \delta _{j1} &amp; \delta _{j2} &amp; \delta _{j3} \\ \delta _{k1} &amp; \delta _{k2} &amp; \delta _{k3} \end
+{vmatrix},
+\end{equation*}
+
+</p>
+
+<p>
+де \(\delta _{ij}\) — символ Кронекера, а також:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                                                               | 𝛿𝑖𝑝     𝛿𝑖𝑞       𝛿𝑖𝑟 |
+                                                                                                                  𝜀𝑖𝑗𝑘 𝜀𝑝𝑞𝑟 = || 𝛿𝑗𝑝     𝛿𝑗𝑞       𝛿𝑗𝑟 ||
+                                                                                                                               |𝛿𝑘𝑝      𝛿𝑘𝑞       𝛿𝑘𝑟 |
+
+-->
+
+<p>
+
+\begin{equation*}
+\varepsilon _{ijk} \varepsilon _{pqr} = \begin{vmatrix} \delta _{ip} &amp; \delta _{iq} &amp; \delta _{ir} \\ \delta _{jp} &amp; \delta _{jq} &amp; \delta _{jr} \\ \delta _{kp} &amp; \delta _{kq} &amp; \delta
+_{kr} \end {vmatrix}
+\end{equation*}
+
+</p>
+
+<p>
+Якщо в останньому співвідношенні розкрити визначник за правилом трикутників:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                                   𝜀𝑖𝑗𝑘 𝜀𝑝𝑞𝑟 = 𝛿𝑖𝑝 𝛿𝑗𝑞 𝛿𝑘𝑟 + 𝛿𝑖𝑞 𝛿𝑗𝑟 𝛿𝑘𝑝 + 𝛿𝑖𝑟 𝛿𝑗𝑝 𝛿𝑘𝑞 − 𝛿𝑖𝑝 𝛿𝑗𝑟 𝛿𝑘𝑞 − 𝛿𝑖𝑞 𝛿𝑗𝑝 𝛿𝑘𝑟 − 𝛿𝑖𝑟 𝛿𝑗𝑞 𝛿𝑘𝑝 ,
+
+-->
+
+<p>
+
+\begin{equation*}
+\varepsilon _{ijk} \varepsilon _{pqr} = \delta _{ip} \delta _{jq} \delta _{kr} + \delta _{iq} \delta _{jr} \delta _{kp} + \delta _{ir} \delta _{jp} \delta _{kq} - \delta _{ip} \delta _{jr} \delta _{kq} - \delta
+_{iq} \delta _{jp} \delta _{kr} - \delta _{ir} \delta _{jq} \delta _{kp},
+\end{equation*}
+
+</p>
+
+<p>
+та взяти суму по \(k = r \), отримаємо формулу згортки:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{51}\)</span>
+
+<!--
+
+
+                                                                     𝜀𝑖𝑗𝑘 𝜀𝑝𝑞𝑘 = 𝛿𝑖𝑝 𝛿𝑗𝑞 − 𝛿𝑖𝑞 𝛿𝑗𝑝 .                                                                                 (52)   --><a id="eq:epsilon_contraction"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\varepsilon _{ijk} \varepsilon _{pqk} = \delta _{ip} \delta _{jq} - \delta _{iq} \delta _{jp}. \label {eq:epsilon_contraction}
+\end{equation}
+
+</p>
+<!--
+...... subsubsection Подвійний векторний добуток ......
+-->
+<h6 id="autosec-268">Подвійний векторний добуток</h6>
+<a id="ClassicalElectrodynamics-html-autopage-268"></a>
+
+
+<p>
+Отримаємо за допомогою&nbsp;<span class="textup">(<a href="ch10.html#eq:epsilon_contraction">52</a>)</span> правило для подвійного векторного добутку:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{52}\)</span>
+
+<!--
+
+
+                                                                                        ([𝐀 × [𝐁 × 𝐂]])𝑖 ≡ 𝜀𝑖𝑗𝑘 𝐴𝑗 ([𝐁 × 𝐂])𝑘 ≡ 𝜀𝑖𝑗𝑘 𝐴𝑗 𝜀𝑘𝑝𝑞 𝐵𝑝 𝐶𝑞 .
+
+-->
+
+<p>
+
+\begin{equation*}
+([\vect {A} \times [\Bfield \times \vect {C}]])_i \equiv \varepsilon _{ijk} A_j ([\Bfield \times \vect {C}])_k \equiv \varepsilon _{ijk} A_j \varepsilon _{kpq} B_p C_q.
+\end{equation*}
+
+</p>
+
+<p>
+Завдяки&nbsp;<span class="textup">(<a href="ch10.html#eq:epsilon_contraction">52</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{52}\)</span>
+
+<!--
+
+
+                                                                                   ([𝐀 × [𝐁 × 𝐂]])𝑖 ≡ (𝛿𝑖𝑝 𝛿𝑗𝑞 − 𝛿𝑖𝑞 𝛿𝑗𝑝 )𝐴𝑗 𝐵𝑝 𝐶𝑞 = 𝐵𝑖 𝐴𝑞 𝐶𝑞 − 𝐶𝑖 𝐴𝑝 𝐵𝑝 ,
+
+-->
+
+<p>
+
+\begin{equation*}
+([\vect {A} \times [\Bfield \times \vect {C}]])_i \equiv (\delta _{ip} \delta _{jq} - \delta _{iq} \delta _{jp}) A_j B_p C_q = B_i A_q C_q - C_i A_p B_p,
+\end{equation*}
+
+</p>
+
+<p>
+тобто маємо відому формулу:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{52}\)</span>
+
+<!--
+
+
+                                                                                                  [𝐀 × [𝐁 × 𝐂]] = 𝐁(𝐀 ⋅ 𝐂) − 𝐂(𝐀 ⋅ 𝐁).
+
+-->
+
+<p>
+
+\begin{equation*}
+[\vect {A} \times [\Bfield \times \vect {C}]] = \Bfield (\vect {A} \cdot \vect {C}) - \vect {C}(\vect {A} \cdot \Bfield ).
+\end{equation*}
+
+</p>
+<!--
+...... subsubsection Подвійний ротор ......
+-->
+<h6 id="autosec-269">Подвійний ротор</h6>
+<a id="ClassicalElectrodynamics-html-autopage-269"></a>
+
+
+<p>
+Обчислимо за допомогою&nbsp;<span class="textup">(<a href="ch10.html#eq:epsilon_contraction">52</a>)</span> подвійний ротор:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{52}\)</span>
+
+<!--
+
+
+                                                                                            (rot rot 𝐀)𝑖 = 𝜀𝑖𝑗𝑘 𝜕𝑗 (rot 𝐀)𝑘 = 𝜀𝑖𝑗𝑘 𝜕𝑗 𝜀𝑘𝑝𝑞 𝜕𝑝 𝐴𝑞 .
+
+-->
+
+<p>
+
+\begin{equation*}
+(\Rot \Rot \vect {A})_i = \varepsilon _{ijk} \partial _j (\Rot \vect {A})_k = \varepsilon _{ijk} \partial _j \varepsilon _{kpq} \partial _p A_q.
+\end{equation*}
+
+</p>
+
+<p>
+Завдяки&nbsp;<span class="textup">(<a href="ch10.html#eq:epsilon_contraction">52</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{52}\)</span>
+
+<!--
+
+
+                                                                                      (rot rot 𝐀)𝑖 = (𝛿𝑖𝑝 𝛿𝑗𝑞 − 𝛿𝑖𝑞 𝛿𝑗𝑝 )𝜕𝑗 𝜕𝑝 𝐴𝑞 = 𝜕𝑖 𝜕𝑗 𝐴𝑗 − 𝜕𝑗 𝜕𝑗 𝐴𝑖 .
+
+-->
+
+<p>
+
+\begin{equation*}
+(\Rot \Rot \vect {A})_i = (\delta _{ip} \delta _{jq} - \delta _{iq} \delta _{jp}) \partial _j \partial _p A_q = \partial _i \partial _j A_j - \partial _j \partial _j A_i.
+\end{equation*}
+
+</p>
+
+<p>
+За означенням, \(\partial _j A_j \equiv \Div \vect {A}\) та \(\partial _j \partial _j A_i \equiv \Laplasian A_i\). Звідси маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{52}\)</span>
+
+<!--
+
+
+                                                                                                         rot rot 𝐀 = 𝛁 div 𝐀 − Δ𝐀.
+
+-->
+
+<p>
+
+\begin{equation*}
+\Rot \Rot \vect {A} = \grad \Div \vect {A} - \Laplasian \vect {A}.
+\end{equation*}
+
+</p>
+<!--
+...... subsection Інтегральні характеристики та теореми ......
+-->
+<h5 id="autosec-270"><span class="sectionnumber">.2.5&#x2003;</span>Інтегральні характеристики та теореми</h5>
+<a id="ClassicalElectrodynamics-html-autopage-270"></a>
+
+
+<p>
+Теорема Остроградського-Гауса:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{52}\)</span>
+
+<!--
+
+                                                                                   ˛               ˆ
+                                                                                       𝐀 ⋅ 𝑑𝐒 =        div 𝐀𝑑𝑉 ,                                                (53)            --><a id="OGTheorem"></a><!--
+                                                                                𝜕Ω                 Ω
+
+-->
+
+<p>
+
+\begin{equation}
+\label {OGTheorem} \oint \limits _{\partial \Omega } \vect {A}\cdot d\vect {S} = \int \limits _{\Omega } \Div \vect {A} dV,
+\end{equation}
+
+</p>
+
+<p>
+де \(\Omega \)&nbsp;— об’єм, \(\partial \Omega \) — його межа.
+</p>
+
+<p>
+Теорема Стокса:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{53}\)</span>
+
+<!--
+
+                                                                               ˛               ˆ
+                                                                                    𝐀 ⋅ 𝑑𝐥 =       rot 𝐀 ⋅ 𝑑𝐒,                                                (54)            --><a id="Stoksheorem"></a><!--
+                                                                               𝜕𝑆              𝑆
+
+-->
+
+<p>
+
+\begin{equation}
+\label {Stoksheorem} \oint \limits _{\partial S} \vect {A}\cdot d\vect {l} = \int \limits _S \Rot \vect {A} \cdot d\vect {S},
+\end{equation}
+
+</p>
+
+<p>
+де \(S\)&nbsp;— поверхня, що спирається на контур \(\partial S\).
+</p>
+
+<p>
+Теорема Гріна:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{54}\)</span>
+
+<!--
+
+                                                                    ˆ                              ˆ
+                                                                        (𝜑∇2 𝜓 − 𝜓∇2 𝜑) 𝑑𝑉 =            (𝜑 grad 𝜓 − 𝜓 grad 𝜑) ⋅ 𝑑𝐒.                                    (55)          --><a id="Grin"></a><!--
+                                                                    Ω                              𝜕Ω
+
+-->
+
+<p>
+
+\begin{equation}
+\label {Grin} \int \limits _{\Omega }(\phi \nabla ^{2}\psi -\psi \nabla ^{2}\phi )\ dV=\int \limits _{\partial \Omega }(\phi \Grad \psi -\psi \Grad \phi )\cdot d\vect {S}.
+\end{equation}
+
+</p>
+<!--
+...... section Узагальнені функції ......
+-->
+<h4 id="autosec-271"><span class="sectionnumber">.3&#x2003;</span>Узагальнені функції</h4>
+<a id="ClassicalElectrodynamics-html-autopage-271"></a>
+
+
+<a id="sec:GeneralizedFunctions"></a>
+
+<p>
+В задачах електродинаміки часто виникає необхідність розглядати заряджені тіла, розміри яких дуже малі у порівнянні з іншими просторовими масштабами. З цим пов’язана модель точкового (сферичного) заряду, густину якого подають у вигляді:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{0}\)</span>
+
+<!--
+
+
+                                                                                                               𝜌(𝐫) = 𝑞𝛿(𝐫 − 𝐫0 ),                                                                                                         (1)
+
+-->
+
+<p>
+
+\begin{equation}
+\rho (\vect {r}) = q \delta (\vect {r} - \vect {r}_0),
+\end{equation}
+
+</p>
+
+<p>
+де \(q \) — величина заряду, \(\vect {r} \) — його положення, \(\delta \) — функція Дірака, що визначається умовою:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{1}\)</span>
+
+<!--
+
+                                                                         ˆ
+                                                                             𝑑𝑉 𝛿(𝐫 − 𝐫0 )𝜒(𝐫) = 𝜒(𝐫0 )                                                                   (2)                   --><a id="eq:dirac_definition"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\int dV \, \delta (\vect {r} - \vect {r}_0) \chi (\vect {r}) = \chi (\vect {r}_0) \label {eq:dirac_definition}
+\end{equation}
+
+</p>
+
+<p>
+для будь-якої неперервної функції \(\chi \).
+</p>
+
+<p>
+Очевидно, що визначення&nbsp;<span class="textup">(<a href="ch10.html#eq:dirac_definition">2</a>)</span> \(\delta \)-функції не є математично коректним, якщо вважати, що в&nbsp;<span class="textup">(<a
+href="ch10.html#eq:dirac_definition">2</a>)</span> маємо справу зі звичайним інтегруванням, наприклад, за Лебегом. Цьому співвідношенню можна надати математичний зміст, якщо розглядати \(\delta \)-функцію як слабку границю
+деякої послідовності звичайних функцій. Якщо покласти (в одновимірному варіанті):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{2}\)</span>
+
+<!--
+
+                                                                                            1       2   2
+                                                                               𝛿𝜀 (𝑥) =          𝑒−𝑥 /𝜀 ,                                                                   (3)                    --><a id="eq:delta_sequence"></a><!--
+                                                                                           𝜀√𝜋
+
+-->
+
+<p>
+
+\begin{equation}
+\delta _{\varepsilon }(x) = \frac {1}{\varepsilon \sqrt {\pi }} e^{-x^2 / \varepsilon ^2}, \label {eq:delta_sequence}
+\end{equation}
+
+</p>
+
+<p>
+то границя:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{3}\)</span>
+
+<!--
+
+                                                                                    ˆ
+                                                                              lim       𝑑𝑥 𝛿𝜀 (𝑥)𝜒(𝑥) = 𝜒(0)                                                                      (4)                 --><a id="eq:delta_limit"></a><!--
+                                                                             𝜀→0
+
+-->
+
+<p>
+
+\begin{equation}
+\lim _{\varepsilon \to 0} \int dx \, \delta _{\varepsilon }(x) \chi (x) = \chi (0) \label {eq:delta_limit}
+\end{equation}
+
+</p>
+
+<p>
+існує для будь-якої послідовності \(\varepsilon _n \to 0 \), \(n \to \infty \) та будь-якої функції \(\chi (x) \), що задовольняє досить широким умовам (наприклад, якщо \(\chi (x) \) — гладка та обмежена). На практиці зручніше
+розглядати подібні границі за жорсткіших обмежень на \(\chi (x) \).
+</p>
+
+<p>
+Таке визначення цілком відповідає фізичним уявленням про точковий заряд, зосереджений в нескінченно малій області. Насправді для багатьох застосувань істотно лише те, що розміри заряду значно менші за відстань до нього. Разом із тим
+треба пам’ятати, що ці міркування не проходять, коли треба розглядати співвідношення, нелінійні за густиною заряду або за напруженостями полів; наприклад, у формулах для енергії.
+</p>
+<!--
+...... section Фундаментальні розв'язки ......
+-->
+<h4 id="autosec-272"><span class="sectionnumber">.4&#x2003;</span>Фундаментальні розв’язки</h4>
+<a id="ClassicalElectrodynamics-html-autopage-272"></a>
+
+
+<p>
+Нехай \(\hat {L}\) — лінійний диференціальний оператор скінченного порядку зі сталими коефіцієнтами, \(x \in \mathbb {R}^n\).
+</p>
+
+<p>
+Розглянемо неоднорідне рівняння
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{4}\)</span>
+
+<!--
+
+
+                                                                                          ̂
+                                                                                         𝐿𝜑(𝑥) = 𝑓(𝑥),                                                                                          (5)              --><a id="eq:inhomogeneous"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:inhomogeneous} \hat {L} \phi (x) = f(x),
+\end{equation}
+
+</p>
+
+<p>
+де \(f\) — задана узагальнена функція.
+</p>
+
+<p>
+<em>Фундаментальним розв’язком</em> оператора \(\hat {L}\) називається узагальнена функція \(G\), що задовольняє
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{5}\)</span>
+
+<!--
+
+
+                                                                                    ̂ = 𝛿(𝑥).
+                                                                                   𝐿𝐺                                                                                                   (6)               --><a id="eq:fundamental_solution"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:fundamental_solution} \hat {L} G = \delta (x).
+\end{equation}
+
+</p>
+
+<p>
+Фізично \(G(x)\) — це відгук системи на точкове джерело, вміщене в початок координат.
+</p>
+
+<p>
+Якщо \(G\) — фундаментальний розв’язок оператора \(\hat {L}\), то розв’язок рівняння <span class="textup">(<a href="ch10.html#eq:inhomogeneous">5</a>)</span> дається згорткою
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{6}\)</span>
+
+<!--
+
+                                                                                         ˆ
+                                                               𝜑(𝑥) = (𝐺 ∗ 𝑓)(𝑥) ≡             𝐺(𝑦)𝑓(𝑥 − 𝑦) 𝑑𝑦,                                                                  (7)                  --><a id="eq:solution_via_convolution"></a><!--
+                                                                                          ℝ𝑛
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:solution_via_convolution} \phi (x) = (G * f)(x) \equiv \int _{\mathbb {R}^n} G(y) f(x - y) \, dy,
+\end{equation}
+
+</p>
+
+<p>
+за умови, що згортка існує (наприклад, коли \(f\) фінітна або достатньо швидко спадає).
+</p>
+
+<p>
+Використовуючи сталість коефіцієнтів оператора \(\hat {L}\), маємо
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{7}\)</span>
+
+<!--
+
+
+                                                                                                                   ̂
+                                                                                                                  𝐿(𝐺          ̂
+                                                                                                                      ∗ 𝑓) = (𝐿𝐺) ∗ 𝑓 = 𝛿 ∗ 𝑓 = 𝑓.
+
+-->
+
+<p>
+
+\begin{equation*}
+\hat {L} (G * f) = (\hat {L} G) * f = \delta * f = f.
+\end{equation*}
+
+</p>
+
+<p>
+Наведемо фундаментальні розв’язки для основних операторів математичної фізики.
+</p>
+
+<ul class="enumerate" style="list-style-type:none">
+
+<li>
+<p>
+<span class="listmarker">1.</span> <b>Оператор Лапласа</b> в \(\mathbb {R}^3\) (\(\vect {r} \in \mathbb {R}^3\), \(r = |\vect {r}|\)):
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{7}\)</span>
+<!--
+                                                                                        1
+                                                                       𝐺(𝐫) = −            ,      Δ𝐺 = 𝛿(𝐫).                                                                             (8)               --><a id="eq:laplace_fundamental"></a><!--
+                                                                                       4𝜋𝑟
+-->
+<p>
+
+\begin{equation}
+\label {eq:laplace_fundamental} G(\vect {r}) = -\frac {1}{4\pi r}, \qquad \Laplasian G = \delta (\vect {r}).
+\end{equation}
+
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker">2.</span> <b>Оператор Даламбера</b> (хвильовий оператор, \(c=1\)):
+</p>
+<p>
+\[ \Dalambertian = \frac {\partial ^2}{\partial t^2} - \Laplasian , \qquad x = (t, \vect {r}) \in \mathbb {R}^4. \]
+</p>
+<p>
+Запізнювальна функція Гріна:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{8}\)</span>
+<!--
+                                                                             1
+                                                                   𝐺(𝑥) =       𝛿(𝑡 − 𝑟),          □ 𝐺 = 𝛿(𝑥).                                                                         (9)              --><a id="eq:dalambert_fundamental"></a><!--
+                                                                            4𝜋𝑟
+-->
+<p>
+
+\begin{equation}
+\label {eq:dalambert_fundamental} G(x) = \frac {1}{4\pi r}\,\delta (t - r), \qquad \Dalambertian G = \delta (x).
+\end{equation}
+
+</p>
+</li>
+<li>
+
+<p>
+<span class="listmarker">3.</span> <b>Оператор Гельмгольца</b>: \(\hat {L} = \Laplasian + k^2\), \(k \in \mathbb {R}\setminus \{0\}\). Випромінювальна функція Гріна:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{9}\)</span>
+<!--
+
+                                                                              𝑒𝑖𝑘𝑟
+                                                                   𝐺(𝐫) = −        ,         (Δ + 𝑘2 )𝐺 = 𝛿(𝐫).                                                                    (10)                 --><a id="eq:helmholtz_fundamental"></a><!--
+                                                                              4𝜋𝑟
+-->
+<p>
+
+\begin{equation}
+\label {eq:helmholtz_fundamental} G(\vect {r}) = -\frac {e^{ikr}}{4\pi r}, \qquad (\Laplasian + k^2) G = \delta (\vect {r}).
+\end{equation}
+
+</p>
+<p>
+У границі \(k \to 0\) вираз переходить у фундаментальний розв’язок оператора Лапласа.
+</p>
+</li>
+</ul>
+
+<p>
+Підставляючи ці \(G\) у <span class="textup">(<a href="ch10.html#eq:solution_via_convolution">7</a>)</span>, отримуємо розв’язки відповідних рівнянь фізики (в гаусовій системі одиниць):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{10}\)</span>
+
+
+<!--
+
+
+                                                                                                                                                                  ˆ
+                                                                                                                                                                     𝜌(𝐫′ )
+                                                                     Δ𝜑 = −4𝜋𝜌                                                                       ⟹   𝜑(𝐫) =               𝑑𝑉 ′ ,                                                             (11)
+                                                                                                                                                                    |𝐫 − 𝐫′ |
+                                                                                                                                                                   ˆ
+                                                                                                                                                                      𝜌(𝑡 − |𝐫 − 𝐫′ |, 𝐫′ )
+                                                                   □ 𝜑 = 4𝜋𝜌                                                                         ⟹   𝜑(𝑡, 𝐫) =                          𝑑𝑉 ′ ,                                               (12)
+                                                                                                                                                                             |𝐫 − 𝐫′ |
+                                                                                                                                                                  ˆ          ′
+                                                                                                                                                                      𝑒𝑖𝑘|𝐫−𝐫 |
+                                                              (Δ + 𝑘2 )𝜑 = −4𝜋𝜌                                                                      ⟹   𝜑(𝐫) =                 𝜌(𝐫′ ) 𝑑𝑉 ′ .                                                    (13)
+                                                                                                                                                                      |𝐫 − 𝐫′ |
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\Laplasian \phi &amp;= -4\pi \rho \quad &amp;\Longrightarrow &amp; \quad \phi (\vect {r}) = \int \frac {\rho (\vect {r}&apos;)}{|\vect {r} - \vect {r}&apos;|} \, dV&apos;, \\[4pt] \Dalambertian \phi &amp;= 4\pi
+\rho \quad &amp;\Longrightarrow &amp; \quad \phi (t, \vect {r}) = \int \frac {\rho (t - |\vect {r} - \vect {r}&apos;|, \vect {r}&apos;)}{|\vect {r} - \vect {r}&apos;|} \, dV&apos;, \\[4pt] (\Laplasian +
+k^2)\phi &amp;= -4\pi \rho \quad &amp;\Longrightarrow &amp; \quad \phi (\vect {r}) = \int \frac {e^{ik|\vect {r} - \vect {r}&apos;|}}{|\vect {r} - \vect {r}&apos;|}\,\rho (\vect {r}&apos;)\, dV&apos;.
+\end{align}
+
+</p>
+<!--
+...... section Спеціальні функції ......
+-->
+<h4 id="autosec-273"><span class="sectionnumber">.5&#x2003;</span>Спеціальні функції</h4>
+<a id="ClassicalElectrodynamics-html-autopage-273"></a>
+
+
+<a id="sec:special_functions"></a>
+<!--
+...... subsection Поліноми Лежандра ......
+-->
+<h5 id="autosec-274"><span class="sectionnumber">.5.1&#x2003;</span>Поліноми Лежандра</h5>
+<a id="ClassicalElectrodynamics-html-autopage-274"></a>
+
+
+<a id="Polinoms"></a>
+
+<p>
+Поліноми Лежандра застосовуються у теорії потенціалу при розкладанні виразу в околі точки \(\vect {r}\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{13}\)</span>
+
+<!--
+
+                                                                                                                                        ∞      𝑙
+                                                                                                  1                     1                     𝑟<
+                                                                                                         =                           =∑            𝑃𝑙 (cos 𝜒),
+                                                                                               |𝐫 − 𝐫0 |                                     𝑙+1
+                                                                                                               2                2       𝑙=0 𝑟>
+                                                                                                             √𝑟 − 2𝑟𝑟0 cos 𝜒 + 𝑟0
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {1}{|\vect {r} - \vect {r}_0|} = \frac {1}{\sqrt {r^2 - 2rr_0 \cos \chi + r_0^2 }} = \sum \limits _{l = 0}^{\infty } \frac {r^l_&lt;}{r^{l+1}_&gt;} P_l(\cos \chi ),
+\end{equation*}
+
+</p>
+
+<p>
+де \(r_&gt;\), \(r_&lt;\)&nbsp;— більша і менша із величин \(|\vect {r}|\) та \(\vect {r}_0\), відповідно, \(\cos \chi \)&nbsp;— кут між векторами \(\vect {r}\) та \(|\vect {r}_0|\).
+</p>
+
+<p>
+<b>Деякі поліноми Лежандра</b>
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{13}\)</span>
+
+
+<!--
+
+
+
+                                                                                                          𝑃0 (cos 𝜒) = 1,    𝑃1 (cos 𝜒) = cos 𝜒,
+                                                                                                         1                                  1
+                                                                                          𝑃2 (cos 𝜒) =     (3 cos2 𝜒 − 1),   𝑃3 (cos 𝜒) =     (5 cos2 𝜒 − 3 cos 𝜒).
+                                                                                                         2                                  2
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+P_{0}(\cos \chi ) = 1, &amp;\quad P_{1}(\cos \chi ) = \cos \chi , \\ P_{2}(\cos \chi ) = \frac {1}{2}(3\cos ^2\chi -1), &amp;\quad P_{3}(\cos \chi ) = \frac {1}{2}(5\cos ^2\chi -3\cos \chi ).
+\end{align*}
+
+</p>
+<!--
+...... subsection Сферичні гармоніки ......
+-->
+<h5 id="autosec-275"><span class="sectionnumber">.5.2&#x2003;</span>Сферичні гармоніки</h5>
+<a id="ClassicalElectrodynamics-html-autopage-275"></a>
+
+
+<a id="Spherical_Harmonics"></a>
+
+<p>
+Сферичні функції, що залежать від полярних кутів визначаються формулою:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{13}\)</span>
+
+<!--
+
+
+                                                                                                                          2𝑙 + 1 (𝑙 − 𝑚)! |𝑚|
+                                                                                            𝑌𝑙𝑚 (𝜃, 𝜑) = (−1)(𝑚+|𝑚|)/2                   𝑃 (cos 𝜃)𝑒𝑖𝑚𝜑 ,
+                                                                                                                         √ 4𝜋 (𝑙 + 𝑚)! 𝑙
+
+-->
+
+<p>
+
+\begin{equation*}
+Y_{lm}(\theta ,\phi ) = (-1)^{(m+|m|)/2} \sqrt {\frac {2l+1}{4\pi }\frac {(l-m)!}{(l+m)!}}P_l^{|m|}(\cos \theta ) e^{im\phi },
+\end{equation*}
+
+</p>
+
+<p>
+де \(l = 0,1,2, \ldots \), \(m\) пробігає значення від \(-l\) до \(l\), а \(P_l^{|m|}(x)\)&nbsp;— приєднані функції Лежандра.
+</p>
+
+<p>
+Вони утворюють повну ортонормовану систему функцій:
+</p>
+
+<p>
+\[ \int \limits _{\theta =0}^{\pi } \int \limits _{\phi =0}^{2\pi } Y^*_{l&apos;,m&apos;}(\theta , \phi ) Y_{l,m}(\theta , \phi ) \sin \theta d\theta d\phi = \delta _{l,l&apos;} \delta _{m,m&apos;}. \]
+</p>
+
+<p>
+Деякі сферичні гармоніки:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{13}\)</span>
+
+
+<!--
+
+
+
+                                                                                                                            1
+                                                                                                         𝑌0,0 (𝜃, 𝜑) = √      ,
+                                                                                                                           4𝜋
+                                                                                                                            3
+                                                                                                       𝑌1,±1 (𝜃, 𝜑) = √       sin 𝜃 𝑒±𝑖𝜑 ,
+                                                                                                                           8𝜋
+                                                                                                                            3
+                                                                                                         𝑌1,0 (𝜃, 𝜑) = √      cos 𝜃,
+                                                                                                                           4𝜋
+                                                                                                                            5
+                                                                                                         𝑌2,0 (𝜃, 𝜑) = √       (3 cos2 𝜃 − 1),
+                                                                                                                           16𝜋
+                                                                                                                           15
+                                                                                                       𝑌2,±1 (𝜃, 𝜑) = √       sin 𝜃 cos 𝜃 𝑒±𝑖𝜑 ,
+                                                                                                                           8𝜋
+                                                                                                                            15
+                                                                                                       𝑌2,±2 (𝜃, 𝜑) = √        sin2 𝜃 𝑒±2𝑖𝜑 .
+                                                                                                                           32𝜋
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+Y_{0,0}(\theta ,\phi ) &amp; =\sqrt {\frac {1} {4 \pi }}, \\ Y_{1,\pm 1}(\theta ,\phi ) &amp; =\sqrt {\frac {3} {8 \pi }} \, \sin \theta \, e^{\pm i\phi }, \\ Y_{1,0}(\theta ,\phi ) &amp; =\sqrt {\frac {3} {4
+\pi }}\, \cos \theta , \\ Y_{2,0}(\theta ,\phi ) &amp; =\sqrt {\frac {5} {16 \pi }}\, (3\cos ^{2}\theta -1), \\ Y_{2,\pm 1}(\theta ,\phi ) &amp; =\sqrt {\frac {15}{8 \pi }}\, \sin \theta \, \cos \theta \,
+e^{\pm i\phi }, \\ Y_{2,\pm 2}(\theta ,\phi ) &amp; =\sqrt {\frac {15}{32 \pi }} \, \sin ^{2}\theta \, e^{\pm 2i\phi }.
+\end{align*}
+
+</p>
+<!--
+...... subsection Циліндричні функції ......
+-->
+<h5 id="autosec-276"><span class="sectionnumber">.5.3&#x2003;</span>Циліндричні функції</h5>
+<a id="ClassicalElectrodynamics-html-autopage-276"></a>
+
+
+<p>
+Рівняння, що виникають в задачах з циліндричною симетрією, мають вигляд:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{0}\)</span>
+
+<!--
+
+
+                                                                       𝑑2 𝑦   1 𝑑𝑦       𝑚2
+                                                                            +      + (1 − 2 ) 𝑦 = 0,                                                                 (1)                              --><a id="eq:Bessel_eq"></a><!--
+                                                                       𝑑𝑥2    𝑥 𝑑𝑥       𝑥
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Bessel_eq} \frac {d^2y}{dx^2} + \frac 1x\frac {dy}{dx} + \left (1 - \frac {m^2}{x^2} \right ) y = 0,
+\end{equation}
+
+</p>
+
+<p>
+розв’язок яких можна представити за допомогою функцій Бесселя \(J_m(x)\) та Неймана \(N_m\) у вигляді лінійної комбінації \(y(x) = A J_m(x) + B N_m(x)\) або у вигляді лінійної комбінації \(y(x) = A H^{(1)}_m(x) + B H^{(2)}_m(x)\), де
+функції \(H_m^{(1,2)} =J_m \pm i N_m\)&nbsp;— називаються функціями Ганкеля 1-го та 2-го роду, відповідно. Доцільність введення функцій Ганкеля обумовлена тим, що вони мають прості асимптотичні розкладання при \(|x| \gg 1\) і
+зручні для задач, пов’язаних з поширенням хвиль.
+</p>
+
+<p>
+Для \(m = 0,1,2,\ldots \) функції Неймана нескінченні в точці \(x = 0\), тобто \(\lim \limits _{x\to 0}N_m(x) = -\infty \).
+</p>
+
+<p>
+Функції Бесселя можна представити за допомогою ряду (в околі точки \(x = 0\) для цілих, або невід’ємних \(m\)):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{1}\)</span>
+
+<!--
+
+                                                                                 ∞
+                                                                                        (−1)𝑛       𝑥 2𝑛+𝑚
+                                                                        𝐽𝑚 (𝑥) = ∑                 ( )     ,                                                                 (2)                               --><a id="eq:J"></a><!--
+                                                                                𝑛=0 𝑛!Γ(𝑛 + 𝑚 + 1)  2
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:J} J_m(x) = \sum _{n=0}^\infty \frac {(-1)^n}{n! \Gamma (n+m+1)} {\left ({\frac {x}{2}}\right )}^{2n+m},
+\end{equation}
+
+</p>
+
+<p>
+де \(\Gamma \)&nbsp;— <a href="https://en.wikipedia.org/wiki/Gamma_function" target="_blank" >гамма-функція</a>. Для \(m \in \mathbb {Z}\) повинна виконуватись рівність \(J_{-m}(x) = (-1)^m J_m(x)\).
+</p>
+<div class="center">
+
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-html-20"
+    class="lateximagesource"
+><!--
+  1
+       𝐽0 (𝑥)
+       𝐽1 (𝑥)
+       𝐽2 (𝑥)
+
+ 0.5
+
+
+
+
+                𝑥
+
+
+
+
+−0.5
+--><img
+   src="ClassicalElectrodynamics-html-images\image-20.svg"
+   alt="(-tikz-&nbsp;diagram)"
+   style=""
+   class="lateximage"
+></span>
+</p>
+
+<p>
+Графіки функцій Бесселя \(J_m\) для \(m = 0,1,2\).
+</p>
+</div>
+<div class="center">
+
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-html-21"
+    class="lateximagesource"
+><!--
+ 0.5
+
+
+
+            𝑥
+
+
+
+
+−0.5
+
+
+
+ −1
+       𝑁0 (𝑥)
+       𝑁1 (𝑥)
+       𝑁2 (𝑥)
+--><img
+   src="ClassicalElectrodynamics-html-images\image-21.svg"
+   alt="(-tikz-&nbsp;diagram)"
+   style=""
+   class="lateximage"
+></span>
+</p>
+
+<p>
+Графіки функцій Неймана \(N_m\) для \(m = 0,1,2\).
+</p>
+</div>
+
+<p>
+Функції Неймана визначаються через функції Бесселя як:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{2}\)</span>
+
+<!--
+
+
+                                                                                              𝐽𝑚 (𝑥) cos 𝑚𝜋 − 𝐽−𝑚 (𝑥)
+                                                                                   𝑁𝑚 (𝑥) =                           .                                                                            (3)            --><a id="eq:NG"></a><!--
+                                                                                                       sin 𝑚𝜋
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:NG} N_m(x) = \frac {J_m(x)\cos m\pi - J_{-m}(x)}{\sin m\pi }.
+\end{equation}
+
+</p>
+
+<p>
+Деякі рекурентні співвідношення:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{3}\)</span>
+
+<!--
+
+                                                                                                                                                             2𝑚
+                                                                                                                              𝐽𝑚+1 (𝑥) + 𝐽𝑚−1 (𝑥) =             𝐽 (𝑥).                                                                  (4)
+                                                                                                                                                              𝑥 𝑚
+
+-->
+
+<p>
+
+\begin{equation}
+J_{m + 1}(x) + J_{m - 1}(x) = \frac {2m}{x}J_m(x).
+\end{equation}
+
+</p>
+
+<p>
+Деякі диференціальні та інтегральні співвідношення для нецілих \(m\) (для цілих \(m\) ці функції можна визначити за допомогою граничного переходу).:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{}{4}\)</span>
+
+
+<!--
+
+
+                                                                                                                                          𝑑
+                                                                                                                                            𝐽 (𝑥) = −𝐽1 (𝑥),                                                                            (5)
+                                                                                                                                         𝑑𝑥 0
+                                                                                                                        𝑑
+                                                                                                                          (𝑥−𝑚 𝐽𝑚 (𝑥)) = −𝑥−𝑚 𝐽𝑚+1 (𝑥),                                                                                 (6)
+                                                                                                                       𝑑𝑥
+                                                                                                                                     ˆ𝑥
+                                                                                                                                        𝑥′𝑚+1 𝐽𝑚 (𝑥′ )𝑑𝑥′ = 𝑥𝑚+1 𝐽𝑚+1 .          (7)                          --><a id="eq:recInt"></a><!--
+                                                                                                                                         0
+
+
+
+-->
+
+
+<p>
+
+\begin{align}
+\frac {d}{dx} J_0(x) = - J_1(x), \\ \frac {d}{dx} \left ( x^{-m}J_m(x)\right ) = - x^{-m}J_{m+1}(x), \\ \int \limits _0^{x} x^{\prime m+1} J_m(x&apos;) dx&apos; &amp;= x^{m+1}J_{m+1}. \label {eq:recInt}
+\end{align}
+
+</p>
+
+<p>
+Інтеграли від добутків:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{7}\)</span>
+
+<!--
+
+                                                 ˆ𝑥                                                    ′ (𝑘 𝑥) − 𝑘 𝐽 (𝑘 𝑥)𝐽 ′ (𝑘 𝑥))
+                                                                                       𝑥 (𝑘2 𝐽𝑚 (𝑘1 𝑥)𝐽𝑚   2      1 𝑚 2    𝑚 1
+                                                      𝐽𝑚 (𝑘1 𝑥′ )𝐽𝑚 (𝑘2 𝑥′ )𝑥′ 𝑑𝑥′ =                                                          .                                    (8)                          --><a id="eq:JJ0*"></a><!--
+                                                                                                           𝑘21 − 𝑘22
+                                                 0
+
+-->
+
+<p>
+
+\begin{equation}
+\int \limits _0^x J_m(k_1x&apos;)J_m(k_2x&apos;) x&apos; dx&apos; = \frac {x\left ( k_2J_m(k_1x)J&apos;_m(k_2x) - k_1J_m(k_2x)J&apos;_m(k_1x)\right )}{k_1^2-k_2^{2}} \label {eq:JJ0*}.
+\end{equation}
+
+</p>
+
+<p>
+В задачах, зазвичай, часто необхідно знайти наближений вигляд циліндричних функцій при малих та великих значеннях аргументу \(x\):
+</p>
+
+<p>
+при \(|x| \ll 1\) з&nbsp;<span class="textup">(<a href="ch10.html#eq:J">2</a>)</span>
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{8}\)</span>
+
+<!--
+
+
+                                                                                                                                       𝑥2                 𝑥𝑚
+                                                                                                                       𝐽0 (𝑥) ≈ 1 −       ,       𝐽𝑚 ≈         , 𝑚 ≥ 1, 𝑚 ∈ ℕ;                                                          (9)
+                                                                                                                                       4                 2𝑚 𝑚!
+
+-->
+
+<p>
+
+\begin{equation}
+J_0(x) \approx 1 - \frac {x^2}{4}, \quad J_m \approx \frac {x^m}{2^m m!}, \ m \ge 1,\, m \in \mathbb {N};
+\end{equation}
+
+</p>
+
+<p>
+при \(|x| \gg 1\)
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{9}\)</span>
+
+
+<!--
+
+
+
+                                                                                                                                               2           𝜋 𝜋
+                                                                                                                                𝐽𝑚 ≈ √           cos (𝑥 − 𝑚 − ) ,                               (10)           --><a id="eq:Jxgg1"></a><!--
+                                                                                                                                              𝜋𝑥           2 4
+                                                                                                                                               2           𝜋 𝜋
+                                                                                                                               𝑁𝑚 ≈ √            sin (𝑥 − 𝑚 − ) ,                               (11)           --><a id="eq:Yxgg1"></a><!--
+                                                                                                                                              𝜋𝑥           2 4
+                                                                                                                               (1,2)           2 ±𝑖(𝑥−𝑚 𝜋 − 𝜋 )
+                                                                                                                             𝐻𝑚        ≈√        𝑒      2   4 .                                 (12)           --><a id="eq:Hxgg1"></a><!--
+                                                                                                                                              𝜋𝑥
+
+
+-->
+
+
+<p>
+
+\begin{align}
+J_m &amp;\approx \sqrt {\frac {2}{\pi x}} \cos \left ( x - m\frac {\pi }{2} - \frac {\pi }{4}\right ), \label {eq:Jxgg1}\\ N_m &amp;\approx \sqrt {\frac {2}{\pi x}} \sin \left ( x - m\frac {\pi }{2} - \frac
+{\pi }{4}\right ), \label {eq:Yxgg1}\\ H_m^{(1,2)} &amp;\approx \sqrt {\frac {2}{\pi x}} e^{\pm i \left ( x - m\frac {\pi }{2} - \frac {\pi }{4}\right ) }. \label {eq:Hxgg1}
+\end{align}
+
+</p>
+
+<p>
+Співвідношення Якобі-Ангера (розкладання за функціями Бесселя):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{}{12}\)</span>
+
+<!--
+
+                                                                           ∞                                      ∞
+                                                            𝑒𝑖𝑥 cos 𝜃 =    ∑     𝑖𝑚 𝐽𝑚 (𝑥)𝑒𝑖𝑚𝜃 ,   𝑒𝑖𝑥 sin 𝜃 =    ∑     𝐽𝑚 (𝑥)𝑒𝑖𝑚𝜃 .                                                     (13)            --><a id="eq:JacobiAnger"></a><!--
+                                                                          𝑚=−∞                                   𝑚=−∞
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:JacobiAnger} e^{ix\cos \theta } = \sum \limits _{m= - \infty }^{\infty } i^mJ_m(x)e^{im\theta }, \quad e^{ix\sin \theta } = \sum \limits _{m= - \infty }^{\infty } J_m(x)e^{im\theta }. \\
+\end{equation}
+
+</p>
+
+<a id="ClassicalElectrodynamics-html-autofile-last"></a>
+</section>
+
+</main>
+
+
+<nav class="botnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Home</a></nav>
+
+</div><!-- grid -->
+</body>
+</html>

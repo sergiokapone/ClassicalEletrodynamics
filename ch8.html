@@ -1,0 +1,2420 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Класична електродинаміка — Варіаційний принцип для рівнянь електродинаміки</title>
+<link rel="stylesheet" type="text/css" href="conspect.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+   subequations: "0",
+   section: "",
+   loader: {
+     load: ['[tex]/tagformat', '[tex]/textmacros'],
+   },
+   startup: {
+     ready() {
+       // These would be replaced by import commands if you wanted to make
+       // a proper extension.
+       const Configuration = MathJax._.input.tex.Configuration.Configuration;
+       const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+       const Macro = MathJax._.input.tex.Symbol.Macro;
+       const TexError = MathJax._.input.tex.TexError.default;
+       const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+       const expandable = MathJax._.util.Options.expandable;
+
+        // Insert the replacement string into the TeX string, and check
+        // that there haven't been too many maxro substitutions (prevents
+        // infinite loops).
+        const useArgument = (parser, text) => {
+          parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+          parser.i = 0;
+          if (++parser.macroCount > parser.configuration.options.maxMacros) {
+            throw new TexError('MaxMacroSub1',
+            'MathJax maximum macro substitution count exceeded; ' +
+            'is there a recursive macro call?');
+          }
+        }
+
+        // Create the command map for:
+        //     \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+        new CommandMap('Lwarp-macros', {
+          ifstar: 'IfstarFunction',
+          ifnextchar: 'IfnextcharFunction',
+          ifblank: 'IfblankFunction',
+          ifstrequal: 'IfstrequalFunction',
+          gsubstitute: 'GsubstituteFunction',
+          seteqnumber: 'SeteqnumberFunction'
+        }, {
+          // This function implements an ifstar macro.
+          IfstarFunction(parser, name) {
+             const resultstar = parser.GetArgument(name);
+             const resultnostar = parser.GetArgument(name);
+             const star = parser.GetStar();                 // true if there is a *
+             useArgument(parser, star ? resultstar : resultnostar);
+          },
+
+          // This function implements an ifnextchar macro.
+          IfnextcharFunction(parser, name) {
+             let whichchar = parser.GetArgument(name);
+             if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+               // $ syntax highlighting
+               whichchar = String.fromCodePoint(parseInt(whichchar));
+             }
+             const resultnextchar = parser.GetArgument(name);
+             const resultnotnextchar = parser.GetArgument(name);
+             const gotchar = (parser.GetNext() === whichchar);
+             useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+          },
+
+          // This function implements an ifblank macro.
+          IfblankFunction(parser, name) {
+             const blankarg = parser.GetArgument(name);
+             const resultblank = parser.GetArgument(name);
+             const resultnotblank = parser.GetArgument(name);
+             const isblank = (blankarg.trim() == "");
+             useArgument(parser, isblank ? resultblank : resultnotblank);
+          },
+
+          // This function implements an ifstrequal macro.
+          IfstrequalFunction(parser, name) {
+             const strequalfirst = parser.GetArgument(name);
+             const strequalsecond = parser.GetArgument(name);
+             const resultequal = parser.GetArgument(name);
+             const resultnotequal = parser.GetArgument(name);
+             const isequal = (strequalfirst == strequalsecond);
+             useArgument(parser, isequal ? resultequal : resultnotequal);
+          },
+
+          // This function implements a gsub macro.
+          GsubstituteFunction(parser, name) {
+             const gsubfirst = parser.GetArgument(name);
+             const gsubsecond = parser.GetArgument(name);
+             const gsubthird = parser.GetArgument(name);
+             let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+             useArgument(parser, gsubresult);
+          },
+
+          // This function modifies the equation numbers.
+          SeteqnumberFunction(parser, name) {
+              // Get the macro parameters
+              const star = parser.GetStar();                  // true if there is a *
+              const optBrackets = parser.GetBrackets(name);   // contents of optional brackets
+              const newsubequations = parser.GetArgument(name); // the subequations argument
+              const neweqsection = parser.GetArgument(name); // the eq section argument
+              const neweqnumber = parser.GetArgument(name);   // the eq number argument
+              MathJax.config.subequations=newsubequations ;   // a string with boolean meaning
+              MathJax.config.section=neweqsection ;           // a string with numeric meaning
+              parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+          }
+
+        });
+
+        // Create the Lwarp-macros package
+        Configuration.create('Lwarp-macros', {
+          handler: {macro: ['Lwarp-macros']}
+        });
+
+        MathJax.startup.defaultReady();
+
+        // For forward references:
+        MathJax.startup.input[0].preFilters.add(({math}) => {
+          if (math.inputData.recompile){
+              MathJax.config.subequations = math.inputData.recompile.subequations;
+              MathJax.config.section = math.inputData.recompile.section;
+          }
+        });
+        MathJax.startup.input[0].postFilters.add(({math}) => {
+          if (math.inputData.recompile){
+              math.inputData.recompile.subequations = MathJax.config.subequations;
+              math.inputData.recompile.section = MathJax.config.section;
+          }
+        });
+
+          // For \left, \right with unicode-math:
+          const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+          const {Symbol} = MathJax._.input.tex.Symbol;
+          const {MapHandler} = MathJax._.input.tex.MapHandler;
+          const delimiter = MapHandler.getMap('delimiter');
+          delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+          delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+          delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+          delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+          delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+          delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+          delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+          delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+          delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+          delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+          delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+          delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+          delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+          delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+          delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+          delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+          delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+          delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+          delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+          delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+          delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+          delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+          delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+          delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+          delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+          delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+          delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+          delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+          delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+          delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+          delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+          delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+          delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+          delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+          delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+          delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+          delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+          delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+          delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+    }     // ready
+  },      // startup
+
+  tex: {
+    packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+    tags: "ams",
+         tagformat: {
+             number: function (n) {
+                 if(MathJax.config.subequations==0)
+                      return(MathJax.config.section + n);
+                 else
+                      return(MathJax.config.section + String.fromCharCode(96+n));
+             },
+         },
+  }
+}
+</script>
+
+<script
+    id="MathJax-script"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="ClassicalElectrodynamics-html-autopage-218"></a>
+<div class="pagegrid">
+
+
+<nav class="topnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Home</a></nav>
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">Класична електродинаміка</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-4" class="tocchapter" >
+Передмова</a>
+</p>
+
+
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-5" class="tocchapter" >
+Вибір системи одиниць</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-8" class="tocpart" >
+<span class="sectionnumber">I</span>&#x2003;Класична електродинаміка</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-9" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Базові поняття та рівняння</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-10" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Величини, що спостерігаються в електродинаміці</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-25" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;Рівняння електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-42" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Закони збереження</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-46" class="tocsection" >
+<span class="sectionnumber">1.4</span>&#x2003;Межі застосовності класичної електродинаміки</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-58" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Розв’язки рівнянь Максвелла</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-59" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;Потенціали електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-65" class="tocsection" >
+<span class="sectionnumber">2.2</span>&#x2003;Потенціали ізольованої системи зарядів і струмів</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-70" class="tocsection" >
+<span class="sectionnumber">2.3</span>&#x2003;Задача Коші для рівнянь Максвелла</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-82" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Вільне електромагнітне поле</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-83" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Спектральний розклад і плоскі хвилі</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-89" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Випадкові поля випромінювання</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-116" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Співвідношення між тривалістю сигналу та шириною його спектру</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-118" class="tocsection" >
+<span class="sectionnumber">3.4</span>&#x2003;Загальний розв’язок рівнянь вільного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-127" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Випромінювання</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-128" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Поле прискореного заряду</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Випромінювання малих систем</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-138" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Розсіювання електромагнітних хвиль</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-151" class="tocpart" >
+<span class="sectionnumber">II</span>&#x2003;Чотиривимірне формулювання класичної електродинаміки</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-152" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Перетворення Лоренца як наслідок постулатів Айнштайна</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Простір-час, системи відліку</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-155" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Перетворення Лоренца для одновимірних рухів систем відліку</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-164" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Власний час</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-165" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Квадрат інтервалу</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-169" class="tocsection" >
+<span class="sectionnumber">5.5</span>&#x2003;Перетворення довжини та об’єму</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-186" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Співвідношення СТВ у просторі Мінковського</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-189" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Загальні та власні перетворення Лоренца</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-191" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Вектори і тензори в просторі Мінковського</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-193" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Світові лінії та чотиривектор швидкості</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-199" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Електродинаміка у просторі Мінковського</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-200" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Чотиривимірна форма рівнянь Максвелла</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-203" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Трансформаційні властивості \(F_{\mitmu \mitnu }\)</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-208" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Рівняння руху зарядженої частинки</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-210" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Плоскі монохроматичні хвилі</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-211" class="tocsection" >
+<span class="sectionnumber">7.5</span>&#x2003;Ефект Доплера</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-216" class="tocsection" >
+<span class="sectionnumber">7.6</span>&#x2003;Вектор-потенціал електромагнітного поля у випадку ізольованої системи</a>
+</p>
+
+
+
+<p>
+<a href="ch8.html#autosec-220" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Варіаційний принцип для рівнянь електродинаміки</a>
+</p>
+
+
+
+<p>
+<a href="ch8.html#autosec-221" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;Заряд у зовнішньому електромагнітному полі</a>
+</p>
+
+
+
+<p>
+<a href="ch8.html#autosec-223" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Дія для електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-226" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Тензор енергії-імпульсу і закони збереження</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-227" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Чотири-імпульс системи тіл</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-231" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Енергія-імпульс електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-232" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;Тензор моменту імпульсу електромагнітної системи</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-237" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Реакція випромінювання</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-238" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Нерелятивістська сила Абрагама–Лоренца</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-240" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Релятивістське узагальнення</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-249" class="tocsection" >
+<span class="sectionnumber">.1</span>&#x2003;Таблиця переходу між гаусовою системою одиниць та SI</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-255" class="tocsection" >
+<span class="sectionnumber">.2</span>&#x2003;Основні формули векторного аналізу</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-271" class="tocsection" >
+<span class="sectionnumber">.3</span>&#x2003;Узагальнені функції</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-272" class="tocsection" >
+<span class="sectionnumber">.4</span>&#x2003;Фундаментальні розв’язки</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-273" class="tocsection" >
+<span class="sectionnumber">.5</span>&#x2003;Спеціальні функції</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>Класична електродинаміка</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+   style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\require {colortbl}\)
+
+\(\let \LWRorigcolumncolor \columncolor \)
+
+\(\renewcommand {\columncolor }[2][named]{\LWRorigcolumncolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\let \LWRorigrowcolor \rowcolor \)
+
+\(\renewcommand {\rowcolor }[2][named]{\LWRorigrowcolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\let \LWRorigcellcolor \cellcolor \)
+
+\(\renewcommand {\cellcolor }[2][named]{\LWRorigcellcolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\let \symnormal \mathit \)
+
+\(\let \symliteral \mathrm \)
+
+\(\let \symbb \mathbb \)
+
+\(\let \symbbit \mathbb \)
+
+\(\let \symcal \mathcal \)
+
+\(\let \symscr \mathscr \)
+
+\(\let \symfrak \mathfrak \)
+
+\(\let \symsfup \mathsf \)
+
+\(\let \symsfit \mathit \)
+
+\(\let \symbfsf \mathbf \)
+
+\(\let \symbfup \mathbf \)
+
+\(\newcommand {\symbfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symbfcal \mathcal \)
+
+\(\let \symbfscr \mathscr \)
+
+\(\let \symbffrak \mathfrak \)
+
+\(\let \symbfsfup \mathbf \)
+
+\(\newcommand {\symbfsfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symup \mathrm \)
+
+\(\let \symbf \mathbf \)
+
+\(\let \symit \mathit \)
+
+\(\let \symtt \mathtt \)
+
+\(\let \symbffrac \mathbffrac \)
+
+\(\newcommand {\mathfence }[1]{\mathord {#1}}\)
+
+\(\newcommand {\mathover }[1]{#1}\)
+
+\(\newcommand {\mathunder }[1]{#1}\)
+
+\(\newcommand {\mathaccent }[1]{#1}\)
+
+\(\newcommand {\mathbotaccent }[1]{#1}\)
+
+\(\newcommand {\mathalpha }[1]{\mathord {#1}}\)
+
+\(\def\upAlpha{\unicode{x0391}}\)
+
+\(\def\upBeta{\unicode{x0392}}\)
+
+\(\def\upGamma{\unicode{x0393}}\)
+
+\(\def\upDigamma{\unicode{x03DC}}\)
+
+\(\def\upDelta{\unicode{x0394}}\)
+
+\(\def\upEpsilon{\unicode{x0395}}\)
+
+\(\def\upZeta{\unicode{x0396}}\)
+
+\(\def\upEta{\unicode{x0397}}\)
+
+\(\def\upTheta{\unicode{x0398}}\)
+
+\(\def\upVartheta{\unicode{x03F4}}\)
+
+\(\def\upIota{\unicode{x0399}}\)
+
+\(\def\upKappa{\unicode{x039A}}\)
+
+\(\def\upLambda{\unicode{x039B}}\)
+
+\(\def\upMu{\unicode{x039C}}\)
+
+\(\def\upNu{\unicode{x039D}}\)
+
+\(\def\upXi{\unicode{x039E}}\)
+
+\(\def\upOmicron{\unicode{x039F}}\)
+
+\(\def\upPi{\unicode{x03A0}}\)
+
+\(\def\upVarpi{\unicode{x03D6}}\)
+
+\(\def\upRho{\unicode{x03A1}}\)
+
+\(\def\upSigma{\unicode{x03A3}}\)
+
+\(\def\upTau{\unicode{x03A4}}\)
+
+\(\def\upUpsilon{\unicode{x03A5}}\)
+
+\(\def\upPhi{\unicode{x03A6}}\)
+
+\(\def\upChi{\unicode{x03A7}}\)
+
+\(\def\upPsi{\unicode{x03A8}}\)
+
+\(\def\upOmega{\unicode{x03A9}}\)
+
+\(\def\itAlpha{\unicode{x1D6E2}}\)
+
+\(\def\itBeta{\unicode{x1D6E3}}\)
+
+\(\def\itGamma{\unicode{x1D6E4}}\)
+
+\(\def\itDigamma{\mathit{\unicode{x03DC}}}\)
+
+\(\def\itDelta{\unicode{x1D6E5}}\)
+
+\(\def\itEpsilon{\unicode{x1D6E6}}\)
+
+\(\def\itZeta{\unicode{x1D6E7}}\)
+
+\(\def\itEta{\unicode{x1D6E8}}\)
+
+\(\def\itTheta{\unicode{x1D6E9}}\)
+
+\(\def\itVartheta{\unicode{x1D6F3}}\)
+
+\(\def\itIota{\unicode{x1D6EA}}\)
+
+\(\def\itKappa{\unicode{x1D6EB}}\)
+
+\(\def\itLambda{\unicode{x1D6EC}}\)
+
+\(\def\itMu{\unicode{x1D6ED}}\)
+
+\(\def\itNu{\unicode{x1D6EE}}\)
+
+\(\def\itXi{\unicode{x1D6EF}}\)
+
+\(\def\itOmicron{\unicode{x1D6F0}}\)
+
+\(\def\itPi{\unicode{x1D6F1}}\)
+
+\(\def\itRho{\unicode{x1D6F2}}\)
+
+\(\def\itSigma{\unicode{x1D6F4}}\)
+
+\(\def\itTau{\unicode{x1D6F5}}\)
+
+\(\def\itUpsilon{\unicode{x1D6F6}}\)
+
+\(\def\itPhi{\unicode{x1D6F7}}\)
+
+\(\def\itChi{\unicode{x1D6F8}}\)
+
+\(\def\itPsi{\unicode{x1D6F9}}\)
+
+\(\def\itOmega{\unicode{x1D6FA}}\)
+
+\(\def\upalpha{\unicode{x03B1}}\)
+
+\(\def\upbeta{\unicode{x03B2}}\)
+
+\(\def\upvarbeta{\unicode{x03D0}}\)
+
+\(\def\upgamma{\unicode{x03B3}}\)
+
+\(\def\updigamma{\unicode{x03DD}}\)
+
+\(\def\updelta{\unicode{x03B4}}\)
+
+\(\def\upepsilon{\unicode{x03F5}}\)
+
+\(\def\upvarepsilon{\unicode{x03B5}}\)
+
+\(\def\upzeta{\unicode{x03B6}}\)
+
+\(\def\upeta{\unicode{x03B7}}\)
+
+\(\def\uptheta{\unicode{x03B8}}\)
+
+\(\def\upvartheta{\unicode{x03D1}}\)
+
+\(\def\upiota{\unicode{x03B9}}\)
+
+\(\def\upkappa{\unicode{x03BA}}\)
+
+\(\def\upvarkappa{\unicode{x03F0}}\)
+
+\(\def\uplambda{\unicode{x03BB}}\)
+
+\(\def\upmu{\unicode{x03BC}}\)
+
+\(\def\upnu{\unicode{x03BD}}\)
+
+\(\def\upxi{\unicode{x03BE}}\)
+
+\(\def\upomicron{\unicode{x03BF}}\)
+
+\(\def\uppi{\unicode{x03C0}}\)
+
+\(\def\upvarpi{\unicode{x03D6}}\)
+
+\(\def\uprho{\unicode{x03C1}}\)
+
+\(\def\upvarrho{\unicode{x03F1}}\)
+
+\(\def\upsigma{\unicode{x03C3}}\)
+
+\(\def\upvarsigma{\unicode{x03C2}}\)
+
+\(\def\uptau{\unicode{x03C4}}\)
+
+\(\def\upupsilon{\unicode{x03C5}}\)
+
+\(\def\upphi{\unicode{x03D5}}\)
+
+\(\def\upvarphi{\unicode{x03C6}}\)
+
+\(\def\upchi{\unicode{x03C7}}\)
+
+\(\def\uppsi{\unicode{x03C8}}\)
+
+\(\def\upomega{\unicode{x03C9}}\)
+
+\(\def\italpha{\unicode{x1D6FC}}\)
+
+\(\def\itbeta{\unicode{x1D6FD}}\)
+
+\(\def\itvarbeta{\unicode{x03D0}}\)
+
+\(\def\itgamma{\unicode{x1D6FE}}\)
+
+\(\def\itdigamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\itdelta{\unicode{x1D6FF}}\)
+
+\(\def\itepsilon{\unicode{x1D716}}\)
+
+\(\def\itvarepsilon{\unicode{x1D700}}\)
+
+\(\def\itzeta{\unicode{x1D701}}\)
+
+\(\def\iteta{\unicode{x1D702}}\)
+
+\(\def\ittheta{\unicode{x1D703}}\)
+
+\(\def\itvartheta{\unicode{x1D717}}\)
+
+\(\def\itiota{\unicode{x1D704}}\)
+
+\(\def\itkappa{\unicode{x1D705}}\)
+
+\(\def\itvarkappa{\unicode{x1D718}}\)
+
+\(\def\itlambda{\unicode{x1D706}}\)
+
+\(\def\itmu{\unicode{x1D707}}\)
+
+\(\def\itnu{\unicode{x1D708}}\)
+
+\(\def\itxi{\unicode{x1D709}}\)
+
+\(\def\itomicron{\unicode{x1D70A}}\)
+
+\(\def\itpi{\unicode{x1D70B}}\)
+
+\(\def\itvarpi{\unicode{x1D71B}}\)
+
+\(\def\itrho{\unicode{x1D70C}}\)
+
+\(\def\itvarrho{\unicode{x1D71A}}\)
+
+\(\def\itsigma{\unicode{x1D70E}}\)
+
+\(\def\itvarsigma{\unicode{x1D70D}}\)
+
+\(\def\ittau{\unicode{x1D70F}}\)
+
+\(\def\itupsilon{\unicode{x1D710}}\)
+
+\(\def\itphi{\unicode{x1D719}}\)
+
+\(\def\itvarphi{\unicode{x1D711}}\)
+
+\(\def\itchi{\unicode{x1D712}}\)
+
+\(\def\itpsi{\unicode{x1D713}}\)
+
+\(\def\itomega{\unicode{x1D714}}\)
+
+\(\let \lparen (\)
+
+\(\let \rparen )\)
+
+\(\newcommand {\cuberoot }[1]{\,{}^3\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\fourthroot }[1]{\,{}^4\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\longdivision }[1]{\mathord {\unicode {x027CC}#1}}\)
+
+\(\newcommand {\mathcomma }{,}\)
+
+\(\newcommand {\mathcolon }{:}\)
+
+\(\newcommand {\mathsemicolon }{;}\)
+
+\(\newcommand {\overbracket }[1]{\mathinner {\overline {\ulcorner {#1}\urcorner }}}\)
+
+\(\newcommand {\underbracket }[1]{\mathinner {\underline {\llcorner {#1}\lrcorner }}}\)
+
+\(\newcommand {\overbar }[1]{\mathord {#1\unicode {x00305}}}\)
+
+\(\newcommand {\ovhook }[1]{\mathord {#1\unicode {x00309}}}\)
+
+\(\newcommand {\ocirc }[1]{\mathord {#1\unicode {x0030A}}}\)
+
+\(\newcommand {\candra }[1]{\mathord {#1\unicode {x00310}}}\)
+
+\(\newcommand {\oturnedcomma }[1]{\mathord {#1\unicode {x00312}}}\)
+
+\(\newcommand {\ocommatopright }[1]{\mathord {#1\unicode {x00315}}}\)
+
+\(\newcommand {\droang }[1]{\mathord {#1\unicode {x0031A}}}\)
+
+\(\newcommand {\leftharpoonaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\rightharpoonaccent }[1]{\mathord {#1\unicode {x020D1}}}\)
+
+\(\newcommand {\vertoverlay }[1]{\mathord {#1\unicode {x020D2}}}\)
+
+\(\newcommand {\leftarrowaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\annuity }[1]{\mathord {#1\unicode {x020E7}}}\)
+
+\(\newcommand {\widebridgeabove }[1]{\mathord {#1\unicode {x020E9}}}\)
+
+\(\newcommand {\asteraccent }[1]{\mathord {#1\unicode {x020F0}}}\)
+
+\(\newcommand {\threeunderdot }[1]{\mathord {#1\unicode {x020E8}}}\)
+
+\(\newcommand {\Bbbsum }{\mathop {\unicode {x2140}}\limits }\)
+
+\(\newcommand {\oiint }{\mathop {\unicode {x222F}}\limits }\)
+
+\(\newcommand {\oiiint }{\mathop {\unicode {x2230}}\limits }\)
+
+\(\newcommand {\intclockwise }{\mathop {\unicode {x2231}}\limits }\)
+
+\(\newcommand {\ointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\ointctrclockwise }{\mathop {\unicode {x2233}}\limits }\)
+
+\(\newcommand {\varointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\leftouterjoin }{\mathop {\unicode {x27D5}}\limits }\)
+
+\(\newcommand {\rightouterjoin }{\mathop {\unicode {x27D6}}\limits }\)
+
+\(\newcommand {\fullouterjoin }{\mathop {\unicode {x27D7}}\limits }\)
+
+\(\newcommand {\bigbot }{\mathop {\unicode {x27D8}}\limits }\)
+
+\(\newcommand {\bigtop }{\mathop {\unicode {x27D9}}\limits }\)
+
+\(\newcommand {\xsol }{\mathop {\unicode {x29F8}}\limits }\)
+
+\(\newcommand {\xbsol }{\mathop {\unicode {x29F9}}\limits }\)
+
+\(\newcommand {\bigcupdot }{\mathop {\unicode {x2A03}}\limits }\)
+
+\(\newcommand {\bigsqcap }{\mathop {\unicode {x2A05}}\limits }\)
+
+\(\newcommand {\conjquant }{\mathop {\unicode {x2A07}}\limits }\)
+
+\(\newcommand {\disjquant }{\mathop {\unicode {x2A08}}\limits }\)
+
+\(\newcommand {\bigtimes }{\mathop {\unicode {x2A09}}\limits }\)
+
+\(\newcommand {\modtwosum }{\mathop {\unicode {x2A0A}}\limits }\)
+
+\(\newcommand {\sumint }{\mathop {\unicode {x2A0B}}\limits }\)
+
+\(\newcommand {\intbar }{\mathop {\unicode {x2A0D}}\limits }\)
+
+\(\newcommand {\intBar }{\mathop {\unicode {x2A0E}}\limits }\)
+
+\(\newcommand {\fint }{\mathop {\unicode {x2A0F}}\limits }\)
+
+\(\newcommand {\cirfnint }{\mathop {\unicode {x2A10}}\limits }\)
+
+\(\newcommand {\awint }{\mathop {\unicode {x2A11}}\limits }\)
+
+\(\newcommand {\rppolint }{\mathop {\unicode {x2A12}}\limits }\)
+
+\(\newcommand {\scpolint }{\mathop {\unicode {x2A13}}\limits }\)
+
+\(\newcommand {\npolint }{\mathop {\unicode {x2A14}}\limits }\)
+
+\(\newcommand {\pointint }{\mathop {\unicode {x2A15}}\limits }\)
+
+\(\newcommand {\sqint }{\mathop {\unicode {x2A16}}\limits }\)
+
+\(\newcommand {\intlarhk }{\mathop {\unicode {x2A17}}\limits }\)
+
+\(\newcommand {\intx }{\mathop {\unicode {x2A18}}\limits }\)
+
+\(\newcommand {\intcap }{\mathop {\unicode {x2A19}}\limits }\)
+
+\(\newcommand {\intcup }{\mathop {\unicode {x2A1A}}\limits }\)
+
+\(\newcommand {\upint }{\mathop {\unicode {x2A1B}}\limits }\)
+
+\(\newcommand {\lowint }{\mathop {\unicode {x2A1C}}\limits }\)
+
+\(\newcommand {\bigtriangleleft }{\mathop {\unicode {x2A1E}}\limits }\)
+
+\(\newcommand {\zcmp }{\mathop {\unicode {x2A1F}}\limits }\)
+
+\(\newcommand {\zpipe }{\mathop {\unicode {x2A20}}\limits }\)
+
+\(\newcommand {\zproject }{\mathop {\unicode {x2A21}}\limits }\)
+
+\(\newcommand {\biginterleave }{\mathop {\unicode {x2AFC}}\limits }\)
+
+\(\newcommand {\bigtalloblong }{\mathop {\unicode {x2AFF}}\limits }\)
+
+\(\newcommand {\arabicmaj }{\mathop {\unicode {x1EEF0}}\limits }\)
+
+\(\newcommand {\arabichad }{\mathop {\unicode {x1EEF1}}\limits }\)
+
+\(\newcommand {\nicefrac }[3][]{\mathinner {{}^{#2}\!/\!_{#3}}}\)
+
+\(\require {mhchem}\)
+
+\(\newcommand {\toprule }[1][]{\hline }\)
+
+\(\let \midrule \toprule \)
+
+\(\let \bottomrule \toprule \)
+
+\(\def \LWRbooktabscmidruleparen (#1)#2{}\)
+
+\(\newcommand {\LWRbooktabscmidrulenoparen }[1]{}\)
+
+\(\newcommand {\cmidrule }[1][]{\ifnextchar (\LWRbooktabscmidruleparen \LWRbooktabscmidrulenoparen }\)
+
+\(\newcommand {\morecmidrules }{}\)
+
+\(\newcommand {\specialrule }[3]{\hline }\)
+
+\(\newcommand {\addlinespace }[1][]{}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\newcommand {\nfrac }[2]{{}^{#1}\!/{}_{#2}}\)
+
+\(\newcommand {\vect }[1]{\mathbf {#1}}\)
+
+\(\newcommand {\Efield }{\mathbf {E}}\)
+
+\(\newcommand {\Dfield }{\mathbf {D}}\)
+
+\(\newcommand {\Bfield }{\mathbf {B}}\)
+
+\(\newcommand {\Hfield }{\mathbf {H}}\)
+
+\(\newcommand {\rot }{\boldsymbol {\nabla }\times }\)
+
+\(\newcommand {\divg }{\boldsymbol {\nabla }\cdot }\)
+
+\(\newcommand {\grad }{\boldsymbol {\nabla }}\)
+
+\(\newcommand {\diff }[2]{\frac {\partial #1}{\partial #2}}\)
+
+\(\newcommand {\ddiff }[2]{\frac {\partial ^2 #1}{\partial #2^2}}\)
+
+\(\newcommand {\parttime }[1]{\frac {\partial {#1}}{\partial t}}\)
+
+\(\newcommand {\pparttime }[1]{\frac {\partial ^2{#1}}{\partial t^2}}\)
+
+\(\newcommand {\Laplasian }{\Delta }\)
+
+\(\newcommand {\Dalambertian }{\square \,}\)
+
+\(\DeclareMathOperator {\const }{const}\)
+
+\(\DeclareMathOperator {\Div }{div}\)
+
+\(\DeclareMathOperator {\Rot }{rot}\)
+
+\(\DeclareMathOperator {\Grad }{grad}\)
+
+\(\DeclareMathOperator {\inv }{inv}\)
+
+\(\newcommand {\emf }{\mathcal {E}}\)
+
+\(\DeclareMathOperator {\sh }{sh}\)
+
+\(\DeclareMathOperator {\ch }{ch}\)
+
+\(\DeclareMathOperator {\tg }{tg}\)
+
+\(\DeclareMathOperator {\ctg }{ctg}\)
+
+\(\DeclareMathOperator {\arctg }{arctg}\)
+
+\(\DeclareMathOperator {\arcctg }{arcctg}\)
+
+\(\DeclareMathOperator {\cth }{cth}\)
+
+\(\DeclareMathOperator {\cosec }{cosec}\)
+
+\(\let \symsf \symsfup \)
+
+\(\def\Alpha{\unicode{x0391}}\)
+
+\(\def\Beta{\unicode{x0392}}\)
+
+\(\def\Gamma{\unicode{x0393}}\)
+
+\(\def\Digamma{\unicode{x03DC}}\)
+
+\(\def\Delta{\unicode{x0394}}\)
+
+\(\def\Epsilon{\unicode{x0395}}\)
+
+\(\def\Zeta{\unicode{x0396}}\)
+
+\(\def\Eta{\unicode{x0397}}\)
+
+\(\def\Theta{\unicode{x0398}}\)
+
+\(\def\Vartheta{\unicode{x03F4}}\)
+
+\(\def\Iota{\unicode{x0399}}\)
+\(\def\Kappa{\unicode{x039A}}\)
+
+\(\def\Lambda{\unicode{x039B}}\)
+
+\(\def\Mu{\unicode{x039C}}\)
+
+\(\def\Nu{\unicode{x039D}}\)
+
+\(\def\Xi{\unicode{x039E}}\)
+
+\(\def\Omicron{\unicode{x039F}}\)
+
+\(\def\Pi{\unicode{x03A0}}\)
+
+\(\def\Varpi{\unicode{x03D6}}\)
+
+\(\def\Rho{\unicode{x03A1}}\)
+
+\(\def\Sigma{\unicode{x03A3}}\)
+
+\(\def\Tau{\unicode{x03A4}}\)
+
+\(\def\Upsilon{\unicode{x03A5}}\)
+
+\(\def\Phi{\unicode{x03A6}}\)
+
+\(\def\Chi{\unicode{x03A7}}\)
+
+\(\def\Psi{\unicode{x03A8}}\)
+
+\(\def\Omega{\unicode{x03A9}}\)
+
+\(\def\alpha{\unicode{x1D6FC}}\)
+
+\(\def\beta{\unicode{x1D6FD}}\)
+
+\(\def\varbeta{\unicode{x03D0}}\)
+
+\(\def\gamma{\unicode{x1D6FE}}\)
+
+\(\def\digamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\delta{\unicode{x1D6FF}}\)
+
+\(\def\epsilon{\unicode{x1D716}}\)
+
+\(\def\varepsilon{\unicode{x1D700}}\)
+
+\(\def\zeta{\unicode{x1D701}}\)
+
+\(\def\eta{\unicode{x1D702}}\)
+
+\(\def\theta{\unicode{x1D703}}\)
+
+\(\def\vartheta{\unicode{x1D717}}\)
+
+\(\def\iota{\unicode{x1D704}}\)
+
+\(\def\kappa{\unicode{x1D705}}\)
+
+\(\def\varkappa{\unicode{x1D718}}\)
+
+\(\def\lambda{\unicode{x1D706}}\)
+
+\(\def\mu{\unicode{x1D707}}\)
+
+\(\def\nu{\unicode{x1D708}}\)
+
+\(\def\xi{\unicode{x1D709}}\)
+
+\(\def\omicron{\unicode{x1D70A}}\)
+
+\(\def\pi{\unicode{x1D70B}}\)
+
+\(\def\varpi{\unicode{x1D71B}}\)
+
+\(\def\rho{\unicode{x1D70C}}\)
+
+\(\def\varrho{\unicode{x1D71A}}\)
+
+\(\def\sigma{\unicode{x1D70E}}\)
+
+\(\def\varsigma{\unicode{x1D70D}}\)
+
+\(\def\tau{\unicode{x1D70F}}\)
+
+\(\def\upsilon{\unicode{x1D710}}\)
+
+\(\def\phi{\unicode{x1D719}}\)
+
+\(\def\varphi{\unicode{x1D711}}\)
+
+\(\def\chi{\unicode{x1D712}}\)
+
+\(\def\psi{\unicode{x1D713}}\)
+
+\(\def\omega{\unicode{x1D714}}\)
+
+</div>
+
+<!--
+...... chapter Варіаційний принцип для рівнянь електродинаміки ......
+-->
+<h3 id="autosec-220">Розділ&nbsp;<span class="sectionnumber">8&#x2003;</span>Варіаційний принцип для рівнянь електродинаміки</h3>
+<a id="ClassicalElectrodynamics-html-autopage-220"></a>
+<a id="ClassicalElectrodynamics-html-autofile-8"></a>
+
+<a id="VariationPrinciple"></a>
+
+<p>
+Рівняння динаміки частинок та полів можна пов’язати з певними варіаційними принципами, які широко використовують в теоретичній фізиці. Ці принципи пов’язані з поняттями дії та лагранжіану. В цьому розділі варіаційний принцип
+найменшої дії проілюстровано на прикладі рівнянь електродинаміки. Буде подано функціонали дії, з яких можна отримати рівняння руху заряджених частинок і рівняння електромагнітного поля. Цей розділ спирається на знання основ
+варіаційного числення.
+</p>
+<!--
+...... section Заряд у зовнішньому електромагнітному полі ......
+-->
+<h4 id="autosec-221"><span class="sectionnumber">8.1&#x2003;</span>Заряд у зовнішньому електромагнітному полі</h4>
+<a id="ClassicalElectrodynamics-html-autopage-221"></a>
+
+
+<p>
+Розглянемо траєкторію (світову лінію) точкової частинки \(x^{\mu }=x^{\mu }(p)\), де \(p\) — деякий неособливий параметр. На ділянці траєкторії між точками \(a=x^{\mu }(p_1)\) та \(b=x^{\mu }(p_2)\) розглянемо інтеграл
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{0}\)</span>
+
+<!--
+
+
+                                                                   ˆ𝑏                ˆ𝑝2
+                                                                                                𝑑𝑥𝜇 𝑑𝑥𝜈
+                                                       𝑆0 = −𝑚𝑐         𝑑𝑠 = −𝑚𝑐            𝜂𝜇𝜈         𝑑𝑝,                                                                 (8.1)                             --><a id="eq:S0_free"></a><!--
+                                                                                           √    𝑑𝑝 𝑑𝑝
+                                                                   𝑎                 𝑝1
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:S0_free} S_0 = -mc\int \limits _a^b ds = -mc\int \limits _{p_1}^{p_2} \sqrt {\eta _{\mu \nu }\frac {dx^{\mu }}{dp}\frac {dx^{\nu }}{dp}}\,dp,
+\end{equation}
+
+</p>
+
+<p>
+що має назву <em>дії для вільної частинки</em>; вибір коефіцієнтів забезпечує відповідність з нерелятивістським наближенням для дії. Також розглянемо інтеграл
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{1}\)</span>
+
+<!--
+
+
+                                                                         ˆ𝑏                      ˆ𝑝2
+                                                                     𝑞                     𝑞                𝑑𝑥𝜇
+                                                            𝑆int = −          𝐴𝜇   𝑑𝑥𝜇 = −             𝐴𝜇       𝑑𝑝,                                                             (8.2)                             --><a id="eq:Sint"></a><!--
+                                                                     𝑐                       𝑐              𝑑𝑝
+                                                                         𝑎                       𝑝1
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Sint} S_{\text {int}} = -\frac {q}{c}\int \limits _a^b A_{\mu }\,dx^{\mu } = -\frac {q}{c}\int \limits _{p_1}^{p_2} A_{\mu }\frac {dx^{\mu }}{dp}\,dp,
+\end{equation}
+
+</p>
+
+<p>
+що описує взаємодію частинки з електромагнітним полем; тут \(A_{\mu }\) — 4-вектор потенціалу, \(q\) — заряд частинки. Легко перевірити, що параметр \(p\) можна вибрати довільно; при будь-якій заміні \(p\to p&apos;=p&apos;(p)\)
+вигляд&nbsp;<span class="textup">(<a href="ch8.html#eq:S0_free">8.1</a>)</span> та&nbsp;<span class="textup">(<a href="ch8.html#eq:Sint">8.2</a>)</span> не змінюється.
+</p>
+
+<p>
+Уведемо дію для частинки у зовнішньому полі:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{2}\)</span>
+
+<!--
+
+
+                                                                                                                                          𝑆 = 𝑆0 + 𝑆int .
+
+-->
+
+<p>
+
+\begin{equation*}
+S = S_0 + S_{\text {int}}.
+\end{equation*}
+
+</p>
+
+<p>
+Дія \(S\) є функціоналом, що зіставляє з кожною траєкторією певне число. Далі ми розглянемо першу варіацію \(S\) по траєкторії частинки. Зауважимо, що повний функціонал дії є сумою дій для окремих частинок плюс дія для поля. Але при
+обчисленні варіацій \(S\) траєкторії різних частинок вважаються незалежними, тому на цьому етапі досить розглянути дію для однієї частинки. Дія для поля не залежить від змінних частинок і не впливає на варіацію \(S\) при варіаціях траєкторії
+частинки \(x_0^{\mu }(p)\to x_0^{\mu }(p)+\delta x^{\mu }(p)\).
+</p>
+
+<p>
+<em>Варіаційний принцип найменшої дії для частинки у зовнішньому полі</em> можна сформулювати так: перша варіація \(\delta S=\delta S_0+\delta S_{\text {int}}\) дорівнює нулю на траєкторії \(x_0^{\mu }(p)\) тоді й тільки тоді,
+якщо ця траєкторія задовольняє рівнянням руху. Траєкторію \(x_0^{\mu }(p)\) називають <em>опорною</em>.
+</p>
+
+<p>
+Зауважимо, що, як відомо з варіаційного числення, умова \(\delta S=0\) є лише необхідною умовою мінімуму функціоналу дії<sup>1</sup>. Аналіз достатніх умов мінімуму потребує додаткового розгляду.
+</p>
+
+<p>
+Покажемо, що наслідком принципу найменшої дії згідно формул&nbsp;<span class="textup">(<a href="ch8.html#eq:S0_free">8.1</a>)</span>,&nbsp;<span class="textup">(<a href="ch8.html#eq:Sint">8.2</a>)</span> є релятивістські
+рівняння руху частинки в електромагнітному полі. Розглянемо траєкторії в околі опорної світової лінії \(x_0^{\mu }(p)\). При малих змінах траєкторії \(x_0^{\mu }(p)\to x_0^{\mu }(p)+\delta x^{\mu }(p)\) числове значення функціоналу
+\(S\) змінюється. Нас цікавитимуть малі зміни дії
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{2}\)</span>
+
+<!--
+
+                                                                                                                                         𝜇                  𝜇
+                                                                                                                                      𝑆[𝑥0 + 𝛿𝑥𝜇 ] − 𝑆[𝑥0 ]
+
+-->
+
+<p>
+
+\begin{equation*}
+S\!\left [x_0^{\mu }+\delta x^{\mu }\right ] - S\!\left [x_0^{\mu }\right ]
+\end{equation*}
+
+</p>
+
+<p>
+при довільних \(\delta x^{\mu }(p)\) за стандартної умови
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{2}\)</span>
+
+<!--
+
+
+                                                                 𝛿𝑥𝜇 (𝑝1 ) = 𝛿𝑥𝜇 (𝑝2 ) = 0                                                                           (8.3)                                 --><a id="eq:fixed_ends"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:fixed_ends} \delta x^{\mu }(p_1) = \delta x^{\mu }(p_2) = 0
+\end{equation}
+
+</p>
+
+<p>
+(так звана варіація з закріпленими кінцями). Малі зміни дії розглядаємо з точністю до лінійних по \(\delta x^{\mu }\) членів, тобто розгляд обмежується першою варіацією \(\delta S \approx S[x_0^{\mu }+\delta x^{\mu }]-S[x_0^{\mu
+}]\).
+</p>
+
+<p>
+Дію \(S\) запишемо у вигляді
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{3}\)</span>
+
+<!--
+
+                                                                                                                                         ˆ
+                                                                                                                                    𝑆=                ̇
+                                                                                                                                             𝐿(𝑥(𝑝), 𝑥(𝑝)) 𝑑𝑝,
+
+-->
+
+<p>
+
+\begin{equation*}
+S = \int L\!\left (x(p),\dot {x}(p)\right )dp,
+\end{equation*}
+
+</p>
+
+<p>
+де \(L(x,\dot {x}) = -mc\sqrt {\eta _{\mu \nu }\dot {x}^{\mu }\dot {x}^{\nu }} - \dfrac {q}{c}A_{\mu }(x)\dot {x}^{\mu }\); тут позначено \(\dot {x}^{\alpha }\equiv dx^{\alpha }/dp\).
+</p>
+
+<p>
+Покажемо, що з умови \(\delta S=0\) випливають рівняння руху зарядженої частинки:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{3}\)</span>
+
+<!--
+
+
+                                                     𝑑 2 𝑥𝜇          𝑑𝑥𝜈
+                                               𝑚𝑐2        2
+                                                            = 𝑞𝐹 𝜇 𝜈     ,         де 𝐹𝜇𝜈 = 𝜕𝜇 𝐴𝜈 − 𝜕𝜈 𝐴𝜇 .                                                         (8.4)                                 --><a id="eq:EOM_charged"></a><!--
+                                                      𝑑𝑠              𝑑𝑠
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:EOM_charged} mc^2\frac {d^2x^{\mu }}{ds^2} = qF^{\mu }{}_{\nu }\frac {dx^{\nu }}{ds}, \qquad \text {де}\quad F_{\mu \nu } = \partial _{\mu }A_{\nu } - \partial _{\nu }A_{\mu }.
+\end{equation}
+
+</p>
+
+<p>
+За стандартною процедурою варіаційного числення умова \(\delta S=0\) з урахуванням&nbsp;<span class="textup">(<a href="ch8.html#eq:fixed_ends">8.3</a>)</span> приводить до <em>рівнянь Ейлера–Лагранжа</em> для функції
+\(L(x,\dot {x})\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{4}\)</span>
+
+<!--
+
+
+                                                                                                                                         𝑑 𝜕𝐿      𝜕𝐿
+                                                                                                                                                 =     ,
+                                                                                                                                         𝑑𝑝 𝜕𝑥̇𝜇   𝜕𝑥𝜇
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {d}{dp}\frac {\partial L}{\partial \dot {x}^{\mu }} = \frac {\partial L}{\partial x^{\mu }},
+\end{equation*}
+
+</p>
+
+<p>
+або, обчислюючи похідні від \(L\),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{4}\)</span>
+
+<!--
+
+
+                                                                                                                               𝑑      𝜂𝜇𝜈 𝑥̇𝜈  𝑞       𝑞 𝜕𝐴𝜈 𝜈
+                                                                                                                                  (𝑚𝑐         + 𝐴𝜇 ) =       𝑥̇ ,
+                                                                                                                               𝑑𝑝     𝑑𝑠/𝑑𝑝    𝑐       𝑐 𝜕𝑥𝜇
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {d}{dp}\!\left (mc\,\frac {\eta _{\mu \nu }\dot {x}^{\nu }}{ds/dp} + \frac {q}{c}A_{\mu }\right ) = \frac {q}{c}\frac {\partial A_{\nu }}{\partial x^{\mu }}\dot {x}^{\nu },
+\end{equation*}
+
+</p>
+
+<p>
+де \(ds/dp = \sqrt {\eta _{\mu \nu }\dot {x}^{\mu }\dot {x}^{\nu }}\).
+</p>
+
+<p>
+Перейдемо від параметра \(p\) до \(s=\int \limits _{p_1}^{p}(ds/dp&apos;)\,dp&apos;\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{4}\)</span>
+
+<!--
+
+
+                                                                                                                           𝑑          𝑑𝑥𝜈  𝑞       𝑞 𝜕𝐴𝜈 𝑑𝑥𝜈
+                                                                                                                              (𝑚𝑐 𝜂𝜇𝜈     + 𝐴𝜇 ) =           .
+                                                                                                                           𝑑𝑠          𝑑𝑠  𝑐       𝑐 𝜕𝑥𝜇 𝑑𝑠
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {d}{ds}\!\left (mc\,\eta _{\mu \nu }\frac {dx^{\nu }}{ds} + \frac {q}{c}A_{\mu }\right ) = \frac {q}{c}\frac {\partial A_{\nu }}{\partial x^{\mu }}\frac {dx^{\nu }}{ds}.
+\end{equation*}
+
+</p>
+
+<p>
+Розкриваємо похідну в лівій частині:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{4}\)</span>
+
+<!--
+
+
+                                                                                                                               𝑑 2 𝑥𝜈   𝑞 𝜕𝐴𝜈 𝑑𝑥𝜈   𝑞 𝑑      𝑞    𝑑𝑥𝜈
+                                                                                                                      𝑚𝑐 𝜂𝜇𝜈        2
+                                                                                                                                      =     𝜇     −      𝐴𝜇 = 𝐹𝜇𝜈     .
+                                                                                                                                𝑑𝑠      𝑐 𝜕𝑥 𝑑𝑠     𝑐 𝑑𝑠     𝑐     𝑑𝑠
+
+-->
+
+<p>
+
+\begin{equation*}
+mc\,\eta _{\mu \nu }\frac {d^2x^{\nu }}{ds^2} = \frac {q}{c}\frac {\partial A_{\nu }}{\partial x^{\mu }}\frac {dx^{\nu }}{ds} - \frac {q}{c}\frac {d}{ds}A_{\mu } = \frac {q}{c}F_{\mu \nu }\frac {dx^{\nu }}{ds}.
+\end{equation*}
+
+</p>
+
+<p>
+Результатом є рівняння, які збігаються з&nbsp;<span class="textup">(<a href="ch8.html#eq:EOM_charged">8.4</a>)</span> після підняття індексу \(\mu \).
+</p>
+
+<p>
+Звернемо увагу, що хоча в лагранжіані \(L\) фігурує 4-вектор потенціал \(A_{\mu }\), він з’являється в явному вигляді в рівняннях руху лише через тензор електромагнітного поля \(F_{\alpha \beta }\), який, таким чином, і є спостережуваною
+величиною.
+</p>
+<div role="note" class="footnotes">
+
+<a id="ClassicalElectrodynamics-html-autopage-222"></a>
+
+<p>
+<sup>1</sup>&nbsp;Фактично далі ми обмежуємося розглядом умови стаціонарності дії, а не її мінімуму.
+</p>
+
+
+</div>
+
+
+
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-91"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 8.1.</span></span> <a id="autoid-92" ></a >Релятивістська заряджена частинка з масою \(m\) та зарядом \(q\) рухається у полі нерухомого заряду \(Q\). Отримати рівняння
+для тривимірної траєкторії частинки.
+</p>
+
+<p>
+<i>Розв’язання</i>. Коваріантний 4-потенціал нерухомого заряду в початку координат є \(A_{\mu }=(\alpha r^{-1},0,0,0)\). Якщо у виразі для дії перейти до параметра \(t\), підінтегральний вираз дає тривимірну функцію Лагранжа
+зарядженої частинки у зовнішньому полі:
+</p>
+
+<p>
+\[ L = -mc^2\sqrt {1-\frac {v^2}{c^2}} - \frac {\alpha }{r}, \qquad \alpha = Qq. \]
+</p>
+
+<p>
+Звідси маємо інтеграл енергії:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{4}\)</span>
+
+<!--
+
+
+                                                             𝑚𝑐2            𝛼
+                                                                        +     = ℰ.                                                                      (8.5)                                   --><a id="eq:energy_integral"></a><!--
+                                                          √1 − 𝑣2 /𝑐2       𝑟
+
+-->
+
+<p>
+
+
+\begin{equation}
+\frac {mc^2}{\sqrt {1-v^2/c^2}} + \frac {\alpha }{r} = \mathcal {E}.\label {eq:energy_integral}
+\end{equation}
+
+
+</p>
+
+<p>
+У сферичних координатах в площині \(\theta =\pi /2\) інтеграл моменту є
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{5}\)</span>
+
+<!--
+
+
+                                                              𝑚𝑟2 𝜑̇
+                                                                            = 𝐿.                                                                    (8.6)                                      --><a id="eq:angular_integral"></a><!--
+                                                           √1 − 𝑣2 /𝑐2
+
+-->
+
+<p>
+
+
+\begin{equation}
+\label {eq:angular_integral} \frac {mr^2\dot {\varphi }}{\sqrt {1-v^2/c^2}} = L.
+\end{equation}
+
+
+</p>
+
+<p>
+Комбінуючи&nbsp;<span class="textup">(<a href="ch8.html#eq:energy_integral">8.5</a>)</span> та&nbsp;<span class="textup">(<a href="ch8.html#eq:angular_integral">8.6</a>)</span>, позбавимось \(\sqrt {1-v^2/c^2}\) та
+отримаємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{6}\)</span>
+
+<!--
+
+
+                                                                                                                             𝛼
+                                                                                                                   𝑟2 𝜑(ℰ
+                                                                                                                       ̇ −     ) = 𝐿𝑐2 .
+                                                                                                                             𝑟
+
+-->
+
+<p>
+
+
+\begin{equation*}
+r^2\dot {\varphi }\!\left (\mathcal {E} - \frac {\alpha }{r}\right ) = Lc^2.
+\end{equation*}
+
+
+</p>
+
+<p>
+З урахуванням цього співвідношення, позначаючи \(u=r^{-1}\), \(u&apos;=du/d\varphi \),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{6}\)</span>
+
+<!--
+
+
+                                                                                                                                 𝐿2 𝑐4 (ᵆ̇′2 + ᵆ2 )
+                                                                                                         𝑣2 = 𝑟2̇ + 𝑟2 𝜑̇ 2 =                       .
+                                                                                                                                   (ℰ − 𝛼ᵆ)2
+
+-->
+
+<p>
+
+
+\begin{equation*}
+v^2 = \dot {r}^2 + r^2\dot {\varphi }^2 = \frac {L^2c^4(\dot {u}&apos;^2+u^2)}{(\mathcal {E}-\alpha u)^2}.
+\end{equation*}
+
+
+</p>
+
+<p>
+Звідси та з&nbsp;<span class="textup">(<a href="ch8.html#eq:energy_integral">8.5</a>)</span> маємо
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{6}\)</span>
+
+<!--
+
+
+                                                                                                                             2
+                                                                                                        𝑚2 𝑐4 = (ℰ − 𝛼ᵆ) − (ᵆ′2 + ᵆ2 )𝐿2 𝑐2 ,
+
+-->
+
+<p>
+
+
+\begin{equation*}
+m^2c^4 = \left (\mathcal {E}-\alpha u\right )^2 - (u&apos;^2+u^2){L^2c^2},
+\end{equation*}
+
+
+</p>
+
+<p>
+або
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{6}\)</span>
+
+<!--
+
+
+                                                                                                               2𝛼ℰ       𝑚2 𝑐4 − ℰ 2                         𝛼2
+                                                                                              ᵆ′2 + 𝜔20 ᵆ2 +          ᵆ=             ,         𝜔20 = 1 −           .
+                                                                                                               𝐿2 𝑐 2      𝐿2 𝑐 2                           𝐿2 𝑐 2
+
+-->
+
+<p>
+
+
+\begin{equation*}
+u&apos;^2 + \omega _0^2 u^2 + \frac {2\alpha \mathcal {E}}{L^2c^2}\,u = \frac {m^2c^4-\mathcal {E}^2}{L^2c^2}, \qquad \omega _0^2 = 1 - \frac {\alpha ^2}{L^2c^2}.
+\end{equation*}
+
+
+</p>
+
+<p>
+За \(\omega _0^2&gt;0\) рівняння має вигляд закону збереження енергії для осцилятора зі зміщеним центром; його розв’язками є тригонометричні функції. За \(\omega _0^2&lt;0\) розв’язками є гіперболічні функції; зокрема, можливе падіння
+на центр \(r\to 0\).
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<!--
+...... section Дія для електромагнітного поля ......
+-->
+<h4 id="autosec-223"><span class="sectionnumber">8.2&#x2003;</span>Дія для електромагнітного поля</h4>
+<a id="ClassicalElectrodynamics-html-autopage-223"></a>
+
+
+<p>
+Мета цього підрозділу — сформулювати варіаційний принцип, з якого випливають рівняння електромагнітного поля Максвелла. Згідно з сучасними уявленнями, дія для системи «поле + джерела» має складатися з суми функціоналів дії для поля,
+для зарядів та доданка, що описує взаємодію поля із зарядами:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{6}\)</span>
+
+<!--
+
+
+                                                                                            𝑆 = 𝑆0 + 𝑆int + 𝑆𝑓 .                                                                                                                 (8.7)                                                   --><a id="eq:S_total"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:S_total} S = S_0 + S_{\text {int}} + S_f.
+\end{equation}
+
+</p>
+
+<p>
+Оскільки поля задано в усьому просторі, функціонал дії повинен містити інтегрування по чотиривимірному об’єму, а не тільки по траєкторіях, як у випадку частинок. Тому подаватимемо \(S_{\text {int}}+S_f\) у вигляді такого інтеграла:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{7}\)</span>
+
+<!--
+
+                                                                           ˆ
+                                                             𝑆int + 𝑆𝑓 =        𝑑4 𝐱 Λtot (𝐴𝜇 (𝑥), 𝐴𝜇,𝜈 (𝑥)) ,         Λtot = Λint + Λ𝑓 .                                                                                (8.8)                                                       --><a id="eq:S_field_int"></a><!--
+                                                                           Ω
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:S_field_int} S_{\text {int}} + S_f = \int \limits _{\Omega } d^4\vect {x}\,\Lambda _{\text {tot}}\!\left (A_{\mu }(x),\,A_{\mu ,\nu }(x)\right ), \qquad \Lambda _{\text {tot}} = \Lambda _{\text
+{int}} + \Lambda _f.
+\end{equation}
+
+</p>
+
+<p>
+<em>Незалежними змінними, відносно яких обчислюватиметься варіація, вважаємо компоненти 4-вектора потенціалу</em> \(A_{\mu }\). Область інтегрування \(\Omega \) може охоплювати весь простір, а може бути скінченною. Варіацію
+функціоналу дії розглядаємо за умови, що <em>зміни польових функцій обертаються на нуль на межі області інтегрування</em> \(\partial \Omega \).
+</p>
+
+<p>
+<i>Зауваження</i>. Якщо змінити підінтегральний вираз в&nbsp;<span class="textup">(<a href="ch8.html#eq:S_field_int">8.8</a>)</span>, додавши до нього повну 4-дивергенцію \(\Lambda \to \Lambda +\partial _{\mu }f^{\mu }\),
+де \(f\) — будь-яка функція від польових змінних (але не від їх похідних), то при обчисленні варіації додається вираз
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{8}\)</span>
+
+<!--
+
+                                                                                                                                                                             ˆ
+                                                                                                                                                                                  𝜕𝜇 𝛿𝑓𝜇 𝑑4 𝐱 = 0,
+
+-->
+
+<p>
+
+\begin{equation*}
+\int \partial _{\mu }\delta f^{\mu }\,d^4\vect {x} = 0,
+\end{equation*}
+
+</p>
+
+<p>
+що обертається на нуль через граничні умови на \(\partial \Omega \) після застосування формули Остроградського-Гауса. Тому <em>додавання повної 4-дивергенції до \(\Lambda \) не впливає на рівняння, що випливають з варіаційного
+принципу</em>.
+</p>
+
+<p>
+Вирази для \(S_0\) та \(S_{\text {int}}\) отримаємо з&nbsp;<span class="textup">(<a href="ch8.html#eq:S0_free">8.1</a>)</span>,&nbsp;<span class="textup">(<a href="ch8.html#eq:Sint">8.2</a>)</span> за допомогою
+підсумовування дій для окремих частинок:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{8}\)</span>
+
+<!--
+
+                                                                                            ˆ                          ˆ
+                                                                                                                   𝑞
+                                                                                𝑆0 = −𝑚𝑐        𝑑𝑠,    𝑆int = −            𝐴𝜇 𝑑𝑥𝜇 .                                                                                                 (8.9)                                                   --><a id="eq:S_sum"></a><!--
+                                                                                                                   𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:S_sum} S_0 = -mc\int ds, \qquad S_{\text {int}} = -\frac {q}{c}\int A_{\mu }\,dx^{\mu }.
+\end{equation}
+
+</p>
+
+<p>
+Як було зазначено, ці вирази слід подати у вигляді інтегралів. Зробимо це лише для \(S_{\text {int}}\), оскільки \(S_0\) не впливає на виведення рівнянь поля при обчисленні варіації \(\delta S\) по \(\delta A_{\mu }\). Для неперервного
+розподілу ми зіставляємо до кожного елементу заряду \(dq\) його траєкторію \(x_q^{\mu }(t)\); відповідно
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{9}\)</span>
+
+<!--
+
+                                                                                                                                                                     𝜇                            𝜇
+                                                                                                                                                                  𝑑𝑥𝑞             𝑑𝑥𝑞
+                                                                                                                                                            𝑑𝑞        = 𝜌(𝐫) 𝑑3 𝐫     = 𝑗 𝜇 (𝐱) 𝑑3 𝐫,
+                                                                                                                                                                   𝑑𝑡              𝑑𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+dq\,\frac {dx_q^{\mu }}{dt} = \rho (\vect {r})\,d^3\vect {r}\,\frac {dx_q^{\mu }}{dt} = j^{\mu }(\vect {x})\,d^3\vect {r},
+\end{equation*}
+
+</p>
+
+<p>
+де \(\rho \) — об’ємна густина заряду, \(\vect {r}=\vect {r}_q(t)\), \(j^{\mu }=\rho \,dx^{\mu }/dt\) — 4-вектор густини струму. Тоді, переходячи в \(S_{\text {int}}\) до інтеграла по області \(\Omega \) чотиривимірного простору,
+маємо:
+</p>
+<span class="hidden"> \(\seteqnumber{0}{8.}{9}\)</span>
+
+
+<!--
+
+
+                 ˆ                   𝜇            ˆ
+             1                     𝑑𝑥𝑞        1
+  𝑆int = −           𝑑𝑞 𝐴𝜇 (𝑥𝑒 )       𝑑𝑡 = −         𝑑𝑡 𝑑3 𝐫 𝐴𝜇 (𝑥)𝑗 𝜇 (𝑥) =
+             𝑐                      𝑑𝑡        𝑐
+                 Ω                                Ω
+                                                                                                                                                                                                                                                         ˆ
+                                                                                                                                                                                                                                                    1
+                                                                                                                                                                                                                                                 =− 2         𝑑4 𝐱 𝐴𝜇 (𝑥)𝑗 𝜇 (𝑥).    (8.10)--><a id="eq:Sint_4D"></a><!--
+                                                                                                                                                                                                                                                   𝑐
+                                                                                                                                                                                                                                                         Ω
+
+
+
+-->
+
+
+<p>
+
+\begin{multline}
+\label {eq:Sint_4D} S_{\text {int}} = -\frac {1}{c}\int \limits _{\Omega } dq\,A_{\mu }(x_e)\frac {dx_q^{\mu }}{dt}\,dt = -\frac {1}{c}\int \limits _{\Omega } dt\,d^3\vect {r}\,A_{\mu }(x)j^{\mu }(x) = \\ =
+-\frac {1}{c^2}\int \limits _{\Omega } d^4\vect {x}\,A_{\mu }(x)j^{\mu }(x).
+\end{multline}
+
+</p>
+
+<p>
+Виникає питання, чи не втратимо ми калібрувальну інваріантність теорії завдяки тому, що в&nbsp;<span class="textup">(<a href="ch8.html#eq:Sint_4D">8.10</a>)</span> явно входить 4-потенціал? Відсутність тут якихось непорозумінь
+випливає в першу чергу з того, що з принципу найменшої дії буде отримано правильні рівняння поля, що є калібрувально-інваріантними. Але навіть на даному етапі можна пересвідчитися, що вираз&nbsp;<span class="textup">(<a
+href="ch8.html#eq:Sint_4D">8.10</a>)</span> є калібрувально-інваріантним, якщо врахувати закон збереження заряду. Покажемо, що&nbsp;<span class="textup">(<a href="ch8.html#eq:Sint_4D">8.10</a>)</span> не змінюється при
+калібрувальних перетвореннях
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{10}\)</span>
+
+<!--
+
+
+                                                                                                                                                                             𝐴𝜇 → 𝐴𝜇 + 𝜕𝜇 𝜒,
+
+-->
+
+<p>
+
+\begin{equation*}
+A_{\mu } \to A_{\mu } + \partial _{\mu }\chi ,
+\end{equation*}
+
+</p>
+
+<p>
+де \(\chi |_{\partial \Omega }=0\) на межі області. При такому перетворенні інтеграл&nbsp;<span class="textup">(<a href="ch8.html#eq:Sint_4D">8.10</a>)</span> отримує доданок
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{10}\)</span>
+
+<!--
+
+                                                                                                                                               ˆ                                   ˆ                              ˆ
+                                                                                                                                           1                𝜕𝜒 𝜇     1                           𝜕            1
+                                                                                                                                         − 2       𝑑4 𝐱         𝑗 =− 2                   𝑑4 𝐱       (𝜒𝑗 𝜇 ) + 2       𝑑4 𝐱 𝜒 𝑗 𝜇 ,𝜇 .
+                                                                                                                                          𝑐                 𝜕𝑥𝜇     𝑐                           𝜕𝑥𝜇          𝑐
+
+-->
+
+<p>
+
+\begin{equation*}
+-\frac {1}{c^2}\int d^4\vect {x}\,\frac {\partial \chi }{\partial x^{\mu }}j^{\mu } = -\frac {1}{c^2}\int d^4\vect {x}\,\frac {\partial }{\partial x^{\mu }}(\chi j^{\mu }) + \frac {1}{c^2}\int d^4\vect
+{x}\,\chi \,j^{\mu }{}_{,\mu }.
+\end{equation*}
+
+</p>
+
+<p>
+Інтеграл від дивергенції зникає на межі \(\partial \Omega \), а другий доданок дорівнює нулю завдяки закону збереження заряду \(j^{\mu }{}_{,\mu }=0\). Це ілюструє зв’язок калібрувальної інваріантності зі збереженням заряду.
+</p>
+
+<p>
+Підберемо вираз для \(S_f\), що приводить до рівнянь класичної електродинаміки. Поле для пошуків \(\Lambda _f\) значно звужується, якщо врахувати такі обставини. По-перше, рівняння електромагнітного поля мають однаковий вигляд в усіх
+інерціальних системах відліку. Тому доцільно конструювати \(\Lambda _f\) як скаляр за допомогою згорток вектора \(A_{\mu }\) та його похідних \(A_{\mu ,\alpha }\). По-друге, в рівняннях руху фігурує не безпосередньо \(A_{\mu }\), а
+величини \(F_{\mu \nu }\). Саме \(F_{\mu \nu }\) мають фізичний зміст як величини, які можливо вимірювати, причому вони інваріантні відносно калібрувальних перетворень. Щоб зберегти калібрувальну інваріантність в рівняннях поля,
+будемо конструювати \(\Lambda _f\) саме з величин \(F_{\mu \nu }=\partial _{\mu }A_{\nu }-\partial _{\nu }A_{\mu }\). Ці величини задовольняють рівнянням, які запишемо у вигляді:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{10}\)</span>
+
+<!--
+
+
+                                                                                                                   𝜀𝛼𝛽𝛾𝛿 ⋅ 𝐹𝛽𝛾,𝛿 = 0.                                                                                                                (8.11)                              --><a id="eq:Bianchi"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Bianchi} \varepsilon ^{\alpha \beta \gamma \delta }\cdot F_{\beta \gamma ,\delta } = 0.
+\end{equation}
+
+</p>
+
+<p>
+Щоб отримати лінійні рівняння поля, природно обмежитися лише квадратичними комбінаціями \(F_{\mu \nu }\), які є скалярами відносно групи Лоренца. Таких комбінацій, з точністю до сталого множника, лише дві&nbsp;— інваріанти
+\(\mathcal {I}_1\)&nbsp;<span class="textup">(<a href="ch7.html#eq:inv1">7.5</a>)</span> та \(\mathcal {I}_2\)&nbsp;<span class="textup">(<a href="ch7.html#eq:inv2">7.6</a>)</span>, введені раніше у зв’язку з
+трансформаційними властивостями тензора \(F_{\mu \nu }\). Точніше, \(\mathcal {I}_2\) — псевдоскаляр; він змінює знак при інверсіях координат, а також зводиться до повної дивергенції:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{11}\)</span>
+
+<!--
+
+
+                                                                                                                       ℐ2 = 𝜀𝛼𝛽𝛾𝛿 𝐹𝛼𝛽 𝐹𝛾𝛿 = 𝜀𝛼𝛽𝛾𝛿 𝐹𝛼𝛽 (𝜕𝛾 𝐴𝛿 − 𝜕𝛿 𝐴𝛾 ) = 2𝜀𝛼𝛽𝛾𝛿 𝐹𝛼𝛽 𝜕𝛾 𝐴𝛿 = 2𝜀𝛼𝛽𝛾𝛿 𝜕𝛾 (𝐹𝛼𝛽 𝐴𝛿 ),
+
+-->
+
+<p>
+
+\begin{equation*}
+\mathcal {I}_2 = \varepsilon ^{\alpha \beta \gamma \delta }F_{\alpha \beta }F_{\gamma \delta } = \varepsilon ^{\alpha \beta \gamma \delta }F_{\alpha \beta }(\partial _{\gamma }A_{\delta } - \partial _{\delta
+}A_{\gamma }) = 2\varepsilon ^{\alpha \beta \gamma \delta }F_{\alpha \beta }\partial _{\gamma }A_{\delta } = 2\varepsilon ^{\alpha \beta \gamma \delta }\partial _{\gamma }(F_{\alpha \beta }A_{\delta }),
+\end{equation*}
+
+</p>
+
+<p>
+де було враховано антисиметрію \(\varepsilon ^{\alpha \beta \gamma \delta }=-\varepsilon ^{\alpha \beta \delta \gamma }\) та рівняння&nbsp;<span class="textup">(<a href="ch8.html#eq:Bianchi">8.11</a>)</span>, що мають
+місце завдяки вигляду \(F_{\mu \nu }\) за побудовою. Інтеграл від \(\mathcal {I}_2\) по області \(\Omega \) зводиться до інтегралу по межі \(\partial \Omega \) і не дає внеску в рівняння поля всередині \(\Omega \). Таким чином, в нашому
+розпорядженні залишається лише інваріант \(\mathcal {I}_1\), тому можна вибрати
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{11}\)</span>
+
+<!--
+
+                                                                                                                                     ˆ
+                                                                                                                              1
+                                                                                                                 𝑆𝑓 = −                  𝐹𝜇𝜈 𝐹 𝜇𝜈 𝑑4 𝐱.                                                                                                       (8.12)                           --><a id="eq:Sf"></a><!--
+                                                                                                                            16𝜋𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Sf} S_f = -\frac {1}{16\pi c}\int F_{\mu \nu }F^{\mu \nu }\,d^4\vect {x}.
+\end{equation}
+
+</p>
+
+<p>
+Вибір сталого множника зроблено заздалегідь так, щоб забезпечити відповідність рівнянням Максвелла в гаусовій системі одиниць. Можна показати, що вибір іншого множника вплине лише на визначення одиниці заряду. Враховуючи внесок
+взаємодії поля і зарядів, покладемо
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{12}\)</span>
+
+<!--
+
+                                                                                                                             ˆ
+                                                                                                           𝑆𝑓 + 𝑆int =           𝑑4 𝐱 Λ,                                                                                                    (8.13)                                  --><a id="eq:Sf_Sint_total"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Sf_Sint_total} S_f + S_{\text {int}} = \int d^4\vect {x}\,\Lambda ,
+\end{equation}
+
+</p>
+
+<p>
+де
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{13}\)</span>
+
+<!--
+
+                                                                                                                                                                               1          1
+                                                                                                                                                                 Λ=−             𝐹 𝐹 𝜇𝜈 − 2 𝐴𝜇 𝑗 𝜇 .
+                                                                                                                                                                             16𝜋𝑐 𝜇𝜈     𝑐
+
+-->
+
+<p>
+
+\begin{equation*}
+\Lambda = -\frac {1}{16\pi c}F_{\mu \nu }F^{\mu \nu } - \frac {1}{c^2}A_{\mu }j^{\mu }.
+\end{equation*}
+
+</p>
+
+<p>
+Нагадаємо, що незалежними польовими змінними в&nbsp;<span class="textup">(<a href="ch8.html#eq:Sf_Sint_total">8.13</a>)</span> вважаємо \(A_{\mu }\), \(\mu =0,1,2,3\). Обчислимо \(\delta (S_f+S_{\text {int}})=\int
+\limits _{\Omega }d^4\vect {x}\,\delta \Lambda \) за умови, що варіації польових змінних на межі області інтегрування зникають:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{13}\)</span>
+
+<!--
+
+
+                                                                                                                                                                                 𝛿𝐴𝜇 (𝑥)||        = 0.
+                                                                                                                                                                                             𝜕Ω
+
+-->
+
+<p>
+
+\begin{equation*}
+\delta A_{\mu }(x)\big |_{\partial \Omega } = 0.
+\end{equation*}
+
+</p>
+
+<p>
+Маємо
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{13}\)</span>
+
+<!--
+
+                                                                                                                                                                                     ˆ
+                                                                                                                                                                          1
+                                                                                                                                                                𝛿𝑆int = − 2               𝑑4 𝐱 𝑗 𝜈 (𝑥) 𝛿𝐴𝜈 (𝑥);
+                                                                                                                                                                         𝑐
+                                                                                                                                                                                     Ω
+
+-->
+
+<p>
+
+\begin{equation*}
+\delta S_{\text {int}} = -\frac {1}{c^2}\int \limits _{\Omega }d^4\vect {x}\,j^{\nu }(x)\,\delta A_{\nu }(x);
+\end{equation*}
+
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{13}\)</span>
+
+
+<!--
+
+
+                                                                                                                                     ˆ                  ˆ                                 ˆ
+                                                                                                                                 𝛿       𝑑 4 𝐱 𝐼1 = 2       𝑑4 𝐱 𝐹 𝜇𝜈 𝛿𝐹𝜇𝜈 = 2                  𝑑4 𝐱 𝐹 𝜇𝜈 (𝜕𝜇 𝛿𝐴𝜈 − 𝜕𝜈 𝛿𝐴𝜇 )
+                                                                                                                                     Ω                  Ω                                 Ω
+                                                                                                                                                        ˆ                                     ˆ
+                                                                                                                                                   =4       𝑑4 𝐱 𝐹 𝜇𝜈 𝜕𝜇 𝛿𝐴𝜈 = 4                  𝑑4 𝐱 [𝜕𝜇 (𝐹 𝜇𝜈 𝛿𝐴𝜈 ) − 𝜕𝜇 𝐹 𝜇𝜈 𝛿𝐴𝜈 ]
+                                                                                                                                                        Ω                                     Ω
+                                                                                                                                                            ˆ
+                                                                                                                                                   = −4         𝑑4 𝐱 𝜕   𝜇𝐹
+                                                                                                                                                                            𝜇𝜈 𝛿𝐴 ,
+                                                                                                                                                                                 𝜈
+                                                                                                                                                            Ω
+
+
+
+-->
+
+
+<p>
+
+\begin{align*}
+\delta \int \limits _{\Omega }d^4\vect {x}\,I_1 &amp;= 2\int \limits _{\Omega }d^4\vect {x}\,F^{\mu \nu }\delta F_{\mu \nu } = 2\int \limits _{\Omega }d^4\vect {x}\,F^{\mu \nu }(\partial _{\mu }\delta A_{\nu }
+- \partial _{\nu }\delta A_{\mu }) \\ &amp;= 4\int \limits _{\Omega }d^4\vect {x}\,F^{\mu \nu }\partial _{\mu }\delta A_{\nu } = 4\int \limits _{\Omega }d^4\vect {x}\,\Big [\partial _{\mu }(F^{\mu \nu }\delta
+A_{\nu }) - \partial _{\mu }F^{\mu \nu }\,\delta A_{\nu }\Big ] \\ &amp;= -4\int \limits _{\Omega }d^4\vect {x}\,\partial _{\mu }F^{\mu \nu }\,\delta A_{\nu },
+\end{align*}
+де застосовано формулу Остроградського-Гауса і враховано умову на \(\partial \Omega \). Звідси
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{13}\)</span>
+
+<!--
+
+                                                                                                                                                                         ˆ
+                                                                                                                                                                                          1          1
+                                                                                                                                                𝛿(𝑆𝑓 + 𝑆int ) =              𝑑4 𝐱 (         𝜕 𝐹 𝜇𝜈 − 2 𝑗 𝜈 ) 𝛿𝐴𝜈 (𝑥).
+                                                                                                                                                                                         4𝜋𝑐 𝜇      𝑐
+                                                                                                                                                                         Ω
+
+-->
+
+<p>
+
+\begin{equation*}
+\delta (S_f + S_{\text {int}}) = \int \limits _{\Omega }d^4\vect {x}\,\left (\frac {1}{4\pi c}\partial _{\mu }F^{\mu \nu } - \frac {1}{c^2}j^{\nu }\right )\delta A_{\nu }(x).
+\end{equation*}
+
+</p>
+
+<p>
+Згідно з принципом стаціонарної дії, цей вираз має дорівнювати нулю для довільних варіацій \(\delta A_{\nu }(x)\) всередині \(\Omega \). Це можливо лише коли вираз в дужках дорівнює нулю, або остаточно:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{8.}{13}\)</span>
+
+<!--
+
+                                                                                            4𝜋 𝜈
+                                                                                𝜕𝜇 𝐹 𝜇𝜈 =      𝑗 .                                                                                                    (8.14)                                                             --><a id="eq:Maxwell_variational"></a><!--
+                                                                                             𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Maxwell_variational} \partial _{\mu }F^{\mu \nu } = \frac {4\pi }{c}j^{\nu }.
+\end{equation}
+
+</p>
+
+<p>
+Разом із&nbsp;<span class="textup">(<a href="ch8.html#eq:Bianchi">8.11</a>)</span> це рівняння утворює повну систему рівнянь Максвелла для тензора електромагнітного поля \(F_{\mu \nu }\).
+</p>
+
+</section>
+
+</main>
+
+
+<nav class="botnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Home</a></nav>
+
+</div><!-- grid -->
+</body>
+</html>

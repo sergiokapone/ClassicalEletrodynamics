@@ -1,0 +1,4023 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Класична електродинаміка — Випромінювання</title>
+<link rel="stylesheet" type="text/css" href="conspect.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+   subequations: "0",
+   section: "",
+   loader: {
+     load: ['[tex]/tagformat', '[tex]/textmacros'],
+   },
+   startup: {
+     ready() {
+       // These would be replaced by import commands if you wanted to make
+       // a proper extension.
+       const Configuration = MathJax._.input.tex.Configuration.Configuration;
+       const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+       const Macro = MathJax._.input.tex.Symbol.Macro;
+       const TexError = MathJax._.input.tex.TexError.default;
+       const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+       const expandable = MathJax._.util.Options.expandable;
+
+        // Insert the replacement string into the TeX string, and check
+        // that there haven't been too many maxro substitutions (prevents
+        // infinite loops).
+        const useArgument = (parser, text) => {
+          parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+          parser.i = 0;
+          if (++parser.macroCount > parser.configuration.options.maxMacros) {
+            throw new TexError('MaxMacroSub1',
+            'MathJax maximum macro substitution count exceeded; ' +
+            'is there a recursive macro call?');
+          }
+        }
+
+        // Create the command map for:
+        //     \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+        new CommandMap('Lwarp-macros', {
+          ifstar: 'IfstarFunction',
+          ifnextchar: 'IfnextcharFunction',
+          ifblank: 'IfblankFunction',
+          ifstrequal: 'IfstrequalFunction',
+          gsubstitute: 'GsubstituteFunction',
+          seteqnumber: 'SeteqnumberFunction'
+        }, {
+          // This function implements an ifstar macro.
+          IfstarFunction(parser, name) {
+             const resultstar = parser.GetArgument(name);
+             const resultnostar = parser.GetArgument(name);
+             const star = parser.GetStar();                 // true if there is a *
+             useArgument(parser, star ? resultstar : resultnostar);
+          },
+
+          // This function implements an ifnextchar macro.
+          IfnextcharFunction(parser, name) {
+             let whichchar = parser.GetArgument(name);
+             if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+               // $ syntax highlighting
+               whichchar = String.fromCodePoint(parseInt(whichchar));
+             }
+             const resultnextchar = parser.GetArgument(name);
+             const resultnotnextchar = parser.GetArgument(name);
+             const gotchar = (parser.GetNext() === whichchar);
+             useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+          },
+
+          // This function implements an ifblank macro.
+          IfblankFunction(parser, name) {
+             const blankarg = parser.GetArgument(name);
+             const resultblank = parser.GetArgument(name);
+             const resultnotblank = parser.GetArgument(name);
+             const isblank = (blankarg.trim() == "");
+             useArgument(parser, isblank ? resultblank : resultnotblank);
+          },
+
+          // This function implements an ifstrequal macro.
+          IfstrequalFunction(parser, name) {
+             const strequalfirst = parser.GetArgument(name);
+             const strequalsecond = parser.GetArgument(name);
+             const resultequal = parser.GetArgument(name);
+             const resultnotequal = parser.GetArgument(name);
+             const isequal = (strequalfirst == strequalsecond);
+             useArgument(parser, isequal ? resultequal : resultnotequal);
+          },
+
+          // This function implements a gsub macro.
+          GsubstituteFunction(parser, name) {
+             const gsubfirst = parser.GetArgument(name);
+             const gsubsecond = parser.GetArgument(name);
+             const gsubthird = parser.GetArgument(name);
+             let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+             useArgument(parser, gsubresult);
+          },
+
+          // This function modifies the equation numbers.
+          SeteqnumberFunction(parser, name) {
+              // Get the macro parameters
+              const star = parser.GetStar();                  // true if there is a *
+              const optBrackets = parser.GetBrackets(name);   // contents of optional brackets
+              const newsubequations = parser.GetArgument(name); // the subequations argument
+              const neweqsection = parser.GetArgument(name); // the eq section argument
+              const neweqnumber = parser.GetArgument(name);   // the eq number argument
+              MathJax.config.subequations=newsubequations ;   // a string with boolean meaning
+              MathJax.config.section=neweqsection ;           // a string with numeric meaning
+              parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+          }
+
+        });
+
+        // Create the Lwarp-macros package
+        Configuration.create('Lwarp-macros', {
+          handler: {macro: ['Lwarp-macros']}
+        });
+
+        MathJax.startup.defaultReady();
+
+        // For forward references:
+        MathJax.startup.input[0].preFilters.add(({math}) => {
+          if (math.inputData.recompile){
+              MathJax.config.subequations = math.inputData.recompile.subequations;
+              MathJax.config.section = math.inputData.recompile.section;
+          }
+        });
+        MathJax.startup.input[0].postFilters.add(({math}) => {
+          if (math.inputData.recompile){
+              math.inputData.recompile.subequations = MathJax.config.subequations;
+              math.inputData.recompile.section = MathJax.config.section;
+          }
+        });
+
+          // For \left, \right with unicode-math:
+          const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+          const {Symbol} = MathJax._.input.tex.Symbol;
+          const {MapHandler} = MathJax._.input.tex.MapHandler;
+          const delimiter = MapHandler.getMap('delimiter');
+          delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+          delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+          delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+          delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+          delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+          delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+          delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+          delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+          delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+          delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+          delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+          delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+          delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+          delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+          delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+          delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+          delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+          delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+          delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+          delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+          delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+          delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+          delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+          delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+          delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+          delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+          delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+          delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+          delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+          delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+          delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+          delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+          delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+          delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+          delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+          delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+          delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+          delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+          delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+    }     // ready
+  },      // startup
+
+  tex: {
+    packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+    tags: "ams",
+         tagformat: {
+             number: function (n) {
+                 if(MathJax.config.subequations==0)
+                      return(MathJax.config.section + n);
+                 else
+                      return(MathJax.config.section + String.fromCharCode(96+n));
+             },
+         },
+  }
+}
+</script>
+
+<script
+    id="MathJax-script"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+></script>
+
+</head>
+<body>
+
+
+<a id="ClassicalElectrodynamics-html-autopage-125"></a>
+<div class="pagegrid">
+
+
+<nav class="topnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Home</a></nav>
+<div class="sidetoccontainer">
+
+
+<nav class="sidetoc">
+
+
+<div class="sidetoctitle">
+
+<p>
+<span class="sidetocthetitle">Класична електродинаміка</span>
+</p>
+
+<p>
+Contents
+</p>
+</div>
+
+
+<div class="sidetoccontents">
+
+<p>
+<a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Home</a>
+</p>
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-4" class="tocchapter" >
+Передмова</a>
+</p>
+
+
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-5" class="tocchapter" >
+Вибір системи одиниць</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-8" class="tocpart" >
+<span class="sectionnumber">I</span>&#x2003;Класична електродинаміка</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-9" class="tocchapter" >
+<span class="sectionnumber">1</span>&#x2003;Базові поняття та рівняння</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-10" class="tocsection" >
+<span class="sectionnumber">1.1</span>&#x2003;Величини, що спостерігаються в електродинаміці</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-25" class="tocsection" >
+<span class="sectionnumber">1.2</span>&#x2003;Рівняння електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-42" class="tocsection" >
+<span class="sectionnumber">1.3</span>&#x2003;Закони збереження</a>
+</p>
+
+
+
+<p>
+<a href="ch1.html#autosec-46" class="tocsection" >
+<span class="sectionnumber">1.4</span>&#x2003;Межі застосовності класичної електродинаміки</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-58" class="tocchapter" >
+<span class="sectionnumber">2</span>&#x2003;Розв’язки рівнянь Максвелла</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-59" class="tocsection" >
+<span class="sectionnumber">2.1</span>&#x2003;Потенціали електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-65" class="tocsection" >
+<span class="sectionnumber">2.2</span>&#x2003;Потенціали ізольованої системи зарядів і струмів</a>
+</p>
+
+
+
+<p>
+<a href="ch2.html#autosec-70" class="tocsection" >
+<span class="sectionnumber">2.3</span>&#x2003;Задача Коші для рівнянь Максвелла</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-82" class="tocchapter" >
+<span class="sectionnumber">3</span>&#x2003;Вільне електромагнітне поле</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-83" class="tocsection" >
+<span class="sectionnumber">3.1</span>&#x2003;Спектральний розклад і плоскі хвилі</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-89" class="tocsection" >
+<span class="sectionnumber">3.2</span>&#x2003;Випадкові поля випромінювання</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-116" class="tocsection" >
+<span class="sectionnumber">3.3</span>&#x2003;Співвідношення між тривалістю сигналу та шириною його спектру</a>
+</p>
+
+
+
+<p>
+<a href="ch3.html#autosec-118" class="tocsection" >
+<span class="sectionnumber">3.4</span>&#x2003;Загальний розв’язок рівнянь вільного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-127" class="tocchapter" >
+<span class="sectionnumber">4</span>&#x2003;Випромінювання</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-128" class="tocsection" >
+<span class="sectionnumber">4.1</span>&#x2003;Поле прискореного заряду</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">4.2</span>&#x2003;Випромінювання малих систем</a>
+</p>
+
+
+
+<p>
+<a href="ch4.html#autosec-138" class="tocsection" >
+<span class="sectionnumber">4.3</span>&#x2003;Розсіювання електромагнітних хвиль</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-151" class="tocpart" >
+<span class="sectionnumber">II</span>&#x2003;Чотиривимірне формулювання класичної електродинаміки</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-152" class="tocchapter" >
+<span class="sectionnumber">5</span>&#x2003;Перетворення Лоренца як наслідок постулатів Айнштайна</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">5.1</span>&#x2003;Простір-час, системи відліку</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-155" class="tocsection" >
+<span class="sectionnumber">5.2</span>&#x2003;Перетворення Лоренца для одновимірних рухів систем відліку</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-164" class="tocsection" >
+<span class="sectionnumber">5.3</span>&#x2003;Власний час</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-165" class="tocsection" >
+<span class="sectionnumber">5.4</span>&#x2003;Квадрат інтервалу</a>
+</p>
+
+
+
+<p>
+<a href="ch5.html#autosec-169" class="tocsection" >
+<span class="sectionnumber">5.5</span>&#x2003;Перетворення довжини та об’єму</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-186" class="tocchapter" >
+<span class="sectionnumber">6</span>&#x2003;Співвідношення СТВ у просторі Мінковського</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-189" class="tocsection" >
+<span class="sectionnumber">6.1</span>&#x2003;Загальні та власні перетворення Лоренца</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-191" class="tocsection" >
+<span class="sectionnumber">6.2</span>&#x2003;Вектори і тензори в просторі Мінковського</a>
+</p>
+
+
+
+<p>
+<a href="ch6.html#autosec-193" class="tocsection" >
+<span class="sectionnumber">6.3</span>&#x2003;Світові лінії та чотиривектор швидкості</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-199" class="tocchapter" >
+<span class="sectionnumber">7</span>&#x2003;Електродинаміка у просторі Мінковського</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-200" class="tocsection" >
+<span class="sectionnumber">7.1</span>&#x2003;Чотиривимірна форма рівнянь Максвелла</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-203" class="tocsection" >
+<span class="sectionnumber">7.2</span>&#x2003;Трансформаційні властивості \(F_{\mitmu \mitnu }\)</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-208" class="tocsection" >
+<span class="sectionnumber">7.3</span>&#x2003;Рівняння руху зарядженої частинки</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-210" class="tocsection" >
+<span class="sectionnumber">7.4</span>&#x2003;Плоскі монохроматичні хвилі</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-211" class="tocsection" >
+<span class="sectionnumber">7.5</span>&#x2003;Ефект Доплера</a>
+</p>
+
+
+
+<p>
+<a href="ch7.html#autosec-216" class="tocsection" >
+<span class="sectionnumber">7.6</span>&#x2003;Вектор-потенціал електромагнітного поля у випадку ізольованої системи</a>
+</p>
+
+
+
+<p>
+<a href="ch8.html#autosec-220" class="tocchapter" >
+<span class="sectionnumber">8</span>&#x2003;Варіаційний принцип для рівнянь електродинаміки</a>
+</p>
+
+
+
+<p>
+<a href="ch8.html#autosec-221" class="tocsection" >
+<span class="sectionnumber">8.1</span>&#x2003;Заряд у зовнішньому електромагнітному полі</a>
+</p>
+
+
+
+<p>
+<a href="ch8.html#autosec-223" class="tocsection" >
+<span class="sectionnumber">8.2</span>&#x2003;Дія для електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-226" class="tocchapter" >
+<span class="sectionnumber">9</span>&#x2003;Тензор енергії-імпульсу і закони збереження</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-227" class="tocsection" >
+<span class="sectionnumber">9.1</span>&#x2003;Чотири-імпульс системи тіл</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-231" class="tocsection" >
+<span class="sectionnumber">9.2</span>&#x2003;Енергія-імпульс електромагнітного поля</a>
+</p>
+
+
+
+<p>
+<a href="ch9.html#autosec-232" class="tocsection" >
+<span class="sectionnumber">9.3</span>&#x2003;Тензор моменту імпульсу електромагнітної системи</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-237" class="tocchapter" >
+<span class="sectionnumber">10</span>&#x2003;Реакція випромінювання</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-238" class="tocsection" >
+<span class="sectionnumber">10.1</span>&#x2003;Нерелятивістська сила Абрагама–Лоренца</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-240" class="tocsection" >
+<span class="sectionnumber">10.2</span>&#x2003;Релятивістське узагальнення</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-249" class="tocsection" >
+<span class="sectionnumber">.1</span>&#x2003;Таблиця переходу між гаусовою системою одиниць та SI</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-255" class="tocsection" >
+<span class="sectionnumber">.2</span>&#x2003;Основні формули векторного аналізу</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-271" class="tocsection" >
+<span class="sectionnumber">.3</span>&#x2003;Узагальнені функції</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-272" class="tocsection" >
+<span class="sectionnumber">.4</span>&#x2003;Фундаментальні розв’язки</a>
+</p>
+
+
+
+<p>
+<a href="ch10.html#autosec-273" class="tocsection" >
+<span class="sectionnumber">.5</span>&#x2003;Спеціальні функції</a>
+</p>
+
+
+</div>
+
+</nav>
+
+</div>
+
+
+<main class="bodycontainer">
+
+
+<section class="textbody">
+
+<h1>Класична електродинаміка</h1>
+
+<!--MathJax customizations:-->
+<div data-nosnippet
+   style="display:none"
+>
+
+\(\newcommand{\footnotename}{footnote}\)
+
+\(\def \LWRfootnote {1}\)
+
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+
+\(\let \LWRorighspace \hspace \)
+
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+
+\(\newcommand {\TextOrMath }[2]{#2}\)
+
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+
+\(\newcommand \ensuremath [1]{#1}\)
+
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+
+\(\newcommand {\setlength }[2]{}\)
+
+\(\newcommand {\addtolength }[2]{}\)
+
+\(\newcommand {\setcounter }[2]{}\)
+
+\(\newcommand {\addtocounter }[2]{}\)
+
+\(\newcommand {\arabic }[1]{}\)
+
+\(\newcommand {\number }[1]{}\)
+
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+
+\(\newcommand {\cline }[1]{}\)
+
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+
+\(\newcommand {\protect }{}\)
+
+\(\def \LWRabsorbnumber #1 {}\)
+
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+
+\(\def \mathcode #1={\mathchar }\)
+
+\(\let \delcode \mathcode \)
+
+\(\let \delimiter \mathchar \)
+
+\(\def \oe {\unicode {x0153}}\)
+
+\(\def \OE {\unicode {x0152}}\)
+
+\(\def \ae {\unicode {x00E6}}\)
+
+\(\def \AE {\unicode {x00C6}}\)
+
+\(\def \aa {\unicode {x00E5}}\)
+
+\(\def \AA {\unicode {x00C5}}\)
+
+\(\def \o {\unicode {x00F8}}\)
+
+\(\def \O {\unicode {x00D8}}\)
+
+\(\def \l {\unicode {x0142}}\)
+
+\(\def \L {\unicode {x0141}}\)
+
+\(\def \ss {\unicode {x00DF}}\)
+
+\(\def \SS {\unicode {x1E9E}}\)
+
+\(\def \dag {\unicode {x2020}}\)
+
+\(\def \ddag {\unicode {x2021}}\)
+
+\(\def \P {\unicode {x00B6}}\)
+
+\(\def \copyright {\unicode {x00A9}}\)
+
+\(\def \pounds {\unicode {x00A3}}\)
+
+\(\let \LWRref \ref \)
+
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+
+\( \newcommand {\multicolumn }[3]{#3}\)
+
+\(\require {textcomp}\)
+
+\(\require {colortbl}\)
+
+\(\let \LWRorigcolumncolor \columncolor \)
+
+\(\renewcommand {\columncolor }[2][named]{\LWRorigcolumncolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\let \LWRorigrowcolor \rowcolor \)
+
+\(\renewcommand {\rowcolor }[2][named]{\LWRorigrowcolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\let \LWRorigcellcolor \cellcolor \)
+
+\(\renewcommand {\cellcolor }[2][named]{\LWRorigcellcolor [#1]{#2}\LWRabsorbtwooptions }\)
+
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+
+\(\let \Hat \hat \)
+
+\(\let \Check \check \)
+
+\(\let \Tilde \tilde \)
+
+\(\let \Acute \acute \)
+
+\(\let \Grave \grave \)
+
+\(\let \Dot \dot \)
+
+\(\let \Ddot \ddot \)
+
+\(\let \Breve \breve \)
+
+\(\let \Bar \bar \)
+
+\(\let \Vec \vec \)
+
+\(\let \symnormal \mathit \)
+
+\(\let \symliteral \mathrm \)
+
+\(\let \symbb \mathbb \)
+
+\(\let \symbbit \mathbb \)
+
+\(\let \symcal \mathcal \)
+
+\(\let \symscr \mathscr \)
+
+\(\let \symfrak \mathfrak \)
+
+\(\let \symsfup \mathsf \)
+
+\(\let \symsfit \mathit \)
+
+\(\let \symbfsf \mathbf \)
+
+\(\let \symbfup \mathbf \)
+
+\(\newcommand {\symbfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symbfcal \mathcal \)
+
+\(\let \symbfscr \mathscr \)
+
+\(\let \symbffrak \mathfrak \)
+
+\(\let \symbfsfup \mathbf \)
+
+\(\newcommand {\symbfsfit }[1]{\boldsymbol {#1}}\)
+
+\(\let \symup \mathrm \)
+
+\(\let \symbf \mathbf \)
+
+\(\let \symit \mathit \)
+
+\(\let \symtt \mathtt \)
+
+\(\let \symbffrac \mathbffrac \)
+
+\(\newcommand {\mathfence }[1]{\mathord {#1}}\)
+
+\(\newcommand {\mathover }[1]{#1}\)
+
+\(\newcommand {\mathunder }[1]{#1}\)
+
+\(\newcommand {\mathaccent }[1]{#1}\)
+
+\(\newcommand {\mathbotaccent }[1]{#1}\)
+
+\(\newcommand {\mathalpha }[1]{\mathord {#1}}\)
+
+\(\def\upAlpha{\unicode{x0391}}\)
+
+\(\def\upBeta{\unicode{x0392}}\)
+
+\(\def\upGamma{\unicode{x0393}}\)
+
+\(\def\upDigamma{\unicode{x03DC}}\)
+
+\(\def\upDelta{\unicode{x0394}}\)
+
+\(\def\upEpsilon{\unicode{x0395}}\)
+
+\(\def\upZeta{\unicode{x0396}}\)
+
+\(\def\upEta{\unicode{x0397}}\)
+
+\(\def\upTheta{\unicode{x0398}}\)
+
+\(\def\upVartheta{\unicode{x03F4}}\)
+
+\(\def\upIota{\unicode{x0399}}\)
+
+\(\def\upKappa{\unicode{x039A}}\)
+
+\(\def\upLambda{\unicode{x039B}}\)
+
+\(\def\upMu{\unicode{x039C}}\)
+
+\(\def\upNu{\unicode{x039D}}\)
+
+\(\def\upXi{\unicode{x039E}}\)
+
+\(\def\upOmicron{\unicode{x039F}}\)
+
+\(\def\upPi{\unicode{x03A0}}\)
+
+\(\def\upVarpi{\unicode{x03D6}}\)
+
+\(\def\upRho{\unicode{x03A1}}\)
+
+\(\def\upSigma{\unicode{x03A3}}\)
+
+\(\def\upTau{\unicode{x03A4}}\)
+
+\(\def\upUpsilon{\unicode{x03A5}}\)
+
+\(\def\upPhi{\unicode{x03A6}}\)
+
+\(\def\upChi{\unicode{x03A7}}\)
+
+\(\def\upPsi{\unicode{x03A8}}\)
+
+\(\def\upOmega{\unicode{x03A9}}\)
+
+\(\def\itAlpha{\unicode{x1D6E2}}\)
+
+\(\def\itBeta{\unicode{x1D6E3}}\)
+
+\(\def\itGamma{\unicode{x1D6E4}}\)
+
+\(\def\itDigamma{\mathit{\unicode{x03DC}}}\)
+
+\(\def\itDelta{\unicode{x1D6E5}}\)
+
+\(\def\itEpsilon{\unicode{x1D6E6}}\)
+
+\(\def\itZeta{\unicode{x1D6E7}}\)
+
+\(\def\itEta{\unicode{x1D6E8}}\)
+
+\(\def\itTheta{\unicode{x1D6E9}}\)
+
+\(\def\itVartheta{\unicode{x1D6F3}}\)
+
+\(\def\itIota{\unicode{x1D6EA}}\)
+
+\(\def\itKappa{\unicode{x1D6EB}}\)
+
+\(\def\itLambda{\unicode{x1D6EC}}\)
+
+\(\def\itMu{\unicode{x1D6ED}}\)
+
+\(\def\itNu{\unicode{x1D6EE}}\)
+
+\(\def\itXi{\unicode{x1D6EF}}\)
+
+\(\def\itOmicron{\unicode{x1D6F0}}\)
+
+\(\def\itPi{\unicode{x1D6F1}}\)
+
+\(\def\itRho{\unicode{x1D6F2}}\)
+
+\(\def\itSigma{\unicode{x1D6F4}}\)
+
+\(\def\itTau{\unicode{x1D6F5}}\)
+
+\(\def\itUpsilon{\unicode{x1D6F6}}\)
+
+\(\def\itPhi{\unicode{x1D6F7}}\)
+
+\(\def\itChi{\unicode{x1D6F8}}\)
+
+\(\def\itPsi{\unicode{x1D6F9}}\)
+
+\(\def\itOmega{\unicode{x1D6FA}}\)
+
+\(\def\upalpha{\unicode{x03B1}}\)
+
+\(\def\upbeta{\unicode{x03B2}}\)
+
+\(\def\upvarbeta{\unicode{x03D0}}\)
+
+\(\def\upgamma{\unicode{x03B3}}\)
+
+\(\def\updigamma{\unicode{x03DD}}\)
+
+\(\def\updelta{\unicode{x03B4}}\)
+
+\(\def\upepsilon{\unicode{x03F5}}\)
+
+\(\def\upvarepsilon{\unicode{x03B5}}\)
+
+\(\def\upzeta{\unicode{x03B6}}\)
+
+\(\def\upeta{\unicode{x03B7}}\)
+
+\(\def\uptheta{\unicode{x03B8}}\)
+
+\(\def\upvartheta{\unicode{x03D1}}\)
+
+\(\def\upiota{\unicode{x03B9}}\)
+
+\(\def\upkappa{\unicode{x03BA}}\)
+
+\(\def\upvarkappa{\unicode{x03F0}}\)
+
+\(\def\uplambda{\unicode{x03BB}}\)
+
+\(\def\upmu{\unicode{x03BC}}\)
+
+\(\def\upnu{\unicode{x03BD}}\)
+
+\(\def\upxi{\unicode{x03BE}}\)
+
+\(\def\upomicron{\unicode{x03BF}}\)
+
+\(\def\uppi{\unicode{x03C0}}\)
+
+\(\def\upvarpi{\unicode{x03D6}}\)
+
+\(\def\uprho{\unicode{x03C1}}\)
+
+\(\def\upvarrho{\unicode{x03F1}}\)
+
+\(\def\upsigma{\unicode{x03C3}}\)
+
+\(\def\upvarsigma{\unicode{x03C2}}\)
+
+\(\def\uptau{\unicode{x03C4}}\)
+
+\(\def\upupsilon{\unicode{x03C5}}\)
+
+\(\def\upphi{\unicode{x03D5}}\)
+
+\(\def\upvarphi{\unicode{x03C6}}\)
+
+\(\def\upchi{\unicode{x03C7}}\)
+
+\(\def\uppsi{\unicode{x03C8}}\)
+
+\(\def\upomega{\unicode{x03C9}}\)
+
+\(\def\italpha{\unicode{x1D6FC}}\)
+
+\(\def\itbeta{\unicode{x1D6FD}}\)
+
+\(\def\itvarbeta{\unicode{x03D0}}\)
+
+\(\def\itgamma{\unicode{x1D6FE}}\)
+
+\(\def\itdigamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\itdelta{\unicode{x1D6FF}}\)
+
+\(\def\itepsilon{\unicode{x1D716}}\)
+
+\(\def\itvarepsilon{\unicode{x1D700}}\)
+
+\(\def\itzeta{\unicode{x1D701}}\)
+
+\(\def\iteta{\unicode{x1D702}}\)
+
+\(\def\ittheta{\unicode{x1D703}}\)
+
+\(\def\itvartheta{\unicode{x1D717}}\)
+
+\(\def\itiota{\unicode{x1D704}}\)
+
+\(\def\itkappa{\unicode{x1D705}}\)
+
+\(\def\itvarkappa{\unicode{x1D718}}\)
+
+\(\def\itlambda{\unicode{x1D706}}\)
+
+\(\def\itmu{\unicode{x1D707}}\)
+
+\(\def\itnu{\unicode{x1D708}}\)
+
+\(\def\itxi{\unicode{x1D709}}\)
+
+\(\def\itomicron{\unicode{x1D70A}}\)
+
+\(\def\itpi{\unicode{x1D70B}}\)
+
+\(\def\itvarpi{\unicode{x1D71B}}\)
+
+\(\def\itrho{\unicode{x1D70C}}\)
+
+\(\def\itvarrho{\unicode{x1D71A}}\)
+
+\(\def\itsigma{\unicode{x1D70E}}\)
+
+\(\def\itvarsigma{\unicode{x1D70D}}\)
+
+\(\def\ittau{\unicode{x1D70F}}\)
+
+\(\def\itupsilon{\unicode{x1D710}}\)
+
+\(\def\itphi{\unicode{x1D719}}\)
+
+\(\def\itvarphi{\unicode{x1D711}}\)
+
+\(\def\itchi{\unicode{x1D712}}\)
+
+\(\def\itpsi{\unicode{x1D713}}\)
+
+\(\def\itomega{\unicode{x1D714}}\)
+
+\(\let \lparen (\)
+
+\(\let \rparen )\)
+
+\(\newcommand {\cuberoot }[1]{\,{}^3\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\fourthroot }[1]{\,{}^4\!\!\sqrt {#1}}\,\)
+
+\(\newcommand {\longdivision }[1]{\mathord {\unicode {x027CC}#1}}\)
+
+\(\newcommand {\mathcomma }{,}\)
+
+\(\newcommand {\mathcolon }{:}\)
+
+\(\newcommand {\mathsemicolon }{;}\)
+
+\(\newcommand {\overbracket }[1]{\mathinner {\overline {\ulcorner {#1}\urcorner }}}\)
+
+\(\newcommand {\underbracket }[1]{\mathinner {\underline {\llcorner {#1}\lrcorner }}}\)
+
+\(\newcommand {\overbar }[1]{\mathord {#1\unicode {x00305}}}\)
+
+\(\newcommand {\ovhook }[1]{\mathord {#1\unicode {x00309}}}\)
+
+\(\newcommand {\ocirc }[1]{\mathord {#1\unicode {x0030A}}}\)
+
+\(\newcommand {\candra }[1]{\mathord {#1\unicode {x00310}}}\)
+
+\(\newcommand {\oturnedcomma }[1]{\mathord {#1\unicode {x00312}}}\)
+
+\(\newcommand {\ocommatopright }[1]{\mathord {#1\unicode {x00315}}}\)
+
+\(\newcommand {\droang }[1]{\mathord {#1\unicode {x0031A}}}\)
+
+\(\newcommand {\leftharpoonaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\rightharpoonaccent }[1]{\mathord {#1\unicode {x020D1}}}\)
+
+\(\newcommand {\vertoverlay }[1]{\mathord {#1\unicode {x020D2}}}\)
+
+\(\newcommand {\leftarrowaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+
+\(\newcommand {\annuity }[1]{\mathord {#1\unicode {x020E7}}}\)
+
+\(\newcommand {\widebridgeabove }[1]{\mathord {#1\unicode {x020E9}}}\)
+
+\(\newcommand {\asteraccent }[1]{\mathord {#1\unicode {x020F0}}}\)
+
+\(\newcommand {\threeunderdot }[1]{\mathord {#1\unicode {x020E8}}}\)
+
+\(\newcommand {\Bbbsum }{\mathop {\unicode {x2140}}\limits }\)
+
+\(\newcommand {\oiint }{\mathop {\unicode {x222F}}\limits }\)
+
+\(\newcommand {\oiiint }{\mathop {\unicode {x2230}}\limits }\)
+
+\(\newcommand {\intclockwise }{\mathop {\unicode {x2231}}\limits }\)
+
+\(\newcommand {\ointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\ointctrclockwise }{\mathop {\unicode {x2233}}\limits }\)
+
+\(\newcommand {\varointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+
+\(\newcommand {\leftouterjoin }{\mathop {\unicode {x27D5}}\limits }\)
+
+\(\newcommand {\rightouterjoin }{\mathop {\unicode {x27D6}}\limits }\)
+
+\(\newcommand {\fullouterjoin }{\mathop {\unicode {x27D7}}\limits }\)
+
+\(\newcommand {\bigbot }{\mathop {\unicode {x27D8}}\limits }\)
+
+\(\newcommand {\bigtop }{\mathop {\unicode {x27D9}}\limits }\)
+
+\(\newcommand {\xsol }{\mathop {\unicode {x29F8}}\limits }\)
+
+\(\newcommand {\xbsol }{\mathop {\unicode {x29F9}}\limits }\)
+
+\(\newcommand {\bigcupdot }{\mathop {\unicode {x2A03}}\limits }\)
+
+\(\newcommand {\bigsqcap }{\mathop {\unicode {x2A05}}\limits }\)
+
+\(\newcommand {\conjquant }{\mathop {\unicode {x2A07}}\limits }\)
+
+\(\newcommand {\disjquant }{\mathop {\unicode {x2A08}}\limits }\)
+
+\(\newcommand {\bigtimes }{\mathop {\unicode {x2A09}}\limits }\)
+
+\(\newcommand {\modtwosum }{\mathop {\unicode {x2A0A}}\limits }\)
+
+\(\newcommand {\sumint }{\mathop {\unicode {x2A0B}}\limits }\)
+
+\(\newcommand {\intbar }{\mathop {\unicode {x2A0D}}\limits }\)
+
+\(\newcommand {\intBar }{\mathop {\unicode {x2A0E}}\limits }\)
+
+\(\newcommand {\fint }{\mathop {\unicode {x2A0F}}\limits }\)
+
+\(\newcommand {\cirfnint }{\mathop {\unicode {x2A10}}\limits }\)
+
+\(\newcommand {\awint }{\mathop {\unicode {x2A11}}\limits }\)
+
+\(\newcommand {\rppolint }{\mathop {\unicode {x2A12}}\limits }\)
+
+\(\newcommand {\scpolint }{\mathop {\unicode {x2A13}}\limits }\)
+
+\(\newcommand {\npolint }{\mathop {\unicode {x2A14}}\limits }\)
+
+\(\newcommand {\pointint }{\mathop {\unicode {x2A15}}\limits }\)
+
+\(\newcommand {\sqint }{\mathop {\unicode {x2A16}}\limits }\)
+
+\(\newcommand {\intlarhk }{\mathop {\unicode {x2A17}}\limits }\)
+
+\(\newcommand {\intx }{\mathop {\unicode {x2A18}}\limits }\)
+
+\(\newcommand {\intcap }{\mathop {\unicode {x2A19}}\limits }\)
+
+\(\newcommand {\intcup }{\mathop {\unicode {x2A1A}}\limits }\)
+
+\(\newcommand {\upint }{\mathop {\unicode {x2A1B}}\limits }\)
+
+\(\newcommand {\lowint }{\mathop {\unicode {x2A1C}}\limits }\)
+
+\(\newcommand {\bigtriangleleft }{\mathop {\unicode {x2A1E}}\limits }\)
+
+\(\newcommand {\zcmp }{\mathop {\unicode {x2A1F}}\limits }\)
+
+\(\newcommand {\zpipe }{\mathop {\unicode {x2A20}}\limits }\)
+
+\(\newcommand {\zproject }{\mathop {\unicode {x2A21}}\limits }\)
+
+\(\newcommand {\biginterleave }{\mathop {\unicode {x2AFC}}\limits }\)
+
+\(\newcommand {\bigtalloblong }{\mathop {\unicode {x2AFF}}\limits }\)
+
+\(\newcommand {\arabicmaj }{\mathop {\unicode {x1EEF0}}\limits }\)
+
+\(\newcommand {\arabichad }{\mathop {\unicode {x1EEF1}}\limits }\)
+
+\(\newcommand {\nicefrac }[3][]{\mathinner {{}^{#2}\!/\!_{#3}}}\)
+
+\(\require {mhchem}\)
+
+\(\newcommand {\toprule }[1][]{\hline }\)
+
+\(\let \midrule \toprule \)
+
+\(\let \bottomrule \toprule \)
+
+\(\def \LWRbooktabscmidruleparen (#1)#2{}\)
+
+\(\newcommand {\LWRbooktabscmidrulenoparen }[1]{}\)
+
+\(\newcommand {\cmidrule }[1][]{\ifnextchar (\LWRbooktabscmidruleparen \LWRbooktabscmidrulenoparen }\)
+
+\(\newcommand {\morecmidrules }{}\)
+
+\(\newcommand {\specialrule }[3]{\hline }\)
+
+\(\newcommand {\addlinespace }[1][]{}\)
+
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+
+\(\newcommand {\mrowcell }{}\)
+
+\(\newcommand {\mcolrowcell }{}\)
+
+\(\newcommand {\STneed }[1]{}\)
+
+\(\newcommand {\nfrac }[2]{{}^{#1}\!/{}_{#2}}\)
+
+\(\newcommand {\vect }[1]{\mathbf {#1}}\)
+
+\(\newcommand {\Efield }{\mathbf {E}}\)
+
+\(\newcommand {\Dfield }{\mathbf {D}}\)
+
+\(\newcommand {\Bfield }{\mathbf {B}}\)
+
+\(\newcommand {\Hfield }{\mathbf {H}}\)
+
+\(\newcommand {\rot }{\boldsymbol {\nabla }\times }\)
+
+\(\newcommand {\divg }{\boldsymbol {\nabla }\cdot }\)
+
+\(\newcommand {\grad }{\boldsymbol {\nabla }}\)
+
+\(\newcommand {\diff }[2]{\frac {\partial #1}{\partial #2}}\)
+
+\(\newcommand {\ddiff }[2]{\frac {\partial ^2 #1}{\partial #2^2}}\)
+
+\(\newcommand {\parttime }[1]{\frac {\partial {#1}}{\partial t}}\)
+
+\(\newcommand {\pparttime }[1]{\frac {\partial ^2{#1}}{\partial t^2}}\)
+
+\(\newcommand {\Laplasian }{\Delta }\)
+
+\(\newcommand {\Dalambertian }{\square \,}\)
+
+\(\DeclareMathOperator {\const }{const}\)
+
+\(\DeclareMathOperator {\Div }{div}\)
+
+\(\DeclareMathOperator {\Rot }{rot}\)
+
+\(\DeclareMathOperator {\Grad }{grad}\)
+
+\(\DeclareMathOperator {\inv }{inv}\)
+
+\(\newcommand {\emf }{\mathcal {E}}\)
+
+\(\DeclareMathOperator {\sh }{sh}\)
+
+\(\DeclareMathOperator {\ch }{ch}\)
+
+\(\DeclareMathOperator {\tg }{tg}\)
+
+\(\DeclareMathOperator {\ctg }{ctg}\)
+
+\(\DeclareMathOperator {\arctg }{arctg}\)
+
+\(\DeclareMathOperator {\arcctg }{arcctg}\)
+
+\(\DeclareMathOperator {\cth }{cth}\)
+
+\(\DeclareMathOperator {\cosec }{cosec}\)
+
+\(\let \symsf \symsfup \)
+
+\(\def\Alpha{\unicode{x0391}}\)
+
+\(\def\Beta{\unicode{x0392}}\)
+
+\(\def\Gamma{\unicode{x0393}}\)
+
+\(\def\Digamma{\unicode{x03DC}}\)
+
+\(\def\Delta{\unicode{x0394}}\)
+
+\(\def\Epsilon{\unicode{x0395}}\)
+
+\(\def\Zeta{\unicode{x0396}}\)
+
+\(\def\Eta{\unicode{x0397}}\)
+
+\(\def\Theta{\unicode{x0398}}\)
+
+\(\def\Vartheta{\unicode{x03F4}}\)
+
+\(\def\Iota{\unicode{x0399}}\)
+\(\def\Kappa{\unicode{x039A}}\)
+
+\(\def\Lambda{\unicode{x039B}}\)
+
+\(\def\Mu{\unicode{x039C}}\)
+
+\(\def\Nu{\unicode{x039D}}\)
+
+\(\def\Xi{\unicode{x039E}}\)
+
+\(\def\Omicron{\unicode{x039F}}\)
+
+\(\def\Pi{\unicode{x03A0}}\)
+
+\(\def\Varpi{\unicode{x03D6}}\)
+
+\(\def\Rho{\unicode{x03A1}}\)
+
+\(\def\Sigma{\unicode{x03A3}}\)
+
+\(\def\Tau{\unicode{x03A4}}\)
+
+\(\def\Upsilon{\unicode{x03A5}}\)
+
+\(\def\Phi{\unicode{x03A6}}\)
+
+\(\def\Chi{\unicode{x03A7}}\)
+
+\(\def\Psi{\unicode{x03A8}}\)
+
+\(\def\Omega{\unicode{x03A9}}\)
+
+\(\def\alpha{\unicode{x1D6FC}}\)
+
+\(\def\beta{\unicode{x1D6FD}}\)
+
+\(\def\varbeta{\unicode{x03D0}}\)
+
+\(\def\gamma{\unicode{x1D6FE}}\)
+
+\(\def\digamma{\mathit{\unicode{x03DD}}}\)
+
+\(\def\delta{\unicode{x1D6FF}}\)
+
+\(\def\epsilon{\unicode{x1D716}}\)
+
+\(\def\varepsilon{\unicode{x1D700}}\)
+
+\(\def\zeta{\unicode{x1D701}}\)
+
+\(\def\eta{\unicode{x1D702}}\)
+
+\(\def\theta{\unicode{x1D703}}\)
+
+\(\def\vartheta{\unicode{x1D717}}\)
+
+\(\def\iota{\unicode{x1D704}}\)
+
+\(\def\kappa{\unicode{x1D705}}\)
+
+\(\def\varkappa{\unicode{x1D718}}\)
+
+\(\def\lambda{\unicode{x1D706}}\)
+
+\(\def\mu{\unicode{x1D707}}\)
+
+\(\def\nu{\unicode{x1D708}}\)
+
+\(\def\xi{\unicode{x1D709}}\)
+
+\(\def\omicron{\unicode{x1D70A}}\)
+
+\(\def\pi{\unicode{x1D70B}}\)
+
+\(\def\varpi{\unicode{x1D71B}}\)
+
+\(\def\rho{\unicode{x1D70C}}\)
+
+\(\def\varrho{\unicode{x1D71A}}\)
+
+\(\def\sigma{\unicode{x1D70E}}\)
+
+\(\def\varsigma{\unicode{x1D70D}}\)
+
+\(\def\tau{\unicode{x1D70F}}\)
+
+\(\def\upsilon{\unicode{x1D710}}\)
+
+\(\def\phi{\unicode{x1D719}}\)
+
+\(\def\varphi{\unicode{x1D711}}\)
+
+\(\def\chi{\unicode{x1D712}}\)
+
+\(\def\psi{\unicode{x1D713}}\)
+
+\(\def\omega{\unicode{x1D714}}\)
+
+</div>
+
+<!--
+...... chapter Випромінювання ......
+-->
+<h3 id="autosec-127">Розділ&nbsp;<span class="sectionnumber">4&#x2003;</span>Випромінювання</h3>
+<a id="ClassicalElectrodynamics-html-autopage-127"></a>
+<a id="ClassicalElectrodynamics-html-autofile-4"></a>
+
+<a id="Radiation"></a>
+
+<p>
+Як було показано в розділі&nbsp;<a href="ch3.html#FreeField">3</a>, рівняння Максвелла допускають розв’язки, що описують поля, які існують незалежно від своїх джерел і поширюються у вакуумі зі швидкістю світла. Поле ж нерухомого
+заряду або заряду, що рухається рівномірно, спадає на великих відстанях як&nbsp;\(r^{-2}\), і потік енергії крізь замкнену поверхню дорівнює нулю. Протилежна ситуація виникає, коли заряд рухається з прискоренням: тоді з’являється складова
+поля, що спадає як&nbsp;\(r^{-1}\) і переносить ненульовий потік енергії на нескінченність. Саме цей процес і називають випромінюванням.
+</p>
+
+<p>
+З цієї причини нас насамперед цікавитиме характер поля на великих відстанях від системи: \(r \gg \lambda \), де \(\lambda = {2\pi c}/{\omega }\) — довжина хвилі; також вважаємо, що \(r\) значно більше за розміри системи, що
+випромінює. Цю область називають хвильовою зоною, або зоною випромінювання. Тут поле можна подати як суперпозицію сферичних хвиль \(\sim r^{-1}\, e^{i(kr - \omega t)}\), де \(k = {2\pi }/{\lambda } = {\omega }/{c}\). Похідні
+від хвильового поля в основному визначаються експоненціальним співмножником. Зокрема:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+
+                                                                                                           𝑒𝑖(𝑘𝑟−𝜔𝑡)        𝑒𝑖(𝑘𝑟−𝜔𝑡)      1
+                                                                                                      ∇(             ) = 𝑖𝐤           + 𝑂( 2 ) ,
+                                                                                                               𝑟                𝑟         𝑟
+
+-->
+
+<p>
+
+\begin{equation*}
+\nabla \left ( \frac {e^{i(kr - \omega t)}}{r} \right ) = i\vect {k} \frac {e^{i(kr - \omega t)}}{r} + O\!\left (\frac {1}{r^2}\right ),
+\end{equation*}
+
+</p>
+
+<p>
+де позначено:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+                                                                                                                           𝜔          𝐫
+                                                                                                              𝐤 = 𝐧𝑘 = 𝐧     ,   𝐧=     .
+                                                                                                                           𝑐          𝑟
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {k} = \vect {n}k = \vect {n}\frac {\omega }{c}, \quad \vect {n} = \frac {\vect {r}}{r}.
+\end{equation*}
+
+</p>
+
+<p>
+Другий доданок у хвильовій зоні значно менший за перший, оскільки \(k = {2\pi }/{\lambda } \gg r^{-1}\). Відповідно, на поверхні сфери радіуса \(r \gg \lambda \) на невеликих, порівняно з \(r\), ділянках хвилі можна наближено
+вважати плоскими. З рівнянь Максвелла випливають співвідношення, аналогічні формулам для плоских хвиль:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{0}\)</span>
+
+<!--
+
+
+                                                                  𝐁 = [𝐧 × 𝐄],   𝐄 = −[𝐧 × 𝐁].                                                                (4.1)                        --><a id="eq:plane_wavesr_relations"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:plane_wavesr_relations} \Bfield = [\vect {n} \times \Efield ], \quad \Efield = -[\vect {n} \times \Bfield ].
+\end{equation}
+
+</p>
+
+<p>
+Ці співвідношення справедливі у хвильовій зоні будь-якої обмеженої системи з точністю до членів \(r^{-1}\) включно; лише ці члени дають ненульовий внесок у потік енергії за \(r \to \infty \), і з’являються вони виключно для прискорених
+зарядів.
+</p>
+
+<p>
+Природним відправним пунктом є знаходження поля окремого прискореного заряду. Розв’язок хвильового рівняння для потенціалів, що задовольняє умову причинності, виражається через запізнюючий час і відомий як потенціали
+Лієнара-Віхерта; з них безпосередньо випливають напруженості полів і формула для потужності випромінювання.
+</p>
+<!--
+...... section Поле прискореного заряду ......
+-->
+<h4 id="autosec-128"><span class="sectionnumber">4.1&#x2003;</span>Поле прискореного заряду</h4>
+<a id="ClassicalElectrodynamics-html-autopage-128"></a>
+<!--
+...... subsection Потенціали Ліенара-Віхерта ......
+-->
+<h5 id="autosec-129">Потенціали Ліенара-Віхерта</h5>
+<a id="ClassicalElectrodynamics-html-autopage-129"></a>
+
+
+<p>
+Для точкового заряду \(q \) з траєкторією \(\vect {r} = \vect {r}_q(t) \) густина заряду і густина струму мають вигляд:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{1}\)</span>
+
+<!--
+
+
+                                                                                                      𝜌(𝑡, 𝐫) = 𝑞𝛿3 (𝐫 − 𝐫𝑞 (𝑡)),                                                                             (4.2)                                      --><a id="eq:charge_density"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:charge_density} \rho (t, \vect {r}) = q \delta ^3(\vect {r} - \vect {r}_q(t)),
+\end{equation}
+
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{2}\)</span>
+
+<!--
+
+
+                                                                                                𝐣(𝑡, 𝐫) = 𝑞𝐫𝑞̇ (𝑡)𝛿3 (𝐫 − 𝐫𝑞 (𝑡)),                                                                          (4.3)                                       --><a id="eq:current_density"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {j}(t, \vect {r}) = q \dot {\vect {r}}_q(t) \delta ^3(\vect {r} - \vect {r}_q(t)), \label {eq:current_density}
+\end{equation}
+
+</p>
+
+<p>
+де \(\delta ^3 \) — тривимірна \(\delta \)-функція.
+</p>
+
+<p>
+За загальними формулами&nbsp;<span class="textup">(<a href="ch2.html#eq:G">2.40</a>)</span>, <span class="textup">(<a href="ch2.html#eq:2.2.18">2.41</a>)</span>, <span class="textup">(<a
+href="ch2.html#eq:2.2.19">2.42</a>)</span> для потенціалів:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{3}\)</span>
+
+<!--
+
+                                                                                   ˆ            ˆ
+                                                                               2                                            1
+                                                                   𝜑(𝑡, 𝐫) =            𝑑𝑡′         𝑑3 𝐫′ 𝛿 [(𝑡 − 𝑡′ )2 −      (𝐫 − 𝐫′ )2 ] 𝜃(𝑡 − 𝑡′ )𝜌(𝑡′ , 𝐫′ ),        --><a id="eq:general_potential"></a><!--
+                                                                               𝑐                                            𝑐2
+
+-->
+
+<p>
+
+\begin{equation*}
+\phi (t, \vect {r}) = \frac {2}{c} \int dt&apos; \int d^3\vect {r}&apos; \delta \left [ (t - t&apos;)^2 - \frac {1}{c^2} (\vect {r} - \vect {r}&apos;)^2 \right ] \theta (t - t&apos;) \rho (t&apos;, \vect
+{r}&apos;), \label {eq:general_potential}
+\end{equation*}
+
+</p>
+
+<p>
+Враховуючи&nbsp;<span class="textup">(<a href="ch4.html#eq:charge_density">4.2</a>)</span>, дістанемо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{3}\)</span>
+
+<!--
+
+                                                                                            ˆ
+                                                                                       2𝑞                             1
+                                                                      𝜑(𝑡, 𝐫) =                 𝑑𝑡′ 𝛿 [(𝑡 − 𝑡′ )2 −      (𝐫 − 𝐫𝑞 (𝑡′ ))2 ] 𝜃(𝑡 − 𝑡′ ).               --><a id="eq:potential_with_delta"></a><!--
+                                                                                        𝑐                             𝑐2
+
+-->
+
+<p>
+
+\begin{equation*}
+\phi (t, \vect {r}) = \frac {2q}{c} \int dt&apos; \delta \left [ (t - t&apos;)^2 - \frac {1}{c^2} (\vect {r} - \vect {r}_q (t&apos;))^2 \right ] \theta (t - t&apos;). \label {eq:potential_with_delta}
+\end{equation*}
+
+</p>
+
+<p>
+Підінтегральна функція відмінна від нуля при \(t&apos; = t_q (t, \vect {r}) \), де \(t_q \) є розв’язком рівняння:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{3}\)</span>
+
+<!--
+
+
+                                                                                𝑐(𝑡 − 𝑡𝑞 ) = 𝑅𝑞 ,            𝑅𝑞 = |𝐑𝑞 |,         𝐑𝑞 = 𝐫 − 𝐫𝑞 (𝑡𝑞 ),                                                             (4.4)                                     --><a id="eq:retarded_time"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:retarded_time} c(t - t_q) = R_q, \quad R_q = |\vect {R}_q|, \quad \vect {R}_q = \vect {r} - \vect {r}_q (t_q),
+\end{equation}
+
+</p>
+
+<p>
+яке пов’язує час випромінювання сигналу \(t_q \) (запізнюючий час) у точці \(\vect {r}_q (t_q) \) та час \(t \) приймання сигналу у точці \(\vect {r} \) (див. рис.&nbsp;<a href="ch4.html#pic:retardion">4.1</a>). За властивістю
+\(\delta \)-функції від складного аргументу:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{4}\)</span>
+
+
+<!--
+
+
+                                                        −1
+              2𝑞 𝑑                 1
+  𝜑(𝑡, 𝐫) =      [   ((𝑡 − 𝑡′ )2 − 2 (𝐫 − 𝐫𝑞 (𝑡′ ))2 )]        =
+               𝑐 𝑑𝑡′              𝑐                     𝑡′ =𝑡𝑞
+                                                                                                                                                                                                                                             −1
+                                                                                                                                                                                                 𝑞              1
+                                                                                                                                                                                             =     [(𝑡 − 𝑡′ ) − 2 𝐫𝑞̇ (𝑡′ ) ⋅ (𝐫 − 𝐫𝑞 (𝑡′ ))]       .    (4.5)--><a id="eq:potential-1"></a><!--
+                                                                                                                                                                                                 𝑐             𝑐                             𝑡′ =𝑡𝑞
+
+
+
+-->
+
+
+<p>
+
+\begin{multline}
+\label {eq:potential-1} \phi (t, \vect {r}) = \frac {2q}{c} \left [ \frac {d}{dt&apos;} \left ( (t - t&apos;)^2 - \frac {1}{c^2} (\vect {r} - \vect {r}_q (t&apos;))^2 \right ) \right ]_{t&apos; = t_q}^{-1} = \\
+= \frac {q}{c} \left [ (t - t&apos;) - \frac {1}{c^2} \dot {\vect {r}}_q (t&apos;) \cdot (\vect {r} - \vect {r}_q (t&apos;)) \right ]_{t&apos; = t_q}^{-1}.
+\end{multline}
+
+</p>
+
+<p>
+Перепишемо це у компактнішрму виді, врахувавши зв’язок&nbsp;<span class="textup">(<a href="ch4.html#eq:retarded_time">4.4</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{5}\)</span>
+
+<!--
+
+                                                                                                           𝑞
+                                                                                𝜑(𝑡, 𝐫) =                             ,                                                              (4.6)                                                          --><a id="eq:compact_potential"></a><!--
+                                                                                                    𝑅𝑞 − (𝐑𝑞 ⋅ 𝐯𝑞 )/𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\phi (t, \vect {r}) = \frac {q}{R_q - (\vect {R}_q \cdot \vect {v}_q)/c}, \label {eq:compact_potential}
+\end{equation}
+
+</p>
+
+<p>
+тут і далі позначено \(\vect {v}_q = \dot {\vect {r}}_q (t_q) \).
+</p>
+
+<p>
+Аналогічно отримуємо вектор-потенціал:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{6}\)</span>
+
+<!--
+
+
+                                                                                                          𝑞𝐯𝑞 (𝑡𝑞 )
+                                                                               𝐀(𝑡, 𝐫) =                                     .                                                        (4.7)                                                             --><a id="eq:vector_potential"></a><!--
+                                                                                                    𝑐 [𝑅𝑞 − (𝐑𝑞 ⋅ 𝐯𝑞 )/𝑐]
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {A}(t, \vect {r}) = \frac {q \vect {v}_q (t_q)}{c \left [ R_q - (\vect {R}_q \cdot \vect {v}_q)/c \right ]}. \label {eq:vector_potential}
+\end{equation}
+
+</p>
+
+<p>
+Формули&nbsp;<span class="textup">(<a href="ch4.html#eq:compact_potential">4.6</a>)</span>,&nbsp;<span class="textup">(<a href="ch4.html#eq:vector_potential">4.7</a>)</span> подають <i>потенціали Лієнара-Віхерта</i>
+точкового заряду. Звідси, за формулами&nbsp;<span class="textup">(<a href="ch2.html#eq:potB">2.1</a>)</span>,&nbsp;<span class="textup">(<a href="ch2.html#eq:potE">2.2</a>)</span> отримуємо напруженості полів.
+</p>
+
+<p>
+Якщо заряд рухається зі сталою швидкістю \(\vect {v}_q = \text {const} \), обчислення напруженостей полів виходячи з&nbsp;<span class="textup">(<a href="ch4.html#eq:compact_potential">4.6</a>)</span>,&nbsp;<span
+class="textup">(<a href="ch4.html#eq:vector_potential">4.7</a>)</span> дає нульовий потік на нескінченності, оскільки поля спадають, як \(r^{-2} \). Це найбільш очевидно в системі спокою заряду. Таким чином, випромінювання
+можливе лише для прискореного руху заряду.
+</p>
+
+<figure id="autoid-36" class="figure ">
+
+<p>
+<span
+    id="lateximage-ClassicalElectrodynamics-html-14"
+    class="lateximagesource"
+><!--
+                                                𝐑𝑞 (𝑡𝑞 )
+Положення частинки
+                               +
+в момент 𝑡𝑞 = 𝑡 − 𝑅𝑞 /𝑐
+
+                                                       𝐫
+                                       𝐯𝑞
+               𝑧
+                          𝐫𝑞
+                                            +
+
+
+
+
+                                            Положення частинки
+                                            в момент 𝑡
+
+
+                                   𝑦
+
+
+
+
+ 𝑥
+--><img
+   src="ClassicalElectrodynamics-html-images\image-14.svg"
+   alt="(-tikz-&nbsp;diagram)"
+   style=""
+   class="lateximage"
+></span>
+</p>
+
+<div class="figurecaption">
+Рис.&nbsp;4.1. До розрахунку запізнюючих потенціалів
+</div>
+<a id="pic:retardion"></a>
+</figure>
+<!--
+...... subsection Випромінювання ......
+-->
+<h5 id="autosec-132">Випромінювання</h5>
+<a id="ClassicalElectrodynamics-html-autopage-132"></a>
+
+
+<p>
+Нас цікавить лише та частина напруженостей полів, що спадає як \(r^{-1} \) на нескінченності. Це значно полегшує обчислення за формулами&nbsp;<span class="textup">(<a href="ch2.html#eq:potB">2.1</a>)</span>, <span
+class="textup">(<a href="ch2.html#eq:potE">2.2</a>)</span>. Але обчислювати \(\Efield \) за формулою&nbsp;<span class="textup">(<a href="ch2.html#eq:potE">2.2</a>)</span> нема потреби, оскільки у хвильовій зоні можна
+скористатися співвідношеннями для плоских хвиль&nbsp;<span class="textup">(<a href="ch4.html#eq:plane_wavesr_relations">4.1</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{7}\)</span>
+
+<!--
+
+                                                                                                                                                          𝑐 2
+                                                                                                                               𝐄 = [𝐁 × 𝐧],       𝚷=        𝐵 𝐧,
+                                                                                                                                                         4𝜋
+
+-->
+
+<p>
+
+\begin{equation*}
+\Efield = [\Bfield \times \vect {n}], \quad \vect {\Pi } = \frac {c}{4\pi } B^2 \vect {n},
+\end{equation*}
+
+</p>
+
+<p>
+де вектор \(\vect {n} = \vect {r}/{r} \) вказує напрямок випромінювання.
+</p>
+
+<p>
+Обчислимо індукцію магнітного поля:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{7}\)</span>
+
+<!--
+
+
+                                                                                                                                          𝐁 = rot 𝐀.
+
+-->
+
+<p>
+
+\begin{equation*}
+\Bfield = \Rot \vect {A}.
+\end{equation*}
+
+</p>
+
+<p>
+Ненульовий внесок в члени \(\sim r^{-1} \) дає лише величина \(\vect {v}(t_q) \), яка залежить від \(\vect {r} \) через час запізнення \(t_q = t_q(t, \vect {r}) \). Похідні від \(t_q \) визначаються з рівняння&nbsp;<span
+class="textup">(<a href="ch4.html#eq:retarded_time">4.4</a>)</span>, що задає цю функцію неявно:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{7}\)</span>
+
+<!--
+
+                                                                                             𝐧𝑞
+                                                                                     ∇𝑡𝑞 =       ,                                                                                                         (4.8)                    --><a id="eq:nabla_tq"></a><!--
+                                                                                             𝑐𝑍𝑞
+
+-->
+
+<p>
+
+\begin{equation}
+\nabla t_q = \frac {\vect {n}_q}{c Z_q}, \label {eq:nabla_tq}
+\end{equation}
+
+</p>
+
+<p>
+де позначено:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{8}\)</span>
+
+<!--
+
+                                                                                                                                         𝐧𝑞 ⋅ 𝐯 𝑞               𝐑𝑞
+                                                                                                                             𝑍𝑞 = 1 −             ,     𝐧𝑞 =       .
+                                                                                                                                            𝑐                   𝑅𝑞
+
+-->
+
+<p>
+
+\begin{equation*}
+Z_q = 1 - \frac {\vect {n}_q \cdot \vect {v}_q}{c}, \quad \vect {n}_q = \frac {\vect {R}_q}{R_q}.
+\end{equation*}
+
+</p>
+
+<p>
+На великих відстанях, відкидаючи члени порядку \(\sim r^{-2} \), дістанемо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{8}\)</span>
+
+<!--
+
+                                                                      𝑞                           1
+                                                            𝐁≈−                [𝐧𝑞 × (𝐯̇ 𝑞 𝑍𝑞 +     𝐯 (𝐧 𝐯̇ ))] ,                                                                                  (4.9)                       --><a id="eq:magnetic_field"></a><!--
+                                                                   𝑐2 𝑅𝑞 𝑍𝑞3                      𝑐 𝑞 𝑞 𝑞
+
+-->
+
+<p>
+
+\begin{equation}
+\Bfield \approx -\frac {q}{c^2R_qZ^3_q} \left [ \vect {n}_q \times \left ( \dot {\vect {v}}_q Z_q + \frac 1c\vect {v}_q(\vect {n}_q \dot {\vect {v}}_q)\right ) \right ], \label {eq:magnetic_field}
+\end{equation}
+
+</p>
+
+<p>
+де \(\dot {\vect {v}}_q = \frac {d\vect {v}_q}{dt_q} \).
+</p>
+
+<p>
+Потужність випромінювання в тілесний кут \(do \) в напрямку \(\vect {n}_q\) у фіксований запізнюючий момент часу \(t_q \) є:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{9}\)</span>
+
+<!--
+
+                                                                                                                                                 𝑐 2 2
+                                                                                                                     𝑑𝐼 = (𝚷 ⋅ 𝐧)𝑅𝑞2 𝑑𝑜 =          𝐵 𝑅𝑞 𝑑𝑜,          𝑅𝑞 → ∞.
+                                                                                                                                                4𝜋
+
+-->
+
+<p>
+
+\begin{equation*}
+dI = (\vect {\Pi } \cdot \vect {n}) R_q^2 do = \frac {c}{4\pi } B^2 R_q^2 do, \quad R_q \to \infty .
+\end{equation*}
+
+</p>
+
+<p>
+Після дещо громіздких обчислень з використанням&nbsp;<span class="textup">(<a href="ch4.html#eq:magnetic_field">4.9</a>)</span> отримуємо потужність випромінювання в тілесний кут \(do \) в напрямку&nbsp;\(\vect {n}_q \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{9}\)</span>
+
+<!--
+
+                                                                                                         𝐯𝑞2
+                                                                                          (1 − 2 ) (𝐧𝑞 ⋅ 𝐯̇ 𝑞 )2 ⎞
+                                                      𝑞2 ⎛ 2(𝐧𝑞 ⋅ 𝐯𝑞 )(𝐯𝑞 ⋅ 𝐯̇ 𝑞 )  𝐯̇ 𝑞2      𝑐
+                                                𝑑𝐼 =      ⎜                        + 4 −                         ⎟ 𝑑𝑜.                                                                       (4.10)                           --><a id="eq:radiation_power"></a><!--
+                                                     4𝜋𝑐2 ⎜        𝑐𝑍𝑞5             𝑍𝑞           𝑍𝑞6             ⎟
+                                                          ⎝                                                      ⎠
+
+-->
+
+<p>
+
+\begin{equation}
+dI = \frac {q^2}{4\pi c^2} \left ( \frac {2 ( \vect {n}_q \cdot \vect {v}_q ) (\vect {v}_q \cdot \dot {\vect {v}}_q)}{c Z_q^5} + \frac {\dot {\vect {v}}_q^{\,2}}{Z_q^4} - \frac {\left (1 - \frac {\vect
+{v}_q^{\,2}}{c^2}\right ) (\vect {n}_q \cdot \dot {\vect {v}}_q)^2}{Z_q^6} \right ) do. \label {eq:radiation_power}
+\end{equation}
+
+</p>
+
+<p>
+Нагадаємо, що всі величини на траєкторії частинки (що входять з індексом \(q \)) обчислюються в момент часу запізнення \(t_q \).
+</p>
+
+<p>
+Як було зазначено вище, випромінює лише прискорений заряд. Це також очевидно з формули&nbsp;<span class="textup">(<a href="ch4.html#eq:radiation_power">4.10</a>)</span>.
+</p>
+
+<p>
+У випадку <em>нерелятивістських</em> рухів \(|\vect {v}_q/c| \ll 1 \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{10}\)</span>
+
+<!--
+
+
+                                                                                                                           𝑞2                                 𝑞2
+                                                                                                                𝑑𝐼(𝐧) =       3
+                                                                                                                                [𝐯̇ 2𝑞 − (𝐧 ⋅ 𝐯̇ 𝑞 )2 ] 𝑑𝑜 =      sin2 𝜃 𝐯̇ 2𝑞 𝑑𝑜.
+                                                                                                                          4𝜋𝑐                                4𝜋𝑐3
+
+-->
+
+<p>
+
+\begin{equation*}
+dI(\vect {n}) = \frac {q^2}{4\pi c^3} \left [ \dot {\vect {v}}_q^2 - (\vect {n} \cdot \dot {\vect {v}}_q)^2 \right ] do = \frac {q^2}{4\pi c^3} \sin ^2 \theta \, \dot {\vect {v}}_q^2 \, do.
+\end{equation*}
+
+</p>
+
+<p>
+Повна потужність випромінювання в усіх напрямках:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{10}\)</span>
+
+<!--
+
+                                                                          ˆ
+                                                                   𝑑ℰ                    2𝑞2 𝐯̇ 2𝑞
+                                                                      =        𝑑𝐼(𝐧) =               .                                                                                    (4.11)                           --><a id="eq:total_power_nonrel"></a><!--
+                                                                   𝑑𝑡                      3𝑐3
+                                                                          4𝜋
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:total_power_nonrel} \frac {d\mathcal {E}}{dt} = \int \limits _{4\pi } dI(\vect {n}) = \frac {2q^2 \dot {\vect {v}}_q^2}{3c^3}.
+\end{equation}
+
+</p>
+
+<p>
+В <em>ультрарелятивістському</em> випадку, коли швидкість частинки, що випромінює, близька до швидкості світла, значну роль відіграє вираз \(1 - (\vect {v}_q \cdot \vect {n}) / c \) в знаменнику формули&nbsp;<span
+class="textup">(<a href="ch4.html#eq:radiation_power">4.10</a>)</span>. Якщо \(1 - {v_q}/{c} \ll 1 \), завдяки цьому виразу інтенсивність зосереджена в області малих кутів \(\theta \) між напрямком швидкості \(\vect
+{v}_q(t_q) \) і напрямком випромінювання \(\vect {n}_q \). Якщо записати:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{11}\)</span>
+
+<!--
+
+
+                                                                                                                    𝐧𝑞 ⋅ 𝐯𝑞     𝑣𝑞 cos 𝜃     𝑣𝑞   𝜃2
+                                                                                                               1−           =1−          ≈1−    +    ,                  𝑣𝑞 = |𝐯𝑞 |,
+                                                                                                                       𝑐            𝑐         𝑐   2
+
+-->
+
+<p>
+
+\begin{equation*}
+1 - \frac {\vect {n}_q \cdot \vect {v}_q}{c} = 1 - \frac {v_q \cos \theta }{c} \approx 1 - \frac {v_q}{c} + \frac {\theta ^2}{2}, \quad v_q = |\vect {v}_q|,
+\end{equation*}
+
+</p>
+
+<p>
+маємо оцінку кутів, для яких випромінювання найбільш ефективне:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{11}\)</span>
+
+<!--
+
+
+                                                                                      𝑣𝑞 1/2
+                                                                          𝜃 ≈ (1 −       ) .                                                                                                 (4.12)                           --><a id="eq:effective_angle"></a><!--
+                                                                                       𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\theta \approx \left ( 1 - \frac {v_q}{c} \right )^{1/2}. \label {eq:effective_angle}
+\end{equation}
+
+</p>
+
+<p>
+Для паралельних \(\vect {v}_q \) та \(\dot {\vect {v}}_q \) маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{12}\)</span>
+
+<!--
+
+                                                                                                                                            𝑞
+                                                                                                                                 𝐁≈−                [𝐧𝑞 × 𝐯̇ 𝑞 ] ,
+                                                                                                                                        𝑐2 𝑅𝑞 𝑍𝑞3
+
+-->
+
+<p>
+
+\begin{equation*}
+\Bfield \approx -\frac {q}{c^2 R_q Z_q^3} \left [ \vect {n}_q \times \dot {\vect {v}}_q \right ],
+\end{equation*}
+
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{12}\)</span>
+
+<!--
+
+                                                                             2     2
+                                                                       𝑞2 𝐯̇ 𝑞 sin 𝜃
+                                                               𝑑𝐼 =      3       6
+                                                                                     𝑑𝑜.                                                                                         (4.13)                              --><a id="eq:radiation_power_parallel"></a><!--
+                                                                      4𝜋𝑐      𝑍𝑞
+
+-->
+
+<p>
+
+\begin{equation}
+dI = \frac {q^2}{4\pi c^3} \frac {\dot {\vect {v}}_q^2 \sin ^2 \theta }{Z_q^6} do. \label {eq:radiation_power_parallel}
+\end{equation}
+
+</p>
+
+<p>
+В області малих кутів&nbsp;<span class="textup">(<a href="ch4.html#eq:effective_angle">4.12</a>)</span> маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{13}\)</span>
+
+<!--
+
+                                                                                                                                                         −6
+                                                                                                                                  𝑞2 2          𝑣𝑞   𝜃2
+                                                                                                                          𝑑𝐼 ≈        𝐯̇ 𝑞 (1 −    +    )   𝜃2 𝑑𝑜.
+                                                                                                                                 4𝜋𝑐3            𝑐   2
+
+-->
+
+<p>
+
+\begin{equation*}
+dI \approx \frac {q^2}{4\pi c^3} \dot {\vect {v}}_q^2 \left ( 1 - \frac {v_q}{c} + \frac {\theta ^2}{2} \right )^{-6} \theta ^2 do.
+\end{equation*}
+
+</p>
+
+<p>
+Якщо швидкість та прискорення взаємно перпендикулярні \(\vect {v}_q \perp \dot {\vect {v}}_q \) (наприклад, рух по колу), тоді з&nbsp;<span class="textup">(<a href="ch4.html#eq:radiation_power">4.10</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{13}\)</span>
+
+<!--
+
+                                                                                                   2
+                                                                                                  𝑣𝑞
+                                                                                     (1 − 2 ) (𝐧 ⋅ 𝐯̇ 𝑞 )2 ⎞
+                                                                         𝑞2 ⎛ 𝐯̇ 𝑞
+                                                                                 2
+                                                                                          𝑐
+                                                                   𝑑𝐼 =      ⎜     −                       ⎟ 𝑑𝑜,                                                                                            (4.14)                     --><a id="eq:4.1.14"></a><!--
+                                                                        4𝜋𝑐3 ⎜ 𝑧4           𝑧6             ⎟
+                                                                             ⎝                             ⎠
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:4.1.14} dI = \frac {q^2}{4\pi c^3} \left ( \frac {\dot {\vect {v}}_q^2}{z^4} - \frac {\left (1 - \frac {v_q^2}{c^2}\right ) (\vect {n} \cdot \dot {\vect {v}}_q)^2}{z^6} \right ) do,
+\end{equation}
+
+</p>
+
+<p>
+тут позначено:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{14}\)</span>
+
+<!--
+
+                                                                                                                                                 𝐯𝑞 ⋅ 𝐧
+                                                                                                                                       𝑧=1−             ,
+                                                                                                                                                   𝑐
+
+-->
+
+<p>
+
+\begin{equation*}
+z = 1 - \frac {\vect {v}_q \cdot \vect {n}}{c},
+\end{equation*}
+
+</p>
+
+<p>
+де \(\vect {n} = \vect {r}/r\) — напрямок спостереження; у хвильовій зоні \(\vect {n} \approx \vect {n}_q\), тому \(z \approx Z_q\).
+</p>
+<!--
+...... subsection Коловий рух ......
+-->
+<h5 id="autosec-133">Коловий рух</h5>
+<a id="ClassicalElectrodynamics-html-autopage-133"></a>
+
+
+<p>
+Формулу&nbsp;<span class="textup">(<a href="ch4.html#eq:radiation_power">4.10</a>)</span> можна застосувати у разі руху частинки в одній площині по колу під дією однорідного магнітного поля. В цьому разі випромінювання
+концентрується у площині руху в межах кутів, що визначаються формулою&nbsp;<span class="textup">(<a href="ch4.html#eq:effective_angle">4.12</a>)</span>. Внаслідок того що релятивістська частинка випромінює переважно в
+напрямку руху, випромінювання складатиметься з дуже коротких імпульсів, період повторення яких дорівнює періоду обертання.
+</p>
+
+<p>
+Для колового руху в магнітному полі \(\Bfield \) частота обертання<sup>1</sup>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{14}\)</span>
+
+<!--
+
+
+                                                                                                                         𝑣𝑞   𝑞𝐵    𝑣2𝑞
+                                                                                                                  𝜔𝑐 =      =     1− 2,
+                                                                                                                         𝑟𝑞   𝑚𝑐 √  𝑐
+
+-->
+
+<p>
+
+\begin{equation*}
+\omega _c = \frac {v_q}{r_q} = \frac {qB}{m c}\sqrt {1 - \frac {v_q^2}{c^2}},
+\end{equation*}
+
+</p>
+
+<p>
+прискорення:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{14}\)</span>
+
+<!--
+
+
+                                                                                                                𝑞             𝑞      𝑣2𝑞
+                                                                                                     𝐯̇ 𝑞 =        [𝐯𝑞 × 𝐁] =     1 − 2 [𝐯𝑞 × 𝐁] .
+                                                                                                               𝛾𝑚𝑐            𝑚𝑐 √   𝑐
+
+-->
+
+<p>
+
+\begin{equation*}
+\dot {\vect {v}}_q = \frac {q}{\gamma mc}\left [\vect {v}_q\times \Bfield \right ] = \frac {q}{mc}\sqrt {1 - \frac {v_q^2}{c^2}}\left [\vect {v}_q\times \Bfield \right ].
+\end{equation*}
+
+</p>
+
+<p>
+Систему координат виберемо таким чином, що:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{14}\)</span>
+
+<!--
+
+
+                                                                                                     {𝐯𝑞 (𝑡𝑞 )} = 𝑣𝑞 {sin 𝜔𝑡𝑞 , cos 𝜔𝑡𝑞 , 0} ,   𝜔 = 𝜔𝑐 ;
+
+-->
+
+<p>
+
+\begin{equation*}
+\left \{\vect {v}_q(t_q)\right \} = v_q\left \{ \sin \omega t_q, \cos \omega t_q, 0\right \}, \quad \omega = \omega _c;
+\end{equation*}
+
+</p>
+
+<p>
+і зафіксуємо напрямок \(\vect {n}_q = \{\sin \theta , 0, \cos \theta \} \).
+</p>
+
+<p>
+Середнє значення інтенсивності випромінювання можна отримати за допомогою інтегрування формули&nbsp;<span class="textup">(<a href="ch4.html#eq:4.1.14">4.14</a>)</span> по \(dt \), причому слід перейти до інтегрування по часу
+запізнення:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{14}\)</span>
+
+<!--
+
+                                                                                                                                 𝐧 ⋅ 𝐯𝑞
+                                                                                                                    𝑑𝑡𝑞 = (1 −          ) 𝑑𝑡,
+                                                                                                                                   𝑐
+
+-->
+
+<p>
+
+\begin{equation*}
+dt_q = \left (1 - \frac {\vect {n}\cdot \vect {v}_q}{c}\right )dt,
+\end{equation*}
+
+</p>
+
+<p>
+де \(t_q = t_q(t) \) неявно задано формулою&nbsp;<span class="textup">(<a href="ch4.html#eq:potential-1">4.5</a>)</span>.
+</p>
+
+<p>
+Після тривалих обчислень дістанемо середнє (за часом) значення інтенсивності в тілесний кут \(do \) в напрямку під кутом \(\theta \) до площини орбіти:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{14}\)</span>
+
+<!--
+
+
+                                                                                                                                  𝑣𝑞      2
+                                                                                                                                          3𝑣𝑞       2
+                                                                                                                    ⎡       2                     4 ⎤
+                                                                                                  𝑞4 𝐵 2 𝑣2𝑞   𝑣2𝑞 ⎢ 2 − cos 𝜃 − 4𝑐2 (1 + 𝑐2 ) cos 𝜃 ⎥
+                                                                                           ⟨𝑑𝐼⟩ =         (1 −    ) ⎢                                ⎥ 𝑑𝑜.
+                                                                                                  8𝜋𝑚2 𝑐5      𝑐2 ⎢             𝑣𝑞 2       7/2
+                                                                                                                                                     ⎥
+                                                                                                                            (1 − 2 cos2 𝜃)
+                                                                                                                    ⎣            𝑐                   ⎦
+
+-->
+
+<p>
+
+\begin{equation*}
+\left \langle dI \right \rangle = \frac {q^4 B^2 v^2_q}{8\pi m^2c^5}\left ( 1 - \frac {v_q^2}{c^2}\right ) \left [ \frac {2-\cos ^2\theta - \frac {v_q^2}{4c^2}\left ( 1 + \frac {3v_q^2}{c^2}\right )\cos
+^4\theta }{ \left ( 1- \frac {v_q^2}{c^2}\cos ^2\theta \right )^{7/2} } \right ] do.
+\end{equation*}
+
+</p>
+<div role="note" class="footnotes">
+
+<a id="ClassicalElectrodynamics-html-autopage-134"></a>
+<p>
+<sup>1</sup>&nbsp;Ця частота, ще називається <em>циклотронною</em>, або <em>гіромагнітною</em> частотою.
+</p>
+
+
+</div>
+<!--
+...... section Випромінювання малих систем ......
+-->
+<h4 id="autosec-135"><span class="sectionnumber">4.2&#x2003;</span>Випромінювання малих систем</h4>
+<a id="ClassicalElectrodynamics-html-autopage-135"></a>
+<!--
+...... subsection Дипольне випромінювання ......
+-->
+<h5 id="autosec-136">Дипольне випромінювання</h5>
+<a id="ClassicalElectrodynamics-html-autopage-136"></a>
+
+
+<p>
+Розглянемо систему зарядів, розмір якої \(L \) значно менший за довжину хвилі:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{14}\)</span>
+
+<!--
+
+
+                                                                           𝜆 ≫ 𝐿.                                                                                                                   (4.15)                                   --><a id="eq:long_wavelength_condition"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\lambda \gg L. \label {eq:long_wavelength_condition}
+\end{equation}
+
+</p>
+
+<p>
+За цією умовою сигнал встигає поширитися всередині системи значно раніше, ніж відбудуться суттєві зміни у розподілі зарядів. Обчислимо потік енергії, виходячи з формули для вектор-потенціалу:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{15}\)</span>
+
+<!--
+
+                                                                                                                ′
+                                                                                           ˆ 𝐣 (𝑡 − |𝐫−𝐫 | , 𝐫′ )
+                                                                                  1                         𝑐
+                                                                        𝐀(𝑡, 𝐫) =                                      𝑑𝑉 ′ ,                                                                                                   (4.16)                            --><a id="eq:4.2.2"></a><!--
+                                                                                  𝑐                    |𝐫 − 𝐫′ |
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:4.2.2} \vect {A}(t, \vect {r}) = \frac {1}{c} \int \frac {\vect {j}\left (t - \frac {|\vect {r} - \vect {r}&apos;|}{c}, \vect {r}&apos;\right )}{|\vect {r} - \vect {r}&apos;|} \, dV&apos;,
+\end{equation}
+
+</p>
+
+<p>
+де вважаємо, що початок координат знаходиться в області, де розташована система струмів.
+</p>
+
+<p>
+Густина потоку енергії подається вектором Пойнтінга:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{16}\)</span>
+
+<!--
+
+                                                                                                                                                               𝑐
+                                                                                                                                                    𝚷=           [𝐄 × 𝐁].
+                                                                                                                                                              4𝜋
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {\Pi } = \frac {c}{4\pi } [\Efield \times \Bfield ].
+\end{equation*}
+
+</p>
+
+<p>
+На великій відстані від системи зарядів, що випромінює, можна користуватися співвідношеннями для плоских хвиль, тому:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{16}\)</span>
+
+<!--
+
+                                                                                𝑐 2
+                                                                     𝚷=           𝐁 𝐧,                                                                                                              (4.17)                                   --><a id="eq:poynting_vector_far_field"></a><!--
+                                                                               4𝜋
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:poynting_vector_far_field} \vect {\Pi } = \frac {c}{4\pi } \Bfield ^2 \vect {n},
+\end{equation}
+
+</p>
+
+<p>
+де \(\vect {n} = \vect {r}/r \) — напрямок поширення хвилі.
+</p>
+
+<p>
+Наша мета — оцінити головні внески в напруженості поля, що спадають як \(r^{-1} \), завдяки чому маємо ненульовий потік енергії через сферу великого радіуса \(r \to \infty \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{17}\)</span>
+
+<!--
+
+                                                                                                                                              ˆ                        ˆ
+                                                                                                                             𝑐        1                           𝑐
+                                                                                                                    |𝚷| =      |𝐁|2 ∼ 2 ,         𝚷 ⋅ 𝑑𝐒 =                  𝑟2 𝐁2 𝑑𝑜 ≠ 0      при    𝑟 → ∞.
+                                                                                                                            4𝜋       𝑟                           4𝜋
+
+-->
+
+<p>
+
+\begin{equation*}
+|\vect {\Pi }| = \frac {c}{4\pi } |\Bfield |^2 \sim \frac {1}{r^2}, \quad \int \vect {\Pi } \cdot d\vect {S} = \frac {c}{4\pi } \int \, r^2 \Bfield ^2 do \neq 0 \quad \text {при} \quad r \to \infty .
+\end{equation*}
+
+</p>
+
+<p>
+Практично умова \(r \to \infty \) означає, що обчислення виконують в зоні випромінювання, яка визначена умовою \(r \gg \lambda \).
+</p>
+
+<p>
+За умови \(r \gg r&apos; \) маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{17}\)</span>
+
+<!--
+
+                                                                                                                                                                        1
+                                                                                                                                            |𝐫 − 𝐫′ | = 𝑟 − 𝐧 ⋅ 𝐫′ + 𝑂 ( ) ,
+                                                                                                                                                                        𝑟
+
+-->
+
+<p>
+
+\begin{equation*}
+|\vect {r} - \vect {r}&apos;| = r - \vect {n} \cdot \vect {r}&apos; + O\left (\frac {1}{r}\right ),
+\end{equation*}
+
+</p>
+
+<p>
+звідки
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{17}\)</span>
+
+<!--
+
+                                                                                                                                                       ˆ
+                                                                                                                                                  1                  𝑟   𝐧 ⋅ 𝐫′ ′
+                                                                                                                                   𝐀(𝑡, 𝐫) =                𝐣 (𝑡 −     +       , 𝐫 ) 𝑑𝑉 ′ .
+                                                                                                                                                  𝑐𝑟                 𝑐     𝑐
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {A}(t, \vect {r}) = \frac 1{cr} \int \vect {j}\left ( t - \frac {r}c + \frac {\vect {n} \cdot \vect {r}&apos;}c, \vect {r}&apos;\right ) dV&apos;.
+\end{equation*}
+
+</p>
+
+<p>
+Розкладемо запізнюючий аргумент по малій величині \((\vect {r}\cdot \vect {n})/r \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{17}\)</span>
+
+<!--
+
+
+                                                                    𝐀 = 𝐀дип + 𝐀1 ,                                                                                                             (4.18)                                      --><a id="eq:vector_potential_expansion"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {A} = \vect {A}_\text {дип} + \vect {A}_1, \label {eq:vector_potential_expansion}
+\end{equation}
+
+</p>
+
+<p>
+де утримано два перших члени розкладу:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{18}\)</span>
+
+<!--
+
+                                                                           ˆ
+                                                                      1
+                                                           𝐀дип =              𝐣(𝑡𝑟 , 𝐫′ ) 𝑑𝑉 ′ ,                                                                                              (4.19)                                       --><a id="eq:vector_potential_zero_order"></a><!--
+                                                                      𝑐𝑟
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {A}_\text {дип} = \frac {1}{c r} \int \vect {j}(t_r, \vect {r}&apos;) \, dV&apos;, \label {eq:vector_potential_zero_order}
+\end{equation}
+
+</p>
+
+<p>
+де \(t_r = t - \frac {r}{c} \) не залежить від змінної інтегрування \(\vect {r}&apos; \),
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{19}\)</span>
+
+<!--
+
+                                                                                               ˆ
+                                                                                          1
+                                                                                𝐀1 =               𝐣(𝑡𝑟 , 𝐫′ )(𝐧 ⋅ 𝐫′ ) 𝑑𝑉 ′ .                                                                                                     (4.20)                            --><a id="eq:A1"></a><!--
+                                                                                          𝑐𝑟
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:A1} \vect {A}_1 = \frac {1}{c r} \int \vect {j}(t_r, \vect {r}&apos;)(\vect {n} \cdot \vect {r}&apos;) \, dV&apos;.
+\end{equation}
+
+</p>
+
+<p>
+Перетворимо&nbsp;<span class="textup">(<a href="ch4.html#eq:vector_potential_zero_order">4.19</a>)</span>, користуючись тотожністю \(\Div (x_j \vect {j}) = J_j + x_j \Div \vect {j} \) і законом збереження заряду \(\Div
+\vect {j} = -\frac {\partial \rho }{\partial t} \). Звідси:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{20}\)</span>
+
+<!--
+
+                                                                                                                                                       𝜕
+                                                                                                                                             𝑗𝑗 =        (𝑥 𝜌) − div(𝑥𝑗 𝐣).
+                                                                                                                                                       𝜕𝑡 𝑗
+
+-->
+
+<p>
+
+\begin{equation*}
+j_j = \frac {\partial }{\partial t}(x_j \rho ) - \Div (x_j\ \vect {j}).
+\end{equation*}
+
+</p>
+
+<p>
+Проінтегруємо це співвідношення:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{20}\)</span>
+
+<!--
+
+                                                                                                                                              ˆ                  ˆ
+                                                                                                                                                                          𝜕𝜌
+                                                                                                                                                   𝑗𝑖 𝑑𝑉 =           𝑥𝑖      𝑑𝑉 ,
+                                                                                                                                                                          𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\int {j}_i \, dV = \int x_i\frac {\partial \rho }{\partial t}\, dV,
+\end{equation*}
+
+</p>
+
+<p>
+де враховано, що поза межами системи, що розглядається, \(\vect {j} = 0 \), і на межі області, де струми відмінні від нуля, \(\vect {j}\cdot d\vect {S} = 0\). Підстановка цього співвідношення в&nbsp;<span class="textup">(<a
+href="ch4.html#eq:vector_potential_zero_order">4.19</a>)</span> дає:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{20}\)</span>
+
+<!--
+
+                                                                                            ̇ 𝑟)
+                                                                                           𝐝(𝑡
+                                                                               𝐀дип =            ,                                                                                                            (4.21)                                   --><a id="eq:dipole_potential"></a><!--
+                                                                                             𝑐𝑟
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {A}_\text {дип} = \frac {\dot {\vect {d}}(t_r)}{cr}, \label {eq:dipole_potential}
+\end{equation}
+
+</p>
+
+<p>
+де \(\vect {d}(t) = \int \vect {r} \rho (t, \vect {r}) \, dV \) – дипольний момент системи.
+</p>
+
+<p>
+Оскільки \(\nabla t_r = \nabla \left (t - \frac {r}{c}\right ) = -\frac {\vect {n}}{c} \), звідси:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{21}\)</span>
+
+<!--
+
+                                                                                                                                                                             ̈ 𝑟 )]
+                                                                                                                                                                       [𝐧 × 𝐝(𝑡
+                                                                                                                                        𝐁 = rot 𝐀дип = −                            .
+                                                                                                                                                                           𝑐𝑟
+
+-->
+
+<p>
+
+\begin{equation*}
+\Bfield = \Rot \vect {A}_\text {дип} = -\frac {[\vect {n} \times \ddot {\vect {d}}(t_r)]}{c r}.
+\end{equation*}
+
+</p>
+
+<p>
+З урахуванням&nbsp;<span class="textup">(<a href="ch4.html#eq:poynting_vector_far_field">4.17</a>)</span> дістанемо потік енергії системи через сферу радіуса \(r \gg \lambda \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{21}\)</span>
+
+<!--
+
+
+                                                              ˆ                       ˆ2𝜋 ˆ𝜋
+                                                       𝑑ℰ                       1                            2
+                                                          =       𝚷 ⋅ 𝑑𝐒 =               𝑑𝜑 𝑑𝜃 𝐝̈ 2 sin3 𝜃 = 3 𝐝̈ 2 (𝑡𝑟 ).                                                                                             (4.22)                              --><a id="eq:energy_flux"></a><!--
+                                                       𝑑𝑡                      4𝜋𝑐3                         3𝑐
+                                                                                      0            0
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:energy_flux} \frac {d\mathcal {E}}{dt} = \int \vect {\Pi } \cdot d\vect {S} = \frac {1}{4\pi c^3} \int \limits _0^{2\pi } d\varphi \int \limits _0^\pi d\theta \, \ddot {\vect {d}}^2 \sin ^3 \theta =
+\frac {2}{3c^3} \ddot {\vect {d}}^2(t_r).
+\end{equation}
+
+</p>
+
+<p>
+Якщо випромінює система з \(\vect {d} = \vect {d}_0 \cos (\omega t) \), тоді усереднена за часом потужність випромінювання пропорційна четвертому степеню частоти:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{22}\)</span>
+
+<!--
+
+
+                                                                                                                                                           𝑑ℰ     𝜔4 𝐝20
+                                                                                                                                                       ⟨      ⟩ =        .
+                                                                                                                                                           𝑑𝑡 𝑡    3𝑐3
+
+-->
+
+<p>
+
+\begin{equation*}
+\left \langle \frac {d\mathcal {E}}{dt} \right \rangle _t = \frac {\omega ^4 \vect {d}_0^2}{3c^3}.
+\end{equation*}
+
+</p>
+<!--
+...... subsection Квадрупольне і магнітодипольне випромінювання ......
+-->
+<h5 id="autosec-137">Квадрупольне і магнітодипольне випромінювання</h5>
+<a id="ClassicalElectrodynamics-html-autopage-137"></a>
+
+
+<p>
+Якщо дипольний момент системи відсутній, основний внесок у вектор-потенціал&nbsp;<span class="textup">(<a href="ch4.html#eq:vector_potential_expansion">4.18</a>)</span> дає наступний після дипольного член
+розкладу&nbsp;<span class="textup">(<a href="ch4.html#eq:A1">4.20</a>)</span>.
+</p>
+
+<p>
+Скористаємося співвідношенням:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{22}\)</span>
+
+<!--
+
+                                                                                                                                                                                                                               𝜕𝜌
+                                                                                                                                          div(𝑥𝑖 𝑥𝑗 𝐣) = 𝑥𝑖 𝑗𝑗 + 𝑥𝑗 𝑗𝑖 + 𝑥𝑖 𝑥𝑗 div 𝐣 = 𝑥𝑖 𝑗𝑗 + 𝑥𝑗 𝑗𝑖 − 𝑥𝑖 𝑥𝑗                      .
+                                                                                                                                                                                                                               𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\Div (x_i x_j\ \vect {j}) = x_i j_j + x_j j_i + x_i x_j \Div \vect {j} = x_i j_j + x_j j_i - x_i x_j \frac {\partial \rho }{\partial t}.
+\end{equation*}
+
+</p>
+
+<p>
+Для обмеженої системи струмів інтеграл від лівої частини дорівнює нулю. Звідси:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{22}\)</span>
+
+<!--
+
+                                                                                                                                                             ˆ                               ˆ
+                                                                                                                                                                                                             𝜕𝜌
+                                                                                                                                                                 𝑑𝑉 (𝑥𝑖 𝑗𝑗 + 𝑥𝑗 𝑗𝑖 ) =            𝑑𝑉 𝑥𝑖 𝑥𝑗      .
+                                                                                                                                                                                                             𝜕𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\int dV (x_i j_j + x_j j_i) = \int dV\, x_i x_j \frac {\partial \rho }{\partial t}.
+\end{equation*}
+
+</p>
+
+<p>
+Диференціюючи за часом:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{22}\)</span>
+
+<!--
+
+                                                                                                                                                            ˆ                                ˆ
+                                                                                                                                                                                                             𝜕2 𝜌
+                                                                                                                                                                 𝑑𝑉 (𝑗𝑖̇ 𝑥𝑗 + 𝑗𝑗̇ 𝑥𝑖 ) =         𝑑𝑉 𝑥𝑖 𝑥𝑗         .
+                                                                                                                                                                                                             𝜕𝑡2
+
+-->
+
+<p>
+
+\begin{equation*}
+\int dV\,(\dot {j}_i x_j + \dot {j}_j x_i) = \int dV\, x_i x_j \frac {\partial ^2\rho }{\partial t^2}.
+\end{equation*}
+
+</p>
+
+<p>
+Тоді:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{22}\)</span>
+
+<!--
+
+                                                                                                                                            ˆ                        ˆ                                  ˆ
+                                                                                                                                                               1                                 1
+                                                                                                                                                 𝑑𝑉 ⋅ 𝑗𝑖̇ 𝑥𝑗 =           𝑑𝑉 (𝑗𝑖̇ 𝑥𝑗 − 𝑗𝑗̇ 𝑥𝑖 ) +            𝑑𝑉 (𝑗𝑖̇ 𝑥𝑗 + 𝑗𝑗̇ 𝑥𝑖 ).
+                                                                                                                                                               2                                 2
+
+-->
+
+<p>
+
+\begin{equation*}
+\int dV \cdot \dot {j}_i x_j = \frac {1}{2} \int dV (\dot {j}_i x_j - \dot {j}_j x_i) + \frac {1}{2} \int dV (\dot {j}_i x_j + \dot {j}_j x_i).
+\end{equation*}
+
+</p>
+
+<p>
+Зауважимо, що перший доданок містить компоненти магнітного моменту:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{22}\)</span>
+
+<!--
+
+                                                                                                                                                                                      ˆ
+                                                                                                                                                                                 1
+                                                                                                                                                                         𝐦=               [𝐫 × 𝐣] 𝑑𝑉 .
+                                                                                                                                                                                 2𝑐
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {m} = \frac {1}{2c} \int [\vect {r} \times \vect {j}] \, dV.
+\end{equation*}
+
+</p>
+
+<p>
+З отриманих співвідношень та формули&nbsp;<span class="textup">(<a href="ch4.html#eq:A1">4.20</a>)</span> випливає:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{22}\)</span>
+
+<!--
+
+
+                                                                                                                                                                    𝐀 = 𝐀маг.-дип. + 𝐀квадруп. ,
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {A} = \vect {A}_\text {маг.-дип.} + \vect {A}_\text {квадруп.},
+\end{equation*}
+
+</p>
+
+<p>
+де:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{22}\)</span>
+
+<!--
+
+
+                                                                                                       [𝐦̇ × 𝐧]
+                                                                                   𝐀маг.-дип. =                 ,                                                                                                           (4.23)                                 --><a id="eq:magnetic_dipole_potential"></a><!--
+                                                                                                          𝑐𝑟
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {A}_\text {маг.-дип.} = \frac {[\dot {\vect {m}} \times \vect {n}]}{c r}, \label {eq:magnetic_dipole_potential}
+\end{equation}
+
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{23}\)</span>
+
+<!--
+
+                                                                                                                                ˆ
+                                                                                                                     1 𝜕2
+                                                            𝐀квадруп. = {𝐴квадруп.,𝑖 },           𝐴квадруп.,𝑖 =                     𝑥𝑖′ (𝐫′ ⋅ 𝐧)𝜌′ 𝑑𝑉 ′ ,                                                                              (4.24)                            --><a id="eq:quadrupole_potential"></a><!--
+                                                                                                                    2𝑐2 𝜕𝑡2
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {A}_\text {квадруп.} = \{A_{\text {квадруп.},i}\}, \quad A_{\text {квадруп.},i} = \frac {1}{2c^2} \frac {\partial ^2}{\partial t^2} \int x&apos;_i (\vect {r}&apos; \cdot \vect {n}) \rho &apos; \,
+dV&apos;, \label {eq:quadrupole_potential}
+\end{equation}
+
+</p>
+
+<p>
+де штрихом позначено величини, що залежать від змінної інтегрування \(\vect {r}&apos; \). Останній доданок можна виразити через тензор квадрупольного моменту:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{24}\)</span>
+
+<!--
+
+                                                                                       ˆ                                    3
+                                                                             𝑄𝑖𝑗 =         (3𝑥𝑖 𝑥𝑗 − 𝑟2 𝛿𝑖𝑗 )𝜌 𝑑𝑉 ,        ∑ 𝑄𝑖𝑖 = 0.                                                                                                     (4.25)                            --><a id="eq:quadrupole_tensor"></a><!--
+                                                                                                                          𝑖=1
+
+-->
+
+<p>
+
+\begin{equation}
+Q_{ij} = \int (3x_i x_j - r^2 \delta _{ij}) \rho \, dV, \quad \sum _{i=1}^3 Q_{ii} = 0. \label {eq:quadrupole_tensor}
+\end{equation}
+
+</p>
+
+<p>
+Тоді можна записати:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{25}\)</span>
+
+<!--
+
+                                                                                                                2          ˆ
+                                                                                            1     ̈ 𝑟) + 𝐫 𝜕
+                                                                         𝐀квадруп. =             𝐃(𝑡                            𝑟2 𝜌 𝑑𝑉 ,                                                                                              (4.26)                            --><a id="eq:Quadrupole_potential"></a><!--
+                                                                                           6𝑐2 𝑟        6𝑐2 𝑟2 𝜕𝑡2
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:Quadrupole_potential} \vect {A}_\text {квадруп.} = \frac {1}{6c^2 r} \ddot {\vect {D}}(t_r) + \frac {\vect {r}}{6c^2 r^2} \frac {\partial ^2}{\partial t^2} \int r^2 \rho \, dV,
+\end{equation}
+
+</p>
+
+<p>
+де введено позначення:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{26}\)</span>
+
+<!--
+
+
+                                                                                            𝐷𝑖 = 𝑄𝑖𝑗 𝑛𝑗 ,      𝐃 = {𝐷𝑖 }.                                                                                                                 (4.27)                            --><a id="eq:quadrupole_vector"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+D_i = Q_{ij} n_j, \quad \vect {D} = \{D_i\}. \label {eq:quadrupole_vector}
+\end{equation}
+
+</p>
+
+<p>
+Другий доданок в&nbsp;<span class="textup">(<a href="ch4.html#eq:Quadrupole_potential">4.26</a>)</span> виглядає як \(\vect {r} f(r) \), тобто це градієнт від деякої функції; він не впливає на обчислення напруженості \(\Bfield =
+\Rot \vect {A} \). Цей доданок можна знищити за допомогою калібрувального перетворення, тоді:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{27}\)</span>
+
+<!--
+
+
+                                                                                                    𝐃(𝑡𝑟 )
+                                                                                𝐀квадруп. =                .                                                                                                     (4.28)                                       --><a id="eq:quadrupole_potential_simplified"></a><!--
+                                                                                                    6𝑐2 𝑟
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {A}_\text {квадруп.} = \frac {\vect {D}(t_r)}{6c^2 r}. \label {eq:quadrupole_potential_simplified}
+\end{equation}
+
+</p>
+
+<p>
+Повний вектор-потенціал&nbsp;<span class="textup">(<a href="ch4.html#eq:vector_potential_zero_order">4.19</a>)</span> є сумою дипольної, магнітодипольної й квадрупольної складової:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{28}\)</span>
+
+<!--
+
+
+                                                                                                                                                                𝐀 = 𝐀дип + 𝐀маг.-дип. + 𝐀квадруп. ,
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {A} = \vect {A}_\text {дип} + \vect {A}_\text {маг.-дип.} + \vect {A}_\text {квадруп.},
+\end{equation*}
+
+</p>
+
+<p>
+де відповідні співвідношення подано формулами&nbsp;<span class="textup">(<a href="ch4.html#eq:dipole_potential">4.21</a>)</span>,&nbsp;<span class="textup">(<a
+href="ch4.html#eq:magnetic_dipole_potential">4.23</a>)</span>, <span class="textup">(<a href="ch4.html#eq:Quadrupole_potential">4.26</a>)</span>.
+</p>
+
+<p>
+Нехтуючи членами вищого порядку по \(r^{-1}\) при обчисленні \(\Rot \vect {A}\), з&nbsp;<span class="textup">(<a href="ch4.html#eq:dipole_potential">4.21</a>)</span>, <span class="textup">(<a
+href="ch4.html#eq:magnetic_dipole_potential">4.23</a>)</span>,&nbsp;<span class="textup">(<a href="ch4.html#eq:Quadrupole_potential">4.26</a>)</span>, маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{28}\)</span>
+
+<!--
+
+                                                                                      1                            1
+                                                                                𝐁 = − 2 ([𝐧 × 𝐝]̈ + [𝐧 × [𝐧 × 𝐦]]
+                                                                                                               ̈ +          ⃛ .
+                                                                                                                      [𝐧 × 𝐃])                                                                                                                       (4.29)                                 --><a id="eq:4.2.12"></a><!--
+                                                                                     𝑐 𝑟                           6𝑐
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:4.2.12} \Bfield = -\frac {1}{c^2 r} \left (\left [ \vect {n} \times \ddot {\vect {d}} \right ] + \left [ \vect {n} \times \left [ \vect {n} \times \ddot {\vect {m}} \right ] \right ] + \frac {1}{6c}
+\left [ \vect {n} \times \dddot {\vect {D}} \right ]\right ).
+\end{equation}
+
+</p>
+
+<p>
+В цій формулі залежність від кутів входить лише через \(n_i \), в тому числі в \(D_i = Q_{ij} n_j \), де \(\{n_i\} \equiv \{{x_i}/{r}\} = \{\sin \theta \cos \varphi , \sin \theta \sin \varphi , \cos \theta \} \) — одиничний
+вектор. Інтегруючи по кутових змінних (\(do = \sin \theta \, d\theta \, d\varphi \)) дістанемо, через симетрію:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{29}\)</span>
+
+<!--
+
+                                                                                                                                          ˆ                                       ˆ                 ˆ                 ˆ
+                                                                                                                                                𝑑𝑜 ⋅ 𝑛𝑖 𝑛𝑗 = 0,       𝑖 ≠ 𝑗;          𝑑𝑜 ⋅ 𝑛21 =         𝑑𝑜 ⋅ 𝑛22 =       𝑑𝑜 ⋅ 𝑛23 .
+
+-->
+
+<p>
+
+\begin{equation*}
+\int do \cdot n_i n_j = 0, \quad i \neq j; \quad \int do \cdot n_1^2 = \int do \cdot n_2^2 = \int do \cdot n_3^2.
+\end{equation*}
+
+</p>
+
+<p>
+Оскільки \(n_1^2 + n_2^2 + n_3^2 = 1 \), інтегруючи по \(do \) отримаємо суму трьох однакових доданків \(= 4\pi \); звідси:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{29}\)</span>
+
+<!--
+
+                                                                                                       ˆ
+                                                                                                                            4𝜋
+                                                                                                           𝑑𝑜 ⋅ 𝑛𝑖 𝑛𝑗 =        𝛿 .                                                                                                                   (4.30)                                 --><a id="eq:4.2.13"></a><!--
+                                                                                                                             3 𝑖𝑗
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:4.2.13} \int do \cdot n_i n_j = \frac {4\pi }{3} \delta _{ij}.
+\end{equation}
+
+</p>
+
+<p>
+Це легко перевірити й прямим обчисленням.
+</p>
+
+<p>
+Очевидно,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{30}\)</span>
+
+<!--
+
+                                                                                              ˆ                      ˆ
+                                                                                                  𝑑𝑜 ⋅ 𝑛𝑖 = 0,           𝑑𝑜 ⋅ 𝑛𝑖 𝑛𝑗 𝑛𝑘 = 0                                                                                                           (4.31)                                 --><a id="eq:4.2.14"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:4.2.14} \int do \cdot n_i = 0, \quad \int do \cdot n_i n_j n_k = 0
+\end{equation}
+
+</p>
+
+<p>
+(підінтегральний вираз змінює знак при зміні напрямку координатних осей, а результат інтегрування по кутах має бути незалежним від такої зміни).
+</p>
+
+<p>
+Обчислимо тензор:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{31}\)</span>
+
+<!--
+
+                                                                                                               ˆ
+                                                                                                   𝑋𝑖𝑗𝑘𝑙 =         𝑑𝑜 ⋅ 𝑛𝑖 𝑛𝑗 𝑛𝑘 𝑛𝑙 ,                                                                                                              (4.32)                                 --><a id="eq:tensor_X"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+X_{ijkl} = \int do \cdot n_i n_j n_k n_l, \label {eq:tensor_X}
+\end{equation}
+
+</p>
+
+<p>
+що є симетричний за усіма індексами.
+</p>
+
+<p>
+Очевидно, тут можливі лише два ненульових значення компонент: коли усі індекси збігаються, наприклад \(X_{3333} = \frac {4\pi }{5} \), та коли серед індексів є дві різні пари, наприклад \(X_{1133} = \frac {4\pi }{15} \).
+</p>
+
+<p>
+Тензор, що задовольняє цим умовам, легко побудувати шляхом симетризації квадратичних комбінацій символів Кронекера:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{32}\)</span>
+
+<!--
+
+                                                                                                       4𝜋
+                                                                                            𝑋𝑖𝑗𝑘𝑙 =       (𝛿 𝛿 + 𝛿𝑖𝑘 𝛿𝑗𝑙 + 𝛿𝑖𝑙 𝛿𝑗𝑘 ).                                                                                                                (4.33)                                 --><a id="eq:4.2.16"></a><!--
+                                                                                                       15 𝑖𝑗 𝑘𝑙
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:4.2.16} X_{ijkl} = \frac {4\pi }{15} (\delta _{ij}\delta _{kl} + \delta _{ik}\delta _{jl} + \delta _{il}\delta _{jk}).
+\end{equation}
+
+</p>
+
+<p>
+Для перевірки відзначимо, що подвійна згортка дає:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{33}\)</span>
+
+<!--
+
+                                                                                                                                                                                            ˆ
+                                                                                                                                                                         𝑋𝑖𝑖𝑗𝑗 = 4𝜋 =            𝑑𝑜 ⋅ 1.
+
+-->
+
+<p>
+
+\begin{equation*}
+X_{iijj} = 4\pi = \int do \cdot 1.
+\end{equation*}
+
+</p>
+
+<p>
+Обчислимо потік через сферу великого радіуса \(r \), виходячи з&nbsp;<span class="textup">(<a href="ch4.html#eq:4.2.12">4.29</a>)</span>. Квадрат першого (дипольного) доданку в&nbsp;<span class="textup">(<a
+href="ch4.html#eq:4.2.12">4.29</a>)</span> дає внесок, що вже обчислено і подано формулою&nbsp;<span class="textup">(<a href="ch4.html#eq:energy_flux">4.22</a>)</span>. При обчисленні \(\Bfield ^2 \) добуток першого
+(дипольного) доданку в&nbsp;<span class="textup">(<a href="ch4.html#eq:4.2.12">4.29</a>)</span> на інші в кінцевому результаті дасть нуль в силу&nbsp;<span class="textup">(<a href="ch4.html#eq:4.2.14">4.31</a>)</span>,
+оскільки тут під інтегралом з’являються лише непарні комбінації компонент \(n_i \) (нагадаємо, що квадрупольний доданок в&nbsp;<span class="textup">(<a href="ch4.html#eq:4.2.12">4.29</a>)</span> містить квадратичні комбінації цих
+компонент).
+</p>
+
+<p>
+Також:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{33}\)</span>
+
+
+<!--
+
+
+  ˆ                                     ˆ
+                               ⃛ 𝑑𝑜 =
+        [𝐧 × [𝐦̈ × 𝐧]] ⋅ [𝐧 × 𝐃]            (𝑚𝑖 − 𝑛𝑖 𝑛𝑗 𝑚𝑖 )(𝜀𝑖𝑝𝑞 𝑛𝑝 𝑄⃛ 𝑞𝑟 𝑛𝑟 ) 𝑑𝑜 =
+                                                                                                                                                                                                                                                                                  ˆ
+                                                                                                                                                                                                                                                                                                                 4𝜋
+                                                                                                                                                                                                                                                                              =       𝑚⃛ 𝑖 𝜀𝑖𝑝𝑞 𝑛𝑝 𝑄⃛ 𝑞𝑟 𝑛𝑟 𝑑𝑜 =    𝜀 𝑛 𝑄⃛ 𝑚⃛ = 0
+                                                                                                                                                                                                                                                                                                                  𝑐 𝑖𝑝𝑞 𝑝 𝑞𝑝 𝑖
+
+
+-->
+
+
+<p>
+
+\begin{multline*}
+\int [\vect {n} \times [\ddot {\vect {m}}\times \vect {n}]] \cdot [\vect {n} \times \dddot {\vect {D}}] \, do = \int (m_i - n_i n_j m_i) (\epsilon _{ipq} n_p \dddot {Q}_{qr} n_r) \, do = \\ = \int \dddot
+{m}_i\epsilon _{ipq} n_p \dddot {Q}_{qr} n_r do = \frac {4\pi }c \epsilon _{ipq} n_p \dddot {Q}_{qp}\dddot {m}_i = 0
+\end{multline*}
+де враховано симетрію \(Q_{qp} \) та формули&nbsp;<span class="textup">(<a href="ch4.html#eq:4.2.13">4.30</a>)</span> та&nbsp;<span class="textup">(<a href="ch4.html#eq:4.2.16">4.33</a>)</span>. Таким чином, потужність є
+сумою окремих потужностей дипольного, магнітодипольного та квадрупольного внесків.
+</p>
+
+<p>
+Далі маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{33}\)</span>
+
+<!--
+
+                                                                                                                                                ˆ                                ˆ
+                                                                                                                                                                                                                      8𝜋 2
+                                                                                                                                                    [𝐧 × [𝐦̈ × 𝐧]]2 𝑑𝑜 =                            ̈ 2 ) 𝑑𝑜 =
+                                                                                                                                                                                      (𝐦̈ 2 − (𝐧 ⋅ 𝐦)                    𝐦̈ .
+                                                                                                                                                                                                                       3
+
+-->
+
+<p>
+
+\begin{equation*}
+\int [\vect {n} \times [\ddot {\vect {m}}\times \vect {n}]]^2 \, do = \int (\ddot {\vect {m}}^2 - (\vect {n} \cdot \ddot {\vect {m}})^2) \, do = \frac {8\pi }{3} \ddot {\vect {m}}^2.
+\end{equation*}
+
+</p>
+
+<p>
+За допомогою&nbsp;<span class="textup">(<a href="ch4.html#eq:4.2.13">4.30</a>)</span> та&nbsp;<span class="textup">(<a href="ch4.html#eq:4.2.16">4.33</a>)</span> дістанемо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{33}\)</span>
+
+<!--
+
+                                                                                                                                                    ˆ                      ˆ
+                                                                                                                                                                                                              4𝜋 ⃛
+                                                                                                                                                              ⃛ 2 𝑑𝑜 =
+                                                                                                                                                        [𝐧 × 𝐃]                              ⃛ 2 ] 𝑑𝑜 =
+                                                                                                                                                                               [𝐃⃛ 2 − (𝐧 ⋅ 𝐃)                  𝑄 𝑄⃛ .
+                                                                                                                                                                                                               5 𝑘𝑙 𝑘𝑙
+
+-->
+
+<p>
+
+\begin{equation*}
+\int [\vect {n} \times \dddot {\vect {D}}]^2 \, do = \int [\dddot {\vect {D}}^2 - (\vect {n} \cdot \dddot {\vect {D}})^2] \, do = \frac {4\pi }{5} \dddot {Q}_{kl} \dddot {Q}_{kl}.
+\end{equation*}
+
+</p>
+
+<p>
+Звідси потужність випромінювання:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{33}\)</span>
+
+<!--
+
+
+                                                                                                                                                            𝑑ℰ   2        2          1
+                                                                                                                                                               = 3 𝐝̈ 2 + 3 𝐦̈ 2 +      𝑄⃛ 𝑄⃛ .
+                                                                                                                                                            𝑑𝑡  3𝑐       3𝑐        180𝑐5 𝑘𝑙 𝑘𝑙
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {d\mathcal {E}}{dt} = \frac 2{3c^3}\ddot {\vect {d}}^2+ \frac 2{3c^3}\ddot {\vect {m}}^2+ \frac 1{180c^5}\dddot {Q}_{kl} \dddot {Q}_{kl}.
+\end{equation*}
+
+</p>
+<!--
+...... section Розсіювання електромагнітних хвиль ......
+-->
+<h4 id="autosec-138"><span class="sectionnumber">4.3&#x2003;</span>Розсіювання електромагнітних хвиль</h4>
+<a id="ClassicalElectrodynamics-html-autopage-138"></a>
+
+
+<a id="sec:scattering"></a>
+<!--
+...... subsection Загальні поняття ......
+-->
+<h5 id="autosec-139">Загальні поняття</h5>
+<a id="ClassicalElectrodynamics-html-autopage-139"></a>
+
+
+<p>
+Коли електромагнітна хвиля падає на систему зарядів, вони починають рухатися і стають джерелами вторинного випромінювання. Оскільки загальна енергія зберігається, це означає, що частина енергії хвилі, що падає, переходить в енергію
+вторинних хвиль. Цей процес називають <em>розсіюванням</em>. Він може також супроводжуватися <em>поглинанням</em> енергії, коли частина енергії хвилі, що падає, втрачається в розсіювачі, трансформуючись в інші види енергії.
+</p>
+
+<p>
+Для опису цих процесів вводять <em>диференціальний переріз розсіювання в тілесний кут</em> \(do \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{33}\)</span>
+
+<!--
+
+
+                                                                       𝑑𝐼
+                                                                𝑑𝜍 =      ,                                                             (4.34)                                         --><a id="eq:differential_cross_section"></a><!--
+                                                                       Π
+
+-->
+
+<p>
+
+\begin{equation}
+d\sigma = \frac {dI}{\Pi }, \label {eq:differential_cross_section}
+\end{equation}
+
+</p>
+
+<p>
+де \(dI \) — середня (за часом) енергія вторинного випромінювання за одиницю часу в тілесний кут \(do \), \(\Pi \) — середня густина потоку енергії хвилі, що падає, яка визначається вектором Пойнтінга.
+</p>
+
+<p>
+<i>Повний переріз розсіювання</i> є:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{34}\)</span>
+
+<!--
+
+                                                                         ˆ
+                                                                   𝜍=         𝑑𝜍,                                                                   (4.35)                                    --><a id="eq:total_cross_section"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\sigma = \int d\sigma , \label {eq:total_cross_section}
+\end{equation}
+
+</p>
+
+<p>
+де інтеграл береться по усіх можливих напрямках розсіяного випромінювання.
+</p>
+
+<p>
+<i>Перерізом поглинання</i> називають величину:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{35}\)</span>
+
+<!--
+
+                                                                        𝑄
+                                                                 𝜍𝑎 =     ,                                                                (4.36)                                        --><a id="eq:absorption_cross_section"></a><!--
+                                                                        Π
+
+-->
+
+<p>
+
+\begin{equation}
+\sigma _a = \frac {Q}{\Pi }, \label {eq:absorption_cross_section}
+\end{equation}
+
+</p>
+
+<p>
+де \(Q \) — середня енергія, що поглинається системою за одиницю часу.
+</p>
+<!--
+...... subsection Розсіювання електромагнітних хвиль точковим вільним зарядом ......
+-->
+<h5 id="autosec-140">Розсіювання електромагнітних хвиль точковим вільним зарядом</h5>
+<a id="ClassicalElectrodynamics-html-autopage-140"></a>
+
+
+<p>
+Опис процесу розсіювання складається з двох частин: визначаємо рух заряду під дією електромагнітної хвилі, а потім обчислюємо потужність вторинного, тобто розсіяного, випромінювання.
+</p>
+
+<p>
+Нехай електричне поле хвилі, що падає, є:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{36}\)</span>
+
+<!--
+
+
+                                                                      𝐄 = 𝐄0 cos(𝜔𝑡 − 𝐤 ⋅ 𝐫),                                                              (4.37)                                --><a id="eq:incident_wave"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\Efield = \Efield _0 \cos (\omega t - \vect {k} \cdot \vect {r}), \label {eq:incident_wave}
+\end{equation}
+
+</p>
+
+<p>
+в точці, де розташований заряд.
+</p>
+
+<p>
+<i>Будемо вважати рух заряду нерелятивістським</i> (\(v \ll c \)), що дає змогу знехтувати магнітним полем у формулі для сили Лоренца, що діє на заряд з боку електромагнітної хвилі. Силою реакції розсіяного випромінювання також
+знехтуємо. Якщо інших сил тут немає, основний рух заряду буде періодичним з амплітудою:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{37}\)</span>
+
+<!--
+
+
+                                                                                                                   𝑣   𝑐    𝜆
+                                                                                                             𝑟∼      ≪   =    .
+                                                                                                                   𝜔   𝜔   2𝜋
+
+-->
+
+<p>
+
+\begin{equation*}
+r \sim \frac {v}{\omega } \ll \frac {c}{\omega } = \frac {\lambda }{2\pi }.
+\end{equation*}
+
+</p>
+
+<p>
+Ця умова дозволяє відкинути доданок \(\vect {k} \cdot \vect {r} \ll 1 \) під аргументом косинуса в&nbsp;<span class="textup">(<a href="ch4.html#eq:incident_wave">4.37</a>)</span>. Звідси з рівнянь руху:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{37}\)</span>
+
+<!--
+
+
+                                                                                                                   𝑚𝐫̈ = 𝑞𝐄,
+
+-->
+
+<p>
+
+\begin{equation*}
+m \ddot {\vect {r}} = q \Efield ,
+\end{equation*}
+
+</p>
+
+<p>
+отримуємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{37}\)</span>
+
+<!--
+
+                                                                                                                          𝑞𝐄
+                                                                                                                   𝐫̈ =       .
+                                                                                                                          𝑚𝜔2
+
+-->
+
+<p>
+
+\begin{equation*}
+\ddot {\vect {r}} = \frac {q \Efield }{m \omega ^2}.
+\end{equation*}
+
+</p>
+
+<p>
+Дипольний момент системи:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{37}\)</span>
+
+<!--
+
+
+                                                                                                                             𝑞2 𝐄
+                                                                                                              𝐝 = 𝑞𝐫 = −          ,
+                                                                                                                             𝑚𝜔2
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {d} = q \vect {r} = -\frac {q^2 \Efield }{m \omega ^2},
+\end{equation*}
+
+</p>
+
+<p>
+причому:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{37}\)</span>
+
+<!--
+
+                                                                                  2
+                                                                                 𝑞 𝐄
+                                                                            𝐝̈ =     .                                                                     (4.38)                                --><a id="eq:dipole_moment"></a><!--
+                                                                                  𝑚
+
+-->
+
+<p>
+
+\begin{equation}
+\ddot {\vect {d}} = \frac {q^2 \Efield }{m}. \label {eq:dipole_moment}
+\end{equation}
+
+</p>
+
+<p>
+Для нерелятивістського руху можна скористатися співвідношеннями для дипольного випромінювання. Це дає інтенсивність, випромінену в напрямку \(\vect {n} \) в тілесний кут \(do \):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{38}\)</span>
+
+<!--
+
+
+                                                               1            2      𝐝̈ 2
+                                                       𝑑𝐼 =       3
+                                                                    [𝐝̈ × 𝐧] 𝑑𝑜 =       sin2 𝜃 𝑑𝜃,                                                      (4.39)                                --><a id="eq:intensity_dipole"></a><!--
+                                                              4𝜋𝑐                 4𝜋𝑐3
+
+-->
+
+<p>
+
+\begin{equation}
+dI =\frac 1{4\pi c^3}\left [\ddot {\vect {d}}\times \vect {n}\right ]^2do = \frac {\ddot {\vect {d}}^2}{4\pi c^3} \sin ^2 \theta \, d\theta , \label {eq:intensity_dipole}
+\end{equation}
+
+</p>
+
+<p>
+де \(\theta \) — кут між \(\ddot {\vect {d}} \) та напрямком спостереження \(\vect {n} \). Враховуючи&nbsp;<span class="textup">(<a href="ch4.html#eq:dipole_moment">4.38</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{39}\)</span>
+
+<!--
+
+
+                                                                                                                   𝑞4 𝐸 2
+                                                                                                           𝑑𝐼 =           sin2 𝜃 𝑑𝜃.
+                                                                                                                  4𝜋𝑚2 𝑐3
+
+-->
+
+<p>
+
+\begin{equation*}
+dI = \frac {q^4 E^2}{4\pi m^2 c^3} \sin ^2 \theta \, d\theta .
+\end{equation*}
+
+</p>
+
+<p>
+Оскільки вектор Пойнтінга хвилі, що падає, є:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{39}\)</span>
+
+<!--
+
+                                                                                                                      𝑐
+                                                                                                              𝚷=        [𝐄 × 𝐁],
+                                                                                                                     4𝜋
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {\Pi } = \frac {c}{4\pi } [\Efield \times \Bfield ],
+\end{equation*}
+
+</p>
+
+<p>
+де \(\vect {n}_0 \) — напрямок хвилі, що падає, за визначенням перерізу&nbsp;<span class="textup">(<a href="ch4.html#eq:differential_cross_section">4.34</a>)</span> маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{39}\)</span>
+
+<!--
+
+                                                                  2
+                                                             𝑞2
+                                                    𝑑𝜍 = (       ) sin2 𝜃 𝑑𝑜.                                                         (4.40)                               --><a id="eq:differential_cross_section_thomson"></a><!--
+                                                             𝑚𝑐2
+
+-->
+
+<p>
+
+\begin{equation}
+d\sigma = \left ( \frac {q^2}{mc^2} \right )^2 \sin ^2 \theta \, do. \label {eq:differential_cross_section_thomson}
+\end{equation}
+
+</p>
+
+<p>
+Цікаво, що цей вираз не залежить від частоти. Повний переріз отримаємо, інтегруючи&nbsp;<span class="textup">(<a href="ch4.html#eq:differential_cross_section_thomson">4.40</a>)</span> по усіх напрямках:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{40}\)</span>
+
+<!--
+
+                                                                                   2
+                                                                         8𝜋 𝑞2
+                                                                𝜍𝑇 =        (   ) .                                                            (4.41)                                    --><a id="eq:thomson_cross_section"></a><!--
+                                                                          3 𝑚𝑐2
+
+-->
+
+<p>
+
+\begin{equation}
+\sigma _T = \frac {8\pi }{3} \left ( \frac {q^2}{mc^2} \right )^2. \label {eq:thomson_cross_section}
+\end{equation}
+
+</p>
+
+<p>
+(<em>формула Томсона</em>). Ця формула втрачає силу, коли \(\hbar \omega \gtrsim mc^2 \), в цьому разі потрібно враховувати квантово-електродинамічні ефекти.
+</p>
+<!--
+...... subsection Неполяризована хвиля ......
+-->
+<h5 id="autosec-141">Неполяризована хвиля</h5>
+<a id="ClassicalElectrodynamics-html-autopage-141"></a>
+
+
+<p>
+Формула&nbsp;<span class="textup">(<a href="ch3.html#eq:intensity">3.15</a>)</span> дає диференціальний переріз розсіювання для фіксованого напрямку поляризації хвилі, що падає. У природному світлі присутні усі напрямки
+\(\Efield \). Будемо припускати, що усі ці напрямки еквівалентні, а значить, згідно з&nbsp;<span class="textup">(<a href="ch4.html#eq:dipole_moment">4.38</a>)</span>, рівноймовірними є усі напрямки дипольного моменту
+з&nbsp;<span class="textup">(<a href="ch3.html#eq:intensity">3.15</a>)</span>.
+</p>
+
+<p>
+Зафіксуємо напрямки спостереження:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{41}\)</span>
+
+<!--
+
+
+                                                                                                 𝐧 = {sin 𝜃0 cos 𝜑, sin 𝜃0 sin 𝜑, cos 𝜃0 }
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {n} = \{\sin \theta _0 \cos \varphi , \sin \theta _0 \sin \varphi , \cos \theta _0\}
+\end{equation*}
+
+</p>
+
+<p>
+та напрямок падіння хвилі:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{41}\)</span>
+
+<!--
+
+
+                                                                                                              𝐧0 = {0, 0, 1}.
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {n}_0 = \{0, 0, 1\}.
+\end{equation*}
+
+</p>
+
+<p>
+Відповідно, напрямок \(\ddot {\vect {d}} = \vect {n}_d |\ddot {\vect {d}}| \) визначимо формулою:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{41}\)</span>
+
+<!--
+
+
+                                                                                                        𝐧𝑑 = {cos 𝜑′ , sin 𝜑′ , 0},
+
+-->
+
+<p>
+
+\begin{equation*}
+\vect {n}_d = \{\cos \varphi &apos;, \sin \varphi &apos;, 0\},
+\end{equation*}
+
+</p>
+
+<p>
+де усі значення \(\varphi &apos; \in [0, 2\pi ] \) рівноймовірні.
+</p>
+
+<p>
+Для кута \(\theta \) між \(\vect {n}_d \) та \(\vect {n} \) маємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{41}\)</span>
+
+
+<!--
+
+
+
+  ⟨sin2 𝜃⟩ = ⟨1 − cos2 𝜃⟩ = ⟨1 − sin2 𝜃0 cos2 (𝜑 − 𝜑0 )⟩ =
+                                                                                                                                                                                                          1          1
+                                                                                                                                                                                                    =1−     sin2 𝜃0 = (1 + cos2 𝜃0 ).
+                                                                                                                                                                                                          2          2
+
+
+-->
+
+
+<p>
+
+\begin{multline*}
+\langle \sin ^2 \theta \rangle = \langle 1 - \cos ^2 \theta \rangle = \langle 1 - \sin ^2 \theta _0 \cos ^2 (\varphi - \varphi _0) \rangle = \\ = 1 - \frac 12 \sin ^2 \theta _0 = \frac 12 (1 + \cos ^2 \theta
+_0).
+\end{multline*}
+
+</p>
+
+<p>
+Звідси з&nbsp;<span class="textup">(<a href="ch3.html#eq:intensity">3.15</a>)</span> та за визначенням&nbsp;<span class="textup">(<a href="ch4.html#eq:differential_cross_section">4.34</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{41}\)</span>
+
+<!--
+
+                                                                                                                    2
+                                                                                                            1 𝑞2
+                                                                                                   ⟨𝑑𝜍⟩ =    (    ) (1 + cos2 𝜃0 ) 𝑑𝑜,
+                                                                                                            2 𝑚𝑐2
+
+-->
+
+<p>
+
+\begin{equation*}
+\left \langle d\sigma \right \rangle = \frac {1}{2} \left ( \frac {q^2}{mc^2} \right )^2 (1 + \cos ^2 \theta _0) \, do,
+\end{equation*}
+
+</p>
+
+<p>
+де \(do = \sin \theta _0 \, d\theta _0 \, d\varphi \).
+</p>
+<!--
+...... subsection Розсіювання на малих макроскопічних частинках ......
+-->
+<h5 id="autosec-142">Розсіювання на малих макроскопічних частинках</h5>
+<a id="ClassicalElectrodynamics-html-autopage-142"></a>
+
+
+<p>
+Якщо довжина плоскої хвилі \(\lambda \), що падає, значно більша за розміри макроскопічних частинок, можна вважати поле в околі частинок однорідним. Припустимо також, що частота хвилі \(\omega \) значно менша за резонансні частоти
+усіх складових частинки. Це дає змогу обчислювати поляризованість \(\alpha \) частинки, яка дає зв’язок між дипольним моментом:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{41}\)</span>
+
+<!--
+
+
+                                                                               𝐝 = 𝛼𝐄,                                                                          (4.42)                            --><a id="eq:polarizability"></a><!--
+
+-->
+
+<p>
+
+\begin{equation}
+\vect {d} = \alpha \Efield , \label {eq:polarizability}
+\end{equation}
+
+</p>
+
+<p>
+та зовнішнім однорідним полем \(\Efield \) в наближенні електростатики, тобто \(\alpha \) не залежить від \(\omega \). Тоді за формулами дипольного випромінювання:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{42}\)</span>
+
+<!--
+
+
+                                                                        𝜔4 𝛼2
+                                                                 𝑑𝜍 =         sin2 𝜃 𝑑𝑜,                                                               (4.43)                           --><a id="eq:scattering_cross_section"></a><!--
+                                                                         𝑐4
+
+-->
+
+<p>
+
+\begin{equation}
+d\sigma = \frac {\omega ^4 \alpha ^2}{c^4} \sin ^2 \theta \, do, \label {eq:scattering_cross_section}
+\end{equation}
+
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{43}\)</span>
+
+<!--
+
+
+                                                                      8𝜋 𝜔4 𝛼2
+                                                                 𝜍=            .                                                              (4.44)                            --><a id="eq:total_scattering_cross_section"></a><!--
+                                                                       3 𝑐4
+
+-->
+
+<p>
+
+\begin{equation}
+\sigma = \frac {8\pi }{3} \frac {\omega ^4 \alpha ^2}{c^4}. \label {eq:total_scattering_cross_section}
+\end{equation}
+
+</p>
+
+<p>
+Якщо поле хвилі можна вважати однорідним, але умова квазістатичності не виконується, поляризовність \(\alpha \) залежатиме від частоти й може бути комплексною. В цьому разі:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{4.}{44}\)</span>
+
+<!--
+
+                                                                                                                    8𝜋
+                                                                                                               𝜍=       |𝛼|2 𝜔4 .
+                                                                                                                    3𝑐4
+
+-->
+
+<p>
+
+\begin{equation*}
+\sigma = \frac {8\pi }{3c^4} |\alpha |^2 \omega ^4.
+\end{equation*}
+
+</p>
+
+<p>
+Розсіяння, для якого переріз пропорційний четвертому степеню частоти, називається <em>релеєвським розсіянням</em>. Саме таке розсіяння поснює колір неба та Сонця на сході та заході.
+</p>
+<!--
+...... section Задачі ......
+-->
+<h4 id="autosec-143">Задачі</h4>
+<a id="ClassicalElectrodynamics-html-autopage-143"></a>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-37"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 4.1.</span></span> <a id="autoid-38" ></a >Яка має бути просторова залежність полів у хвильовій зоні \(r \gg \lambda \) за наявності випромінювання?
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-39"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 4.2.</span></span> <a id="autoid-40" ></a >Чому при розгляді потужності дипольного випромінювання можна обмежитися обчисленням вектор-потенціалу \(\vect A \) та
+магнітної індукції \(\vect B \) на великих відстанях, не обчислюючи напруженість електричного поля?
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-41"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 4.3.</span></span> <a id="autoid-42" ></a >Заряд рухається по коловій орбіті. Як зміниться потужність дипольного випромінювання при зміні частоти обертання вдвічі без
+зміни радіуса орбіти?
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-43"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 4.4.</span></span> <a id="autoid-44" ></a >Повністю неполяризована електромагнітна хвиля розсіюється нерелятивістським зарядом під кутом \(\vartheta \) до
+початкового напрямку поширення цієї хвилі. Знайти коефіцієнт деполяризації розсіяної хвилі. Відповідь: \(\cos ^2 \vartheta \).
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+
+
+<a id="autoid-45"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 4.5.</span></span> <a id="autoid-46" ></a >На прискорену точкову частинку із зарядом \(q \) діє сила реакції її власного випромінювання. Усі сили, що діють на частинку,
+із силою реакції включно, забезпечують її фінітний рух з обмеженою швидкістю та прискоренням. Відомо, що сила реакції має вид \(\vect f = \alpha \dddot {\vect r}_q \), де \(\vect r_q(t) \) — траєкторія частинки. Знайти коефіцієнт
+\(\alpha \) за допомогою формули для потужності випромінювання. <em>Вказівка</em>: розглянути усереднені за великим періодом часу значення роботи сили \(\vect f \) та потужності випромінювання. <em>Відповідь</em>: \(\alpha =
+\dfrac {2q^2}{3c^3} \)
+</p>
+
+
+</li>
+
+</ul>
+
+</div>
+
+</section>
+
+</main>
+
+
+<nav class="botnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Home</a></nav>
+
+</div><!-- grid -->
+</body>
+</html>

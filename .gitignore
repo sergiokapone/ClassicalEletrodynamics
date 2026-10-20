@@ -1,5 +1,4 @@
-_minted*/
-build/
+# === Тимчасові файли LaTeX ===
 *.aux
 *.synctex.gz
 *.synctex(busy)
@@ -22,10 +21,40 @@ build/
 *.ind
 *.idx
 *.ilg
+test.*
+
+# === Згенеровані папки Lwarp ===
+# _html/
+_minted*/
+build/
+lateximages/
+*-images/
+
+# === Конфігурація та скрипти Lwarp ===
+lwarpmk.conf
+*.lwarpmkconf
+lwarp*.*
+lwarp.xdy
+lwarp_one_limage.cmd
+lwarp-mathjax.tex
+lwarp-tikzdefs.tex
+sample_project.css
+
+# === Тимчасові файли Lwarp, вирізки та логи ===
+comment_*.cut
+*-images.txt
+lwarp_*.txt
+*.sidetoc
+*_html.tex
+build-error.txt
+ClassicalElectrodynamics-html_html.html
+
+# === Таблиці та скрипти Gnuplot ===
+*.gnuplot
+*.table
+
+# === Специфічні файли проекту ===
 ClassicalElectrodynamics_*.pdf
 *.docx
 /!Save
-test.*
-ClassicalElectrodynamics.parable*.gnuplot
-ClassicalElectrodynamics.parable*.table
 FreeField/uncert.tex
