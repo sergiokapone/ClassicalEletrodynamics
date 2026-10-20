@@ -20,9 +20,11 @@ BABEL_OPS = [('sh', 'sh'), ('ch', 'ch'), ('tg', 'tg'), ('ctg', 'ctg'), ('arctg',
 DENY = {'defcolor','sfdefault','bfdefault','MakeUppercase','title','cleardoublepage',
         'oldthebibliography','bibname','textflush','quizbadge','chapterautorefname',
         'emphx','symbfscr'}
-MATHISH = re.compile(r'\\(frac|partial|vec|boldsymbol|mathbf|mathcal|mathbb|mathrm|nabla|int|oint|'
-                     r'Delta|varphi|varepsilon|boxed|times|cdot|operatorname|square|mdlgwhtsquare)\b'
-                     r'|^\\(DeclareMathOperator)')
+MATHISH = re.compile(
+    r'\\(frac|partial|vec|boldsymbol|mathbf|mathcal|mathbb|mathrm|nabla|int|oint|'
+    r'Delta|varDelta|varphi|varepsilon|boxed|times|cdot|operatorname|square|mdlgwhtsquare)\b'
+    r'|^\\(DeclareMathOperator)'
+)
 # -----------------------------------------------------------------------------
 kept, dropped = [], []
 for line in open(src, encoding='utf8'):
