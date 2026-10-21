@@ -174,6 +174,29 @@ def localize_index(s):
     return re.sub(r'(>|,\s*)section\s+([a-zA-Z\d\.]+)', r'\1' + INDEX_REF_WORDS["section"] + r'&nbsp;\2', s)
 
 
+def wrap_toc_titles(s):
+    r"""Загортає назву пункту змісту в <span class="toctitle">.
+
+    Посилання змісту в CSS — це grid із двома колонками (номер | назва). Якщо в назві
+    є формула (\(F_{\mu\nu}\)), MathJax робить із неї окремий елемент grid, і той
+    потрапляє у наступний рядок під номер. Один обгортковий span дає рівно два
+    елементи: номер і назва (з формулою всередині). Безпечно для повторного запуску.
+    """
+    pat = re.compile(
+        r'(<a [^>]*class="toc(?:chapter|section|subsection|subsubsection)"[^>]*>\s*'
+        r'<span class="sectionnumber">[^<]*</span>)(&#x2003;(?:(?!</a>).)*?)(</a>)',
+        re.DOTALL,
+    )
+
+    def repl(m):
+        body = m.group(2)
+        if 'class="toctitle"' in body:
+            return m.group(0)
+        return f'{m.group(1)}<span class="toctitle">{body}</span>{m.group(3)}'
+
+    return pat.sub(repl, s)
+
+
 # ───────────────────────────── Пошук ─────────────────────────────
 
 def add_search_assets(s):
@@ -317,6 +340,7 @@ def process(content, filename):
     s = add_appendix_header(s)
     s = letter_appendix_numbers(s)
     s = localize_index(s)
+    s = wrap_toc_titles(s)
     s = mark_for_indexing(s, filename)
     return s
 

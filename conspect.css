@@ -421,6 +421,8 @@ pre{background:var(--tint);padding:1rem 1.2rem;border-radius:4px;overflow-x:auto
   font:650 1.7rem var(--sans);
 }
 .homepagegrid h3::after{display:none}
+.homepagegrid h3{margin-top:3rem}                 /* заголовки розділів не липнуть до попереднього блоку */
+.homepagegrid nav.toc + h3{margin-top:4.5rem}    /* Передмова — після змісту */
 nav.toc{max-width:var(--measure);margin:0 auto}
 nav.toc p{margin:0;line-height:1.35;hyphens:manual}
 nav.toc a{text-indent:-1em;display:grid;text-decoration:none;color:var(--ink);align-items:baseline}
@@ -435,7 +437,17 @@ nav.toc .tocsection{
 nav.toc .sectionnumber{text-indent:0}
 nav.toc .tocsection .sectionnumber{font-variant-numeric:tabular-nums}
 nav.toc .tocsection:not(:has(.sectionnumber)){display:block;padding-left:calc(3.2rem + 1em);font-style:italic}
+/* Розділ без номера (Передмова, Вибір системи одиниць, Предметний покажчик): один текстовий елемент,
+   у grid він потрапляв у вузьку колонку для номера й ламався по словах. Текст — у колонку назв. */
+nav.toc .tocchapter:not(:has(.sectionnumber)){display:block;padding-left:calc(3.2rem + 1em)}
 nav.toc a:hover{color:var(--indigo)}
+/* Підзаголовок «Додатки»: postprocess дає йому inline-стиль для темного sidetoc (золотий, лінія rgba білого) —
+   у головному змісті робимо як заголовок розділу без номера */
+nav.toc .sidetoc-appendix-title{
+  margin:1.5rem 0 0!important;padding:.7rem 0 .45rem 3.2rem!important;
+  border-top:2px solid var(--ink)!important;
+  font:650 1.1rem var(--sans)!important;color:var(--ink)!important;
+}
 
 /* ════════════════════════════════════════════════════════════════
    Примусова темна тема для показу результатів Pagefind у sidetoc
