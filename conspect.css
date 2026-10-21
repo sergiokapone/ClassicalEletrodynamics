@@ -440,6 +440,13 @@ nav.toc .tocsection:not(:has(.sectionnumber)){display:block;padding-left:calc(3.
 /* Розділ без номера (Передмова, Вибір системи одиниць, Предметний покажчик): один текстовий елемент,
    у grid він потрапляв у вузьку колонку для номера й ламався по словах. Текст — у колонку назв. */
 nav.toc .tocchapter:not(:has(.sectionnumber)){display:block;padding-left:calc(3.2rem + 1em)}
+/* Частина (I, II): окремий заголовок з великим відступом зверху, а не рядок «II» над назвою,
+   що липнув до попереднього розділу. Раніше для .tocpart стилів не було зовсім. */
+nav.toc .tocpart{
+  grid-template-columns:3.2rem 1fr;margin:3.6rem 0 .3rem;padding:.2rem 0 .3rem;
+  font:600 1.3rem/1.25 var(--serif);color:var(--ink);
+}
+nav.toc .tocpart .sectionnumber{font:400 1.5rem/1 var(--serif);color:var(--indigo)}
 nav.toc a:hover{color:var(--indigo)}
 /* Підзаголовок «Додатки»: postprocess дає йому inline-стиль для темного sidetoc (золотий, лінія rgba білого) —
    у головному змісті робимо як заголовок розділу без номера */
