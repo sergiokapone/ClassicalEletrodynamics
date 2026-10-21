@@ -5,12 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Класична електродинаміка | Конспект лекцій</title>
     <link rel="icon" href="EM.ico">
+    <link rel="stylesheet" href="styles/conspect.css">
     <link rel="stylesheet" href="styles/styles.css">
+    <script src="styles/book.js"></script><!-- тут лише ставить збережену тему до першого малювання -->
 </head>
 <body>
 <div class="container">
 
     <div class="pdf-hero">
+        <button type="button" class="theme-btn" id="theme-toggle">Темна тема</button>
         <h1>Класична електродинаміка</h1>
         <div class="subtitle">Мікроскопічна теорія</div>
         <div class="hero-rule"></div>
@@ -101,5 +104,20 @@
     </footer>
 
 </div><!-- /container -->
+
+<script>
+/* Перемикач теми: той самий ключ, що й у книзі (styles/book.js), тож вибір спільний */
+(function () {
+    var KEY = 'elmag-book-theme', root = document.documentElement, b = document.getElementById('theme-toggle');
+    function label() { b.textContent = root.classList.contains('dark') ? 'Світла тема' : 'Темна тема'; }
+    label();
+    b.addEventListener('click', function () {
+        var dark = !root.classList.contains('dark');
+        root.classList.toggle('dark', dark);
+        try { localStorage.setItem(KEY, dark ? 'dark' : 'light'); } catch (e) {}
+        label();
+    });
+})();
+</script>
 </body>
 </html>

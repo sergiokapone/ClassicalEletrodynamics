@@ -7,7 +7,8 @@
     add_home_sidebar         головна сторінка книги отримує ту саму бічну панель (зміст + пошук), що й розділи
     localize_nav             «Contents»/«Home» -> «Про посібник · PDF»/«Головна»; назва книги в панелі — посилання
     set_chapter_title        <title> розділу: «N. Назва — Класична електродинаміка»
-    add_head_extras          favicon і book.js (тема, згортання змісту, шухляда на телефоні, «попередній/наступний»)
+    fix_asset_paths          conspect.css / book.js лежать у styles/: шляхи в <head> виправляються (повторний запуск безпечний)
+    add_head_extras          favicon і styles/book.js (тема, згортання змісту, шухляда на телефоні, «попередній/наступний»)
     move_mathjax_macros      блок макросів MathJax -> на початок <body>
     add_appendix_header      заголовок «Додатки» в бічному змісті
     letter_appendix_numbers  нумерація додатків .1, .2 -> А, Б, ...
@@ -268,6 +269,13 @@ def set_chapter_title(s):
     return re.sub(r'<title>.*?</title>', lambda _: new, s, count=1, flags=re.DOTALL)
 
 
+def fix_asset_paths(s):
+    """lwarp пише <link href="conspect.css">; сам файл (і book.js) лежить у styles/. Правимо шляхи на місці."""
+    s = re.sub(r'(href=\")(?!styles/)(conspect\.css\")', r'\1styles/\2', s)
+    s = re.sub(r'(src=\")(?!styles/)(book\.js\")', r'\1styles/\2', s)
+    return s
+
+
 def add_head_extras(s):
     """favicon (EM.ico лежить у корені проєкту) і book.js. Скрипт у <head> без defer: клас теми ставиться
     до першого малювання сторінки (немає «миготіння»), а решту book.js робить на DOMContentLoaded."""
@@ -275,7 +283,7 @@ def add_head_extras(s):
     if 'rel="icon"' not in s:
         extra += '<link rel="icon" href="EM.ico">\n'
     if 'book.js' not in s:
-        extra += '<script src="book.js"></script>\n'
+        extra += '<script src="styles/book.js"></script>\n'
     if extra:
         s = s.replace('</head>', extra + '</head>', 1)
     return s
@@ -415,7 +423,8 @@ def add_unicode_support(s):
 # ───────────────────────────── Запуск ─────────────────────────────
 
 def process(content, filename, donor=None):
-    s = add_head_extras(content)        # першим: решта вставок у <head> лягає після нього — порядок стабільний
+    s = fix_asset_paths(content)
+    s = add_head_extras(s)              # першим: решта вставок у <head> лягає після нього — порядок стабільний
     s = add_unicode_support(s)
     s = add_search_assets(s)
     s = add_search_box(s)
