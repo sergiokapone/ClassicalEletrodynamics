@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Класична електродинаміка | Конспект лекцій</title>
+    <link rel="icon" href="EM.ico">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
 <body>
@@ -13,10 +14,15 @@
         <h1>Класична електродинаміка</h1>
         <div class="subtitle">Мікроскопічна теорія</div>
         <div class="hero-rule"></div>
-        <a href="ClassicalElectrodynamics.pdf" class="pdf-button">
-            <span class="btn-icon">&#8595;</span> Завантажити повний збірник (PDF)
-        </a>
-        <p class="pdf-note">Повна версія конспекту у форматі PDF</p>
+        <div class="hero-actions">
+            <a href="ClassicalElectrodynamics-html.html" class="pdf-button pdf-button--primary">
+                <span class="btn-icon">&#8594;</span> Читати онлайн
+            </a>
+            <a href="ClassicalElectrodynamics.pdf" class="pdf-button">
+                <span class="btn-icon">&#8595;</span> Завантажити PDF
+            </a>
+        </div>
+        <p class="pdf-note">Інтерактивний зміст і пошук по книзі &nbsp;·&nbsp; повна версія у форматі PDF</p>
     </div>
 
     <div class="content">
@@ -77,54 +83,6 @@
             <p>У <strong>частині ІІ</strong> викладено базові принципи та поняття спеціальної теорії відносності близько до оригінальної роботи Ейнштейна. Рівняння Максвелла переписано у коваріантній чотиривимірній формі за допомогою тензора електромагнітного поля. Виведено коваріантні рівняння руху заряджених частинок та розглянуто варіаційний принцип і закони збереження.</p>
             <p>Посібник містить вправи для кращого засвоєння матеріалу.</p>
         </div>
-
-        <!-- ── Зміст (генерується з .toc) ─────────────────────────────── -->
-        {%- if preamble %}
-        <ul class="toc-list toc-preamble">
-            {%- for ch in preamble %}
-            <li><span class="toc-title">{{ ch.title }}</span></li>
-            {%- endfor %}
-        </ul>
-        {%- endif %}
-        {%- for part in toc %}
-
-        <div class="section">
-            <h2 class="section-heading">{% if part.number %}<span class="part-num">Частина {{ part.number }}:</span> {% endif %}{{ part.title }}</h2>
-            <ul class="toc-list">
-            {%- for ch in part.chapters %}
-                <li>
-                    {%- if ch.number %}
-                    <span class="toc-num">{{ ch.number }}</span>
-                    {%- endif %}
-                    <span class="toc-title">{{ ch.title }}</span>
-                    {%- if ch.sections %}
-                    <ul class="sub-list">
-                        {%- for sec in ch.sections %}
-                        <li>{% if sec.number %}{{ sec.number }} {% endif %}{{ sec.title }}</li>
-                        {%- endfor %}
-                    </ul>
-                    {%- endif %}
-                </li>
-            {%- endfor %}
-            </ul>
-        </div>
-        {%- endfor %}
-        {%- if postamble %}
-
-        <div class="section section-appendix">
-            <h2 class="section-heading">Додатки</h2>
-            <ul class="toc-list">
-            {%- for ch in postamble %}
-                {%- if ch.sections %}
-                {%- for sec in ch.sections %}
-                <li>{% if sec.number %}{{ sec.number }} {% endif %}{{ sec.title }}</li>
-                {%- endfor %}
-                {%- endif %}
-            {%- endfor %}
-            </ul>
-        </div>
-        {%- endif %}
-        <!-- ── /Зміст ──────────────────────────────────────────────────── -->
 
         <hr>
         <p class="ref-links">

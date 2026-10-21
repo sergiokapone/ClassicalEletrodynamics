@@ -48,8 +48,15 @@
       }
     });
 
+    /* На головній сторінці книги «Передмова» та «Вибір системи одиниць» теж ведуть на цей файл —
+       але поточним розділом вона не є: підсвічуємо лише посилання «Головна» */
+    var homeLink = box.querySelector('a.linkhome');
+    var homeFile = homeLink ? (homeLink.getAttribute('href') || '').split('#')[0].toLowerCase() : '';
+    var onHome = !!homeFile && homeFile === here;
+    if (onHome) { homeLink.classList.add('is-current'); }
+
     var openAll = false;
-    var current = groups.filter(function (g) { return g.file === here; })[0];
+    var current = onHome ? undefined : groups.filter(function (g) { return g.file === here; })[0];
     function render() {
       groups.forEach(function (g) {
         var show = openAll || g === current;
@@ -114,7 +121,8 @@
     var top = document.querySelector('.topnavigation');
     if (top) {
       var fab = document.createElement('button');
-      fab.type = 'button'; fab.className = 'toc-fab'; fab.textContent = 'Зміст';
+      fab.type = 'button'; fab.className = 'toc-fab'; fab.setAttribute('aria-label', 'Пошук і зміст');
+      fab.innerHTML = '<svg width="14" height="14" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true" style="vertical-align:-2px;margin-right:.4em"><circle cx="8.5" cy="8.5" r="6"/><path d="M13 13l5 5"/></svg>Пошук і зміст';
       fab.addEventListener('click', function () { root.classList.toggle('toc-open'); });
       top.appendChild(fab);
       box.addEventListener('click', function (e) { if (e.target.closest('a')) { root.classList.remove('toc-open'); } });

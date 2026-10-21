@@ -545,6 +545,41 @@ nav.toc .sidetoc-appendix-title{
 #search mjx-container[display="true"] { display: block; margin: .4rem 0; overflow-x: auto; overflow-y: hidden; }
 #search a mjx-container, #search a mjx-container * { color: inherit !important; }
 
+/* 9. Кнопка «Очистити»: її підпис залежить від мови й шрифту («Очистити поле», «Очистити введене»…), тож
+   абсолютно позиціонована кнопка Pagefind мала змінну ширину (≈93px і більше) при правому відступі поля
+   лише ≈57px: вона наїжджала на введений текст, а у вузькій панелі виступала за її межі.
+   Робимо з неї компактну кнопку-хрестик фіксованого розміру. Підпис лишається в DOM (font-size:0 ховає його
+   візуально, але не від скрінрідерів), підказка-title додається скриптом search-math. */
+#search .pagefind-ui__search-input { padding-right: 2.9rem !important; }
+#search .pagefind-ui__search-clear {
+  box-sizing: border-box; width: 1.9rem; height: 1.9rem; min-width: 0; padding: 0 !important; margin: 0;
+  top: calc((64px * var(--pagefind-ui-scale) - 1.9rem) / 2) !important; right: .55rem !important;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  font-size: 0 !important; line-height: 0; cursor: pointer;
+  border: 0; border-radius: 50%; background: rgba(255, 255, 255, .1) !important;
+}
+#search .pagefind-ui__search-clear::before {
+  content: "\00d7"; font: 400 1.3rem/1 var(--sans); color: #d9e2f3; transform: translateY(-.05em);
+}
+#search .pagefind-ui__search-clear:hover { background: rgba(255, 255, 255, .22) !important; }
+#search .pagefind-ui__search-clear:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+
+/* ── Бічна панель: шапка, частини, головна сторінка ─────────── */
+.sidetoctitle a { color: inherit; text-decoration: none; }
+.sidetoctitle a:hover .sidetocthetitle { color: var(--gold); }
+.sidetoctitle .sidetoc-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .15rem .55rem;
+  margin-top: .45rem; font-size: .8rem; color: var(--side-dim); }   /* book.js дописує кнопку теми після нього, тож :last-child не спрацює */
+.sidetoc-meta a { color: var(--side-dim); text-decoration: none; }
+.sidetoc-meta a:hover { color: #fff; text-decoration: underline; }
+/* Частина (I, II): розділювач, а не ще один рядок, що липне до попереднього розділу */
+.sidetoccontents .tocpart {
+  margin-top: 1rem; padding-top: .9rem; border-top: 1px solid rgba(255, 255, 255, .12); text-indent: 0;
+  font: 600 .74rem/1.35 var(--sans); letter-spacing: .07em; text-transform: uppercase; color: var(--gold);
+}
+.sidetoccontents .tocpart .sectionnumber { margin-right: .3rem; }
+/* Головна сторінка книги має ту саму бічну панель (її додає postprocess_html.py) */
+.homepagegrid.pagegrid { display: grid; }
+
 /* ── Мобільна адаптація пошуку ──────────────────────────────── */
 @media (max-width: 980px) {
   #search .pagefind-ui__search-input {
@@ -560,7 +595,7 @@ nav.toc .sidetoc-appendix-title{
   .titlepage{margin-left:-5.5rem!important;margin-right:-5.5rem!important;padding-left:5.5rem;padding-right:5.5rem}
 }
 @media (max-width:980px){
-  .pagegrid{display:block}
+  .pagegrid,.homepagegrid.pagegrid{display:block}
   .topnavigation{
     display:flex;align-items:center;justify-content:space-between;gap:.8rem;
     position:sticky;top:0;z-index:40;padding:.55rem 1rem;
@@ -590,7 +625,7 @@ nav.toc .sidetoc-appendix-title{
 @media print{
   body{background:#fff;color:#000;font-size:11pt}
   .sidetoccontainer,.topnavigation,.botnavigation{display:none!important}
-  .pagegrid{display:block}
+  .pagegrid,.homepagegrid.pagegrid{display:block}
   .textbody{box-shadow:none;margin:0;padding:0;max-width:none}
   h3{color:#000;background:none;border-bottom:2px solid #000;min-height:0;padding:0 0 .5rem}
   h3::after{display:none}

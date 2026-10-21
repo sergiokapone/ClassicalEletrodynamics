@@ -96,6 +96,26 @@ body {
     opacity: 0.8;
 }
 
+/* Головна дія — читати онлайн; PDF — другорядна */
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8rem;
+}
+
+.pdf-button--primary {
+    background: #e0dbd2;
+    color: #1a1a2e;
+    border-color: #e0dbd2;
+}
+
+.pdf-button--primary:hover {
+    background: #fff;
+    border-color: #fff;
+    color: #1a1a2e;
+}
+
 .pdf-hero .pdf-note {
     margin-top: 0.8rem;
     font-size: 0.78rem;

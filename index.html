@@ -4,63 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Класична електродинаміка | Конспект лекцій</title>
+    <link rel="icon" href="EM.ico">
     <link rel="stylesheet" href="styles/styles.css">
-<link href="pagefind/pagefind-ui.css" rel="stylesheet">
-<script src="pagefind/pagefind-ui.js"></script>
-<script id="search-math">
-(function () {
-  /* Обрізаний уривок міг розірвати формулу: прибираємо «висячі» \\( та \\) */
-  window.pfTexFix = function (html) {
-    if (!html) { return html; }
-    var o = html.indexOf('\\('), c = html.indexOf('\\)');
-    if (c >= 0 && (o < 0 || c < o)) { html = '\u2026' + html.slice(c + 2); }
-    o = html.lastIndexOf('\\('); c = html.lastIndexOf('\\)');
-    if (o > c) { html = html.slice(0, o) + '\u2026'; }
-    var b = html.lastIndexOf('\\begin{'), e = html.lastIndexOf('\\end{');
-    if (b > e) { html = html.slice(0, b) + '\u2026'; }
-    var e0 = html.indexOf('\\end{'), b0 = html.indexOf('\\begin{');
-    if (e0 >= 0 && (b0 < 0 || e0 < b0)) { html = '\u2026' + html.slice(html.indexOf('}', e0) + 1); }
-    return html;
-  };
-  function start() {
-    var box = document.getElementById('search');
-    if (!box || !window.MutationObserver) { return; }
-    var timer = null, running = false, again = false;
-    function schedule() { if (timer) { clearTimeout(timer); } timer = setTimeout(run, 120); }
-    function run() {
-      timer = null;
-      if (running) { again = true; return; }
-      if (!window.MathJax || !MathJax.typesetPromise) { timer = setTimeout(run, 400); return; }
-      running = true;
-      var p;
-      try { if (MathJax.typesetClear) { MathJax.typesetClear([box]); } p = MathJax.typesetPromise([box]); }
-      catch (e) { running = false; return; }
-      p.catch(function () {}).then(function () { running = false; if (again) { again = false; schedule(); } });
-    }
-    new MutationObserver(function (ms) {
-      for (var i = 0; i < ms.length; i++) {
-        var t = ms[i].target;
-        if (t.nodeType === 1 && t.closest && t.closest('mjx-container')) { continue; }
-        schedule(); return;
-      }
-    }).observe(box, { childList: true, subtree: true });
-  }
-  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', start); } else { start(); }
-})();
-</script>
 </head>
 <body>
-<div data-pagefind-ignore>
 <div class="container">
 
     <div class="pdf-hero">
         <h1>Класична електродинаміка</h1>
         <div class="subtitle">Мікроскопічна теорія</div>
         <div class="hero-rule"></div>
-        <a href="ClassicalElectrodynamics.pdf" class="pdf-button">
-            <span class="btn-icon">&#8595;</span> Завантажити повний збірник (PDF)
-        </a>
-        <p class="pdf-note">Повна версія конспекту у форматі PDF</p>
+        <div class="hero-actions">
+            <a href="ClassicalElectrodynamics-html.html" class="pdf-button pdf-button--primary">
+                <span class="btn-icon">&#8594;</span> Читати онлайн
+            </a>
+            <a href="ClassicalElectrodynamics.pdf" class="pdf-button">
+                <span class="btn-icon">&#8595;</span> Завантажити PDF
+            </a>
+        </div>
+        <p class="pdf-note">Інтерактивний зміст і пошук по книзі &nbsp;·&nbsp; повна версія у форматі PDF</p>
     </div>
 
     <div class="content">
@@ -122,129 +84,6 @@
             <p>Посібник містить вправи для кращого засвоєння матеріалу.</p>
         </div>
 
-        <!-- ── Зміст (генерується з .toc) ─────────────────────────────── -->
-<ul class="toc-list toc-preamble">
-    <li><a href="ClassicalElectrodynamics-html.html#autosec-4"><span class="toc-title">Передмова</span></a></li>
-    <li><a href="ClassicalElectrodynamics-html.html#autosec-5"><span class="toc-title">Вибір системи одиниць</span></a></li>
-</ul>
-
-<div class="section">
-    <h2 class="section-heading"><a href="ch1.html#autosec-8"><span class="part-num">Частина I:</span> Класична електродинаміка</a></h2>
-    <ul class="toc-list">
-        <li>
-            <span class="toc-num">1</span>
-            <a href="ch1.html#autosec-9" class="toc-title">Базові поняття та рівняння</a>
-            <ul class="sub-list">
-                <li><a href="ch1.html#autosec-10"><span class="sub-num">1.1</span> Величини, що спостерігаються в електродинаміці</a></li>
-                <li><a href="ch1.html#autosec-25"><span class="sub-num">1.2</span> Рівняння електромагнітного поля</a></li>
-                <li><a href="ch1.html#autosec-42"><span class="sub-num">1.3</span> Закони збереження</a></li>
-                <li><a href="ch1.html#autosec-46"><span class="sub-num">1.4</span> Межі застосовності класичної електродинаміки</a></li>
-            </ul>
-        </li>
-        <li>
-            <span class="toc-num">2</span>
-            <a href="ch2.html#autosec-58" class="toc-title">Розв’язки рівнянь Максвелла</a>
-            <ul class="sub-list">
-                <li><a href="ch2.html#autosec-59"><span class="sub-num">2.1</span> Потенціали електромагнітного поля</a></li>
-                <li><a href="ch2.html#autosec-65"><span class="sub-num">2.2</span> Потенціали ізольованої системи зарядів і струмів</a></li>
-                <li><a href="ch2.html#autosec-70"><span class="sub-num">2.3</span> Задача Коші для рівнянь Максвелла</a></li>
-            </ul>
-        </li>
-        <li>
-            <span class="toc-num">3</span>
-            <a href="ch3.html#autosec-82" class="toc-title">Вільне електромагнітне поле</a>
-            <ul class="sub-list">
-                <li><a href="ch3.html#autosec-83"><span class="sub-num">3.1</span> Спектральний розклад і плоскі хвилі</a></li>
-                <li><a href="ch3.html#autosec-89"><span class="sub-num">3.2</span> Випадкові поля випромінювання</a></li>
-                <li><a href="ch3.html#autosec-116"><span class="sub-num">3.3</span> Співвідношення між тривалістю сигналу та шириною його спектру</a></li>
-                <li><a href="ch3.html#autosec-118"><span class="sub-num">3.4</span> Загальний розв’язок рівнянь вільного поля</a></li>
-            </ul>
-        </li>
-        <li>
-            <span class="toc-num">4</span>
-            <a href="ch4.html#autosec-127" class="toc-title">Випромінювання</a>
-            <ul class="sub-list">
-                <li><a href="ch4.html#autosec-128"><span class="sub-num">4.1</span> Поле прискореного заряду</a></li>
-                <li><a href="ch4.html#autosec-135"><span class="sub-num">4.2</span> Випромінювання малих систем</a></li>
-                <li><a href="ch4.html#autosec-138"><span class="sub-num">4.3</span> Розсіювання електромагнітних хвиль</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
-
-<div class="section">
-    <h2 class="section-heading"><a href="ch5.html#autosec-151"><span class="part-num">Частина II:</span> Чотиривимірне формулювання класичної електродинаміки</a></h2>
-    <ul class="toc-list">
-        <li>
-            <span class="toc-num">5</span>
-            <a href="ch5.html#autosec-152" class="toc-title">Перетворення Лоренца як наслідок постулатів Айнштайна</a>
-            <ul class="sub-list">
-                <li><a href="ch5.html#autosec-153"><span class="sub-num">5.1</span> Простір-час, системи відліку</a></li>
-                <li><a href="ch5.html#autosec-155"><span class="sub-num">5.2</span> Перетворення Лоренца для одновимірних рухів систем відліку</a></li>
-                <li><a href="ch5.html#autosec-164"><span class="sub-num">5.3</span> Власний час</a></li>
-                <li><a href="ch5.html#autosec-165"><span class="sub-num">5.4</span> Квадрат інтервалу</a></li>
-                <li><a href="ch5.html#autosec-169"><span class="sub-num">5.5</span> Перетворення довжини та об’єму</a></li>
-            </ul>
-        </li>
-        <li>
-            <span class="toc-num">6</span>
-            <a href="ch6.html#autosec-186" class="toc-title">Співвідношення СТВ у просторі Мінковського</a>
-            <ul class="sub-list">
-                <li><a href="ch6.html#autosec-189"><span class="sub-num">6.1</span> Загальні та власні перетворення Лоренца</a></li>
-                <li><a href="ch6.html#autosec-191"><span class="sub-num">6.2</span> Вектори і тензори в просторі Мінковського</a></li>
-                <li><a href="ch6.html#autosec-193"><span class="sub-num">6.3</span> Світові лінії та чотиривектор швидкості</a></li>
-            </ul>
-        </li>
-        <li>
-            <span class="toc-num">7</span>
-            <a href="ch7.html#autosec-199" class="toc-title">Електродинаміка у просторі Мінковського</a>
-            <ul class="sub-list">
-                <li><a href="ch7.html#autosec-200"><span class="sub-num">7.1</span> Чотиривимірна форма рівнянь Максвелла</a></li>
-                <li><a href="ch7.html#autosec-203"><span class="sub-num">7.2</span> Трансформаційні властивості \(F_{\mitmu \mitnu }\)</a></li>
-                <li><a href="ch7.html#autosec-208"><span class="sub-num">7.3</span> Рівняння руху зарядженої частинки</a></li>
-                <li><a href="ch7.html#autosec-210"><span class="sub-num">7.4</span> Плоскі монохроматичні хвилі</a></li>
-                <li><a href="ch7.html#autosec-211"><span class="sub-num">7.5</span> Ефект Доплера</a></li>
-                <li><a href="ch7.html#autosec-216"><span class="sub-num">7.6</span> Вектор-потенціал електромагнітного поля у випадку ізольованої системи</a></li>
-            </ul>
-        </li>
-        <li>
-            <span class="toc-num">8</span>
-            <a href="ch8.html#autosec-220" class="toc-title">Варіаційний принцип для рівнянь електродинаміки</a>
-            <ul class="sub-list">
-                <li><a href="ch8.html#autosec-221"><span class="sub-num">8.1</span> Заряд у зовнішньому електромагнітному полі</a></li>
-                <li><a href="ch8.html#autosec-223"><span class="sub-num">8.2</span> Дія для електромагнітного поля</a></li>
-            </ul>
-        </li>
-        <li>
-            <span class="toc-num">9</span>
-            <a href="ch9.html#autosec-226" class="toc-title">Тензор енергії-імпульсу і закони збереження</a>
-            <ul class="sub-list">
-                <li><a href="ch9.html#autosec-227"><span class="sub-num">9.1</span> Чотири-імпульс системи тіл</a></li>
-                <li><a href="ch9.html#autosec-231"><span class="sub-num">9.2</span> Енергія-імпульс електромагнітного поля</a></li>
-                <li><a href="ch9.html#autosec-232"><span class="sub-num">9.3</span> Тензор моменту імпульсу електромагнітної системи</a></li>
-            </ul>
-        </li>
-        <li>
-            <span class="toc-num">10</span>
-            <a href="ch10.html#autosec-237" class="toc-title">Реакція випромінювання</a>
-            <ul class="sub-list">
-                <li><a href="ch10.html#autosec-238"><span class="sub-num">10.1</span> Нерелятивістська сила Абрагама–Лоренца</a></li>
-                <li><a href="ch10.html#autosec-240"><span class="sub-num">10.2</span> Релятивістське узагальнення</a></li>
-                <li><a href="ch10.html#autosec-249"><span class="sub-num">А</span> Таблиця переходу між гаусовою системою одиниць та SI</a></li>
-                <li><a href="ch10.html#autosec-254"><span class="sub-num">Б</span> Основні формули векторного аналізу</a></li>
-                <li><a href="ch10.html#autosec-270"><span class="sub-num">В</span> Узагальнені функції</a></li>
-                <li><a href="ch10.html#autosec-271"><span class="sub-num">Г</span> Фундаментальні розв’язки</a></li>
-                <li><a href="ch10.html#autosec-272"><span class="sub-num">Д</span> Спеціальні функції</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="ch10.html#autosec-282" class="toc-title">Предметний покажчик</a>
-        </li>
-    </ul>
-</div>
-
-<!-- ── /Зміст ──────────────────────────────────────────────────── -->
-
         <hr>
         <p class="ref-links">
             <a href="https://apd.ipt.kpi.ua/kafedra/stuff/zhdanov/" target="_blank">Жданов В.І.</a>
@@ -262,6 +101,5 @@
     </footer>
 
 </div><!-- /container -->
-</div>
 </body>
 </html>

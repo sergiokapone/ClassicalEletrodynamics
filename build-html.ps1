@@ -205,8 +205,9 @@ Step 'lwarpmk again (force Pass 2)' { lwarpmk again -p $main }
 Step 'lwarpmk html (Pass 2)' { lwarpmk html -p $main }
 
 # 4. Post-processing by Python scripts
-Step 'Post-process HTML (search, indexing, appendices)' { & $py postprocess_html.py }
-Step 'Sync TOC to index.html' { & $py sync_toc.py }
+Step 'Post-process HTML (navigation, search, indexing, appendices)' { & $py postprocess_html.py }
+# index.html is now a static info page (about the book, authors, PDF + a 'read online' button): it has no table of contents
+# any more, so the old 'sync_toc.py' step is gone. The TOC of the book lives on ClassicalElectrodynamics-html.html.
 
 # --- 4. checks ---------------------------------------------------------------------
 Stage 4 'Checks'

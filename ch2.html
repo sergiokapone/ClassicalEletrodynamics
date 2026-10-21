@@ -5,7 +5,7 @@
 <meta charset="UTF-8" />
 <meta name="generator" content="LaTeX Lwarp package" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Класична електродинаміка — Розв’язки рівнянь Максвелла</title>
+<title>2. Розв’язки рівнянь Максвелла — Класична електродинаміка</title>
 <link rel="stylesheet" type="text/css" href="conspect.css" />
 
 <script>
@@ -217,6 +217,8 @@ MathJax = {
 
 <link href="pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="pagefind/pagefind-ui.js"></script>
+<link rel="icon" href="EM.ico">
+<script src="book.js"></script>
 <script id="search-math">
 (function () {
   /* Обрізаний уривок міг розірвати формулу: прибираємо «висячі» \\( та \\) */
@@ -247,7 +249,13 @@ MathJax = {
       catch (e) { running = false; return; }
       p.catch(function () {}).then(function () { running = false; if (again) { again = false; schedule(); } });
     }
+    /* Кнопка «Очистити» — лише хрестик (див. conspect.css), підпис стає підказкою */
+    function tip() {
+      var c = box.querySelector('.pagefind-ui__search-clear');
+      if (c && !c.title) { c.title = (c.textContent || '').trim(); }
+    }
     new MutationObserver(function (ms) {
+      tip();
       for (var i = 0; i < ms.length; i++) {
         var t = ms[i].target;
         if (t.nodeType === 1 && t.closest && t.closest('mjx-container')) { continue; }
@@ -1116,7 +1124,7 @@ MathJax = {
 
 
 <nav class="topnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
-Home</a></nav>
+Головна</a></nav>
 <div class="sidetoccontainer" data-pagefind-ignore>
 
 
@@ -1126,12 +1134,10 @@ Home</a></nav>
 <div class="sidetoctitle">
 
 <p>
-<span class="sidetocthetitle">Класична електродинаміка</span>
+<a href="ClassicalElectrodynamics-html.html" class="sidetoc-home"><span class="sidetocthetitle">Класична електродинаміка</span></a>
 </p>
 
-<p>
-Contents
-</p>
+<p class="sidetoc-meta"><a href="index.html">Про посібник</a><span aria-hidden="true">·</span><a href="ClassicalElectrodynamics.pdf">PDF</a></p>
 </div>
 <div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>
 <script>
@@ -1146,7 +1152,7 @@ Contents
 
 <p>
 <a href="ClassicalElectrodynamics-html.html" class="linkhome" >
-Home</a>
+Головна</a>
 </p>
 
 <p>
@@ -3928,7 +3934,7 @@ href="ch2.html#eq:2.3.1">2.43</a>)</span> та&nbsp;<span class="textup">(<a hre
 
 
 <nav class="botnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
-Home</a></nav>
+Головна</a></nav>
 
 </div><!-- grid -->
 </body>

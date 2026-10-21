@@ -4,6 +4,10 @@
 Кроки (кожен — окрема функція; усі безпечно запускати повторно):
 
   Сторінка
+    add_home_sidebar         головна сторінка книги отримує ту саму бічну панель (зміст + пошук), що й розділи
+    localize_nav             «Contents»/«Home» -> «Про посібник · PDF»/«Головна»; назва книги в панелі — посилання
+    set_chapter_title        <title> розділу: «N. Назва — Класична електродинаміка»
+    add_head_extras          favicon і book.js (тема, згортання змісту, шухляда на телефоні, «попередній/наступний»)
     move_mathjax_macros      блок макросів MathJax -> на початок <body>
     add_appendix_header      заголовок «Додатки» в бічному змісті
     letter_appendix_numbers  нумерація додатків .1, .2 -> А, Б, ...
@@ -15,6 +19,9 @@
     refresh_search_config    оновлення налаштувань пошуку в уже оброблених файлах
     add_search_math          рендеринг формул у результатах (MathJax)
     mark_for_indexing        що індексувати: лише розділи ch*/app*, без бічної панелі та загального h1
+
+  Обробляються лише сторінки, створені lwarp (мають <meta name="generator" content="LaTeX Lwarp package">).
+  index.html (інформаційна сторінка книги для GitHub Pages) і службовий *_html.html не чіпаються.
 """
 import glob
 import os
@@ -70,7 +77,13 @@ SEARCH_MATH = r'''<script id="search-math">
       catch (e) { running = false; return; }
       p.catch(function () {}).then(function () { running = false; if (again) { again = false; schedule(); } });
     }
+    /* Кнопка «Очистити» — лише хрестик (див. conspect.css), підпис стає підказкою */
+    function tip() {
+      var c = box.querySelector('.pagefind-ui__search-clear');
+      if (c && !c.title) { c.title = (c.textContent || '').trim(); }
+    }
     new MutationObserver(function (ms) {
+      tip();
       for (var i = 0; i < ms.length; i++) {
         var t = ms[i].target;
         if (t.nodeType === 1 && t.closest && t.closest('mjx-container')) { continue; }
@@ -195,6 +208,77 @@ def wrap_toc_titles(s):
         return f'{m.group(1)}<span class="toctitle">{body}</span>{m.group(3)}'
 
     return pat.sub(repl, s)
+
+
+# ───────────────────────────── Навігація ─────────────────────────────
+
+HOME_LABEL = "Головна"
+SIDETOC_META = (
+    '<p class="sidetoc-meta"><a href="index.html">Про посібник</a>'
+    '<span aria-hidden="true">·</span><a href="ClassicalElectrodynamics.pdf">PDF</a></p>'
+)
+BOOK_TITLE = "Класична електродинаміка"
+
+
+def add_home_sidebar(s, donor):
+    """Головна сторінка lwarp (homepagegrid) не має бічної панелі, а отже й пошуку.
+    Копіюємо шапку + бічну панель з уже обробленої сторінки розділу (donor): зміст, пошук, тема,
+    шухляда на телефоні — усе однакове на всіх сторінках книги. Безпечно для повторного запуску."""
+    if not donor or 'class="homepagegrid' not in s or 'class="sidetoccontainer"' in s:
+        return s
+    m = re.search(
+        r'<nav class="topnavigation">.*?</nav>\s*<div class="sidetoccontainer"[^>]*>.*?</nav>\s*</div>',
+        donor, re.DOTALL)
+    if not m:
+        return s
+    s = s.replace('<div class="homepagegrid">', '<div class="homepagegrid pagegrid">\n' + m.group(0) + '\n', 1)
+    return s
+
+
+def localize_nav(s):
+    """Англійські написи lwarp -> українські; шапка панелі веде на головну, а «Contents» стає посиланнями
+    на інформаційну сторінку книги та PDF."""
+    s = re.sub(r'(class="linkhome"\s*>\s*)Home(\s*</a>)', r'\g<1>' + HOME_LABEL + r'\g<2>', s)
+    if 'sidetoc-meta' not in s:
+        s = re.sub(
+            r'(<div class="sidetoctitle">(?:(?!</div>).)*?)<p>\s*Contents\s*</p>',
+            lambda m: m.group(1) + SIDETOC_META, s, count=1, flags=re.DOTALL)
+    if 'class="sidetoc-home"' not in s:
+        home = re.search(r'<a href="([^"]*)"\s+class="linkhome"', s)
+        if home:
+            s = re.sub(
+                r'(<span class="sidetocthetitle">.*?</span>)',
+                lambda m: f'<a href="{home.group(1)}" class="sidetoc-home">{m.group(1)}</a>',
+                s, count=1, flags=re.DOTALL)
+    return s
+
+
+def set_chapter_title(s):
+    """lwarp дає першому розділу <title> «Класична електродинаміка — Класична електродинаміка» (береться
+    назва частини), а решті — без номера. Робимо «N. Назва розділу — Класична електродинаміка»."""
+    m = re.search(
+        r'<h3[^>]*>\s*Розділ(?:&nbsp;|\s)+(?:<span[^>]*>)?\s*(\d+)(?:&#x2003;)?\s*(?:</span>)?(.*?)</h3>',
+        s, re.DOTALL)
+    if not m:
+        return s
+    name = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', m.group(2))).strip()
+    if not name or '\\(' in name:      # формула в назві розділу в <title> не відрендериться
+        return s
+    new = f'<title>{m.group(1)}. {name} — {BOOK_TITLE}</title>'
+    return re.sub(r'<title>.*?</title>', lambda _: new, s, count=1, flags=re.DOTALL)
+
+
+def add_head_extras(s):
+    """favicon (EM.ico лежить у корені проєкту) і book.js. Скрипт у <head> без defer: клас теми ставиться
+    до першого малювання сторінки (немає «миготіння»), а решту book.js робить на DOMContentLoaded."""
+    extra = ''
+    if 'rel="icon"' not in s:
+        extra += '<link rel="icon" href="EM.ico">\n'
+    if 'book.js' not in s:
+        extra += '<script src="book.js"></script>\n'
+    if extra:
+        s = s.replace('</head>', extra + '</head>', 1)
+    return s
 
 
 # ───────────────────────────── Пошук ─────────────────────────────
@@ -330,9 +414,10 @@ def add_unicode_support(s):
 
 # ───────────────────────────── Запуск ─────────────────────────────
 
-def process(content, filename):
-    s = add_unicode_support(content)
-    s = add_search_assets(s)            # <--- ВИПРАВЛЕНО (було content)
+def process(content, filename, donor=None):
+    s = add_head_extras(content)        # першим: решта вставок у <head> лягає після нього — порядок стабільний
+    s = add_unicode_support(s)
+    s = add_search_assets(s)
     s = add_search_box(s)
     s = refresh_search_config(s)
     s = add_search_math(s)
@@ -342,20 +427,52 @@ def process(content, filename):
     s = localize_index(s)
     s = wrap_toc_titles(s)
     s = mark_for_indexing(s, filename)
+    s = add_home_sidebar(s, donor)      # після mark_for_indexing: сторінка вже в <div data-pagefind-ignore>
+    s = localize_nav(s)
+    s = set_chapter_title(s)
     return s
 
 
+def is_book_page(text, filename):
+    """Лише сторінки lwarp. index.html (інформаційна) та *_html.html (проміжний повний файл) пропускаємо."""
+    if filename.endswith("_html.html"):
+        return False
+    return 'content="LaTeX Lwarp package"' in text[:3000]
+
+
+def natural_key(name):
+    return [int(t) if t.isdigit() else t for t in re.split(r'(\d+)', name)]
+
+
 def main():
-    count = 0
-    for filepath in glob.glob("*.html"):
+    pages = {}
+    for filepath in sorted(glob.glob("*.html"), key=natural_key):
         with open(filepath, "r", encoding="utf-8") as f:
-            content = f.read()
-        new_content = process(content, os.path.basename(filepath))
-        if new_content != content:
-            with open(filepath, "w", encoding="utf-8") as f:
-                f.write(new_content)
+            text = f.read()
+        if is_book_page(text, filepath):
+            pages[filepath] = text
+        else:
+            print(f"  пропущено (не сторінка lwarp): {filepath}")
+
+    home = [fp for fp, t in pages.items() if 'class="homepagegrid' in t]
+    count = 0
+
+    def save(fp, new):
+        nonlocal count
+        if new != pages[fp]:
+            with open(fp, "w", encoding="utf-8") as f:
+                f.write(new)
             count += 1
-    print(f"Оновлено {count} HTML-файлів (пошук, індексація, додатки, покажчик).")
+        pages[fp] = new
+
+    # 1) усі сторінки, крім головної; 2) головна — після них, бо бере готову бічну панель з першого розділу
+    for fp in list(pages):
+        if fp not in home:
+            save(fp, process(pages[fp], fp))
+    donor = next((pages[fp] for fp in pages if re.match(r'ch\d+\.html$', fp)), None)
+    for fp in home:
+        save(fp, process(pages[fp], fp, donor))
+    print(f"Оновлено {count} HTML-файлів (пошук, навігація, індексація, додатки, покажчик).")
 
 
 if __name__ == "__main__":
