@@ -53,10 +53,12 @@
 
 %------------------- Додатки ---------------------
 \appendix
-\input{Additions/SGStoSI}
-\input{Additions/Vanaliz}
-\input{Additions/GeneralizedFunctions}
-\input{Additions/SpecialFunctions}
+% prepare_html.py puts HTML-friendly copies (tblr -> tabularx) into _html/Additions/; use them when they exist
+\newcommand{\inputhtml}[1]{\IfFileExists{_html/#1.tex}{\input{_html/#1}}{\input{#1}}}
+\inputhtml{Additions/SGStoSI}
+\inputhtml{Additions/Vanaliz}
+\inputhtml{Additions/GeneralizedFunctions}
+\inputhtml{Additions/SpecialFunctions}
 
 %------------------- Бібліографія ----------------
 \printbibliography[heading=bibintoc]

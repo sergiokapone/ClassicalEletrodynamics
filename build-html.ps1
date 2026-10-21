@@ -92,7 +92,7 @@ function Step([string]$label, [scriptblock]$cmd, [string]$log = '', [bool]$sieve
     }
     if (-not $Full) { Write-Host ("ok ({0})" -f $time) -ForegroundColor Green }
     if (-not $Full -and -not $log) {
-        $w = @($out | Where-Object { $_ -match '(?i)warn|error|fail|not found' } | Select-Object -First 8)
+        $w = @($out | Where-Object { $_ -match '(?i)warn|error|fail|not found|not converted|tblr' } | Select-Object -First 8)
         foreach ($l in $w) { Write-Host "      $l" -ForegroundColor Yellow }
     }
     if ($log -and $sieveOnOk) { Show-Sieve $log }
@@ -187,20 +187,25 @@ Step "biber $main" { biber $main }
 
 # --- 3. HTML ---------------------------------------------------------------------
 Stage 3 'HTML build (lwarpmk, several passes - this is the long step)'
-# lwarpmk does not notice changes of the class or of included files: force the rebuild.
-# 1. Перший прогін: LuaLaTeX збирає елементи індексу в ${main}_html.idx
+# lwarpmk does not notice changes of the class or of included files, and skips the build when it thinks the HTML is up to date, so 'lwarpmk again' forces every pass.
+# 1. First pass: LuaLaTeX collects the index entries into ${main}_html.idx
+Step 'lwarpmk again (force Pass 1)' { lwarpmk again -p $main }
 Step 'lwarpmk html (Pass 1)' { lwarpmk html -p $main }
-
-# 2. upmendex обробляє _html.idx зі стилем lwarp.ist і створює _html.ind
-Step 'Build Index (upmendex)' { 
-    upmendex -s lwarp.ist -o "${main}_html.ind" "${main}_html.idx" 
+if (-not (Test-Path "${main}_html.idx")) {
+    throw "Pass 1 did not create ${main}_html.idx - lwarpmk built nothing. Run .\build-html.ps1 -Full and look at the lwarpmk output."
 }
 
-# 3. Другий прогін: lwarp зчитує ${main}_html.ind і верстає покажчик на HTML-сторінці
+# 2. upmendex processes _html.idx with lwarp.ist and produces _html.ind
+Step 'Build Index (upmendex)' {
+    upmendex -s lwarp.ist -o "${main}_html.ind" "${main}_html.idx"
+}
+
+# 3. Second pass: lwarp reads ${main}_html.ind and typesets the index on the HTML page
+Step 'lwarpmk again (force Pass 2)' { lwarpmk again -p $main }
 Step 'lwarpmk html (Pass 2)' { lwarpmk html -p $main }
 
-# 4. Пост-обробка скриптами Python
-Step 'Fix Sidetoc & MathJax' { & $py fix_sidetoc.py }
+# 4. Post-processing by Python scripts
+Step 'Post-process HTML (search, indexing, appendices)' { & $py postprocess_html.py }
 Step 'Sync TOC to index.html' { & $py sync_toc.py }
 
 # --- 4. checks ---------------------------------------------------------------------
@@ -294,7 +299,6 @@ Step 'Generate Search Index (Pagefind)' {
     npx -y pagefind --site . --glob '{ch,app}*.html'
 }
 
-Write-Host $SEP
-Write-Host
+Write-Host ""
 Read-Host "Press Enter to continue"
 

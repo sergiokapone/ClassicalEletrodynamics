@@ -26,7 +26,7 @@ MathJax = {
    subequations: "0",
    section: "",
    loader: {
-     load: ['[tex]/tagformat', '[tex]/textmacros'],
+     load: ['[tex]/tagformat', '[tex]/textmacros', '[tex]/boldsymbol', '[tex]/unicode'],
    },
    startup: {
      ready() {
@@ -195,7 +195,7 @@ MathJax = {
   },      // startup
 
   tex: {
-    packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+    packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros', 'boldsymbol', 'unicode']},
     tags: "ams",
          tagformat: {
              number: function (n) {
@@ -216,6 +216,47 @@ MathJax = {
 
 <link href="pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="pagefind/pagefind-ui.js"></script>
+<script id="search-math">
+(function () {
+  /* Обрізаний уривок міг розірвати формулу: прибираємо «висячі» \\( та \\) */
+  window.pfTexFix = function (html) {
+    if (!html) { return html; }
+    var o = html.indexOf('\\('), c = html.indexOf('\\)');
+    if (c >= 0 && (o < 0 || c < o)) { html = '\u2026' + html.slice(c + 2); }
+    o = html.lastIndexOf('\\('); c = html.lastIndexOf('\\)');
+    if (o > c) { html = html.slice(0, o) + '\u2026'; }
+    var b = html.lastIndexOf('\\begin{'), e = html.lastIndexOf('\\end{');
+    if (b > e) { html = html.slice(0, b) + '\u2026'; }
+    var e0 = html.indexOf('\\end{'), b0 = html.indexOf('\\begin{');
+    if (e0 >= 0 && (b0 < 0 || e0 < b0)) { html = '\u2026' + html.slice(html.indexOf('}', e0) + 1); }
+    return html;
+  };
+  function start() {
+    var box = document.getElementById('search');
+    if (!box || !window.MutationObserver) { return; }
+    var timer = null, running = false, again = false;
+    function schedule() { if (timer) { clearTimeout(timer); } timer = setTimeout(run, 120); }
+    function run() {
+      timer = null;
+      if (running) { again = true; return; }
+      if (!window.MathJax || !MathJax.typesetPromise) { timer = setTimeout(run, 400); return; }
+      running = true;
+      var p;
+      try { if (MathJax.typesetClear) { MathJax.typesetClear([box]); } p = MathJax.typesetPromise([box]); }
+      catch (e) { running = false; return; }
+      p.catch(function () {}).then(function () { running = false; if (again) { again = false; schedule(); } });
+    }
+    new MutationObserver(function (ms) {
+      for (var i = 0; i < ms.length; i++) {
+        var t = ms[i].target;
+        if (t.nodeType === 1 && t.closest && t.closest('mjx-container')) { continue; }
+        schedule(); return;
+      }
+    }).observe(box, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', start); } else { start(); }
+})();
+</script>
 </head>
 <body>
 <div data-pagefind-ignore>
@@ -1488,34 +1529,34 @@ MathJax = {
 
 
 <p>
-<a href="ch10.html#autosec-255" class="tocsection" >
+<a href="ch10.html#autosec-254" class="tocsection" >
 <span class="sectionnumber">Б</span>&#x2003;Основні формули векторного аналізу</a>
 </p>
 
 
 
 <p>
-<a href="ch10.html#autosec-271" class="tocsection" >
+<a href="ch10.html#autosec-270" class="tocsection" >
 <span class="sectionnumber">В</span>&#x2003;Узагальнені функції</a>
 </p>
 
 
 
 <p>
-<a href="ch10.html#autosec-272" class="tocsection" >
+<a href="ch10.html#autosec-271" class="tocsection" >
 <span class="sectionnumber">Г</span>&#x2003;Фундаментальні розв’язки</a>
 </p>
 
 
 
 <p>
-<a href="ch10.html#autosec-273" class="tocsection" >
+<a href="ch10.html#autosec-272" class="tocsection" >
 <span class="sectionnumber">Д</span>&#x2003;Спеціальні функції</a>
 </p>
 
 
 <p>
-<a href="ch10.html#autosec-283" class="tocchapter" >
+<a href="ch10.html#autosec-282" class="tocchapter" >
 Предметний покажчик</a>
 </p>
 </nav>

@@ -205,7 +205,9 @@ b,strong{font-weight:650}
 sup,sub{font-size:.72em;line-height:0}
 
 /* Нові терміни: lwarp дає inline color:#990000 */
-.textcolor{color:var(--term)!important}
+/* Лише «малиновий» (#990000, \emphx) переводимо на колір теми; інші \textcolor (наприклад, білий
+   текст у заголовках таблиць) лишаються зі своїм inline-кольором. */
+.textcolor[style*="990000" i]{color:var(--term)!important}
 em .textcolor{font-weight:500}
 .textup{font-style:normal;white-space:nowrap}
 
@@ -512,6 +514,17 @@ nav.toc a:hover{color:var(--indigo)}
 #search .pagefind-ui__result-nested { padding-left: .9rem; margin-top: .45rem; }
 #search .pagefind-ui__result-nested .pagefind-ui__result-link { font-size: .85rem; }
 #search .pagefind-ui__button { margin-top: 1rem; }
+
+/* 8. Формули MathJax у результатах: reset Pagefind (all: unset) ламає службовий текст MathJax */
+#search mjx-assistive-mml {
+  position: absolute !important; top: 0; left: 0;
+  clip: rect(1px, 1px, 1px, 1px) !important; clip-path: inset(50%) !important;
+  width: 1px !important; height: 1px !important; padding: 0 !important; border: 0 !important;
+  overflow: hidden !important; display: block !important; user-select: none;
+}
+#search mjx-container { max-width: 100%; }
+#search mjx-container[display="true"] { display: block; margin: .4rem 0; overflow-x: auto; overflow-y: hidden; }
+#search a mjx-container, #search a mjx-container * { color: inherit !important; }
 
 /* ── Мобільна адаптація пошуку ──────────────────────────────── */
 @media (max-width: 980px) {

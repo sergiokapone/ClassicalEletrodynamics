@@ -9,8 +9,8 @@ Write-Host "Починаємо повне очищення проектних ф
 
 # 1. Згенеровані папки
 $foldersToRemove = @(
-    # "$main-images",
-    # "_html",
+     "$main-images",
+     "_html",
     "lateximages"
 )
 
@@ -26,8 +26,7 @@ $patterns = @(
     # Конфіги та скрипти Lwarp
     "lwarpmk.conf",
     "*.lwarpmkconf",
-    "lwarp.ist",
-    "lwarp.xdy",
+    "lwarp*",
     "lwarp_one_limage.cmd",
 
     # Згенеровані TeX, Cut та Text файли
@@ -58,6 +57,11 @@ $patterns = @(
     "main.log",
     "build-error.txt",
     "sample_project.css"
+    
+    # Індекс
+    "$main*.ind",
+    "$main*.ilg",
+    "$main*.idx"
 
     # Згенеровані HTML-сторінки
     #"$main*.html",

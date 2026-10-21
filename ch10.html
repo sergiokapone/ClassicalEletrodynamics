@@ -27,7 +27,7 @@ MathJax = {
    subequations: "0",
    section: "",
    loader: {
-     load: ['[tex]/tagformat', '[tex]/textmacros'],
+     load: ['[tex]/tagformat', '[tex]/textmacros', '[tex]/boldsymbol', '[tex]/unicode'],
    },
    startup: {
      ready() {
@@ -196,7 +196,7 @@ MathJax = {
   },      // startup
 
   tex: {
-    packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros']},
+    packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros', 'boldsymbol', 'unicode']},
     tags: "ams",
          tagformat: {
              number: function (n) {
@@ -217,6 +217,47 @@ MathJax = {
 
 <link href="pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="pagefind/pagefind-ui.js"></script>
+<script id="search-math">
+(function () {
+  /* Обрізаний уривок міг розірвати формулу: прибираємо «висячі» \\( та \\) */
+  window.pfTexFix = function (html) {
+    if (!html) { return html; }
+    var o = html.indexOf('\\('), c = html.indexOf('\\)');
+    if (c >= 0 && (o < 0 || c < o)) { html = '\u2026' + html.slice(c + 2); }
+    o = html.lastIndexOf('\\('); c = html.lastIndexOf('\\)');
+    if (o > c) { html = html.slice(0, o) + '\u2026'; }
+    var b = html.lastIndexOf('\\begin{'), e = html.lastIndexOf('\\end{');
+    if (b > e) { html = html.slice(0, b) + '\u2026'; }
+    var e0 = html.indexOf('\\end{'), b0 = html.indexOf('\\begin{');
+    if (e0 >= 0 && (b0 < 0 || e0 < b0)) { html = '\u2026' + html.slice(html.indexOf('}', e0) + 1); }
+    return html;
+  };
+  function start() {
+    var box = document.getElementById('search');
+    if (!box || !window.MutationObserver) { return; }
+    var timer = null, running = false, again = false;
+    function schedule() { if (timer) { clearTimeout(timer); } timer = setTimeout(run, 120); }
+    function run() {
+      timer = null;
+      if (running) { again = true; return; }
+      if (!window.MathJax || !MathJax.typesetPromise) { timer = setTimeout(run, 400); return; }
+      running = true;
+      var p;
+      try { if (MathJax.typesetClear) { MathJax.typesetClear([box]); } p = MathJax.typesetPromise([box]); }
+      catch (e) { running = false; return; }
+      p.catch(function () {}).then(function () { running = false; if (again) { again = false; schedule(); } });
+    }
+    new MutationObserver(function (ms) {
+      for (var i = 0; i < ms.length; i++) {
+        var t = ms[i].target;
+        if (t.nodeType === 1 && t.closest && t.closest('mjx-container')) { continue; }
+        schedule(); return;
+      }
+    }).observe(box, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', start); } else { start(); }
+})();
+</script>
 </head>
 <body>
 <!--MathJax customizations:-->
@@ -1095,7 +1136,7 @@ Contents
 <div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>
 <script>
   window.addEventListener("DOMContentLoaded", (event) => {
-    new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false, processResult: function (r) { var n = function (x) { return (x || "").replace(/\s+/g, " ").trim(); }; var t = n(r.meta && r.meta.title); for (var i = 0, a = r.sub_results || []; i < a.length; i++) { if (n(a[i].title) === t) { a[i].title = "Початок розділу"; } } return r; } });
+    new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false, processResult: function (r) { var n = function (x) { return (x || "").replace(/\s+/g, " ").trim(); }; var f = window.pfTexFix || function (x) { return x; }; var t = n(r.meta && r.meta.title); r.excerpt = f(r.excerpt); for (var i = 0, a = r.sub_results || []; i < a.length; i++) { a[i].excerpt = f(a[i].excerpt); if (n(a[i].title) === t) { a[i].title = "Початок розділу"; } } return r; } });
   });
 </script>
 
@@ -1460,35 +1501,35 @@ Home</a>
 
 
 <p>
-<a href="ch10.html#autosec-255" class="tocsection" >
+<a href="ch10.html#autosec-254" class="tocsection" >
 <span class="sectionnumber">Б</span>&#x2003;Основні формули векторного аналізу</a>
 </p>
 
 
 
 <p>
-<a href="ch10.html#autosec-271" class="tocsection" >
+<a href="ch10.html#autosec-270" class="tocsection" >
 <span class="sectionnumber">В</span>&#x2003;Узагальнені функції</a>
 </p>
 
 
 
 <p>
-<a href="ch10.html#autosec-272" class="tocsection" >
+<a href="ch10.html#autosec-271" class="tocsection" >
 <span class="sectionnumber">Г</span>&#x2003;Фундаментальні розв’язки</a>
 </p>
 
 
 
 <p>
-<a href="ch10.html#autosec-273" class="tocsection" >
+<a href="ch10.html#autosec-272" class="tocsection" >
 <span class="sectionnumber">Д</span>&#x2003;Спеціальні функції</a>
 </p>
 
 
 
 <p>
-<a href="ch10.html#autosec-283" class="tocchapter" >
+<a href="ch10.html#autosec-282" class="tocchapter" >
 Предметний покажчик</a>
 </p>
 
@@ -2078,7 +2119,7 @@ id="ClassicalElectrodynamics-html-autopage-241"></a>:
 
 \begin{equation}
 \label {eq:LL_force} f^{\mu }_\text {ЛЛ} = \frac {2q^3}{3mc^2} \left [ \partial _{\alpha }F^{\mu \nu }\,u^{\alpha }u_{\nu } + \frac {q}{mc^2}F^{\mu \alpha }F_{\alpha \nu }u^{\nu } + \frac {q}{mc^2} \bigl
-(F_{\alpha \nu }u^{\nu }\bigr )\!\bigl (F^{\alpha \beta }u_{\beta }\bigr ) u^{\mu }\textsc {} \right ].
+(F_{\alpha \nu }u^{\nu }\bigr )\!\bigl (F^{\alpha \beta }u_{\beta }\bigr ) u^{\mu } \right ].
 \end{equation}
 
 </p>
@@ -2255,48 +2296,182 @@ href="ch10.html#eq:Larmor">10.1</a>)</span> та законом збережен
 </div>
 
 <a id="tab:CGStoSI"></a>
+<table>
+
+<tr style="display:none"><th>.</th></tr>
+
+<tr class="hline">
+<td colspan="1" class="tdc tvertbarl tvertbarr" style="background:#143B61; border-left: 1px solid black; border-right: 1px solid black"><span
+   class="textcolor"
+   style="color:#FFFFFF"
+><b>Величина</b></span></td>
+<td class="tdp tvertbarr tdcenter" style="background:#143B61; border-right: 1px solid black">
 
 <p>
 <span
-    id="lateximage-ClassicalElectrodynamics-html-19"
-    class="lateximagesource"
-><!--
-           Величина              Система СГС   Система SI
-
-Швидкість світла                      𝑐        (𝜀0 𝜇0 )−1/2
-                                                 1
-Напруженість електричного поля      𝐄СГС               𝐄СГС
-                                               √4𝜋𝜀0
-                                                 1
-Електричний потенціал               𝜑СГС               𝜑СГС
-                                               √4𝜋𝜀0
-                                                 1
-Магнітна індукція                   𝐁СГС               𝐁СГС
-                                               √4𝜋𝜇0
-                                                 1
-Вектор-потенціал                    𝐀СГС               𝐀СГС
-                                               √4𝜋𝜇0
-
-Густина заряду                      𝜌СГС       √4𝜋𝜀0 𝜌СГС
-
-Заряд                               𝑞СГС       √4𝜋𝜀0 𝑞СГС
-
-Густина струму                      𝐣СГС       √4𝜋𝜀0 𝐣СГС
---><img
-   src="ClassicalElectrodynamics-html-images\image-19.svg"
-   alt="(table)"
-   style=""
-   class="lateximage"
-></span>
+    class="textcolor"
+    style="color:#FFFFFF"
+><b>Система СГС</b></span>
 </p>
+</td>
+<td class="tdp tvertbarr tdcenter" style="background:#143B61; border-right: 1px solid black">
+
+<p>
+<span
+    class="textcolor"
+    style="color:#FFFFFF"
+><b>Система SI</b></span>
+</p>
+</td>
+</tr>
+
+<tr class="hline">
+<td class="tdl tvertbarl tvertbarr" style="border-left: 1px solid black; border-right: 1px solid black">Швидкість світла</td>
+<td class="tdp tvertbarr tdcenter" style="border-right: 1px solid black">
+
+<p>
+\(c\)
+</p>
+</td>
+<td class="tdp tvertbarr tdcenter" style="border-right: 1px solid black">
+
+<p>
+\((\varepsilon _0\mu _0)^{-1/2}\)
+</p>
+</td>
+</tr>
+
+<tr class="hline">
+<td class="tdl tvertbarl tvertbarr" style="background:#DEDEDE; border-left: 1px solid black; border-right: 1px solid black">Напруженість електричного поля</td>
+<td class="tdp tvertbarr tdcenter" style="background:#DEDEDE; border-right: 1px solid black">
+
+<p>
+\(\Efield _{\text {СГС}}\)
+</p>
+</td>
+<td class="tdp tvertbarr tdcenter" style="background:#DEDEDE; border-right: 1px solid black">
+
+<p>
+\(\frac {1}{\sqrt {4\pi \varepsilon _0}}\,\Efield _{\text {СГС}}\)
+</p>
+</td>
+</tr>
+
+<tr class="hline">
+<td class="tdl tvertbarl tvertbarr" style="border-left: 1px solid black; border-right: 1px solid black">Електричний потенціал</td>
+<td class="tdp tvertbarr tdcenter" style="border-right: 1px solid black">
+
+<p>
+\(\phi _{\text {СГС}}\)
+</p>
+</td>
+<td class="tdp tvertbarr tdcenter" style="border-right: 1px solid black">
+
+<p>
+\(\frac {1}{\sqrt {4\pi \varepsilon _0}}\,\phi _{\text {СГС}}\)
+</p>
+</td>
+</tr>
+
+<tr class="hline">
+<td class="tdl tvertbarl tvertbarr" style="background:#DEDEDE; border-left: 1px solid black; border-right: 1px solid black">Магнітна індукція</td>
+<td class="tdp tvertbarr tdcenter" style="background:#DEDEDE; border-right: 1px solid black">
+
+<p>
+\(\Bfield _{\text {СГС}}\)
+</p>
+</td>
+<td class="tdp tvertbarr tdcenter" style="background:#DEDEDE; border-right: 1px solid black">
+
+<p>
+\(\frac {1}{\sqrt {4\pi \mu _0}}\,\Bfield _{\text {СГС}}\)
+</p>
+</td>
+</tr>
+
+<tr class="hline">
+<td class="tdl tvertbarl tvertbarr" style="border-left: 1px solid black; border-right: 1px solid black">Вектор-потенціал</td>
+<td class="tdp tvertbarr tdcenter" style="border-right: 1px solid black">
+
+<p>
+\(\vect {A}_{\text {СГС}}\)
+</p>
+</td>
+<td class="tdp tvertbarr tdcenter" style="border-right: 1px solid black">
+
+<p>
+\(\frac {1}{\sqrt {4\pi \mu _0}}\,\vect {A}_{\text {СГС}}\)
+</p>
+</td>
+</tr>
+
+<tr class="hline">
+<td class="tdl tvertbarl tvertbarr" style="background:#DEDEDE; border-left: 1px solid black; border-right: 1px solid black">Густина заряду</td>
+<td class="tdp tvertbarr tdcenter" style="background:#DEDEDE; border-right: 1px solid black">
+
+<p>
+\(\rho _{\text {СГС}}\)
+</p>
+</td>
+<td class="tdp tvertbarr tdcenter" style="background:#DEDEDE; border-right: 1px solid black">
+
+<p>
+\(\sqrt {4\pi \varepsilon _0}\,\rho _{\text {СГС}}\)
+</p>
+</td>
+</tr>
+
+<tr class="hline">
+<td class="tdl tvertbarl tvertbarr" style="border-left: 1px solid black; border-right: 1px solid black">Заряд</td>
+<td class="tdp tvertbarr tdcenter" style="border-right: 1px solid black">
+
+<p>
+\(q_{\text {СГС}}\)
+</p>
+</td>
+<td class="tdp tvertbarr tdcenter" style="border-right: 1px solid black">
+
+<p>
+\(\sqrt {4\pi \varepsilon _0}\,q_{\text {СГС}}\)
+</p>
+</td>
+</tr>
+
+<tr class="hline">
+<td class="tdl tvertbarl tvertbarr" style="background:#DEDEDE; border-left: 1px solid black; border-right: 1px solid black">Густина струму</td>
+<td class="tdp tvertbarr tdcenter" style="background:#DEDEDE; border-right: 1px solid black">
+
+<p>
+\(\vect {j}_{\text {СГС}}\)
+</p>
+</td>
+<td class="tdp tvertbarr tdcenter" style="background:#DEDEDE; border-right: 1px solid black">
+
+<p>
+\(\sqrt {4\pi \varepsilon _0}\,\vect {j}_{\text {СГС}}\)
+</p>
+</td>
+</tr>
+
+<tr class="hline" aria-hidden="true">
+<td class="tdl"></td>
+<td class="tdp tdcenter">
+
+</td>
+<td class="tdp tdcenter">
+
+</td>
+</tr>
+</table>
+
 </div>
 
 </figure>
 <!--
 ...... subsection Приклад: переписування рівнянь Максвела з гаусової системи (СГС) в SI ......
 -->
-<h5 id="autosec-253">Приклад: переписування рівнянь Максвела з гаусової системи (СГС) в SI</h5>
-<a id="ClassicalElectrodynamics-html-autopage-253"></a>
+<h5 id="autosec-252">Приклад: переписування рівнянь Максвела з гаусової системи (СГС) в SI</h5>
+<a id="ClassicalElectrodynamics-html-autopage-252"></a>
 
 
 <p>
@@ -2661,7 +2836,7 @@ _0}}\,\frac {\partial \Efield }{\partial t} = \vect {j} + \varepsilon _0\,\frac 
 </p>
 <div role="note" class="footnotes">
 
-<a id="ClassicalElectrodynamics-html-autopage-254"></a>
+<a id="ClassicalElectrodynamics-html-autopage-253"></a>
 <p>
 <sup>3</sup>&nbsp;У такому записі рівняння Максвелла в SI набувають формально однакового вигляду як для вакууму, так і для середовищ, хоча у випадку середовищ \(\rho \) та \(\vect {j}\) позначають лише вільні заряди та струми, а поля
 \(\Dfield \) та \(\Hfield \) включають внесок зв’язаних зарядів і струмів намагніченості.
@@ -2672,21 +2847,21 @@ _0}}\,\frac {\partial \Efield }{\partial t} = \vect {j} + \varepsilon _0\,\frac 
 <!--
 ...... section Основні формули векторного аналізу ......
 -->
-<h4 id="autosec-255"><span class="sectionnumber">Б&#x2003;</span>Основні формули векторного аналізу</h4>
-<a id="ClassicalElectrodynamics-html-autopage-255"></a>
+<h4 id="autosec-254"><span class="sectionnumber">Б&#x2003;</span>Основні формули векторного аналізу</h4>
+<a id="ClassicalElectrodynamics-html-autopage-254"></a>
 
 
 <a id="Vanaliz"></a>
 <!--
 ...... subsection Диференціальні операції в різних системах координат ......
 -->
-<h5 id="autosec-256"><span class="sectionnumber">Б.1&#x2003;</span>Диференціальні операції в різних системах координат</h5>
-<a id="ClassicalElectrodynamics-html-autopage-256"></a>
+<h5 id="autosec-255"><span class="sectionnumber">Б.1&#x2003;</span>Диференціальні операції в різних системах координат</h5>
+<a id="ClassicalElectrodynamics-html-autopage-255"></a>
 <!--
 ...... subsubsection Декартова система координат ......
 -->
-<h6 id="autosec-257">Декартова система координат</h6>
-<a id="ClassicalElectrodynamics-html-autopage-257"></a>
+<h6 id="autosec-256">Декартова система координат</h6>
+<a id="ClassicalElectrodynamics-html-autopage-256"></a>
 
 
 <span class="hidden"> \(\seteqnumber{0}{}{17}\)</span>
@@ -2728,8 +2903,8 @@ _0}}\,\frac {\partial \Efield }{\partial t} = \vect {j} + \varepsilon _0\,\frac 
 <!--
 ...... subsubsection Циліндрична система координат ......
 -->
-<h6 id="autosec-258">Циліндрична система координат</h6>
-<a id="ClassicalElectrodynamics-html-autopage-258"></a>
+<h6 id="autosec-257">Циліндрична система координат</h6>
+<a id="ClassicalElectrodynamics-html-autopage-257"></a>
 
 
 <span class="hidden"> \(\seteqnumber{0}{}{21}\)</span>
@@ -2797,8 +2972,8 @@ _0}}\,\frac {\partial \Efield }{\partial t} = \vect {j} + \varepsilon _0\,\frac 
 <!--
 ...... subsubsection Сферична система координат ......
 -->
-<h6 id="autosec-259">Сферична система координат</h6>
-<a id="ClassicalElectrodynamics-html-autopage-259"></a>
+<h6 id="autosec-258">Сферична система координат</h6>
+<a id="ClassicalElectrodynamics-html-autopage-258"></a>
 
 
 <span class="hidden"> \(\seteqnumber{0}{}{28}\)</span>
@@ -2870,8 +3045,8 @@ A_{\phi }}{\partial \phi } \\ \rot \vect {A} &amp; = \frac {1}{r\sin \theta }\le
 <!--
 ...... subsection Другі похідні ......
 -->
-<h5 id="autosec-260"><span class="sectionnumber">Б.2&#x2003;</span>Другі похідні</h5>
-<a id="ClassicalElectrodynamics-html-autopage-260"></a>
+<h5 id="autosec-259"><span class="sectionnumber">Б.2&#x2003;</span>Другі похідні</h5>
+<a id="ClassicalElectrodynamics-html-autopage-259"></a>
 
 
 <span class="hidden"> \(\seteqnumber{0}{}{36}\)</span>
@@ -2901,8 +3076,8 @@ A_{\phi }}{\partial \phi } \\ \rot \vect {A} &amp; = \frac {1}{r\sin \theta }\le
 <!--
 ...... subsection Похідні від добутків ......
 -->
-<h5 id="autosec-261"><span class="sectionnumber">Б.3&#x2003;</span>Похідні від добутків</h5>
-<a id="ClassicalElectrodynamics-html-autopage-261"></a>
+<h5 id="autosec-260"><span class="sectionnumber">Б.3&#x2003;</span>Похідні від добутків</h5>
+<a id="ClassicalElectrodynamics-html-autopage-260"></a>
 
 
 <span class="hidden"> \(\seteqnumber{0}{}{39}\)</span>
@@ -2941,8 +3116,8 @@ A_{\phi }}{\partial \phi } \\ \rot \vect {A} &amp; = \frac {1}{r\sin \theta }\le
 <!--
 ...... subsection Індексна нотація формул векторного аналізу ......
 -->
-<h5 id="autosec-262"><span class="sectionnumber">Б.4&#x2003;</span>Індексна нотація формул векторного аналізу</h5>
-<a id="ClassicalElectrodynamics-html-autopage-262"></a>
+<h5 id="autosec-261"><span class="sectionnumber">Б.4&#x2003;</span>Індексна нотація формул векторного аналізу</h5>
+<a id="ClassicalElectrodynamics-html-autopage-261"></a>
 
 
 <p>
@@ -2952,8 +3127,8 @@ A_{\phi }}{\partial \phi } \\ \rot \vect {A} &amp; = \frac {1}{r\sin \theta }\le
 <!--
 ...... subsubsection Тривимірний символ Леві-Чівіти ......
 -->
-<h6 id="autosec-263">Тривимірний символ Леві-Чівіти</h6>
-<a id="ClassicalElectrodynamics-html-autopage-263"></a>
+<h6 id="autosec-262">Тривимірний символ Леві-Чівіти</h6>
+<a id="ClassicalElectrodynamics-html-autopage-262"></a>
 
 
 <a id="Levi-Chiv"></a>
@@ -3033,8 +3208,8 @@ A_{\phi }}{\partial \phi } \\ \rot \vect {A} &amp; = \frac {1}{r\sin \theta }\le
 <!--
 ...... subsubsection Диференціальні операції в декартових координатах ......
 -->
-<h6 id="autosec-264">Диференціальні операції в декартових координатах</h6>
-<a id="ClassicalElectrodynamics-html-autopage-264"></a>
+<h6 id="autosec-263">Диференціальні операції в декартових координатах</h6>
+<a id="ClassicalElectrodynamics-html-autopage-263"></a>
 
 
 <p>
@@ -3148,8 +3323,8 @@ A_{\phi }}{\partial \phi } \\ \rot \vect {A} &amp; = \frac {1}{r\sin \theta }\le
 <!--
 ...... subsubsection Добуток скалярної та векторної функцій ......
 -->
-<h6 id="autosec-265">Добуток скалярної та векторної функцій</h6>
-<a id="ClassicalElectrodynamics-html-autopage-265"></a>
+<h6 id="autosec-264">Добуток скалярної та векторної функцій</h6>
+<a id="ClassicalElectrodynamics-html-autopage-264"></a>
 
 
 <p>
@@ -3213,8 +3388,8 @@ A_{\phi }}{\partial \phi } \\ \rot \vect {A} &amp; = \frac {1}{r\sin \theta }\le
 <!--
 ...... subsubsection Дивергенція векторного добутку ......
 -->
-<h6 id="autosec-266">Дивергенція векторного добутку</h6>
-<a id="ClassicalElectrodynamics-html-autopage-266"></a>
+<h6 id="autosec-265">Дивергенція векторного добутку</h6>
+<a id="ClassicalElectrodynamics-html-autopage-265"></a>
 
 
 <p>
@@ -3247,8 +3422,8 @@ A_{\phi }}{\partial \phi } \\ \rot \vect {A} &amp; = \frac {1}{r\sin \theta }\le
 <!--
 ...... subsubsection Згортка символів ......
 -->
-<h6 id="autosec-267">Згортка символів \(\epsilon _{ijk}\)</h6>
-<a id="ClassicalElectrodynamics-html-autopage-267"></a>
+<h6 id="autosec-266">Згортка символів \(\epsilon _{ijk}\)</h6>
+<a id="ClassicalElectrodynamics-html-autopage-266"></a>
 
 
 <p>
@@ -3344,8 +3519,8 @@ _{iq} \delta _{jp} \delta _{kr} - \delta _{ir} \delta _{jq} \delta _{kp},
 <!--
 ...... subsubsection Подвійний векторний добуток ......
 -->
-<h6 id="autosec-268">Подвійний векторний добуток</h6>
-<a id="ClassicalElectrodynamics-html-autopage-268"></a>
+<h6 id="autosec-267">Подвійний векторний добуток</h6>
+<a id="ClassicalElectrodynamics-html-autopage-267"></a>
 
 
 <p>
@@ -3413,8 +3588,8 @@ _{iq} \delta _{jp} \delta _{kr} - \delta _{ir} \delta _{jq} \delta _{kp},
 <!--
 ...... subsubsection Подвійний ротор ......
 -->
-<h6 id="autosec-269">Подвійний ротор</h6>
-<a id="ClassicalElectrodynamics-html-autopage-269"></a>
+<h6 id="autosec-268">Подвійний ротор</h6>
+<a id="ClassicalElectrodynamics-html-autopage-268"></a>
 
 
 <p>
@@ -3482,8 +3657,8 @@ _{iq} \delta _{jp} \delta _{kr} - \delta _{ir} \delta _{jq} \delta _{kp},
 <!--
 ...... subsection Інтегральні характеристики та теореми ......
 -->
-<h5 id="autosec-270"><span class="sectionnumber">Б.5&#x2003;</span>Інтегральні характеристики та теореми</h5>
-<a id="ClassicalElectrodynamics-html-autopage-270"></a>
+<h5 id="autosec-269"><span class="sectionnumber">Б.5&#x2003;</span>Інтегральні характеристики та теореми</h5>
+<a id="ClassicalElectrodynamics-html-autopage-269"></a>
 
 
 <p>
@@ -3562,8 +3737,8 @@ _{iq} \delta _{jp} \delta _{kr} - \delta _{ir} \delta _{jq} \delta _{kp},
 <!--
 ...... section Узагальнені функції ......
 -->
-<h4 id="autosec-271"><span class="sectionnumber">В&#x2003;</span>Узагальнені функції</h4>
-<a id="ClassicalElectrodynamics-html-autopage-271"></a>
+<h4 id="autosec-270"><span class="sectionnumber">В&#x2003;</span>Узагальнені функції</h4>
+<a id="ClassicalElectrodynamics-html-autopage-270"></a>
 
 
 <a id="sec:GeneralizedFunctions"></a>
@@ -3672,8 +3847,8 @@ href="ch10.html#eq:dirac_definition">2</a>)</span> маємо справу зі 
 <!--
 ...... section Фундаментальні розв'язки ......
 -->
-<h4 id="autosec-272"><span class="sectionnumber">Г&#x2003;</span>Фундаментальні розв’язки</h4>
-<a id="ClassicalElectrodynamics-html-autopage-272"></a>
+<h4 id="autosec-271"><span class="sectionnumber">Г&#x2003;</span>Фундаментальні розв’язки</h4>
+<a id="ClassicalElectrodynamics-html-autopage-271"></a>
 
 
 <p>
@@ -3894,16 +4069,16 @@ k^2)\phi &amp;= -4\pi \rho \quad &amp;\Longrightarrow &amp; \quad \phi (\vect {r
 <!--
 ...... section Спеціальні функції ......
 -->
-<h4 id="autosec-273"><span class="sectionnumber">Д&#x2003;</span>Спеціальні функції</h4>
-<a id="ClassicalElectrodynamics-html-autopage-273"></a>
+<h4 id="autosec-272"><span class="sectionnumber">Д&#x2003;</span>Спеціальні функції</h4>
+<a id="ClassicalElectrodynamics-html-autopage-272"></a>
 
 
 <a id="sec:special_functions"></a>
 <!--
 ...... subsection Поліноми Лежандра ......
 -->
-<h5 id="autosec-274"><span class="sectionnumber">Д.1&#x2003;</span>Поліноми Лежандра</h5>
-<a id="ClassicalElectrodynamics-html-autopage-274"></a>
+<h5 id="autosec-273"><span class="sectionnumber">Д.1&#x2003;</span>Поліноми Лежандра</h5>
+<a id="ClassicalElectrodynamics-html-autopage-273"></a>
 
 
 <a id="Polinoms"></a>
@@ -3967,8 +4142,8 @@ P_{0}(\cos \chi ) = 1, &amp;\quad P_{1}(\cos \chi ) = \cos \chi , \\ P_{2}(\cos 
 <!--
 ...... subsection Сферичні гармоніки ......
 -->
-<h5 id="autosec-275"><span class="sectionnumber">Д.2&#x2003;</span>Сферичні гармоніки</h5>
-<a id="ClassicalElectrodynamics-html-autopage-275"></a>
+<h5 id="autosec-274"><span class="sectionnumber">Д.2&#x2003;</span>Сферичні гармоніки</h5>
+<a id="ClassicalElectrodynamics-html-autopage-274"></a>
 
 
 <a id="Spherical_Harmonics"></a>
@@ -4053,8 +4228,8 @@ e^{\pm i\phi }, \\ Y_{2,\pm 2}(\theta ,\phi ) &amp; =\sqrt {\frac {15}{32 \pi }}
 <!--
 ...... subsection Циліндричні функції ......
 -->
-<h5 id="autosec-276"><span class="sectionnumber">Д.3&#x2003;</span>Циліндричні функції</h5>
-<a id="ClassicalElectrodynamics-html-autopage-276"></a>
+<h5 id="autosec-275"><span class="sectionnumber">Д.3&#x2003;</span>Циліндричні функції</h5>
+<a id="ClassicalElectrodynamics-html-autopage-275"></a>
 
 
 <p>
@@ -4120,7 +4295,7 @@ e^{\pm i\phi }, \\ Y_{2,\pm 2}(\theta ,\phi ) &amp; =\sqrt {\frac {15}{32 \pi }}
 
 <p>
 <span
-    id="lateximage-ClassicalElectrodynamics-html-20"
+    id="lateximage-ClassicalElectrodynamics-html-19"
     class="lateximagesource"
 ><!--
   1
@@ -4140,7 +4315,7 @@ e^{\pm i\phi }, \\ Y_{2,\pm 2}(\theta ,\phi ) &amp; =\sqrt {\frac {15}{32 \pi }}
 
 −0.5
 --><img
-   src="ClassicalElectrodynamics-html-images\image-20.svg"
+   src="ClassicalElectrodynamics-html-images\image-19.svg"
    alt="(-tikz-&nbsp;diagram)"
    style=""
    class="lateximage"
@@ -4155,7 +4330,7 @@ e^{\pm i\phi }, \\ Y_{2,\pm 2}(\theta ,\phi ) &amp; =\sqrt {\frac {15}{32 \pi }}
 
 <p>
 <span
-    id="lateximage-ClassicalElectrodynamics-html-21"
+    id="lateximage-ClassicalElectrodynamics-html-20"
     class="lateximagesource"
 ><!--
  0.5
@@ -4176,7 +4351,7 @@ e^{\pm i\phi }, \\ Y_{2,\pm 2}(\theta ,\phi ) &amp; =\sqrt {\frac {15}{32 \pi }}
        𝑁1 (𝑥)
        𝑁2 (𝑥)
 --><img
-   src="ClassicalElectrodynamics-html-images\image-21.svg"
+   src="ClassicalElectrodynamics-html-images\image-20.svg"
    alt="(-tikz-&nbsp;diagram)"
    style=""
    class="lateximage"
@@ -4374,8 +4549,8 @@ J_m &amp;\approx \sqrt {\frac {2}{\pi x}} \cos \left ( x - m\frac {\pi }{2} - \f
 <!--
 ...... chapter Предметний покажчик ......
 -->
-<h3 id="autosec-283">Предметний покажчик</h3>
-<a id="ClassicalElectrodynamics-html-autopage-283"></a>
+<h3 id="autosec-282">Предметний покажчик</h3>
+<a id="ClassicalElectrodynamics-html-autopage-282"></a>
 
 
 <p>
@@ -4383,7 +4558,7 @@ J_m &amp;\approx \sqrt {\frac {2}{\pi x}} \cos \left ( x - m\frac {\pi }{2} - \f
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Бистрота (швидкісний параметр), section&nbsp;<a href="ch5.html#LWRindex-44">5.2</a>, section&nbsp;<a href="ch6.html#LWRindex-45">6.1</a>
+<span class="indexitem"><!----></span>Бистрота (швидкісний параметр), §&nbsp;<a href="ch5.html#LWRindex-44">5.2</a>, §&nbsp;<a href="ch6.html#LWRindex-45">6.1</a>
 </p>
 
 
@@ -4392,12 +4567,12 @@ J_m &amp;\approx \sqrt {\frac {2}{\pi x}} \cos \left ( x - m\frac {\pi }{2} - \f
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Гаусова система одиниць, <a href="ClassicalElectrodynamics-html.html#LWRindex-1">Вибір системи одиниць</a>, section&nbsp;<a href="ch1.html#LWRindex-5">1.1</a>, section&nbsp;<a
-href="ch7.html#LWRindex-50">7.1</a>, section&nbsp;<a href="ch8.html#LWRindex-67">8.2</a>
+<span class="indexitem"><!----></span>Гаусова система одиниць, <a href="ClassicalElectrodynamics-html.html#LWRindex-1">Вибір системи одиниць</a>, §&nbsp;<a href="ch1.html#LWRindex-5">1.1</a>, section&nbsp;<a
+href="ch7.html#LWRindex-50">7.1</a>, §&nbsp;<a href="ch8.html#LWRindex-67">8.2</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Група Лоренца, section&nbsp;<a href="ch7.html#LWRindex-58">7.6</a>, section&nbsp;<a href="ch8.html#LWRindex-66">8.2</a>
+<span class="indexitem"><!----></span>Група Лоренца, §&nbsp;<a href="ch7.html#LWRindex-58">7.6</a>, §&nbsp;<a href="ch8.html#LWRindex-66">8.2</a>
 </p>
 
 <p>
@@ -4405,19 +4580,19 @@ href="ch7.html#LWRindex-50">7.1</a>, section&nbsp;<a href="ch8.html#LWRindex-67"
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>енергії поля, section&nbsp;<a href="ch9.html#LWRindex-73">9.2</a>
+<span class="indexsubitem"><!----></span>енергії поля, §&nbsp;<a href="ch9.html#LWRindex-73">9.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>заряду, section&nbsp;<a href="ch1.html#LWRindex-13">1.1</a>, section&nbsp;<a href="ch1.html#LWRindex-14">1.1</a>, section&nbsp;<a href="ch1.html#LWRindex-19">1.1</a>
+<span class="indexsubitem"><!----></span>заряду, §&nbsp;<a href="ch1.html#LWRindex-13">1.1</a>, §&nbsp;<a href="ch1.html#LWRindex-14">1.1</a>, §&nbsp;<a href="ch1.html#LWRindex-19">1.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>струму, section&nbsp;<a href="ch1.html#LWRindex-15">1.1</a>, section&nbsp;<a href="ch1.html#LWRindex-16">1.1</a>
+<span class="indexsubitem"><!----></span>струму, §&nbsp;<a href="ch1.html#LWRindex-15">1.1</a>, §&nbsp;<a href="ch1.html#LWRindex-16">1.1</a>
 </p>
 
 <p>
-<span class="indexsubsubitem"><!----></span>лінійна, section&nbsp;<a href="ch1.html#LWRindex-20">1.1</a>
+<span class="indexsubsubitem"><!----></span>лінійна, §&nbsp;<a href="ch1.html#LWRindex-20">1.1</a>
 </p>
 
 
@@ -4430,24 +4605,24 @@ href="ch7.html#LWRindex-50">7.1</a>, section&nbsp;<a href="ch8.html#LWRindex-67"
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>енергії, section&nbsp;<a href="ch2.html#LWRindex-31">2.3</a>
+<span class="indexsubitem"><!----></span>енергії, §&nbsp;<a href="ch2.html#LWRindex-31">2.3</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>енергії-імпульсу, section&nbsp;<a href="ch9.html#LWRindex-72">9.2</a>
+<span class="indexsubitem"><!----></span>енергії-імпульсу, §&nbsp;<a href="ch9.html#LWRindex-72">9.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>заряду, section&nbsp;<a href="ch1.html#LWRindex-11">1.1</a>, section&nbsp;<a href="ch1.html#LWRindex-21">1.1</a> – section&nbsp;<a href="ch1.html#LWRindex-23">1.1</a>,
-section&nbsp;<a href="ch7.html#LWRindex-52">7.1</a>, section&nbsp;<a href="ch8.html#LWRindex-65">8.2</a>
+<span class="indexsubitem"><!----></span>заряду, §&nbsp;<a href="ch1.html#LWRindex-11">1.1</a>, §&nbsp;<a href="ch1.html#LWRindex-21">1.1</a> – §&nbsp;<a href="ch1.html#LWRindex-23">1.1</a>,
+§&nbsp;<a href="ch7.html#LWRindex-52">7.1</a>, §&nbsp;<a href="ch8.html#LWRindex-65">8.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>імпульсу, section&nbsp;<a href="ch1.html#LWRindex-24">1.3</a>, section&nbsp;<a href="ch1.html#LWRindex-25">1.3</a>
+<span class="indexsubitem"><!----></span>імпульсу, §&nbsp;<a href="ch1.html#LWRindex-24">1.3</a>, §&nbsp;<a href="ch1.html#LWRindex-25">1.3</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>моменту імпульсу, section&nbsp;<a href="ch1.html#LWRindex-26">1.3</a>, section&nbsp;<a href="ch1.html#LWRindex-27">1.3</a>, section&nbsp;<a href="ch9.html#LWRindex-75">9.3</a>
+<span class="indexsubitem"><!----></span>моменту імпульсу, §&nbsp;<a href="ch1.html#LWRindex-26">1.3</a>, §&nbsp;<a href="ch1.html#LWRindex-27">1.3</a>, §&nbsp;<a href="ch9.html#LWRindex-75">9.3</a>
 </p>
 
 <p>
@@ -4455,31 +4630,31 @@ section&nbsp;<a href="ch7.html#LWRindex-52">7.1</a>, section&nbsp;<a href="ch8.h
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>адитивність, section&nbsp;<a href="ch1.html#LWRindex-4">1.1</a>
+<span class="indexsubitem"><!----></span>адитивність, §&nbsp;<a href="ch1.html#LWRindex-4">1.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>електричний, section&nbsp;<a href="ch1.html#LWRindex-2">1.1</a>, section&nbsp;<a href="ch1.html#LWRindex-12">1.1</a>
+<span class="indexsubitem"><!----></span>електричний, §&nbsp;<a href="ch1.html#LWRindex-2">1.1</a>, §&nbsp;<a href="ch1.html#LWRindex-12">1.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>інваріантність, section&nbsp;<a href="ch1.html#LWRindex-10">1.1</a>
+<span class="indexsubitem"><!----></span>інваріантність, §&nbsp;<a href="ch1.html#LWRindex-10">1.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>квантування, section&nbsp;<a href="ch1.html#LWRindex-9">1.1</a>
+<span class="indexsubitem"><!----></span>квантування, §&nbsp;<a href="ch1.html#LWRindex-9">1.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>поверхневий, section&nbsp;<a href="ch1.html#LWRindex-18">1.1</a>
+<span class="indexsubitem"><!----></span>поверхневий, §&nbsp;<a href="ch1.html#LWRindex-18">1.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>пробний, section&nbsp;<a href="ch1.html#LWRindex-6">1.1</a>
+<span class="indexsubitem"><!----></span>пробний, §&nbsp;<a href="ch1.html#LWRindex-6">1.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>точковий, section&nbsp;<a href="ch1.html#LWRindex-3">1.1</a>
+<span class="indexsubitem"><!----></span>точковий, §&nbsp;<a href="ch1.html#LWRindex-3">1.1</a>
 </p>
 
 
@@ -4488,7 +4663,7 @@ section&nbsp;<a href="ch7.html#LWRindex-52">7.1</a>, section&nbsp;<a href="ch8.h
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Калібрувальне перетворення, section&nbsp;<a href="ch2.html#LWRindex-28">2.1</a>, section&nbsp;<a href="ch7.html#LWRindex-57">7.6</a>, section&nbsp;<a
+<span class="indexitem"><!----></span>Калібрувальне перетворення, §&nbsp;<a href="ch2.html#LWRindex-28">2.1</a>, §&nbsp;<a href="ch7.html#LWRindex-57">7.6</a>, section&nbsp;<a
 href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
@@ -4498,7 +4673,7 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Напруженість електричного поля, section&nbsp;<a href="ch1.html#LWRindex-8">1.1</a>, section&nbsp;<a href="ch7.html#LWRindex-47">7.1</a>
+<span class="indexitem"><!----></span>Напруженість електричного поля, §&nbsp;<a href="ch1.html#LWRindex-8">1.1</a>, §&nbsp;<a href="ch7.html#LWRindex-47">7.1</a>
 </p>
 
 
@@ -4507,7 +4682,7 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Параметри Стокса, footnote&nbsp;<a href="ch3.html#LWRindex-35">3</a>
+<span class="indexitem"><!----></span>Параметри Стокса, виноска&nbsp;<a href="ch3.html#LWRindex-35">3</a>
 </p>
 
 <p>
@@ -4515,7 +4690,7 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>поглинання, section&nbsp;<a href="ch4.html#LWRindex-41">4.3</a>
+<span class="indexsubitem"><!----></span>поглинання, §&nbsp;<a href="ch4.html#LWRindex-41">4.3</a>
 </p>
 
 <p>
@@ -4523,15 +4698,15 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexsubsubitem"><!----></span>диференціальний, section&nbsp;<a href="ch4.html#LWRindex-39">4.3</a>, section&nbsp;<a href="ch4.html#LWRindex-43">4.3</a>
+<span class="indexsubsubitem"><!----></span>диференціальний, §&nbsp;<a href="ch4.html#LWRindex-39">4.3</a>, §&nbsp;<a href="ch4.html#LWRindex-43">4.3</a>
 </p>
 
 <p>
-<span class="indexsubsubitem"><!----></span>повний, section&nbsp;<a href="ch4.html#LWRindex-40">4.3</a>, section&nbsp;<a href="ch4.html#LWRindex-42">4.3</a>
+<span class="indexsubsubitem"><!----></span>повний, §&nbsp;<a href="ch4.html#LWRindex-40">4.3</a>, §&nbsp;<a href="ch4.html#LWRindex-42">4.3</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Принцип найменшої дії, chapter&nbsp;<a href="ch8.html#LWRindex-59">8</a>
+<span class="indexitem"><!----></span>Принцип найменшої дії, розділ&nbsp;<a href="ch8.html#LWRindex-59">8</a>
 </p>
 
 
@@ -4540,11 +4715,11 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Рівняння Максвелла, section&nbsp;<a href="ch8.html#LWRindex-62">8.2</a>
+<span class="indexitem"><!----></span>Рівняння Максвелла, §&nbsp;<a href="ch8.html#LWRindex-62">8.2</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Рівняння неперервності, ??&nbsp;7.2
+<span class="indexitem"><!----></span>Рівняння неперервності, задача&nbsp;7.2
 </p>
 
 
@@ -4553,15 +4728,15 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Сила Лоренца, section&nbsp;<a href="ch1.html#LWRindex-7">1.1</a>, section&nbsp;<a href="ch7.html#LWRindex-54">7.3</a>, section&nbsp;<a href="ch9.html#LWRindex-70">9.1</a>
+<span class="indexitem"><!----></span>Сила Лоренца, §&nbsp;<a href="ch1.html#LWRindex-7">1.1</a>, §&nbsp;<a href="ch7.html#LWRindex-54">7.3</a>, §&nbsp;<a href="ch9.html#LWRindex-70">9.1</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Символ Леві-Чівіта, section&nbsp;<a href="ch7.html#LWRindex-51">7.1</a>
+<span class="indexitem"><!----></span>Символ Леві-Чівіта, §&nbsp;<a href="ch7.html#LWRindex-51">7.1</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Співвідношення невизначеностей, section&nbsp;<a href="ch3.html#LWRindex-38">3.3</a>
+<span class="indexitem"><!----></span>Співвідношення невизначеностей, §&nbsp;<a href="ch3.html#LWRindex-38">3.3</a>
 </p>
 
 <p>
@@ -4569,15 +4744,15 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>взаємної когерентності, footnote&nbsp;<a href="ch3.html#LWRindex-33">3</a>
+<span class="indexsubitem"><!----></span>взаємної когерентності, виноска&nbsp;<a href="ch3.html#LWRindex-33">3</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>поляризації, footnote&nbsp;<a href="ch3.html#LWRindex-34">3</a>
+<span class="indexsubitem"><!----></span>поляризації, виноска&nbsp;<a href="ch3.html#LWRindex-34">3</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Сфера Пуанкаре, footnote&nbsp;<a href="ch3.html#LWRindex-36">3</a>
+<span class="indexitem"><!----></span>Сфера Пуанкаре, виноска&nbsp;<a href="ch3.html#LWRindex-36">3</a>
 </p>
 
 
@@ -4590,19 +4765,19 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>електромагнітного поля, section&nbsp;<a href="ch7.html#LWRindex-48">7.1</a>, section&nbsp;<a href="ch8.html#LWRindex-61">8.1</a>
+<span class="indexsubitem"><!----></span>електромагнітного поля, §&nbsp;<a href="ch7.html#LWRindex-48">7.1</a>, §&nbsp;<a href="ch8.html#LWRindex-61">8.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>енергії-імпульсу, chapter&nbsp;<a href="ch9.html#LWRindex-68">9</a>, section&nbsp;<a href="ch9.html#LWRindex-71">9.2</a>
+<span class="indexsubitem"><!----></span>енергії-імпульсу, розділ&nbsp;<a href="ch9.html#LWRindex-68">9</a>, §&nbsp;<a href="ch9.html#LWRindex-71">9.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>коваріантний, section&nbsp;<a href="ch7.html#LWRindex-49">7.1</a>
+<span class="indexsubitem"><!----></span>коваріантний, §&nbsp;<a href="ch7.html#LWRindex-49">7.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>моменту імпульсу, section&nbsp;<a href="ch9.html#LWRindex-74">9.3</a>
+<span class="indexsubitem"><!----></span>моменту імпульсу, §&nbsp;<a href="ch9.html#LWRindex-74">9.3</a>
 </p>
 
 
@@ -4615,11 +4790,11 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>взаємної когерентності, footnote&nbsp;<a href="ch3.html#LWRindex-32">3</a>
+<span class="indexsubitem"><!----></span>взаємної когерентності, виноска&nbsp;<a href="ch3.html#LWRindex-32">3</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>розподілу, section&nbsp;<a href="ch1.html#LWRindex-17">1.1</a>
+<span class="indexsubitem"><!----></span>розподілу, §&nbsp;<a href="ch1.html#LWRindex-17">1.1</a>
 </p>
 
 
@@ -4628,11 +4803,11 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexitem"><!----></span>Хвильове рівняння, section&nbsp;<a href="ch2.html#LWRindex-29">2.1</a>
+<span class="indexitem"><!----></span>Хвильове рівняння, §&nbsp;<a href="ch2.html#LWRindex-29">2.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>одновимірне, section&nbsp;<a href="ch2.html#LWRindex-30">2.2</a>
+<span class="indexsubitem"><!----></span>одновимірне, §&nbsp;<a href="ch2.html#LWRindex-30">2.2</a>
 </p>
 
 <p>
@@ -4640,11 +4815,11 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>вектор, section&nbsp;<a href="ch7.html#LWRindex-55">7.4</a>
+<span class="indexsubitem"><!----></span>вектор, §&nbsp;<a href="ch7.html#LWRindex-55">7.4</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>пакет, section&nbsp;<a href="ch3.html#LWRindex-37">3.3</a>
+<span class="indexsubitem"><!----></span>пакет, §&nbsp;<a href="ch3.html#LWRindex-37">3.3</a>
 </p>
 
 
@@ -4657,15 +4832,15 @@ href="ch8.html#LWRindex-64">8.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>густини струму, section&nbsp;<a href="ch7.html#LWRindex-46">7.1</a>, section&nbsp;<a href="ch8.html#LWRindex-63">8.2</a>
+<span class="indexsubitem"><!----></span>густини струму, §&nbsp;<a href="ch7.html#LWRindex-46">7.1</a>, §&nbsp;<a href="ch8.html#LWRindex-63">8.2</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>імпульсу, section&nbsp;<a href="ch9.html#LWRindex-69">9.1</a>
+<span class="indexsubitem"><!----></span>імпульсу, §&nbsp;<a href="ch9.html#LWRindex-69">9.1</a>
 </p>
 
 <p>
-<span class="indexsubitem"><!----></span>потенціалу, section&nbsp;<a href="ch7.html#LWRindex-56">7.6</a>, section&nbsp;<a href="ch8.html#LWRindex-60">8.1</a>
+<span class="indexsubitem"><!----></span>потенціалу, §&nbsp;<a href="ch7.html#LWRindex-56">7.6</a>, §&nbsp;<a href="ch8.html#LWRindex-60">8.1</a>
 </p>
 
 <a id="ClassicalElectrodynamics-html-autofile-last"></a>

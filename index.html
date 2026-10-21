@@ -7,6 +7,47 @@
     <link rel="stylesheet" href="styles/styles.css">
 <link href="pagefind/pagefind-ui.css" rel="stylesheet">
 <script src="pagefind/pagefind-ui.js"></script>
+<script id="search-math">
+(function () {
+  /* Обрізаний уривок міг розірвати формулу: прибираємо «висячі» \\( та \\) */
+  window.pfTexFix = function (html) {
+    if (!html) { return html; }
+    var o = html.indexOf('\\('), c = html.indexOf('\\)');
+    if (c >= 0 && (o < 0 || c < o)) { html = '\u2026' + html.slice(c + 2); }
+    o = html.lastIndexOf('\\('); c = html.lastIndexOf('\\)');
+    if (o > c) { html = html.slice(0, o) + '\u2026'; }
+    var b = html.lastIndexOf('\\begin{'), e = html.lastIndexOf('\\end{');
+    if (b > e) { html = html.slice(0, b) + '\u2026'; }
+    var e0 = html.indexOf('\\end{'), b0 = html.indexOf('\\begin{');
+    if (e0 >= 0 && (b0 < 0 || e0 < b0)) { html = '\u2026' + html.slice(html.indexOf('}', e0) + 1); }
+    return html;
+  };
+  function start() {
+    var box = document.getElementById('search');
+    if (!box || !window.MutationObserver) { return; }
+    var timer = null, running = false, again = false;
+    function schedule() { if (timer) { clearTimeout(timer); } timer = setTimeout(run, 120); }
+    function run() {
+      timer = null;
+      if (running) { again = true; return; }
+      if (!window.MathJax || !MathJax.typesetPromise) { timer = setTimeout(run, 400); return; }
+      running = true;
+      var p;
+      try { if (MathJax.typesetClear) { MathJax.typesetClear([box]); } p = MathJax.typesetPromise([box]); }
+      catch (e) { running = false; return; }
+      p.catch(function () {}).then(function () { running = false; if (again) { again = false; schedule(); } });
+    }
+    new MutationObserver(function (ms) {
+      for (var i = 0; i < ms.length; i++) {
+        var t = ms[i].target;
+        if (t.nodeType === 1 && t.closest && t.closest('mjx-container')) { continue; }
+        schedule(); return;
+      }
+    }).observe(box, { childList: true, subtree: true });
+  }
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', start); } else { start(); }
+})();
+</script>
 </head>
 <body>
 <div data-pagefind-ignore>
@@ -190,14 +231,14 @@
                 <li><a href="ch10.html#autosec-238"><span class="sub-num">10.1</span> Нерелятивістська сила Абрагама–Лоренца</a></li>
                 <li><a href="ch10.html#autosec-240"><span class="sub-num">10.2</span> Релятивістське узагальнення</a></li>
                 <li><a href="ch10.html#autosec-249"><span class="sub-num">А</span> Таблиця переходу між гаусовою системою одиниць та SI</a></li>
-                <li><a href="ch10.html#autosec-255"><span class="sub-num">Б</span> Основні формули векторного аналізу</a></li>
-                <li><a href="ch10.html#autosec-271"><span class="sub-num">В</span> Узагальнені функції</a></li>
-                <li><a href="ch10.html#autosec-272"><span class="sub-num">Г</span> Фундаментальні розв’язки</a></li>
-                <li><a href="ch10.html#autosec-273"><span class="sub-num">Д</span> Спеціальні функції</a></li>
+                <li><a href="ch10.html#autosec-254"><span class="sub-num">Б</span> Основні формули векторного аналізу</a></li>
+                <li><a href="ch10.html#autosec-270"><span class="sub-num">В</span> Узагальнені функції</a></li>
+                <li><a href="ch10.html#autosec-271"><span class="sub-num">Г</span> Фундаментальні розв’язки</a></li>
+                <li><a href="ch10.html#autosec-272"><span class="sub-num">Д</span> Спеціальні функції</a></li>
             </ul>
         </li>
         <li>
-            <a href="ch10.html#autosec-283" class="toc-title">Предметний покажчик</a>
+            <a href="ch10.html#autosec-282" class="toc-title">Предметний покажчик</a>
         </li>
     </ul>
 </div>

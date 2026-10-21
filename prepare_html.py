@@ -169,6 +169,10 @@ def parse_selector(sel, n):
         tok = tok.strip()
         if tok == 'odd': out |= set(range(1, n + 1, 2))
         elif tok == 'even': out |= set(range(2, n + 1, 2))
+        elif re.fullmatch(r'(odd|even)\[(\d+)\]', tok):                      # odd[k]/even[k]: odd/even indices starting from k
+            m = re.fullmatch(r'(odd|even)\[(\d+)\]', tok)
+            par = 1 if m.group(1) == 'odd' else 0
+            out |= {i for i in range(int(m.group(2)), n + 1) if i % 2 == par}
         elif re.fullmatch(r'\d+', tok): out.add(int(tok))
         else:
             m = re.fullmatch(r'(\d*)\s*-\s*(\d*|Z)', tok)
@@ -217,6 +221,7 @@ def tblr_to_tabularx(opts, body):
             for cm in re.finditer(r'([XQ])\s*\[((?:[^\[\]{}]|\{[^{}]*\})*)\]|([lcrXQ])', cs):
                 if cm.group(3): cols.append({'kind': cm.group(3)}); continue
                 d = parse_keys(cm.group(2), allow_width=True); d['kind'] = cm.group(1); cols.append(d)
+        elif key in ('hline', 'vline'): pass                              # single rule styling (colour, width): dropped in HTML
         elif key == 'hlines': hl = True
         elif key == 'vlines': vl = True
         elif key == 'row' and len(sels) == 1: rowstyles.append((sels[0], parse_keys(val)))
