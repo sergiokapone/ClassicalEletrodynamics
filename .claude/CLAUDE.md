@@ -19,8 +19,8 @@ only when asked. Sister project with the same tooling: `d:\Projects\LaTeX\ElMag\
   `prepare_html.py` / the class, never into `docs/*.html` by hand (patching `docs/` directly is fine only as a preview).
 - The source of `book.js`, `conspect.css` (book) and `styles.css` (landing page `index.html`) is `docs/assets/`; there is
   no copy in the project root (a root copy, if newer, would replace it on publish). `book.js` and `conspect.css` come
-  from ElMagConspect; differences on purpose: the home page of the book has the side panel (`add_home_sidebar`), there
-  only «Головна» is highlighted; the drawer button says «Пошук і зміст»; part headings (`.tocpart`) in the side panel.
+  from ElMagConspect (both: the home page of the book has the side panel, `add_home_sidebar`, only «Головна» highlighted
+  there); differences on purpose: the drawer button says «Пошук і зміст»; part headings (`.tocpart`) in the side panel.
 - The search field is made by `book.js` (not written into the pages); it needs http: `python docs/serve.py`
   (git-ignored). Pagefind is pinned (`pagefind@1.3.0`, as in ElMagConspect).
 - The PDF (`docs/ClassicalElectrodynamics.pdf`, linearized by `publish_pdf.ps1`) stays in the repo on purpose: the
