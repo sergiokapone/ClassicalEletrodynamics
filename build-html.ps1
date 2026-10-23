@@ -6,6 +6,8 @@
 #          .\build-html.ps1 -Full           show the complete output of every tool (old behaviour)
 #          .\build-html.ps1 -Keep           do not delete temporary files at the end
 #          .\build-html.ps1 -NoClean        do not delete the results of the previous build at the start
+#          .\build-html.ps1 -NoPublish      do not move the finished book to the publish folder
+#          .\build-html.ps1 -OutDir site    publish folder (default: docs; this is what GitHub Pages serves)
 # On an error the script stops and writes the first LaTeX error with its context to build-error.txt
 # (send that file's text). ASCII only on purpose: Windows PowerShell 5 reads files without BOM as ANSI.
 param(
@@ -14,13 +16,15 @@ param(
     [switch]$NoImages,
     [switch]$Full,
     [switch]$Keep,
-    [switch]$NoClean
+    [switch]$NoClean,
+    [switch]$NoPublish,
+    [string]$OutDir = 'docs'
 )
 $ErrorActionPreference = 'Stop'
 Set-Location -LiteralPath $PSScriptRoot
 try { [Console]::OutputEncoding = [Text.Encoding]::UTF8 } catch { }
 $main = 'ClassicalElectrodynamics-html'
-$totalStages = 6
+$totalStages = 7
 $script:problems = 0
 
 # Prints (and saves to build-error.txt) the first LaTeX error of a log: file being read, error, context.
@@ -142,7 +146,7 @@ if (-not $script:hasSieve) {
     Write-Host "Warning: texlogsieve not found in PATH - logs will not be filtered (tlmgr install texlogsieve)." -ForegroundColor Yellow
 }
 if ($missing.Count -gt 0) { throw "Not found in PATH: $($missing -join ', ')" }
-foreach ($f in "$main.tex", 'ConspectBookHTML.cls', 'mathjax-macros.tex', 'mathjax2lwarp.py', 'prepare_html.py') {
+foreach ($f in "$main.tex", 'ConspectBookHTML.cls', 'mathjax-macros.tex', 'mathjax2lwarp.py', 'prepare_html.py', 'postprocess_html.py', 'publish_html.py') {
     if (-not (Test-Path $f)) { throw "File not found: $f" }
 }
 Remove-Item -ErrorAction SilentlyContinue build-error.txt
@@ -164,6 +168,19 @@ if (-not $NoClean) {
     $r = Remove-Files ($old + $html + $misc)
     Write-Host ("  - cleaned previous build: {0} files ({1:N1} MB), of them {2} html pages" -f $r[0], ($r[1] / 1MB), $html.Count) -ForegroundColor Green
 }
+# publish_html.py moves the SVG made from */Pictures/*.pdf into the publish folder; the next build needs them back
+# (-SkipPrepare would not make them; prepare_html.py does not convert them again). One older than its PDF is left there.
+$restored = 0
+foreach ($pdf in @(Get-ChildItem -Path '*/Pictures/*.pdf' -File -ErrorAction SilentlyContinue)) {
+    $svg = [IO.Path]::ChangeExtension($pdf.FullName, '.svg')
+    if (Test-Path -LiteralPath $svg) { continue }
+    $rel = Resolve-Path -LiteralPath $pdf.FullName -Relative
+    $pub = Join-Path $OutDir ([IO.Path]::ChangeExtension($rel, '.svg'))
+    if ((Test-Path -LiteralPath $pub) -and (Get-Item -LiteralPath $pub).LastWriteTime -ge $pdf.LastWriteTime) {
+        Copy-Item -LiteralPath $pub -Destination $svg; $restored++
+    }
+}
+if ($restored -gt 0) { Write-Host "  - $restored SVG pictures taken back from $OutDir/" -ForegroundColor Green }
 if (-not $SkipPrepare) {
     Step 'MathJax macros -> lwarp-mathjax.tex' { & $py mathjax2lwarp.py mathjax-macros.tex lwarp-mathjax.tex }
     $prepArgs = @('prepare_html.py')
@@ -184,6 +201,9 @@ Step "lualatex -shell-escape $main" {
 } "$main.log" $false
 Write-Host "      (the print PDF is thrown away: its 'rerun' and undefined references do not matter, the HTML pass redoes them)" -ForegroundColor DarkGray
 Step "biber $main" { biber $main }
+# the HTML pass is the job ${main}_html and reads ${main}_html.bbl: without it every citation is undefined and the
+# bibliography is empty. Both jobs are the same document, so the bbl of the print pass fits.
+Copy-Item -LiteralPath "$main.bbl" -Destination "${main}_html.bbl" -Force
 
 # --- 3. HTML ---------------------------------------------------------------------
 Stage 3 'HTML build (lwarpmk, several passes - this is the long step)'
@@ -204,10 +224,8 @@ Step 'Build Index (upmendex)' {
 Step 'lwarpmk again (force Pass 2)' { lwarpmk again -p $main }
 Step 'lwarpmk html (Pass 2)' { lwarpmk html -p $main }
 
-# 4. Post-processing by Python scripts
-Step 'Post-process HTML (navigation, search, indexing, appendices)' { & $py postprocess_html.py }
-# index.html is now a static info page (about the book, authors, PDF + a 'read online' button): it has no table of contents
-# any more, so the old 'sync_toc.py' step is gone. The TOC of the book lives on ClassicalElectrodynamics-html.html.
+# 4. Post-processing of the pages in the project root (before they are moved to $OutDir/)
+Step 'Post-process HTML (navigation, search marks, appendices, index)' { & $py postprocess_html.py }
 
 # --- 4. checks ---------------------------------------------------------------------
 Stage 4 'Checks'
@@ -267,39 +285,64 @@ if (-not $NoImages) {
     Write-Host "  (skipped: -NoImages)" -ForegroundColor DarkGray
 }
 
-# --- 6. cleanup (only after a successful build) ----------------------------------
-# Only files of this build ("$main*") in the project root are touched. The final HTML and lateximages stay.
-Stage 6 'Cleanup'
+# --- 6. publish ----------------------------------------------------------------------------
+# Moves what only the site needs (lwarp pages, lwarp css, sitemap, lateximages, <main>-images) to $OutDir and COPIES
+# what the TeX project needs too (EM.ico, pictures). The site's own files (index.html, assets/ with book.js,
+# conspect.css, styles.css; serve.py) live only in $OutDir. The PDF gets there from the PDF build (publish_pdf.ps1).
+# $OutDir is emptied on every run except the site's own files, the PDF, CNAME and dot-files.
+Stage 6 "Publish to $OutDir/"
+if ($NoPublish) {
+    Write-Host "  (skipped: -NoPublish)" -ForegroundColor DarkGray
+} else {
+    & $py publish_html.py --out $OutDir --extra ClassicalElectrodynamics.pdf
+    if ($LASTEXITCODE -ne 0) { throw "publish_html.py failed (exit code $LASTEXITCODE)" }
+    # search index for book.js: $OutDir/pagefind/. Only the split chapter pages (ch*/app*.html, marked by
+    # postprocess_html.py): the home page repeats the contents, every hit would show twice. Needs node (npx).
+    if (Get-Command npx -ErrorAction SilentlyContinue) {
+        Step 'search index (Pagefind)' { npx -y pagefind@1.3.0 --site $OutDir --glob '{ch,app}*.html' }
+    } else {
+        Write-Host "  Warning: npx (node) not found - no search index, the search field stays hidden." -ForegroundColor Yellow
+        $script:problems++
+    }
+}
+
+# --- 7. cleanup (only after a successful build) ----------------------------------
+# Only files of this build ("$main*") in the project root are touched.
+Stage 7 'Cleanup'
 if ($Keep -or -not $imagesDone) {
     Write-Host "  (skipped)" -ForegroundColor DarkGray
 } else {
     $exts = @('pdf')
     if ($script:problems -eq 0) {
-        $exts += 'aux', 'out', 'log', 'toc', 'lof', 'lot', 'bcf', 'blg', 'run.xml'
+        $exts += 'aux', 'out', 'log', 'toc', 'lof', 'lot', 'bcf', 'blg', 'run.xml', 'idx', 'ind', 'ilg'
     } else {
         Write-Host "  there were warnings: .log/.aux/... are kept for inspection, only PDFs are removed" -ForegroundColor Yellow
     }
     $r = Remove-Files (Get-BuildFiles $exts)
     $removed = $r[0]; $bytes = $r[1]
+    if ($script:problems -eq 0) {
+        # the raw single-file output of lwarp (read by the checks of stage 4 only); with warnings it is kept for inspection
+        $raw = @(Get-ChildItem -LiteralPath . -File -Filter "${main}_html.html" -ErrorAction SilentlyContinue)
+        $r2 = Remove-Files $raw; $removed += $r2[0]; $bytes += $r2[1]
+    }
+    # lwarp's helper files and the gnuplot tables (written again by the next print pass)
+    $r2 = Remove-Files @(Get-ChildItem -LiteralPath . -File -ErrorAction SilentlyContinue |
+        Where-Object { $_.Name -in "${main}_html.tex", "${main}_html.sidetoc" -or $_.Name -like "$main*.gnuplot" -or $_.Name -like "$main*.table" })
+    $removed += $r2[0]; $bytes += $r2[1]
+    # SVG made from */Pictures/*.pdf that publish_html.py did not move (pictures no page uses): the TeX folders keep
+    # only the sources (as in clwarp-clean.ps1); the next build makes them again or takes them back from $OutDir
+    $svg = @(Get-ChildItem -Path '*/Pictures/*.pdf' -File -ErrorAction SilentlyContinue | ForEach-Object {
+        $s = [IO.Path]::ChangeExtension($_.FullName, '.svg')
+        if (Test-Path -LiteralPath $s) { Get-Item -LiteralPath $s } })
+    $r2 = Remove-Files $svg; $removed += $r2[0]; $bytes += $r2[1]
     Write-Host ("  removed {0} files ({1:N1} MB)" -f $removed, ($bytes / 1MB)) -ForegroundColor Green
 }
 
 $sw.Stop()
 Write-Host ""
+$start = if ($NoPublish) { "$main.html" } else { "$OutDir/$main.html" }
 if ($script:problems -gt 0) {
-    Write-Host ("Done in {0:mm\:ss}, with warnings. Open {1}.html in a browser (internet is needed for MathJax)." -f $sw.Elapsed, $main) -ForegroundColor Yellow
+    Write-Host ("Done in {0:mm\:ss}, with warnings. Open {1} (python {2}/serve.py: search needs http)." -f $sw.Elapsed, $start, $OutDir) -ForegroundColor Yellow
 } else {
-    Write-Host ("Done in {0:mm\:ss}. Open {1}.html in a browser (internet is needed for MathJax)." -f $sw.Elapsed, $main) -ForegroundColor Green
+    Write-Host ("Done in {0:mm\:ss}. Open {1} (python {2}/serve.py: search needs http)." -f $sw.Elapsed, $start, $OutDir) -ForegroundColor Green
 }
-
-# Index only the split chapter pages (ch*.html). Without --glob Pagefind also picks up the monolithic
-# ${main}_html.html, ${main}.html and Basics/Basics.html, which duplicate the chapters -> every hit shows twice.
-# The old pagefind/ folder is removed first so stale hashed index files do not pile up.
-Step 'Generate Search Index (Pagefind)' {
-    if (Test-Path 'pagefind') { Remove-Item 'pagefind' -Recurse -Force }
-    npx -y pagefind --site . --glob '{ch,app}*.html'
-}
-
-Write-Host ""
-Read-Host "Press Enter to continue"
-

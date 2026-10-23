@@ -74,3 +74,15 @@
 - Д Циліндричні функції
 - Е Узагальнені функції
 <!-- TOC:END -->
+
+## Онлайн-версія та збирання
+
+Сайт посібника (GitHub Pages, тека `docs/`): <https://sergiokapone.github.io/ClassicalEletrodynamics/> — сторінка
+посібника, HTML-книга з пошуком і PDF.
+
+Усе робиться через `python ced.py` (інтерактивна оболонка; `help` — список команд) або однією командою:
+
+    python ced.py pdf       # PDF (latexmk + LuaLaTeX) -> docs/ClassicalElectrodynamics.pdf
+    python ced.py html      # HTML-версія (lwarp) -> docs/, пошуковий індекс Pagefind
+    python ced.py serve     # локальний сервер для docs/ (пошук працює лише через http)
+    python ced.py clean all # тимчасові файли збирання

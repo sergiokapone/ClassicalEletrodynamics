@@ -1,0 +1,1395 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Класична електродинаміка</title>
+<link rel="stylesheet" type="text/css" href="assets/conspect.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+
+   subequations: "0",
+   section: "",
+   loader: {
+
+       load: ['[tex]/tagformat', '[tex]/textmacros', '[tex]/boldsymbol', '[tex]/unicode'],
+   },
+   startup: {
+
+       ready() {
+          // These would be replaced by import commands if you wanted to make
+          // a proper extension.
+          const Configuration = MathJax._.input.tex.Configuration.Configuration;
+          const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+          const Macro = MathJax._.input.tex.Symbol.Macro;
+          const TexError = MathJax._.input.tex.TexError.default;
+          const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+          const expandable = MathJax._.util.Options.expandable;
+
+// Insert the replacement string into the TeX string, and check
+// that there haven't been too many maxro substitutions (prevents
+// infinite loops).
+const useArgument = (parser, text) => {
+
+   parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+   parser.i = 0;
+   if (++parser.macroCount > parser.configuration.options.maxMacros) {
+
+       throw new TexError('MaxMacroSub1',
+       'MathJax maximum macro substitution count exceeded; ' +
+       'is there a recursive macro call?');
+   }
+}
+
+// Create the command map for:
+
+// \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+
+new CommandMap('Lwarp-macros', {
+
+ifstar: 'IfstarFunction',
+
+ifnextchar: 'IfnextcharFunction',
+
+ifblank: 'IfblankFunction',
+
+ifstrequal: 'IfstrequalFunction',
+
+gsubstitute: 'GsubstituteFunction',
+
+seteqnumber: 'SeteqnumberFunction'
+
+}, {
+
+// This function implements an ifstar macro.
+
+IfstarFunction(parser, name) {
+
+     const resultstar = parser.GetArgument(name);
+
+     const resultnostar = parser.GetArgument(name);
+
+     const star = parser.GetStar();                  // true if there is a *
+
+     useArgument(parser, star ? resultstar : resultnostar);
+
+},
+
+// This function implements an ifnextchar macro.
+IfnextcharFunction(parser, name) {
+
+   let whichchar = parser.GetArgument(name);
+   if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+
+       // $ syntax highlighting
+       whichchar = String.fromCodePoint(parseInt(whichchar));
+   }
+   const resultnextchar = parser.GetArgument(name);
+   const resultnotnextchar = parser.GetArgument(name);
+   const gotchar = (parser.GetNext() === whichchar);
+   useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+},
+
+// This function implements an ifblank macro.
+IfblankFunction(parser, name) {
+
+   const blankarg = parser.GetArgument(name);
+   const resultblank = parser.GetArgument(name);
+   const resultnotblank = parser.GetArgument(name);
+   const isblank = (blankarg.trim() == "");
+   useArgument(parser, isblank ? resultblank : resultnotblank);
+},
+
+// This function implements an ifstrequal macro.
+IfstrequalFunction(parser, name) {
+
+   const strequalfirst = parser.GetArgument(name);
+   const strequalsecond = parser.GetArgument(name);
+   const resultequal = parser.GetArgument(name);
+   const resultnotequal = parser.GetArgument(name);
+   const isequal = (strequalfirst == strequalsecond);
+   useArgument(parser, isequal ? resultequal : resultnotequal);
+},
+
+// This function implements a gsub macro.
+GsubstituteFunction(parser, name) {
+
+   const gsubfirst = parser.GetArgument(name);
+   const gsubsecond = parser.GetArgument(name);
+   const gsubthird = parser.GetArgument(name);
+   let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+   useArgument(parser, gsubresult);
+},
+
+// This function modifies the equation numbers.
+
+SeteqnumberFunction(parser, name) {
+
+      // Get the macro parameters
+
+      const star = parser.GetStar();                 // true if there is a *
+
+      const optBrackets = parser.GetBrackets(name); // contents of optional brackets
+
+      const newsubequations = parser.GetArgument(name); // the subequations argument
+
+      const neweqsection = parser.GetArgument(name); // the eq section argument
+
+      const neweqnumber = parser.GetArgument(name); // the eq number argument
+
+      MathJax.config.subequations=newsubequations ; // a string with boolean meaning
+
+      MathJax.config.section=neweqsection ;          // a string with numeric meaning
+
+      parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+
+}
+
+});
+
+// Create the Lwarp-macros package
+Configuration.create('Lwarp-macros', {
+
+   handler: {macro: ['Lwarp-macros']}
+});
+
+MathJax.startup.defaultReady();
+
+// For forward references:
+MathJax.startup.input[0].preFilters.add(({math}) => {
+
+   if (math.inputData.recompile){
+          MathJax.config.subequations = math.inputData.recompile.subequations;
+          MathJax.config.section = math.inputData.recompile.section;
+
+   }
+});
+MathJax.startup.input[0].postFilters.add(({math}) => {
+
+   if (math.inputData.recompile){
+          math.inputData.recompile.subequations = MathJax.config.subequations;
+          math.inputData.recompile.section = MathJax.config.section;
+
+   }
+});
+
+          // For \left, \right with unicode-math:
+          const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+          const {Symbol} = MathJax._.input.tex.Symbol;
+          const {MapHandler} = MathJax._.input.tex.MapHandler;
+          const delimiter = MapHandler.getMap('delimiter');
+          delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+          delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+          delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+          delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+          delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+          delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+          delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+          delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+          delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+          delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+          delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+          delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+          delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+          delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+          delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+          delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+          delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+          delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+          delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+          delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+          delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+          delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+          delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+          delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+          delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+          delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+          delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+          delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+          delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+          delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+          delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+          delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+          delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+          delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+          delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+          delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+          delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+          delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+          delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+   } // ready
+}, // startup
+
+   tex: {
+       packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros', 'boldsymbol', 'unicode']},
+       tags: "ams",
+              tagformat: {
+                     number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                    return(MathJax.config.section + n);
+                             else
+                                    return(MathJax.config.section + String.fromCharCode(96+n));
+                     },
+              },
+
+   }
+}
+</script>
+
+<script
+       id="MathJax-script"
+       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+
+></script>
+
+<link rel="icon" href="EM.ico">
+<script src="assets/book.js"></script>
+</head>
+<body>
+<div data-pagefind-ignore>
+<!--MathJax customizations:-->
+<div data-nosnippet
+
+      style="display:none"
+>
+\(\newcommand{\footnotename}{footnote}\)
+\(\def \LWRfootnote {1}\)
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+\(\let \LWRorighspace \hspace \)
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+\(\newcommand {\TextOrMath }[2]{#2}\)
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+\(\newcommand \ensuremath [1]{#1}\)
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+\(\newcommand {\setlength }[2]{}\)
+\(\newcommand {\addtolength }[2]{}\)
+\(\newcommand {\setcounter }[2]{}\)
+\(\newcommand {\addtocounter }[2]{}\)
+\(\newcommand {\arabic }[1]{}\)
+\(\newcommand {\number }[1]{}\)
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+\(\newcommand {\cline }[1]{}\)
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+\(\newcommand {\protect }{}\)
+\(\def \LWRabsorbnumber #1 {}\)
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+\(\def \mathcode #1={\mathchar }\)
+\(\let \delcode \mathcode \)
+\(\let \delimiter \mathchar \)
+\(\def \oe {\unicode {x0153}}\)
+\(\def \OE {\unicode {x0152}}\)
+\(\def \ae {\unicode {x00E6}}\)
+\(\def \AE {\unicode {x00C6}}\)
+\(\def \aa {\unicode {x00E5}}\)
+\(\def \AA {\unicode {x00C5}}\)
+\(\def \o {\unicode {x00F8}}\)
+\(\def \O {\unicode {x00D8}}\)
+\(\def \l {\unicode {x0142}}\)
+\(\def \L {\unicode {x0141}}\)
+\(\def \ss {\unicode {x00DF}}\)
+\(\def \SS {\unicode {x1E9E}}\)
+\(\def \dag {\unicode {x2020}}\)
+\(\def \ddag {\unicode {x2021}}\)
+\(\def \P {\unicode {x00B6}}\)
+\(\def \copyright {\unicode {x00A9}}\)
+\(\def \pounds {\unicode {x00A3}}\)
+\(\let \LWRref \ref \)
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+\( \newcommand {\multicolumn }[3]{#3}\)
+\(\require {textcomp}\)
+\(\require {colortbl}\)
+\(\let \LWRorigcolumncolor \columncolor \)
+\(\renewcommand {\columncolor }[2][named]{\LWRorigcolumncolor [#1]{#2}\LWRabsorbtwooptions }\)
+\(\let \LWRorigrowcolor \rowcolor \)
+\(\renewcommand {\rowcolor }[2][named]{\LWRorigrowcolor [#1]{#2}\LWRabsorbtwooptions }\)
+\(\let \LWRorigcellcolor \cellcolor \)
+\(\renewcommand {\cellcolor }[2][named]{\LWRorigcellcolor [#1]{#2}\LWRabsorbtwooptions }\)
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+\(\let \Hat \hat \)
+\(\let \Check \check \)
+\(\let \Tilde \tilde \)
+\(\let \Acute \acute \)
+\(\let \Grave \grave \)
+\(\let \Dot \dot \)
+\(\let \Ddot \ddot \)
+\(\let \Breve \breve \)
+\(\let \Bar \bar \)
+\(\let \Vec \vec \)
+\(\let \symnormal \mathit \)
+\(\let \symliteral \mathrm \)
+\(\let \symbb \mathbb \)
+\(\let \symbbit \mathbb \)
+\(\let \symcal \mathcal \)
+\(\let \symscr \mathscr \)
+\(\let \symfrak \mathfrak \)
+\(\let \symsfup \mathsf \)
+\(\let \symsfit \mathit \)
+\(\let \symbfsf \mathbf \)
+\(\let \symbfup \mathbf \)
+\(\newcommand {\symbfit }[1]{\boldsymbol {#1}}\)
+\(\let \symbfcal \mathcal \)
+\(\let \symbfscr \mathscr \)
+\(\let \symbffrak \mathfrak \)
+\(\let \symbfsfup \mathbf \)
+\(\newcommand {\symbfsfit }[1]{\boldsymbol {#1}}\)
+\(\let \symup \mathrm \)
+\(\let \symbf \mathbf \)
+\(\let \symit \mathit \)
+\(\let \symtt \mathtt \)
+\(\let \symbffrac \mathbffrac \)
+\(\newcommand {\mathfence }[1]{\mathord {#1}}\)
+\(\newcommand {\mathover }[1]{#1}\)
+\(\newcommand {\mathunder }[1]{#1}\)
+\(\newcommand {\mathaccent }[1]{#1}\)
+\(\newcommand {\mathbotaccent }[1]{#1}\)
+\(\newcommand {\mathalpha }[1]{\mathord {#1}}\)
+\(\def\upAlpha{\unicode{x0391}}\)
+\(\def\upBeta{\unicode{x0392}}\)
+\(\def\upGamma{\unicode{x0393}}\)
+\(\def\upDigamma{\unicode{x03DC}}\)
+\(\def\upDelta{\unicode{x0394}}\)
+\(\def\upEpsilon{\unicode{x0395}}\)
+\(\def\upZeta{\unicode{x0396}}\)
+\(\def\upEta{\unicode{x0397}}\)
+\(\def\upTheta{\unicode{x0398}}\)
+\(\def\upVartheta{\unicode{x03F4}}\)
+\(\def\upIota{\unicode{x0399}}\)
+\(\def\upKappa{\unicode{x039A}}\)
+\(\def\upLambda{\unicode{x039B}}\)
+\(\def\upMu{\unicode{x039C}}\)
+\(\def\upNu{\unicode{x039D}}\)
+\(\def\upXi{\unicode{x039E}}\)
+\(\def\upOmicron{\unicode{x039F}}\)
+\(\def\upPi{\unicode{x03A0}}\)
+\(\def\upVarpi{\unicode{x03D6}}\)
+\(\def\upRho{\unicode{x03A1}}\)
+\(\def\upSigma{\unicode{x03A3}}\)
+\(\def\upTau{\unicode{x03A4}}\)
+\(\def\upUpsilon{\unicode{x03A5}}\)
+\(\def\upPhi{\unicode{x03A6}}\)
+\(\def\upChi{\unicode{x03A7}}\)
+\(\def\upPsi{\unicode{x03A8}}\)
+\(\def\upOmega{\unicode{x03A9}}\)
+\(\def\itAlpha{\unicode{x1D6E2}}\)
+\(\def\itBeta{\unicode{x1D6E3}}\)
+\(\def\itGamma{\unicode{x1D6E4}}\)
+\(\def\itDigamma{\mathit{\unicode{x03DC}}}\)
+\(\def\itDelta{\unicode{x1D6E5}}\)
+\(\def\itEpsilon{\unicode{x1D6E6}}\)
+\(\def\itZeta{\unicode{x1D6E7}}\)
+\(\def\itEta{\unicode{x1D6E8}}\)
+\(\def\itTheta{\unicode{x1D6E9}}\)
+\(\def\itVartheta{\unicode{x1D6F3}}\)
+\(\def\itIota{\unicode{x1D6EA}}\)
+\(\def\itKappa{\unicode{x1D6EB}}\)
+\(\def\itLambda{\unicode{x1D6EC}}\)
+\(\def\itMu{\unicode{x1D6ED}}\)
+\(\def\itNu{\unicode{x1D6EE}}\)
+\(\def\itXi{\unicode{x1D6EF}}\)
+\(\def\itOmicron{\unicode{x1D6F0}}\)
+\(\def\itPi{\unicode{x1D6F1}}\)
+\(\def\itRho{\unicode{x1D6F2}}\)
+\(\def\itSigma{\unicode{x1D6F4}}\)
+\(\def\itTau{\unicode{x1D6F5}}\)
+\(\def\itUpsilon{\unicode{x1D6F6}}\)
+\(\def\itPhi{\unicode{x1D6F7}}\)
+\(\def\itChi{\unicode{x1D6F8}}\)
+\(\def\itPsi{\unicode{x1D6F9}}\)
+\(\def\itOmega{\unicode{x1D6FA}}\)
+\(\def\upalpha{\unicode{x03B1}}\)
+\(\def\upbeta{\unicode{x03B2}}\)
+\(\def\upvarbeta{\unicode{x03D0}}\)
+\(\def\upgamma{\unicode{x03B3}}\)
+\(\def\updigamma{\unicode{x03DD}}\)
+\(\def\updelta{\unicode{x03B4}}\)
+\(\def\upepsilon{\unicode{x03F5}}\)
+\(\def\upvarepsilon{\unicode{x03B5}}\)
+\(\def\upzeta{\unicode{x03B6}}\)
+\(\def\upeta{\unicode{x03B7}}\)
+\(\def\uptheta{\unicode{x03B8}}\)
+\(\def\upvartheta{\unicode{x03D1}}\)
+\(\def\upiota{\unicode{x03B9}}\)
+\(\def\upkappa{\unicode{x03BA}}\)
+\(\def\upvarkappa{\unicode{x03F0}}\)
+\(\def\uplambda{\unicode{x03BB}}\)
+\(\def\upmu{\unicode{x03BC}}\)
+\(\def\upnu{\unicode{x03BD}}\)
+\(\def\upxi{\unicode{x03BE}}\)
+\(\def\upomicron{\unicode{x03BF}}\)
+\(\def\uppi{\unicode{x03C0}}\)
+\(\def\upvarpi{\unicode{x03D6}}\)
+\(\def\uprho{\unicode{x03C1}}\)
+\(\def\upvarrho{\unicode{x03F1}}\)
+\(\def\upsigma{\unicode{x03C3}}\)
+\(\def\upvarsigma{\unicode{x03C2}}\)
+\(\def\uptau{\unicode{x03C4}}\)
+\(\def\upupsilon{\unicode{x03C5}}\)
+\(\def\upphi{\unicode{x03D5}}\)
+\(\def\upvarphi{\unicode{x03C6}}\)
+\(\def\upchi{\unicode{x03C7}}\)
+\(\def\uppsi{\unicode{x03C8}}\)
+\(\def\upomega{\unicode{x03C9}}\)
+\(\def\italpha{\unicode{x1D6FC}}\)
+\(\def\itbeta{\unicode{x1D6FD}}\)
+\(\def\itvarbeta{\unicode{x03D0}}\)
+\(\def\itgamma{\unicode{x1D6FE}}\)
+\(\def\itdigamma{\mathit{\unicode{x03DD}}}\)
+\(\def\itdelta{\unicode{x1D6FF}}\)
+\(\def\itepsilon{\unicode{x1D716}}\)
+\(\def\itvarepsilon{\unicode{x1D700}}\)
+\(\def\itzeta{\unicode{x1D701}}\)
+\(\def\iteta{\unicode{x1D702}}\)
+\(\def\ittheta{\unicode{x1D703}}\)
+\(\def\itvartheta{\unicode{x1D717}}\)
+\(\def\itiota{\unicode{x1D704}}\)
+\(\def\itkappa{\unicode{x1D705}}\)
+\(\def\itvarkappa{\unicode{x1D718}}\)
+\(\def\itlambda{\unicode{x1D706}}\)
+\(\def\itmu{\unicode{x1D707}}\)
+\(\def\itnu{\unicode{x1D708}}\)
+\(\def\itxi{\unicode{x1D709}}\)
+\(\def\itomicron{\unicode{x1D70A}}\)
+\(\def\itpi{\unicode{x1D70B}}\)
+\(\def\itvarpi{\unicode{x1D71B}}\)
+\(\def\itrho{\unicode{x1D70C}}\)
+\(\def\itvarrho{\unicode{x1D71A}}\)
+\(\def\itsigma{\unicode{x1D70E}}\)
+\(\def\itvarsigma{\unicode{x1D70D}}\)
+\(\def\ittau{\unicode{x1D70F}}\)
+\(\def\itupsilon{\unicode{x1D710}}\)
+\(\def\itphi{\unicode{x1D719}}\)
+\(\def\itvarphi{\unicode{x1D711}}\)
+\(\def\itchi{\unicode{x1D712}}\)
+\(\def\itpsi{\unicode{x1D713}}\)
+\(\def\itomega{\unicode{x1D714}}\)
+\(\let \lparen (\)
+\(\let \rparen )\)
+\(\newcommand {\cuberoot }[1]{\,{}^3\!\!\sqrt {#1}}\,\)
+\(\newcommand {\fourthroot }[1]{\,{}^4\!\!\sqrt {#1}}\,\)
+\(\newcommand {\longdivision }[1]{\mathord {\unicode {x027CC}#1}}\)
+\(\newcommand {\mathcomma }{,}\)
+\(\newcommand {\mathcolon }{:}\)
+\(\newcommand {\mathsemicolon }{;}\)
+\(\newcommand {\overbracket }[1]{\mathinner {\overline {\ulcorner {#1}\urcorner }}}\)
+\(\newcommand {\underbracket }[1]{\mathinner {\underline {\llcorner {#1}\lrcorner }}}\)
+\(\newcommand {\overbar }[1]{\mathord {#1\unicode {x00305}}}\)
+\(\newcommand {\ovhook }[1]{\mathord {#1\unicode {x00309}}}\)
+\(\newcommand {\ocirc }[1]{\mathord {#1\unicode {x0030A}}}\)
+\(\newcommand {\candra }[1]{\mathord {#1\unicode {x00310}}}\)
+\(\newcommand {\oturnedcomma }[1]{\mathord {#1\unicode {x00312}}}\)
+\(\newcommand {\ocommatopright }[1]{\mathord {#1\unicode {x00315}}}\)
+\(\newcommand {\droang }[1]{\mathord {#1\unicode {x0031A}}}\)
+\(\newcommand {\leftharpoonaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+\(\newcommand {\rightharpoonaccent }[1]{\mathord {#1\unicode {x020D1}}}\)
+\(\newcommand {\vertoverlay }[1]{\mathord {#1\unicode {x020D2}}}\)
+\(\newcommand {\leftarrowaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+\(\newcommand {\annuity }[1]{\mathord {#1\unicode {x020E7}}}\)
+\(\newcommand {\widebridgeabove }[1]{\mathord {#1\unicode {x020E9}}}\)
+\(\newcommand {\asteraccent }[1]{\mathord {#1\unicode {x020F0}}}\)
+\(\newcommand {\threeunderdot }[1]{\mathord {#1\unicode {x020E8}}}\)
+\(\newcommand {\Bbbsum }{\mathop {\unicode {x2140}}\limits }\)
+\(\newcommand {\oiint }{\mathop {\unicode {x222F}}\limits }\)
+\(\newcommand {\oiiint }{\mathop {\unicode {x2230}}\limits }\)
+\(\newcommand {\intclockwise }{\mathop {\unicode {x2231}}\limits }\)
+\(\newcommand {\ointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+\(\newcommand {\ointctrclockwise }{\mathop {\unicode {x2233}}\limits }\)
+\(\newcommand {\varointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+\(\newcommand {\leftouterjoin }{\mathop {\unicode {x27D5}}\limits }\)
+\(\newcommand {\rightouterjoin }{\mathop {\unicode {x27D6}}\limits }\)
+\(\newcommand {\fullouterjoin }{\mathop {\unicode {x27D7}}\limits }\)
+\(\newcommand {\bigbot }{\mathop {\unicode {x27D8}}\limits }\)
+\(\newcommand {\bigtop }{\mathop {\unicode {x27D9}}\limits }\)
+\(\newcommand {\xsol }{\mathop {\unicode {x29F8}}\limits }\)
+\(\newcommand {\xbsol }{\mathop {\unicode {x29F9}}\limits }\)
+\(\newcommand {\bigcupdot }{\mathop {\unicode {x2A03}}\limits }\)
+\(\newcommand {\bigsqcap }{\mathop {\unicode {x2A05}}\limits }\)
+\(\newcommand {\conjquant }{\mathop {\unicode {x2A07}}\limits }\)
+\(\newcommand {\disjquant }{\mathop {\unicode {x2A08}}\limits }\)
+\(\newcommand {\bigtimes }{\mathop {\unicode {x2A09}}\limits }\)
+\(\newcommand {\modtwosum }{\mathop {\unicode {x2A0A}}\limits }\)
+\(\newcommand {\sumint }{\mathop {\unicode {x2A0B}}\limits }\)
+\(\newcommand {\intbar }{\mathop {\unicode {x2A0D}}\limits }\)
+\(\newcommand {\intBar }{\mathop {\unicode {x2A0E}}\limits }\)
+\(\newcommand {\fint }{\mathop {\unicode {x2A0F}}\limits }\)
+\(\newcommand {\cirfnint }{\mathop {\unicode {x2A10}}\limits }\)
+\(\newcommand {\awint }{\mathop {\unicode {x2A11}}\limits }\)
+\(\newcommand {\rppolint }{\mathop {\unicode {x2A12}}\limits }\)
+\(\newcommand {\scpolint }{\mathop {\unicode {x2A13}}\limits }\)
+\(\newcommand {\npolint }{\mathop {\unicode {x2A14}}\limits }\)
+\(\newcommand {\pointint }{\mathop {\unicode {x2A15}}\limits }\)
+\(\newcommand {\sqint }{\mathop {\unicode {x2A16}}\limits }\)
+\(\newcommand {\intlarhk }{\mathop {\unicode {x2A17}}\limits }\)
+\(\newcommand {\intx }{\mathop {\unicode {x2A18}}\limits }\)
+\(\newcommand {\intcap }{\mathop {\unicode {x2A19}}\limits }\)
+\(\newcommand {\intcup }{\mathop {\unicode {x2A1A}}\limits }\)
+\(\newcommand {\upint }{\mathop {\unicode {x2A1B}}\limits }\)
+\(\newcommand {\lowint }{\mathop {\unicode {x2A1C}}\limits }\)
+\(\newcommand {\bigtriangleleft }{\mathop {\unicode {x2A1E}}\limits }\)
+\(\newcommand {\zcmp }{\mathop {\unicode {x2A1F}}\limits }\)
+\(\newcommand {\zpipe }{\mathop {\unicode {x2A20}}\limits }\)
+\(\newcommand {\zproject }{\mathop {\unicode {x2A21}}\limits }\)
+\(\newcommand {\biginterleave }{\mathop {\unicode {x2AFC}}\limits }\)
+\(\newcommand {\bigtalloblong }{\mathop {\unicode {x2AFF}}\limits }\)
+\(\newcommand {\arabicmaj }{\mathop {\unicode {x1EEF0}}\limits }\)
+\(\newcommand {\arabichad }{\mathop {\unicode {x1EEF1}}\limits }\)
+\(\newcommand {\nicefrac }[3][]{\mathinner {{}^{#2}\!/\!_{#3}}}\)
+\(\require {mhchem}\)
+\(\newcommand {\toprule }[1][]{\hline }\)
+\(\let \midrule \toprule \)
+\(\let \bottomrule \toprule \)
+\(\def \LWRbooktabscmidruleparen (#1)#2{}\)
+\(\newcommand {\LWRbooktabscmidrulenoparen }[1]{}\)
+\(\newcommand {\cmidrule }[1][]{\ifnextchar (\LWRbooktabscmidruleparen \LWRbooktabscmidrulenoparen }\)
+\(\newcommand {\morecmidrules }{}\)
+\(\newcommand {\specialrule }[3]{\hline }\)
+\(\newcommand {\addlinespace }[1][]{}\)
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+\(\newcommand {\mrowcell }{}\)
+\(\newcommand {\mcolrowcell }{}\)
+\(\newcommand {\STneed }[1]{}\)
+\(\newcommand {\nfrac }[2]{{}^{#1}\!/{}_{#2}}\)
+\(\newcommand {\vect }[1]{\mathbf {#1}}\)
+\(\newcommand {\Efield }{\mathbf {E}}\)
+\(\newcommand {\Dfield }{\mathbf {D}}\)
+\(\newcommand {\Bfield }{\mathbf {B}}\)
+\(\newcommand {\Hfield }{\mathbf {H}}\)
+\(\newcommand {\rot }{\boldsymbol {\nabla }\times }\)
+\(\newcommand {\divg }{\boldsymbol {\nabla }\cdot }\)
+\(\newcommand {\grad }{\boldsymbol {\nabla }}\)
+\(\newcommand {\diff }[2]{\frac {\partial #1}{\partial #2}}\)
+\(\newcommand {\ddiff }[2]{\frac {\partial ^2 #1}{\partial #2^2}}\)
+\(\newcommand {\parttime }[1]{\frac {\partial {#1}}{\partial t}}\)
+\(\newcommand {\pparttime }[1]{\frac {\partial ^2{#1}}{\partial t^2}}\)
+\(\newcommand {\Laplasian }{\Delta }\)
+\(\DeclareMathOperator {\const }{const}\)
+\(\DeclareMathOperator {\Div }{div}\)
+\(\DeclareMathOperator {\Rot }{rot}\)
+\(\DeclareMathOperator {\Grad }{grad}\)
+\(\DeclareMathOperator {\inv }{inv}\)
+\(\newcommand {\D }{\varDelta }\)
+\(\newcommand {\emf }{\mathcal {E}}\)
+\(\newcommand {\Dalambertian }{\Box }\)
+\(\newcommand {\tikzmarknode }[2]{#2}\)
+\(\newcommand {\tikzmark }[1]{}\)
+\(\newcommand {\mitalpha }{\alpha }\)
+\(\newcommand {\mitbeta }{\beta }\)
+\(\newcommand {\mitgamma }{\gamma }\)
+\(\newcommand {\mitdelta }{\delta }\)
+\(\newcommand {\mitepsilon }{\epsilon }\)
+\(\newcommand {\mitzeta }{\zeta }\)
+\(\newcommand {\miteta }{\eta }\)
+\(\newcommand {\mittheta }{\theta }\)
+\(\newcommand {\mitiota }{\iota }\)
+\(\newcommand {\mitkappa }{\kappa }\)
+\(\newcommand {\mitlambda }{\lambda }\)
+\(\newcommand {\mitmu }{\mu }\)
+\(\newcommand {\mitnu }{\nu }\)
+\(\newcommand {\mitxi }{\xi }\)
+\(\newcommand {\mitpi }{\pi }\)
+\(\newcommand {\mitrho }{\rho }\)
+\(\newcommand {\mitsigma }{\sigma }\)
+\(\newcommand {\mittau }{\tau }\)
+\(\newcommand {\mitupsilon }{\upsilon }\)
+\(\newcommand {\mitphi }{\phi }\)
+\(\newcommand {\mitchi }{\chi }\)
+\(\newcommand {\mitpsi }{\psi }\)
+\(\newcommand {\mitomega }{\omega }\)
+\(\newcommand {\mitvarphi }{\varphi }\)
+\(\newcommand {\mitvarepsilon }{\varepsilon }\)
+\(\newcommand {\mitvartheta }{\vartheta }\)
+\(\DeclareMathOperator {\sh }{sh}\)
+\(\DeclareMathOperator {\ch }{ch}\)
+\(\DeclareMathOperator {\th }{th}\)
+\(\DeclareMathOperator {\tg }{tg}\)
+\(\DeclareMathOperator {\ctg }{ctg}\)
+\(\DeclareMathOperator {\arctg }{arctg}\)
+\(\DeclareMathOperator {\arcctg }{arcctg}\)
+\(\DeclareMathOperator {\cth }{cth}\)
+\(\DeclareMathOperator {\cosec }{cosec}\)
+\(\let \symsf \symsfup \)
+\(\def\Alpha{\unicode{x0391}}\)
+\(\def\Beta{\unicode{x0392}}\)
+\(\def\Gamma{\unicode{x0393}}\)
+\(\def\Digamma{\unicode{x03DC}}\)
+\(\def\Delta{\unicode{x0394}}\)
+\(\def\Epsilon{\unicode{x0395}}\)
+\(\def\Zeta{\unicode{x0396}}\)
+\(\def\Eta{\unicode{x0397}}\)
+\(\def\Theta{\unicode{x0398}}\)
+\(\def\Vartheta{\unicode{x03F4}}\)
+\(\def\Iota{\unicode{x0399}}\)
+\(\def\Kappa{\unicode{x039A}}\)
+\(\def\Lambda{\unicode{x039B}}\)
+\(\def\Mu{\unicode{x039C}}\)
+\(\def\Nu{\unicode{x039D}}\)
+\(\def\Xi{\unicode{x039E}}\)
+\(\def\Omicron{\unicode{x039F}}\)
+\(\def\Pi{\unicode{x03A0}}\)
+\(\def\Varpi{\unicode{x03D6}}\)
+\(\def\Rho{\unicode{x03A1}}\)
+\(\def\Sigma{\unicode{x03A3}}\)
+\(\def\Tau{\unicode{x03A4}}\)
+\(\def\Upsilon{\unicode{x03A5}}\)
+\(\def\Phi{\unicode{x03A6}}\)
+\(\def\Chi{\unicode{x03A7}}\)
+\(\def\Psi{\unicode{x03A8}}\)
+\(\def\Omega{\unicode{x03A9}}\)
+\(\def\alpha{\unicode{x1D6FC}}\)
+\(\def\beta{\unicode{x1D6FD}}\)
+\(\def\varbeta{\unicode{x03D0}}\)
+\(\def\gamma{\unicode{x1D6FE}}\)
+\(\def\digamma{\mathit{\unicode{x03DD}}}\)
+\(\def\delta{\unicode{x1D6FF}}\)
+\(\def\epsilon{\unicode{x1D716}}\)
+\(\def\varepsilon{\unicode{x1D700}}\)
+\(\def\zeta{\unicode{x1D701}}\)
+\(\def\eta{\unicode{x1D702}}\)
+\(\def\theta{\unicode{x1D703}}\)
+\(\def\vartheta{\unicode{x1D717}}\)
+\(\def\iota{\unicode{x1D704}}\)
+\(\def\kappa{\unicode{x1D705}}\)
+\(\def\varkappa{\unicode{x1D718}}\)
+\(\def\lambda{\unicode{x1D706}}\)
+\(\def\mu{\unicode{x1D707}}\)
+\(\def\nu{\unicode{x1D708}}\)
+\(\def\xi{\unicode{x1D709}}\)
+\(\def\omicron{\unicode{x1D70A}}\)
+\(\def\pi{\unicode{x1D70B}}\)
+\(\def\varpi{\unicode{x1D71B}}\)
+\(\def\rho{\unicode{x1D70C}}\)
+\(\def\varrho{\unicode{x1D71A}}\)
+\(\def\sigma{\unicode{x1D70E}}\)
+\(\def\varsigma{\unicode{x1D70D}}\)
+\(\def\tau{\unicode{x1D70F}}\)
+\(\def\upsilon{\unicode{x1D710}}\)
+\(\def\phi{\unicode{x1D719}}\)
+\(\def\varphi{\unicode{x1D711}}\)
+\(\def\chi{\unicode{x1D712}}\)
+\(\def\psi{\unicode{x1D713}}\)
+\(\def\omega{\unicode{x1D714}}\)
+</div>
+
+<div class="homepagegrid pagegrid">
+<nav class="topnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Головна</a></nav>
+<div class="sidetoccontainer" data-pagefind-ignore>
+
+<nav class="sidetoc">
+
+<div class="sidetoctitle">
+<p>
+<a href="ClassicalElectrodynamics-html.html" class="sidetoc-home"><span class="sidetocthetitle">Класична електродинаміка</span></a>
+</p>
+<p class="sidetoc-meta"><a href="index.html">Про посібник</a><span aria-hidden="true">·</span><a href="ClassicalElectrodynamics.pdf">PDF</a></p>
+</div>
+
+<div class="sidetoccontents">
+<p>
+<a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Головна</a>
+</p>
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-4" class="tocchapter" >
+Передмова</a>
+</p>
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-5" class="tocchapter" >
+Вибір системи одиниць</a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-8" class="tocpart" >
+<span class="sectionnumber">I</span>&#x2003;Класична електродинаміка</a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-9" class="tocchapter" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Базові поняття та рівняння</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-10" class="tocsection" >
+<span class="sectionnumber">1.1</span><span class="toctitle">&#x2003;Величини, що спостерігаються в електродинаміці</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-25" class="tocsection" >
+<span class="sectionnumber">1.2</span><span class="toctitle">&#x2003;Рівняння електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-42" class="tocsection" >
+<span class="sectionnumber">1.3</span><span class="toctitle">&#x2003;Закони збереження</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-46" class="tocsection" >
+<span class="sectionnumber">1.4</span><span class="toctitle">&#x2003;Межі застосовності класичної електродинаміки</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-58" class="tocchapter" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Розв’язки рівнянь Максвелла</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-59" class="tocsection" >
+<span class="sectionnumber">2.1</span><span class="toctitle">&#x2003;Потенціали електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-65" class="tocsection" >
+<span class="sectionnumber">2.2</span><span class="toctitle">&#x2003;Потенціали ізольованої системи зарядів і струмів</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-70" class="tocsection" >
+<span class="sectionnumber">2.3</span><span class="toctitle">&#x2003;Задача Коші для рівнянь Максвелла</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-82" class="tocchapter" >
+<span class="sectionnumber">3</span><span class="toctitle">&#x2003;Вільне електромагнітне поле</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-83" class="tocsection" >
+<span class="sectionnumber">3.1</span><span class="toctitle">&#x2003;Спектральний розклад і плоскі хвилі</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-89" class="tocsection" >
+<span class="sectionnumber">3.2</span><span class="toctitle">&#x2003;Випадкові поля випромінювання</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-116" class="tocsection" >
+<span class="sectionnumber">3.3</span><span class="toctitle">&#x2003;Співвідношення між тривалістю сигналу та шириною його спектру</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-118" class="tocsection" >
+<span class="sectionnumber">3.4</span><span class="toctitle">&#x2003;Загальний розв’язок рівнянь вільного поля</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-127" class="tocchapter" >
+<span class="sectionnumber">4</span><span class="toctitle">&#x2003;Випромінювання</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-128" class="tocsection" >
+<span class="sectionnumber">4.1</span><span class="toctitle">&#x2003;Поле прискореного заряду</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">4.2</span><span class="toctitle">&#x2003;Випромінювання малих систем</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-138" class="tocsection" >
+<span class="sectionnumber">4.3</span><span class="toctitle">&#x2003;Розсіювання електромагнітних хвиль</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-151" class="tocpart" >
+<span class="sectionnumber">II</span>&#x2003;Чотиривимірне формулювання класичної електродинаміки</a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-152" class="tocchapter" >
+<span class="sectionnumber">5</span><span class="toctitle">&#x2003;Перетворення Лоренца як наслідок постулатів Айнштайна</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">5.1</span><span class="toctitle">&#x2003;Простір-час, системи відліку</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-155" class="tocsection" >
+<span class="sectionnumber">5.2</span><span class="toctitle">&#x2003;Перетворення Лоренца для одновимірних рухів систем відліку</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-164" class="tocsection" >
+<span class="sectionnumber">5.3</span><span class="toctitle">&#x2003;Власний час</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-165" class="tocsection" >
+<span class="sectionnumber">5.4</span><span class="toctitle">&#x2003;Квадрат інтервалу</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-169" class="tocsection" >
+<span class="sectionnumber">5.5</span><span class="toctitle">&#x2003;Перетворення довжини та об’єму</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-186" class="tocchapter" >
+<span class="sectionnumber">6</span><span class="toctitle">&#x2003;Співвідношення СТВ у просторі Мінковського</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-189" class="tocsection" >
+<span class="sectionnumber">6.1</span><span class="toctitle">&#x2003;Загальні та власні перетворення Лоренца</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-191" class="tocsection" >
+<span class="sectionnumber">6.2</span><span class="toctitle">&#x2003;Вектори і тензори в просторі Мінковського</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-193" class="tocsection" >
+<span class="sectionnumber">6.3</span><span class="toctitle">&#x2003;Світові лінії та чотиривектор швидкості</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-199" class="tocchapter" >
+<span class="sectionnumber">7</span><span class="toctitle">&#x2003;Електродинаміка у просторі Мінковського</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-200" class="tocsection" >
+<span class="sectionnumber">7.1</span><span class="toctitle">&#x2003;Чотиривимірна форма рівнянь Максвелла</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-203" class="tocsection" >
+<span class="sectionnumber">7.2</span><span class="toctitle">&#x2003;Трансформаційні властивості \(F_{\mitmu \mitnu }\)</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-208" class="tocsection" >
+<span class="sectionnumber">7.3</span><span class="toctitle">&#x2003;Рівняння руху зарядженої частинки</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-210" class="tocsection" >
+<span class="sectionnumber">7.4</span><span class="toctitle">&#x2003;Плоскі монохроматичні хвилі</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-211" class="tocsection" >
+<span class="sectionnumber">7.5</span><span class="toctitle">&#x2003;Ефект Доплера</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-216" class="tocsection" >
+<span class="sectionnumber">7.6</span><span class="toctitle">&#x2003;Вектор-потенціал електромагнітного поля у випадку ізольованої системи</span></a>
+</p>
+
+<p>
+<a href="ch8.html#autosec-220" class="tocchapter" >
+<span class="sectionnumber">8</span><span class="toctitle">&#x2003;Варіаційний принцип для рівнянь електродинаміки</span></a>
+</p>
+
+<p>
+<a href="ch8.html#autosec-221" class="tocsection" >
+<span class="sectionnumber">8.1</span><span class="toctitle">&#x2003;Заряд у зовнішньому електромагнітному полі</span></a>
+</p>
+
+<p>
+<a href="ch8.html#autosec-223" class="tocsection" >
+<span class="sectionnumber">8.2</span><span class="toctitle">&#x2003;Дія для електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-226" class="tocchapter" >
+<span class="sectionnumber">9</span><span class="toctitle">&#x2003;Тензор енергії-імпульсу і закони збереження</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-227" class="tocsection" >
+<span class="sectionnumber">9.1</span><span class="toctitle">&#x2003;Чотири-імпульс системи тіл</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-231" class="tocsection" >
+<span class="sectionnumber">9.2</span><span class="toctitle">&#x2003;Енергія-імпульс електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-232" class="tocsection" >
+<span class="sectionnumber">9.3</span><span class="toctitle">&#x2003;Тензор моменту імпульсу електромагнітної системи</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-237" class="tocchapter" >
+<span class="sectionnumber">10</span><span class="toctitle">&#x2003;Реакція випромінювання</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-238" class="tocsection" >
+<span class="sectionnumber">10.1</span><span class="toctitle">&#x2003;Нерелятивістська сила Абрагама–Лоренца</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-240" class="tocsection" >
+<span class="sectionnumber">10.2</span><span class="toctitle">&#x2003;Релятивістське узагальнення</span></a>
+</p>
+
+<div class="sidetoc-appendix-title" style="margin-top:1.2rem; padding:.4rem .8rem; font-weight:600; font-size:.9rem; color:var(--gold,#c99a2e); border-top:1px solid rgba(255,255,255,.15);">Додатки</div>
+<p>
+<a href="ch10.html#autosec-249" class="tocsection" >
+<span class="sectionnumber">А</span><span class="toctitle">&#x2003;Таблиця переходу між гаусовою системою одиниць та SI</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-254" class="tocsection" >
+<span class="sectionnumber">Б</span><span class="toctitle">&#x2003;Основні формули векторного аналізу</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-270" class="tocsection" >
+<span class="sectionnumber">В</span><span class="toctitle">&#x2003;Узагальнені функції</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-271" class="tocsection" >
+<span class="sectionnumber">Г</span><span class="toctitle">&#x2003;Фундаментальні розв’язки</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-272" class="tocsection" >
+<span class="sectionnumber">Д</span><span class="toctitle">&#x2003;Спеціальні функції</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-282" class="tocpart" >
+Література</a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-283" class="tocchapter" >
+Предметний покажчик</a>
+</p>
+
+</div>
+</nav>
+</div>
+
+
+<main class="bodycontainer">
+
+<section class="textbody">
+<a id="ClassicalElectrodynamics-html-autofile-0"></a>
+
+<a id="ClassicalElectrodynamics-html-autopage-1"></a>
+<div class="titlepage">
+<h1>Класична електродинаміка</h1>
+
+<div class="author">
+
+<div class="oneauthor">
+<p>
+В.&nbsp;І.&nbsp;Жданов
+</p>
+</div>
+
+<div class="oneauthor">
+<p>
+С.&nbsp;М.&nbsp;Пономаренко
+</p>
+</div>
+
+<div class="oneauthor">
+<p>
+В.&nbsp;Б.&nbsp;Долгошей
+</p>
+</div>
+</div>
+
+<div class="titledate">
+<p>
+23&nbsp;жовтня 2026&nbsp;р.
+</p>
+</div>
+</div>
+<!--
+...... chapter Зміст ......
+-->
+<h3 id="autosec-3">Зміст</h3>
+<a id="ClassicalElectrodynamics-html-autopage-3"></a>
+
+<nav class="toc">
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-4" class="tocchapter" >
+Передмова</a>
+</p>
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-5" class="tocchapter" >
+Вибір системи одиниць</a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-8" class="tocpart" >
+<span class="sectionnumber">I</span>&#x2003;Класична електродинаміка</a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-9" class="tocchapter" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Базові поняття та рівняння</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-10" class="tocsection" >
+<span class="sectionnumber">1.1</span><span class="toctitle">&#x2003;Величини, що спостерігаються в електродинаміці</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-25" class="tocsection" >
+<span class="sectionnumber">1.2</span><span class="toctitle">&#x2003;Рівняння електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-42" class="tocsection" >
+<span class="sectionnumber">1.3</span><span class="toctitle">&#x2003;Закони збереження</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-46" class="tocsection" >
+<span class="sectionnumber">1.4</span><span class="toctitle">&#x2003;Межі застосовності класичної електродинаміки</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-58" class="tocchapter" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Розв’язки рівнянь Максвелла</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-59" class="tocsection" >
+<span class="sectionnumber">2.1</span><span class="toctitle">&#x2003;Потенціали електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-65" class="tocsection" >
+<span class="sectionnumber">2.2</span><span class="toctitle">&#x2003;Потенціали ізольованої системи зарядів і струмів</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-70" class="tocsection" >
+<span class="sectionnumber">2.3</span><span class="toctitle">&#x2003;Задача Коші для рівнянь Максвелла</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-82" class="tocchapter" >
+<span class="sectionnumber">3</span><span class="toctitle">&#x2003;Вільне електромагнітне поле</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-83" class="tocsection" >
+<span class="sectionnumber">3.1</span><span class="toctitle">&#x2003;Спектральний розклад і плоскі хвилі</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-89" class="tocsection" >
+<span class="sectionnumber">3.2</span><span class="toctitle">&#x2003;Випадкові поля випромінювання</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-116" class="tocsection" >
+<span class="sectionnumber">3.3</span><span class="toctitle">&#x2003;Співвідношення між тривалістю сигналу та шириною його спектру</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-118" class="tocsection" >
+<span class="sectionnumber">3.4</span><span class="toctitle">&#x2003;Загальний розв’язок рівнянь вільного поля</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-127" class="tocchapter" >
+<span class="sectionnumber">4</span><span class="toctitle">&#x2003;Випромінювання</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-128" class="tocsection" >
+<span class="sectionnumber">4.1</span><span class="toctitle">&#x2003;Поле прискореного заряду</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">4.2</span><span class="toctitle">&#x2003;Випромінювання малих систем</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-138" class="tocsection" >
+<span class="sectionnumber">4.3</span><span class="toctitle">&#x2003;Розсіювання електромагнітних хвиль</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-151" class="tocpart" >
+<span class="sectionnumber">II</span>&#x2003;Чотиривимірне формулювання класичної електродинаміки</a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-152" class="tocchapter" >
+<span class="sectionnumber">5</span><span class="toctitle">&#x2003;Перетворення Лоренца як наслідок постулатів Айнштайна</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">5.1</span><span class="toctitle">&#x2003;Простір-час, системи відліку</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-155" class="tocsection" >
+<span class="sectionnumber">5.2</span><span class="toctitle">&#x2003;Перетворення Лоренца для одновимірних рухів систем відліку</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-164" class="tocsection" >
+<span class="sectionnumber">5.3</span><span class="toctitle">&#x2003;Власний час</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-165" class="tocsection" >
+<span class="sectionnumber">5.4</span><span class="toctitle">&#x2003;Квадрат інтервалу</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-169" class="tocsection" >
+<span class="sectionnumber">5.5</span><span class="toctitle">&#x2003;Перетворення довжини та об’єму</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-186" class="tocchapter" >
+<span class="sectionnumber">6</span><span class="toctitle">&#x2003;Співвідношення СТВ у просторі Мінковського</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-189" class="tocsection" >
+<span class="sectionnumber">6.1</span><span class="toctitle">&#x2003;Загальні та власні перетворення Лоренца</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-191" class="tocsection" >
+<span class="sectionnumber">6.2</span><span class="toctitle">&#x2003;Вектори і тензори в просторі Мінковського</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-193" class="tocsection" >
+<span class="sectionnumber">6.3</span><span class="toctitle">&#x2003;Світові лінії та чотиривектор швидкості</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-199" class="tocchapter" >
+<span class="sectionnumber">7</span><span class="toctitle">&#x2003;Електродинаміка у просторі Мінковського</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-200" class="tocsection" >
+<span class="sectionnumber">7.1</span><span class="toctitle">&#x2003;Чотиривимірна форма рівнянь Максвелла</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-203" class="tocsection" >
+<span class="sectionnumber">7.2</span><span class="toctitle">&#x2003;Трансформаційні властивості \(F_{\mitmu \mitnu }\)</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-208" class="tocsection" >
+<span class="sectionnumber">7.3</span><span class="toctitle">&#x2003;Рівняння руху зарядженої частинки</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-210" class="tocsection" >
+<span class="sectionnumber">7.4</span><span class="toctitle">&#x2003;Плоскі монохроматичні хвилі</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-211" class="tocsection" >
+<span class="sectionnumber">7.5</span><span class="toctitle">&#x2003;Ефект Доплера</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-216" class="tocsection" >
+<span class="sectionnumber">7.6</span><span class="toctitle">&#x2003;Вектор-потенціал електромагнітного поля у випадку ізольованої системи</span></a>
+</p>
+
+<p>
+<a href="ch8.html#autosec-220" class="tocchapter" >
+<span class="sectionnumber">8</span><span class="toctitle">&#x2003;Варіаційний принцип для рівнянь електродинаміки</span></a>
+</p>
+
+<p>
+<a href="ch8.html#autosec-221" class="tocsection" >
+<span class="sectionnumber">8.1</span><span class="toctitle">&#x2003;Заряд у зовнішньому електромагнітному полі</span></a>
+</p>
+
+<p>
+<a href="ch8.html#autosec-223" class="tocsection" >
+<span class="sectionnumber">8.2</span><span class="toctitle">&#x2003;Дія для електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-226" class="tocchapter" >
+<span class="sectionnumber">9</span><span class="toctitle">&#x2003;Тензор енергії-імпульсу і закони збереження</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-227" class="tocsection" >
+<span class="sectionnumber">9.1</span><span class="toctitle">&#x2003;Чотири-імпульс системи тіл</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-231" class="tocsection" >
+<span class="sectionnumber">9.2</span><span class="toctitle">&#x2003;Енергія-імпульс електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-232" class="tocsection" >
+<span class="sectionnumber">9.3</span><span class="toctitle">&#x2003;Тензор моменту імпульсу електромагнітної системи</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-237" class="tocchapter" >
+<span class="sectionnumber">10</span><span class="toctitle">&#x2003;Реакція випромінювання</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-238" class="tocsection" >
+<span class="sectionnumber">10.1</span><span class="toctitle">&#x2003;Нерелятивістська сила Абрагама–Лоренца</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-240" class="tocsection" >
+<span class="sectionnumber">10.2</span><span class="toctitle">&#x2003;Релятивістське узагальнення</span></a>
+</p>
+
+<div class="sidetoc-appendix-title" style="margin-top:1.2rem; padding:.4rem .8rem; font-weight:600; font-size:.9rem; color:var(--gold,#c99a2e); border-top:1px solid rgba(255,255,255,.15);">Додатки</div>
+<p>
+<a href="ch10.html#autosec-249" class="tocsection" >
+<span class="sectionnumber">А</span><span class="toctitle">&#x2003;Таблиця переходу між гаусовою системою одиниць та SI</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-254" class="tocsection" >
+<span class="sectionnumber">Б</span><span class="toctitle">&#x2003;Основні формули векторного аналізу</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-270" class="tocsection" >
+<span class="sectionnumber">В</span><span class="toctitle">&#x2003;Узагальнені функції</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-271" class="tocsection" >
+<span class="sectionnumber">Г</span><span class="toctitle">&#x2003;Фундаментальні розв’язки</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-272" class="tocsection" >
+<span class="sectionnumber">Д</span><span class="toctitle">&#x2003;Спеціальні функції</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-282" class="tocpart" >
+Література</a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-283" class="tocchapter" >
+Предметний покажчик</a>
+</p>
+</nav>
+<!--
+...... chapter Передмова ......
+-->
+<h3 id="autosec-4">Передмова</h3>
+<a id="ClassicalElectrodynamics-html-autopage-4"></a>
+
+<a id="preface"></a>
+
+<p>
+Посібник містить матеріали з класичної електродинаміки в рамках програми з теоретичної фізики, розрахованої на студентів третього курсу навчально-наукового фізико-технічного факультету КПІ імені Ігоря Сікорського.
+</p>
+
+<p>
+Викладено основні поняття класичної електродинаміки, розглянуто рівняння Максвелла, їх властивості, основні розв’язки, процеси випромінювання та розсіювання, вільні поля та їх характеристики. Посібник складається з двох частин:
+Частина&nbsp;<a href="ch1.html#part:I">I</a>:&nbsp;<a href="ch1.html#part:I">Класична електродинаміка</a>; Частина&nbsp;<a href="ch5.html#part:II">II</a>:&nbsp;<a href="ch5.html#part:II">Чотиривимірне формулювання
+класичної електродинаміки</a>.
+</p>
+
+<p>
+У частині І викладено базові поняття та рівняння, розв’язки рівнянь Максвелла, що описують ізольовану систему зарядів і струмів потенціали ізольованої системи зарядів і струмів, задача Коші для рівнянь Максвелла. Обговорено розв’язки для
+вільного електромагнітного поля та процеси випромінювання.
+</p>
+
+<p>
+У частині ІІ викладено базові принципи та поняття спеціальної теорії відносності (СТВ) близько до оригінальної роботи Айнштайна. Співвідношення СТВ переписано у просторі Мінковського. Далі рівняння Максвелла та основні пов’язані з ними
+величини переписано у коваріантній чотиривимірній формі за допомогою тензора електромагнітного поля та чотиривектора густини струму та розглянуто основні наслідки. Виведено коваріантні рівняння руху заряджених частинок в
+електромагнітному полі за допомогою принципу відповідності з класичною динамікою. Розглянуто варіаційний принцип для рівнянь електродинаміки та закони збереження.
+</p>
+
+<p>
+Посібник містить вправи для кращого засвоєння матеріалу.
+</p>
+<!--
+...... chapter Вибір системи одиниць ......
+-->
+<h3 id="autosec-5">Вибір системи одиниць</h3>
+<a id="ClassicalElectrodynamics-html-autopage-5"></a>
+
+<a id="measures"></a>
+
+<p>
+У класичній механіці природно будувати систему одиниць як абсолютну, тобто таку, в якій усі фізичні величини виражаються через базові — довжину, масу та час. Однією з таких систем є метрична система СГС, що базується на трьох основних
+одиницях: сантиметрі (довжина), грамі (маса) та секунді (час), — і власне назва «СГС» утворена саме від перших літер цих одиниць.
+</p>
+
+<p>
+Цей підхід можна послідовно поширити й на електродинаміку, якщо розглядати електричні та магнітні величини як похідні від механічних. Таке поширення реалізоване в гаусовій системі одиниць<a id="LWRindex-1"></a> — різновиді системи
+СГС. У цій системі електричні величини вимірюються в електростатичних одиницях (СГСЕ), а магнітні — в електромагнітних (СГСМ). Одиницю заряду тут визначають безпосередньо через сантиметр, грам і секунду за допомогою закону Кулона \(F
+= \dfrac {q_1 q_2}{r^2}\).
+</p>
+
+<p>
+На противагу природному механічному базису, у SI штучно введено ще одну фундаментальну одиницю — ампер, яка не має прямого фізичного змісту, адже електричний струм є лише похідною величиною від руху зарядів. Одиниця заряду в SI
+(кулон) є похідною від ампера, що вивертає логічний зв’язок: замість того щоб визначати струм через заряд, заряд визначають через струм. Хоча система SI є зручною для практичних та інженерних застосувань, оскільки результати обчислень
+одразу отримуються у звичних одиницях — вольтах, амперах, омах тощо, натомість гаусова система дозволяє зосередитися на фізичному змісті явищ, не обтяжуючи формули зайвими коефіцієнтами та допоміжними величинами, в цій системі
+рівняння не містять діелектричної \(\varepsilon _{0}\) чи магнітної \(\mu _{0}\) сталих, які не мають фізичного змісту, електричні \(\Efield \) та магнітні \(\Bfield \) поля мають однакову розмірність, зв’язок одиниць легко відслідковується
+з рівнянь. Все це робить формули теорії «елегантнішими» та симетричнішими, у результаті чого теорія набуває компактного вигляду. Гаусова система залишається стандартом у теоретичній електродинаміці та багатьох галузях сучасної фізики.
+</p>
+
+<p>
+З огляду на це, у подальшому викладі всі основні результати формулюються в гаусовій системі. За потреби перехід до одиниць SI може бути виконаний наприкінці обчислень (див.&nbsp;додаток&nbsp;<a href="ch10.html#sec:SGStoSI">.1</a>).
+</p>
+
+</section>
+
+</main>
+
+</div><!-- grid -->
+</div>
+</body>
+</html>

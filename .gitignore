@@ -1,4 +1,6 @@
 # === Тимчасові файли LaTeX ===
+_minted*/
+__pycache__
 *.aux
 *.synctex.gz
 *.synctex(busy)
@@ -9,52 +11,56 @@
 *.bbl
 *.blg
 *.nav
-*.bbl*
-*.bcf*
 *.toc
 *.thm
 *.snm
 *.out
 *.fls
+*.tmp
 *.vrb
 *.fdb_latexmk
 *.ind
 *.idx
 *.ilg
-test.*
-
-# === Згенеровані папки Lwarp ===
-# _html/
-_minted*/
-build/
-lateximages/
-# *-images/
-
-# === Конфігурація та скрипти Lwarp ===
-lwarpmk.conf
-*.lwarpmkconf
-lwarp*.*
-lwarp.xdy
-lwarp_one_limage.cmd
-lwarp-mathjax.tex
-lwarp-tikzdefs.tex
-sample_project.css
-
-# === Тимчасові файли Lwarp, вирізки та логи ===
-comment_*.cut
-*-images.txt
-lwarp_*.txt
-*.sidetoc
-*_html.tex
-build-error.txt
-ClassicalElectrodynamics-html_html.html
-
-# === Таблиці та скрипти Gnuplot ===
+*.bcf-SAVE-ERROR
+*.bbl-SAVE-ERROR
 *.gnuplot
 *.table
+test.*
+build-error.txt
+
+# PDF of the book: the build leaves it in the root, publish_pdf.ps1 moves it (linearized) to docs/, which is tracked
+/ClassicalElectrodynamics.pdf
+ClassicalElectrodynamics_*.pdf
+
+# === HTML build (lwarp) ===
+# its results lie in the root only until publish_html.py moves them to docs/ (anchored with /: docs/ is tracked)
+/_html/
+/lateximages/
+/ClassicalElectrodynamics-html-images/
+/ch*.html
+/app*.html
+/ClassicalElectrodynamics-html.html
+/sitemap.xml
+/pagefind/
+lwarp*
+*.lwarpmkconf
+*.cut
+*.sidetoc
+*_html.tex
+*-images.txt
+ClassicalElectrodynamics-html_html.*
+ClassicalElectrodynamics-html.pdf
+sample_project.css
+node_modules/
+
+# local web server for the HTML book (python docs/serve.py): kept in docs/ by publish_html.py, not published
+/docs/serve.py
+
+# history of the ced.py shell
+/.ced_history
 
 # === Специфічні файли проекту ===
-ClassicalElectrodynamics_*.pdf
 *.docx
 /!Save
 FreeField/uncert.tex

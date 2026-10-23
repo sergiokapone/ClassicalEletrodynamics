@@ -7,22 +7,19 @@
     add_home_sidebar         головна сторінка книги отримує ту саму бічну панель (зміст + пошук), що й розділи
     localize_nav             «Contents»/«Home» -> «Про посібник · PDF»/«Головна»; назва книги в панелі — посилання
     set_chapter_title        <title> розділу: «N. Назва — Класична електродинаміка»
-    fix_asset_paths          conspect.css / book.js лежать у styles/: шляхи в <head> виправляються (повторний запуск безпечний)
-    add_head_extras          favicon і styles/book.js (тема, згортання змісту, шухляда на телефоні, «попередній/наступний»)
+    fix_asset_paths          conspect.css / book.js лежать у docs/assets/: шляхи в <head> -> assets/ (повторний запуск безпечний)
+    add_head_extras          favicon і assets/book.js (тема, зміст, шухляда на телефоні, «попередній/наступний», пошук,
+                             збільшення рисунків, перенесення довгих формул)
     move_mathjax_macros      блок макросів MathJax -> на початок <body>
     add_appendix_header      заголовок «Додатки» в бічному змісті
     letter_appendix_numbers  нумерація додатків .1, .2 -> А, Б, ...
     localize_index           «section 1.1» -> «розділ 1.1» у покажчику
 
-  Пошук (Pagefind)
-    add_search_assets        підключення pagefind-ui.css/js
-    add_search_box           поле пошуку в бічній панелі
-    refresh_search_config    оновлення налаштувань пошуку в уже оброблених файлах
-    add_search_math          рендеринг формул у результатах (MathJax)
+  Пошук (Pagefind; поле пошуку й формули в результатах додає book.js, індекс будує build-html.ps1)
     mark_for_indexing        що індексувати: лише розділи ch*/app*, без бічної панелі та загального h1
 
   Обробляються лише сторінки, створені lwarp (мають <meta name="generator" content="LaTeX Lwarp package">).
-  index.html (інформаційна сторінка книги для GitHub Pages) і службовий *_html.html не чіпаються.
+  Службовий *_html.html не чіпається. Після цього publish_html.py переносить сайт у docs/ (GitHub Pages).
 """
 import glob
 import os
@@ -33,70 +30,6 @@ APP_MAP = {
 }
 
 TEXTBODY = re.compile(r'<(?:div|section)\b[^>]*\bclass="textbody"[^>]*>')
-
-# ───────────────────────── Пошук: JS-вставки ─────────────────────────
-
-PF_INIT = (
-    'new PagefindUI({ element: "#search", showSubResults: true, showImages: false, resetFilters: false, '
-    'processResult: function (r) { var n = function (x) { return (x || "").replace(/\\s+/g, " ").trim(); }; '
-    'var f = window.pfTexFix || function (x) { return x; }; var t = n(r.meta && r.meta.title); '
-    'r.excerpt = f(r.excerpt); '
-    'for (var i = 0, a = r.sub_results || []; i < a.length; i++) { '
-    'a[i].excerpt = f(a[i].excerpt); '
-    'if (n(a[i].title) === t) { a[i].title = "Початок розділу"; } } return r; } });'
-)
-
-# Формули в результатах пошуку: Pagefind індексує сирий TeX (\\(...\\)), тож після кожного
-# оновлення списку прогоняємо його через MathJax.
-SEARCH_MATH = r'''<script id="search-math">
-(function () {
-  /* Обрізаний уривок міг розірвати формулу: прибираємо «висячі» \\( та \\) */
-  window.pfTexFix = function (html) {
-    if (!html) { return html; }
-    var o = html.indexOf('\\('), c = html.indexOf('\\)');
-    if (c >= 0 && (o < 0 || c < o)) { html = '\u2026' + html.slice(c + 2); }
-    o = html.lastIndexOf('\\('); c = html.lastIndexOf('\\)');
-    if (o > c) { html = html.slice(0, o) + '\u2026'; }
-    var b = html.lastIndexOf('\\begin{'), e = html.lastIndexOf('\\end{');
-    if (b > e) { html = html.slice(0, b) + '\u2026'; }
-    var e0 = html.indexOf('\\end{'), b0 = html.indexOf('\\begin{');
-    if (e0 >= 0 && (b0 < 0 || e0 < b0)) { html = '\u2026' + html.slice(html.indexOf('}', e0) + 1); }
-    return html;
-  };
-  function start() {
-    var box = document.getElementById('search');
-    if (!box || !window.MutationObserver) { return; }
-    var timer = null, running = false, again = false;
-    function schedule() { if (timer) { clearTimeout(timer); } timer = setTimeout(run, 120); }
-    function run() {
-      timer = null;
-      if (running) { again = true; return; }
-      if (!window.MathJax || !MathJax.typesetPromise) { timer = setTimeout(run, 400); return; }
-      running = true;
-      var p;
-      try { if (MathJax.typesetClear) { MathJax.typesetClear([box]); } p = MathJax.typesetPromise([box]); }
-      catch (e) { running = false; return; }
-      p.catch(function () {}).then(function () { running = false; if (again) { again = false; schedule(); } });
-    }
-    /* Кнопка «Очистити» — лише хрестик (див. conspect.css), підпис стає підказкою */
-    function tip() {
-      var c = box.querySelector('.pagefind-ui__search-clear');
-      if (c && !c.title) { c.title = (c.textContent || '').trim(); }
-    }
-    new MutationObserver(function (ms) {
-      tip();
-      for (var i = 0; i < ms.length; i++) {
-        var t = ms[i].target;
-        if (t.nodeType === 1 && t.closest && t.closest('mjx-container')) { continue; }
-        schedule(); return;
-      }
-    }).observe(box, { childList: true, subtree: true });
-  }
-  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', start); } else { start(); }
-})();
-</script>
-'''
-
 
 # ───────────────────────────── Сторінка ─────────────────────────────
 
@@ -270,67 +203,26 @@ def set_chapter_title(s):
 
 
 def fix_asset_paths(s):
-    """lwarp пише <link href="conspect.css">; сам файл (і book.js) лежить у styles/. Правимо шляхи на місці."""
-    s = re.sub(r'(href=\")(?!styles/)(conspect\.css\")', r'\1styles/\2', s)
-    s = re.sub(r'(src=\")(?!styles/)(book\.js\")', r'\1styles/\2', s)
+    """lwarp пише <link href="conspect.css">; сам файл (і book.js) лежить у docs/assets/. Правимо шляхи на місці."""
+    s = re.sub(r'(href=\")(?!assets/)(conspect\.css\")', r'\1assets/\2', s)
+    s = re.sub(r'(src=\")(?!assets/)(book\.js\")', r'\1assets/\2', s)
     return s
 
 
 def add_head_extras(s):
-    """favicon (EM.ico лежить у корені проєкту) і book.js. Скрипт у <head> без defer: клас теми ставиться
+    """favicon (EM.ico з кореня проєкту publish_html.py копіює в docs/) і book.js. Скрипт у <head> без defer: клас теми ставиться
     до першого малювання сторінки (немає «миготіння»), а решту book.js робить на DOMContentLoaded."""
     extra = ''
     if 'rel="icon"' not in s:
         extra += '<link rel="icon" href="EM.ico">\n'
     if 'book.js' not in s:
-        extra += '<script src="styles/book.js"></script>\n'
+        extra += '<script src="assets/book.js"></script>\n'
     if extra:
         s = s.replace('</head>', extra + '</head>', 1)
     return s
 
 
 # ───────────────────────────── Пошук ─────────────────────────────
-
-def add_search_assets(s):
-    if 'pagefind/pagefind-ui.js' not in s:
-        search_assets = (
-            '<link href="pagefind/pagefind-ui.css" rel="stylesheet">\n'
-            '<script src="pagefind/pagefind-ui.js"></script>\n'
-        )
-        s = s.replace('</head>', f'{search_assets}</head>')
-    return s
-
-
-def add_search_box(s):
-    """Поле пошуку в sidetoc під заголовком."""
-    if 'id="search"' not in s:
-        search_box = (
-            '<div id="search" style="padding: 0.8rem 0.6rem 0.2rem;"></div>\n'
-            '<script>\n'
-            '  window.addEventListener("DOMContentLoaded", (event) => {\n'
-            f'    {PF_INIT}\n'
-            '  });\n'
-            '</script>\n'
-        )
-        s = re.sub(
-            r'(<div class="sidetoctitle">.*?</div>)',
-            lambda m: m.group(1) + '\n' + search_box,
-            s,
-            flags=re.DOTALL
-        )
-    return s
-
-
-def refresh_search_config(s):
-    """Оновлює налаштування пошуку й у вже оброблених файлах."""
-    return re.sub(r'new PagefindUI\(\{.*?\}\);', lambda m: PF_INIT, s)
-
-
-def add_search_math(s):
-    """Рендеринг формул у результатах (блок оновлюється при кожному запуску)."""
-    s = re.sub(r'<script id="search-math">.*?</script>\n?', '', s, flags=re.DOTALL)
-    return s.replace('</head>', SEARCH_MATH + '</head>', 1)
-
 
 def mark_for_indexing(s, filename):
     """Чітке розмежування індексації для Pagefind."""
@@ -426,10 +318,6 @@ def process(content, filename, donor=None):
     s = fix_asset_paths(content)
     s = add_head_extras(s)              # першим: решта вставок у <head> лягає після нього — порядок стабільний
     s = add_unicode_support(s)
-    s = add_search_assets(s)
-    s = add_search_box(s)
-    s = refresh_search_config(s)
-    s = add_search_math(s)
     s = move_mathjax_macros(s)
     s = add_appendix_header(s)
     s = letter_appendix_numbers(s)
@@ -453,11 +341,25 @@ def natural_key(name):
     return [int(t) if t.isdigit() else t for t in re.split(r'(\d+)', name)]
 
 
+def read_page(path):
+    """Текст сторінки й ознака «було виправлено». pdftotext (TeX Live 2026) пише символи поза BMP (математичні
+    курсивні літери в коментарях lwarp із текстом формул) як пари сурогатів по 3 байти (CESU-8): це не UTF-8, і
+    звичайне читання падає. Сурогати декодуємо окремо й зводимо в справжні символи."""
+    raw = open(path, 'rb').read()
+    try:
+        text, fixed = raw.decode('utf-8'), False
+    except UnicodeDecodeError:
+        text = raw.decode('utf-8', 'surrogatepass').encode('utf-16', 'surrogatepass').decode('utf-16', 'replace')
+        fixed = True
+    return text.replace('\r\n', '\n'), fixed
+
+
 def main():
-    pages = {}
+    pages, repaired = {}, set()
     for filepath in sorted(glob.glob("*.html"), key=natural_key):
-        with open(filepath, "r", encoding="utf-8") as f:
-            text = f.read()
+        text, fixed = read_page(filepath)
+        if fixed:
+            repaired.add(filepath)
         if is_book_page(text, filepath):
             pages[filepath] = text
         else:
@@ -468,7 +370,7 @@ def main():
 
     def save(fp, new):
         nonlocal count
-        if new != pages[fp]:
+        if new != pages[fp] or fp in repaired:
             with open(fp, "w", encoding="utf-8") as f:
                 f.write(new)
             count += 1
@@ -481,8 +383,7 @@ def main():
     donor = next((pages[fp] for fp in pages if re.match(r'ch\d+\.html$', fp)), None)
     for fp in home:
         save(fp, process(pages[fp], fp, donor))
-    print(f"Оновлено {count} HTML-файлів (пошук, навігація, індексація, додатки, покажчик).")
-
+    print(f"Оновлено {count} HTML-файлів (навігація, індексація для пошуку, додатки, покажчик).")
 
 if __name__ == "__main__":
     main()

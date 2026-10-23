@@ -1,0 +1,9 @@
+ClassicalElectrodynamics.pdf
+ClassicalEletrodynamics.pdf
+ClassicalElectrodynamics_Basics.pdf
+ClassicalElectrodynamics_Basics_Solutions.pdf
+ClassicalElectrodynamics-html.html
+ClassicalElectrodynamics-html-images/
+pagefind/
+regex:^ch[0-9]+\.html$
+regex:^ClassicalE[a-z]*trodynamics\.(parable2?\.(gnuplot|table)|synctex\(busy\))$

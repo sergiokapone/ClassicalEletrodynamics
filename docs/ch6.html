@@ -1,0 +1,2172 @@
+
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8" />
+<meta name="generator" content="LaTeX Lwarp package" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>6. Співвідношення СТВ у просторі Мінковського — Класична електродинаміка</title>
+<link rel="stylesheet" type="text/css" href="assets/conspect.css" />
+
+<script>
+// Lwarp MathJax emulation code
+//
+// Based on code by Davide P. Cervone.
+// Equation numbering: https://github.com/mathjax/MathJax/issues/2427
+// Starred and ifnextchar macros: https://github.com/mathjax/MathJax/issues/2428
+// \left, \right delimiters: https://github.com/mathjax/MathJax/issues/2535
+//
+// Modified by Brian Dunn to adjust equation numbering and add subequations.
+//
+// LaTeX can use \seteqnumber{subequations?}{section}{number} before each equation.
+// subequations? is 0 usually, 1 if inside subequations.
+// section is a string printed as-is, or empty.
+// number is auto-incremented by MathJax between equations.
+//
+MathJax = {
+
+   subequations: "0",
+   section: "",
+   loader: {
+
+       load: ['[tex]/tagformat', '[tex]/textmacros', '[tex]/boldsymbol', '[tex]/unicode'],
+   },
+   startup: {
+
+       ready() {
+          // These would be replaced by import commands if you wanted to make
+          // a proper extension.
+          const Configuration = MathJax._.input.tex.Configuration.Configuration;
+          const CommandMap = MathJax._.input.tex.SymbolMap.CommandMap;
+          const Macro = MathJax._.input.tex.Symbol.Macro;
+          const TexError = MathJax._.input.tex.TexError.default;
+          const ParseUtil = MathJax._.input.tex.ParseUtil.default;
+          const expandable = MathJax._.util.Options.expandable;
+
+// Insert the replacement string into the TeX string, and check
+// that there haven't been too many maxro substitutions (prevents
+// infinite loops).
+const useArgument = (parser, text) => {
+
+   parser.string = ParseUtil.addArgs(parser, text, parser.string.slice(parser.i));
+   parser.i = 0;
+   if (++parser.macroCount > parser.configuration.options.maxMacros) {
+
+       throw new TexError('MaxMacroSub1',
+       'MathJax maximum macro substitution count exceeded; ' +
+       'is there a recursive macro call?');
+   }
+}
+
+// Create the command map for:
+
+// \ifstar, \ifnextchar, \ifblank, \ifstrequal, \gsub, \seteqnumber
+
+new CommandMap('Lwarp-macros', {
+
+ifstar: 'IfstarFunction',
+
+ifnextchar: 'IfnextcharFunction',
+
+ifblank: 'IfblankFunction',
+
+ifstrequal: 'IfstrequalFunction',
+
+gsubstitute: 'GsubstituteFunction',
+
+seteqnumber: 'SeteqnumberFunction'
+
+}, {
+
+// This function implements an ifstar macro.
+
+IfstarFunction(parser, name) {
+
+     const resultstar = parser.GetArgument(name);
+
+     const resultnostar = parser.GetArgument(name);
+
+     const star = parser.GetStar();                  // true if there is a *
+
+     useArgument(parser, star ? resultstar : resultnostar);
+
+},
+
+// This function implements an ifnextchar macro.
+IfnextcharFunction(parser, name) {
+
+   let whichchar = parser.GetArgument(name);
+   if (whichchar.match(/^(?:0x[0-9A-F]+|[0-9]+)$/i)) {
+
+       // $ syntax highlighting
+       whichchar = String.fromCodePoint(parseInt(whichchar));
+   }
+   const resultnextchar = parser.GetArgument(name);
+   const resultnotnextchar = parser.GetArgument(name);
+   const gotchar = (parser.GetNext() === whichchar);
+   useArgument(parser, gotchar ? resultnextchar : resultnotnextchar);
+},
+
+// This function implements an ifblank macro.
+IfblankFunction(parser, name) {
+
+   const blankarg = parser.GetArgument(name);
+   const resultblank = parser.GetArgument(name);
+   const resultnotblank = parser.GetArgument(name);
+   const isblank = (blankarg.trim() == "");
+   useArgument(parser, isblank ? resultblank : resultnotblank);
+},
+
+// This function implements an ifstrequal macro.
+IfstrequalFunction(parser, name) {
+
+   const strequalfirst = parser.GetArgument(name);
+   const strequalsecond = parser.GetArgument(name);
+   const resultequal = parser.GetArgument(name);
+   const resultnotequal = parser.GetArgument(name);
+   const isequal = (strequalfirst == strequalsecond);
+   useArgument(parser, isequal ? resultequal : resultnotequal);
+},
+
+// This function implements a gsub macro.
+GsubstituteFunction(parser, name) {
+
+   const gsubfirst = parser.GetArgument(name);
+   const gsubsecond = parser.GetArgument(name);
+   const gsubthird = parser.GetArgument(name);
+   let gsubresult=gsubfirst.replace(gsubsecond, gsubthird);
+   useArgument(parser, gsubresult);
+},
+
+// This function modifies the equation numbers.
+
+SeteqnumberFunction(parser, name) {
+
+      // Get the macro parameters
+
+      const star = parser.GetStar();                 // true if there is a *
+
+      const optBrackets = parser.GetBrackets(name); // contents of optional brackets
+
+      const newsubequations = parser.GetArgument(name); // the subequations argument
+
+      const neweqsection = parser.GetArgument(name); // the eq section argument
+
+      const neweqnumber = parser.GetArgument(name); // the eq number argument
+
+      MathJax.config.subequations=newsubequations ; // a string with boolean meaning
+
+      MathJax.config.section=neweqsection ;          // a string with numeric meaning
+
+      parser.tags.counter = parser.tags.allCounter = neweqnumber ;
+
+}
+
+});
+
+// Create the Lwarp-macros package
+Configuration.create('Lwarp-macros', {
+
+   handler: {macro: ['Lwarp-macros']}
+});
+
+MathJax.startup.defaultReady();
+
+// For forward references:
+MathJax.startup.input[0].preFilters.add(({math}) => {
+
+   if (math.inputData.recompile){
+          MathJax.config.subequations = math.inputData.recompile.subequations;
+          MathJax.config.section = math.inputData.recompile.section;
+
+   }
+});
+MathJax.startup.input[0].postFilters.add(({math}) => {
+
+   if (math.inputData.recompile){
+          math.inputData.recompile.subequations = MathJax.config.subequations;
+          math.inputData.recompile.section = MathJax.config.section;
+
+   }
+});
+
+          // For \left, \right with unicode-math:
+          const {DelimiterMap} = MathJax._.input.tex.SymbolMap;
+          const {Symbol} = MathJax._.input.tex.Symbol;
+          const {MapHandler} = MathJax._.input.tex.MapHandler;
+          const delimiter = MapHandler.getMap('delimiter');
+          delimiter.add('\\lBrack', new Symbol('\\lBrack', '\u27E6'));
+          delimiter.add('\\rBrack', new Symbol('\\rBrack', '\u27E7'));
+          delimiter.add('\\lAngle', new Symbol('\\lAngle', '\u27EA'));
+          delimiter.add('\\rAngle', new Symbol('\\rAngle', '\u27EB'));
+          delimiter.add('\\lbrbrak', new Symbol('\\lbrbrak', '\u2772'));
+          delimiter.add('\\rbrbrak', new Symbol('\\rbrbrak', '\u2773'));
+          delimiter.add('\\lbag', new Symbol('\\lbag', '\u27C5'));
+          delimiter.add('\\rbag', new Symbol('\\rbag', '\u27C6'));
+          delimiter.add('\\llparenthesis', new Symbol('\\llparenthesis', '\u2987'));
+          delimiter.add('\\rrparenthesis', new Symbol('\\rrparenthesis', '\u2988'));
+          delimiter.add('\\llangle', new Symbol('\\llangle', '\u2989'));
+          delimiter.add('\\rrangle', new Symbol('\\rrangle', '\u298A'));
+          delimiter.add('\\Lbrbrak', new Symbol('\\Lbrbrak', '\u27EC'));
+          delimiter.add('\\Rbrbrak', new Symbol('\\Rbrbrak', '\u27ED'));
+          delimiter.add('\\lBrace', new Symbol('\\lBrace', '\u2983'));
+          delimiter.add('\\rBrace', new Symbol('\\rBrace', '\u2984'));
+          delimiter.add('\\lParen', new Symbol('\\lParen', '\u2985'));
+          delimiter.add('\\rParen', new Symbol('\\rParen', '\u2986'));
+          delimiter.add('\\lbrackubar', new Symbol('\\lbrackubar', '\u298B'));
+          delimiter.add('\\rbrackubar', new Symbol('\\rbrackubar', '\u298C'));
+          delimiter.add('\\lbrackultick', new Symbol('\\lbrackultick', '\u298D'));
+          delimiter.add('\\rbracklrtick', new Symbol('\\rbracklrtick', '\u298E'));
+          delimiter.add('\\lbracklltick', new Symbol('\\lbracklltick', '\u298F'));
+          delimiter.add('\\rbrackurtick', new Symbol('\\rbrackurtick', '\u2990'));
+          delimiter.add('\\langledot', new Symbol('\\langledot', '\u2991'));
+          delimiter.add('\\rangledot', new Symbol('\\rangledot', '\u2992'));
+          delimiter.add('\\lparenless', new Symbol('\\lparenless', '\u2993'));
+          delimiter.add('\\rparengtr', new Symbol('\\rparengtr', '\u2994'));
+          delimiter.add('\\Lparengtr', new Symbol('\\Lparengtr', '\u2995'));
+          delimiter.add('\\Rparenless', new Symbol('\\Rparenless', '\u2996'));
+          delimiter.add('\\lblkbrbrak', new Symbol('\\lblkbrbrak', '\u2997'));
+          delimiter.add('\\rblkbrbrak', new Symbol('\\rblkbrbrak', '\u2998'));
+          delimiter.add('\\lvzigzag', new Symbol('\\lvzigzag', '\u29D8'));
+          delimiter.add('\\rvzigzag', new Symbol('\\rvzigzag', '\u29D9'));
+          delimiter.add('\\Lvzigzag', new Symbol('\\Lvzigzag', '\u29DA'));
+          delimiter.add('\\Rvzigzag', new Symbol('\\Rvzigzag', '\u29DB'));
+          delimiter.add('\\lcurvyangle', new Symbol('\\lcurvyangle', '\u29FC'));
+          delimiter.add('\\rcurvyangle', new Symbol('\\rcurvyangle', '\u29FD'));
+          delimiter.add('\\Vvert', new Symbol('\\Vvert', '\u2980'));
+   } // ready
+}, // startup
+
+   tex: {
+       packages: {'[+]': ['tagformat', 'Lwarp-macros', 'textmacros', 'boldsymbol', 'unicode']},
+       tags: "ams",
+              tagformat: {
+                     number: function (n) {
+                             if(MathJax.config.subequations==0)
+                                    return(MathJax.config.section + n);
+                             else
+                                    return(MathJax.config.section + String.fromCharCode(96+n));
+                     },
+              },
+
+   }
+}
+</script>
+
+<script
+       id="MathJax-script"
+       src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"
+
+></script>
+
+<link rel="icon" href="EM.ico">
+<script src="assets/book.js"></script>
+</head>
+<body>
+<!--MathJax customizations:-->
+<div data-nosnippet
+
+      style="display:none"
+>
+\(\newcommand{\footnotename}{footnote}\)
+\(\def \LWRfootnote {1}\)
+\(\newcommand {\footnote }[2][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+\(\newcommand {\footnotemark }[1][\LWRfootnote ]{{}^{\mathrm {#1}}}\)
+\(\let \LWRorighspace \hspace \)
+\(\renewcommand {\hspace }{\ifstar \LWRorighspace \LWRorighspace }\)
+\(\newcommand {\TextOrMath }[2]{#2}\)
+\(\newcommand {\mathnormal }[1]{{#1}}\)
+\(\newcommand \ensuremath [1]{#1}\)
+\(\newcommand {\LWRframebox }[2][]{\fbox {#2}} \newcommand {\framebox }[1][]{\LWRframebox } \)
+\(\newcommand {\setlength }[2]{}\)
+\(\newcommand {\addtolength }[2]{}\)
+\(\newcommand {\setcounter }[2]{}\)
+\(\newcommand {\addtocounter }[2]{}\)
+\(\newcommand {\arabic }[1]{}\)
+\(\newcommand {\number }[1]{}\)
+\(\newcommand {\noalign }[1]{\text {#1}\notag \\}\)
+\(\newcommand {\cline }[1]{}\)
+\(\newcommand {\directlua }[1]{\text {(directlua)}}\)
+\(\newcommand {\luatexdirectlua }[1]{\text {(directlua)}}\)
+\(\newcommand {\protect }{}\)
+\(\def \LWRabsorbnumber #1 {}\)
+\(\def \LWRabsorbquotenumber &quot;#1 {}\)
+\(\newcommand {\LWRabsorboption }[1][]{}\)
+\(\newcommand {\LWRabsorbtwooptions }[1][]{\LWRabsorboption }\)
+\(\def \mathchar {\ifnextchar &quot;\LWRabsorbquotenumber \LWRabsorbnumber }\)
+\(\def \mathcode #1={\mathchar }\)
+\(\let \delcode \mathcode \)
+\(\let \delimiter \mathchar \)
+\(\def \oe {\unicode {x0153}}\)
+\(\def \OE {\unicode {x0152}}\)
+\(\def \ae {\unicode {x00E6}}\)
+\(\def \AE {\unicode {x00C6}}\)
+\(\def \aa {\unicode {x00E5}}\)
+\(\def \AA {\unicode {x00C5}}\)
+\(\def \o {\unicode {x00F8}}\)
+\(\def \O {\unicode {x00D8}}\)
+\(\def \l {\unicode {x0142}}\)
+\(\def \L {\unicode {x0141}}\)
+\(\def \ss {\unicode {x00DF}}\)
+\(\def \SS {\unicode {x1E9E}}\)
+\(\def \dag {\unicode {x2020}}\)
+\(\def \ddag {\unicode {x2021}}\)
+\(\def \P {\unicode {x00B6}}\)
+\(\def \copyright {\unicode {x00A9}}\)
+\(\def \pounds {\unicode {x00A3}}\)
+\(\let \LWRref \ref \)
+\(\renewcommand {\ref }{\ifstar \LWRref \LWRref }\)
+\( \newcommand {\multicolumn }[3]{#3}\)
+\(\require {textcomp}\)
+\(\require {colortbl}\)
+\(\let \LWRorigcolumncolor \columncolor \)
+\(\renewcommand {\columncolor }[2][named]{\LWRorigcolumncolor [#1]{#2}\LWRabsorbtwooptions }\)
+\(\let \LWRorigrowcolor \rowcolor \)
+\(\renewcommand {\rowcolor }[2][named]{\LWRorigrowcolor [#1]{#2}\LWRabsorbtwooptions }\)
+\(\let \LWRorigcellcolor \cellcolor \)
+\(\renewcommand {\cellcolor }[2][named]{\LWRorigcellcolor [#1]{#2}\LWRabsorbtwooptions }\)
+\(\newcommand {\intertext }[1]{\text {#1}\notag \\}\)
+\(\let \Hat \hat \)
+\(\let \Check \check \)
+\(\let \Tilde \tilde \)
+\(\let \Acute \acute \)
+\(\let \Grave \grave \)
+\(\let \Dot \dot \)
+\(\let \Ddot \ddot \)
+\(\let \Breve \breve \)
+\(\let \Bar \bar \)
+\(\let \Vec \vec \)
+\(\let \symnormal \mathit \)
+\(\let \symliteral \mathrm \)
+\(\let \symbb \mathbb \)
+\(\let \symbbit \mathbb \)
+\(\let \symcal \mathcal \)
+\(\let \symscr \mathscr \)
+\(\let \symfrak \mathfrak \)
+\(\let \symsfup \mathsf \)
+\(\let \symsfit \mathit \)
+\(\let \symbfsf \mathbf \)
+\(\let \symbfup \mathbf \)
+\(\newcommand {\symbfit }[1]{\boldsymbol {#1}}\)
+\(\let \symbfcal \mathcal \)
+\(\let \symbfscr \mathscr \)
+\(\let \symbffrak \mathfrak \)
+\(\let \symbfsfup \mathbf \)
+\(\newcommand {\symbfsfit }[1]{\boldsymbol {#1}}\)
+\(\let \symup \mathrm \)
+\(\let \symbf \mathbf \)
+\(\let \symit \mathit \)
+\(\let \symtt \mathtt \)
+\(\let \symbffrac \mathbffrac \)
+\(\newcommand {\mathfence }[1]{\mathord {#1}}\)
+\(\newcommand {\mathover }[1]{#1}\)
+\(\newcommand {\mathunder }[1]{#1}\)
+\(\newcommand {\mathaccent }[1]{#1}\)
+\(\newcommand {\mathbotaccent }[1]{#1}\)
+\(\newcommand {\mathalpha }[1]{\mathord {#1}}\)
+\(\def\upAlpha{\unicode{x0391}}\)
+\(\def\upBeta{\unicode{x0392}}\)
+\(\def\upGamma{\unicode{x0393}}\)
+\(\def\upDigamma{\unicode{x03DC}}\)
+\(\def\upDelta{\unicode{x0394}}\)
+\(\def\upEpsilon{\unicode{x0395}}\)
+\(\def\upZeta{\unicode{x0396}}\)
+\(\def\upEta{\unicode{x0397}}\)
+\(\def\upTheta{\unicode{x0398}}\)
+\(\def\upVartheta{\unicode{x03F4}}\)
+\(\def\upIota{\unicode{x0399}}\)
+\(\def\upKappa{\unicode{x039A}}\)
+\(\def\upLambda{\unicode{x039B}}\)
+\(\def\upMu{\unicode{x039C}}\)
+\(\def\upNu{\unicode{x039D}}\)
+\(\def\upXi{\unicode{x039E}}\)
+\(\def\upOmicron{\unicode{x039F}}\)
+\(\def\upPi{\unicode{x03A0}}\)
+\(\def\upVarpi{\unicode{x03D6}}\)
+\(\def\upRho{\unicode{x03A1}}\)
+\(\def\upSigma{\unicode{x03A3}}\)
+\(\def\upTau{\unicode{x03A4}}\)
+\(\def\upUpsilon{\unicode{x03A5}}\)
+\(\def\upPhi{\unicode{x03A6}}\)
+\(\def\upChi{\unicode{x03A7}}\)
+\(\def\upPsi{\unicode{x03A8}}\)
+\(\def\upOmega{\unicode{x03A9}}\)
+\(\def\itAlpha{\unicode{x1D6E2}}\)
+\(\def\itBeta{\unicode{x1D6E3}}\)
+\(\def\itGamma{\unicode{x1D6E4}}\)
+\(\def\itDigamma{\mathit{\unicode{x03DC}}}\)
+\(\def\itDelta{\unicode{x1D6E5}}\)
+\(\def\itEpsilon{\unicode{x1D6E6}}\)
+\(\def\itZeta{\unicode{x1D6E7}}\)
+\(\def\itEta{\unicode{x1D6E8}}\)
+\(\def\itTheta{\unicode{x1D6E9}}\)
+\(\def\itVartheta{\unicode{x1D6F3}}\)
+\(\def\itIota{\unicode{x1D6EA}}\)
+\(\def\itKappa{\unicode{x1D6EB}}\)
+\(\def\itLambda{\unicode{x1D6EC}}\)
+\(\def\itMu{\unicode{x1D6ED}}\)
+\(\def\itNu{\unicode{x1D6EE}}\)
+\(\def\itXi{\unicode{x1D6EF}}\)
+\(\def\itOmicron{\unicode{x1D6F0}}\)
+\(\def\itPi{\unicode{x1D6F1}}\)
+\(\def\itRho{\unicode{x1D6F2}}\)
+\(\def\itSigma{\unicode{x1D6F4}}\)
+\(\def\itTau{\unicode{x1D6F5}}\)
+\(\def\itUpsilon{\unicode{x1D6F6}}\)
+\(\def\itPhi{\unicode{x1D6F7}}\)
+\(\def\itChi{\unicode{x1D6F8}}\)
+\(\def\itPsi{\unicode{x1D6F9}}\)
+\(\def\itOmega{\unicode{x1D6FA}}\)
+\(\def\upalpha{\unicode{x03B1}}\)
+\(\def\upbeta{\unicode{x03B2}}\)
+\(\def\upvarbeta{\unicode{x03D0}}\)
+\(\def\upgamma{\unicode{x03B3}}\)
+\(\def\updigamma{\unicode{x03DD}}\)
+\(\def\updelta{\unicode{x03B4}}\)
+\(\def\upepsilon{\unicode{x03F5}}\)
+\(\def\upvarepsilon{\unicode{x03B5}}\)
+\(\def\upzeta{\unicode{x03B6}}\)
+\(\def\upeta{\unicode{x03B7}}\)
+\(\def\uptheta{\unicode{x03B8}}\)
+\(\def\upvartheta{\unicode{x03D1}}\)
+\(\def\upiota{\unicode{x03B9}}\)
+\(\def\upkappa{\unicode{x03BA}}\)
+\(\def\upvarkappa{\unicode{x03F0}}\)
+\(\def\uplambda{\unicode{x03BB}}\)
+\(\def\upmu{\unicode{x03BC}}\)
+\(\def\upnu{\unicode{x03BD}}\)
+\(\def\upxi{\unicode{x03BE}}\)
+\(\def\upomicron{\unicode{x03BF}}\)
+\(\def\uppi{\unicode{x03C0}}\)
+\(\def\upvarpi{\unicode{x03D6}}\)
+\(\def\uprho{\unicode{x03C1}}\)
+\(\def\upvarrho{\unicode{x03F1}}\)
+\(\def\upsigma{\unicode{x03C3}}\)
+\(\def\upvarsigma{\unicode{x03C2}}\)
+\(\def\uptau{\unicode{x03C4}}\)
+\(\def\upupsilon{\unicode{x03C5}}\)
+\(\def\upphi{\unicode{x03D5}}\)
+\(\def\upvarphi{\unicode{x03C6}}\)
+\(\def\upchi{\unicode{x03C7}}\)
+\(\def\uppsi{\unicode{x03C8}}\)
+\(\def\upomega{\unicode{x03C9}}\)
+\(\def\italpha{\unicode{x1D6FC}}\)
+\(\def\itbeta{\unicode{x1D6FD}}\)
+\(\def\itvarbeta{\unicode{x03D0}}\)
+\(\def\itgamma{\unicode{x1D6FE}}\)
+\(\def\itdigamma{\mathit{\unicode{x03DD}}}\)
+\(\def\itdelta{\unicode{x1D6FF}}\)
+\(\def\itepsilon{\unicode{x1D716}}\)
+\(\def\itvarepsilon{\unicode{x1D700}}\)
+\(\def\itzeta{\unicode{x1D701}}\)
+\(\def\iteta{\unicode{x1D702}}\)
+\(\def\ittheta{\unicode{x1D703}}\)
+\(\def\itvartheta{\unicode{x1D717}}\)
+\(\def\itiota{\unicode{x1D704}}\)
+\(\def\itkappa{\unicode{x1D705}}\)
+\(\def\itvarkappa{\unicode{x1D718}}\)
+\(\def\itlambda{\unicode{x1D706}}\)
+\(\def\itmu{\unicode{x1D707}}\)
+\(\def\itnu{\unicode{x1D708}}\)
+\(\def\itxi{\unicode{x1D709}}\)
+\(\def\itomicron{\unicode{x1D70A}}\)
+\(\def\itpi{\unicode{x1D70B}}\)
+\(\def\itvarpi{\unicode{x1D71B}}\)
+\(\def\itrho{\unicode{x1D70C}}\)
+\(\def\itvarrho{\unicode{x1D71A}}\)
+\(\def\itsigma{\unicode{x1D70E}}\)
+\(\def\itvarsigma{\unicode{x1D70D}}\)
+\(\def\ittau{\unicode{x1D70F}}\)
+\(\def\itupsilon{\unicode{x1D710}}\)
+\(\def\itphi{\unicode{x1D719}}\)
+\(\def\itvarphi{\unicode{x1D711}}\)
+\(\def\itchi{\unicode{x1D712}}\)
+\(\def\itpsi{\unicode{x1D713}}\)
+\(\def\itomega{\unicode{x1D714}}\)
+\(\let \lparen (\)
+\(\let \rparen )\)
+\(\newcommand {\cuberoot }[1]{\,{}^3\!\!\sqrt {#1}}\,\)
+\(\newcommand {\fourthroot }[1]{\,{}^4\!\!\sqrt {#1}}\,\)
+\(\newcommand {\longdivision }[1]{\mathord {\unicode {x027CC}#1}}\)
+\(\newcommand {\mathcomma }{,}\)
+\(\newcommand {\mathcolon }{:}\)
+\(\newcommand {\mathsemicolon }{;}\)
+\(\newcommand {\overbracket }[1]{\mathinner {\overline {\ulcorner {#1}\urcorner }}}\)
+\(\newcommand {\underbracket }[1]{\mathinner {\underline {\llcorner {#1}\lrcorner }}}\)
+\(\newcommand {\overbar }[1]{\mathord {#1\unicode {x00305}}}\)
+\(\newcommand {\ovhook }[1]{\mathord {#1\unicode {x00309}}}\)
+\(\newcommand {\ocirc }[1]{\mathord {#1\unicode {x0030A}}}\)
+\(\newcommand {\candra }[1]{\mathord {#1\unicode {x00310}}}\)
+\(\newcommand {\oturnedcomma }[1]{\mathord {#1\unicode {x00312}}}\)
+\(\newcommand {\ocommatopright }[1]{\mathord {#1\unicode {x00315}}}\)
+\(\newcommand {\droang }[1]{\mathord {#1\unicode {x0031A}}}\)
+\(\newcommand {\leftharpoonaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+\(\newcommand {\rightharpoonaccent }[1]{\mathord {#1\unicode {x020D1}}}\)
+\(\newcommand {\vertoverlay }[1]{\mathord {#1\unicode {x020D2}}}\)
+\(\newcommand {\leftarrowaccent }[1]{\mathord {#1\unicode {x020D0}}}\)
+\(\newcommand {\annuity }[1]{\mathord {#1\unicode {x020E7}}}\)
+\(\newcommand {\widebridgeabove }[1]{\mathord {#1\unicode {x020E9}}}\)
+\(\newcommand {\asteraccent }[1]{\mathord {#1\unicode {x020F0}}}\)
+\(\newcommand {\threeunderdot }[1]{\mathord {#1\unicode {x020E8}}}\)
+\(\newcommand {\Bbbsum }{\mathop {\unicode {x2140}}\limits }\)
+\(\newcommand {\oiint }{\mathop {\unicode {x222F}}\limits }\)
+\(\newcommand {\oiiint }{\mathop {\unicode {x2230}}\limits }\)
+\(\newcommand {\intclockwise }{\mathop {\unicode {x2231}}\limits }\)
+\(\newcommand {\ointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+\(\newcommand {\ointctrclockwise }{\mathop {\unicode {x2233}}\limits }\)
+\(\newcommand {\varointclockwise }{\mathop {\unicode {x2232}}\limits }\)
+\(\newcommand {\leftouterjoin }{\mathop {\unicode {x27D5}}\limits }\)
+\(\newcommand {\rightouterjoin }{\mathop {\unicode {x27D6}}\limits }\)
+\(\newcommand {\fullouterjoin }{\mathop {\unicode {x27D7}}\limits }\)
+\(\newcommand {\bigbot }{\mathop {\unicode {x27D8}}\limits }\)
+\(\newcommand {\bigtop }{\mathop {\unicode {x27D9}}\limits }\)
+\(\newcommand {\xsol }{\mathop {\unicode {x29F8}}\limits }\)
+\(\newcommand {\xbsol }{\mathop {\unicode {x29F9}}\limits }\)
+\(\newcommand {\bigcupdot }{\mathop {\unicode {x2A03}}\limits }\)
+\(\newcommand {\bigsqcap }{\mathop {\unicode {x2A05}}\limits }\)
+\(\newcommand {\conjquant }{\mathop {\unicode {x2A07}}\limits }\)
+\(\newcommand {\disjquant }{\mathop {\unicode {x2A08}}\limits }\)
+\(\newcommand {\bigtimes }{\mathop {\unicode {x2A09}}\limits }\)
+\(\newcommand {\modtwosum }{\mathop {\unicode {x2A0A}}\limits }\)
+\(\newcommand {\sumint }{\mathop {\unicode {x2A0B}}\limits }\)
+\(\newcommand {\intbar }{\mathop {\unicode {x2A0D}}\limits }\)
+\(\newcommand {\intBar }{\mathop {\unicode {x2A0E}}\limits }\)
+\(\newcommand {\fint }{\mathop {\unicode {x2A0F}}\limits }\)
+\(\newcommand {\cirfnint }{\mathop {\unicode {x2A10}}\limits }\)
+\(\newcommand {\awint }{\mathop {\unicode {x2A11}}\limits }\)
+\(\newcommand {\rppolint }{\mathop {\unicode {x2A12}}\limits }\)
+\(\newcommand {\scpolint }{\mathop {\unicode {x2A13}}\limits }\)
+\(\newcommand {\npolint }{\mathop {\unicode {x2A14}}\limits }\)
+\(\newcommand {\pointint }{\mathop {\unicode {x2A15}}\limits }\)
+\(\newcommand {\sqint }{\mathop {\unicode {x2A16}}\limits }\)
+\(\newcommand {\intlarhk }{\mathop {\unicode {x2A17}}\limits }\)
+\(\newcommand {\intx }{\mathop {\unicode {x2A18}}\limits }\)
+\(\newcommand {\intcap }{\mathop {\unicode {x2A19}}\limits }\)
+\(\newcommand {\intcup }{\mathop {\unicode {x2A1A}}\limits }\)
+\(\newcommand {\upint }{\mathop {\unicode {x2A1B}}\limits }\)
+\(\newcommand {\lowint }{\mathop {\unicode {x2A1C}}\limits }\)
+\(\newcommand {\bigtriangleleft }{\mathop {\unicode {x2A1E}}\limits }\)
+\(\newcommand {\zcmp }{\mathop {\unicode {x2A1F}}\limits }\)
+\(\newcommand {\zpipe }{\mathop {\unicode {x2A20}}\limits }\)
+\(\newcommand {\zproject }{\mathop {\unicode {x2A21}}\limits }\)
+\(\newcommand {\biginterleave }{\mathop {\unicode {x2AFC}}\limits }\)
+\(\newcommand {\bigtalloblong }{\mathop {\unicode {x2AFF}}\limits }\)
+\(\newcommand {\arabicmaj }{\mathop {\unicode {x1EEF0}}\limits }\)
+\(\newcommand {\arabichad }{\mathop {\unicode {x1EEF1}}\limits }\)
+\(\newcommand {\nicefrac }[3][]{\mathinner {{}^{#2}\!/\!_{#3}}}\)
+\(\require {mhchem}\)
+\(\newcommand {\toprule }[1][]{\hline }\)
+\(\let \midrule \toprule \)
+\(\let \bottomrule \toprule \)
+\(\def \LWRbooktabscmidruleparen (#1)#2{}\)
+\(\newcommand {\LWRbooktabscmidrulenoparen }[1]{}\)
+\(\newcommand {\cmidrule }[1][]{\ifnextchar (\LWRbooktabscmidruleparen \LWRbooktabscmidrulenoparen }\)
+\(\newcommand {\morecmidrules }{}\)
+\(\newcommand {\specialrule }[3]{\hline }\)
+\(\newcommand {\addlinespace }[1][]{}\)
+\(\newcommand {\LWRsubmultirow }[2][]{#2}\)
+\(\newcommand {\LWRmultirow }[2][]{\LWRsubmultirow }\)
+\(\newcommand {\multirow }[2][]{\LWRmultirow }\)
+\(\newcommand {\mrowcell }{}\)
+\(\newcommand {\mcolrowcell }{}\)
+\(\newcommand {\STneed }[1]{}\)
+\(\newcommand {\nfrac }[2]{{}^{#1}\!/{}_{#2}}\)
+\(\newcommand {\vect }[1]{\mathbf {#1}}\)
+\(\newcommand {\Efield }{\mathbf {E}}\)
+\(\newcommand {\Dfield }{\mathbf {D}}\)
+\(\newcommand {\Bfield }{\mathbf {B}}\)
+\(\newcommand {\Hfield }{\mathbf {H}}\)
+\(\newcommand {\rot }{\boldsymbol {\nabla }\times }\)
+\(\newcommand {\divg }{\boldsymbol {\nabla }\cdot }\)
+\(\newcommand {\grad }{\boldsymbol {\nabla }}\)
+\(\newcommand {\diff }[2]{\frac {\partial #1}{\partial #2}}\)
+\(\newcommand {\ddiff }[2]{\frac {\partial ^2 #1}{\partial #2^2}}\)
+\(\newcommand {\parttime }[1]{\frac {\partial {#1}}{\partial t}}\)
+\(\newcommand {\pparttime }[1]{\frac {\partial ^2{#1}}{\partial t^2}}\)
+\(\newcommand {\Laplasian }{\Delta }\)
+\(\DeclareMathOperator {\const }{const}\)
+\(\DeclareMathOperator {\Div }{div}\)
+\(\DeclareMathOperator {\Rot }{rot}\)
+\(\DeclareMathOperator {\Grad }{grad}\)
+\(\DeclareMathOperator {\inv }{inv}\)
+\(\newcommand {\D }{\varDelta }\)
+\(\newcommand {\emf }{\mathcal {E}}\)
+\(\newcommand {\Dalambertian }{\Box }\)
+\(\newcommand {\tikzmarknode }[2]{#2}\)
+\(\newcommand {\tikzmark }[1]{}\)
+\(\newcommand {\mitalpha }{\alpha }\)
+\(\newcommand {\mitbeta }{\beta }\)
+\(\newcommand {\mitgamma }{\gamma }\)
+\(\newcommand {\mitdelta }{\delta }\)
+\(\newcommand {\mitepsilon }{\epsilon }\)
+\(\newcommand {\mitzeta }{\zeta }\)
+\(\newcommand {\miteta }{\eta }\)
+\(\newcommand {\mittheta }{\theta }\)
+\(\newcommand {\mitiota }{\iota }\)
+\(\newcommand {\mitkappa }{\kappa }\)
+\(\newcommand {\mitlambda }{\lambda }\)
+\(\newcommand {\mitmu }{\mu }\)
+\(\newcommand {\mitnu }{\nu }\)
+\(\newcommand {\mitxi }{\xi }\)
+\(\newcommand {\mitpi }{\pi }\)
+\(\newcommand {\mitrho }{\rho }\)
+\(\newcommand {\mitsigma }{\sigma }\)
+\(\newcommand {\mittau }{\tau }\)
+\(\newcommand {\mitupsilon }{\upsilon }\)
+\(\newcommand {\mitphi }{\phi }\)
+\(\newcommand {\mitchi }{\chi }\)
+\(\newcommand {\mitpsi }{\psi }\)
+\(\newcommand {\mitomega }{\omega }\)
+\(\newcommand {\mitvarphi }{\varphi }\)
+\(\newcommand {\mitvarepsilon }{\varepsilon }\)
+\(\newcommand {\mitvartheta }{\vartheta }\)
+\(\DeclareMathOperator {\sh }{sh}\)
+\(\DeclareMathOperator {\ch }{ch}\)
+\(\DeclareMathOperator {\th }{th}\)
+\(\DeclareMathOperator {\tg }{tg}\)
+\(\DeclareMathOperator {\ctg }{ctg}\)
+\(\DeclareMathOperator {\arctg }{arctg}\)
+\(\DeclareMathOperator {\arcctg }{arcctg}\)
+\(\DeclareMathOperator {\cth }{cth}\)
+\(\DeclareMathOperator {\cosec }{cosec}\)
+\(\let \symsf \symsfup \)
+\(\def\Alpha{\unicode{x0391}}\)
+\(\def\Beta{\unicode{x0392}}\)
+\(\def\Gamma{\unicode{x0393}}\)
+\(\def\Digamma{\unicode{x03DC}}\)
+\(\def\Delta{\unicode{x0394}}\)
+\(\def\Epsilon{\unicode{x0395}}\)
+\(\def\Zeta{\unicode{x0396}}\)
+\(\def\Eta{\unicode{x0397}}\)
+\(\def\Theta{\unicode{x0398}}\)
+\(\def\Vartheta{\unicode{x03F4}}\)
+\(\def\Iota{\unicode{x0399}}\)
+\(\def\Kappa{\unicode{x039A}}\)
+\(\def\Lambda{\unicode{x039B}}\)
+\(\def\Mu{\unicode{x039C}}\)
+\(\def\Nu{\unicode{x039D}}\)
+\(\def\Xi{\unicode{x039E}}\)
+\(\def\Omicron{\unicode{x039F}}\)
+\(\def\Pi{\unicode{x03A0}}\)
+\(\def\Varpi{\unicode{x03D6}}\)
+\(\def\Rho{\unicode{x03A1}}\)
+\(\def\Sigma{\unicode{x03A3}}\)
+\(\def\Tau{\unicode{x03A4}}\)
+\(\def\Upsilon{\unicode{x03A5}}\)
+\(\def\Phi{\unicode{x03A6}}\)
+\(\def\Chi{\unicode{x03A7}}\)
+\(\def\Psi{\unicode{x03A8}}\)
+\(\def\Omega{\unicode{x03A9}}\)
+\(\def\alpha{\unicode{x1D6FC}}\)
+\(\def\beta{\unicode{x1D6FD}}\)
+\(\def\varbeta{\unicode{x03D0}}\)
+\(\def\gamma{\unicode{x1D6FE}}\)
+\(\def\digamma{\mathit{\unicode{x03DD}}}\)
+\(\def\delta{\unicode{x1D6FF}}\)
+\(\def\epsilon{\unicode{x1D716}}\)
+\(\def\varepsilon{\unicode{x1D700}}\)
+\(\def\zeta{\unicode{x1D701}}\)
+\(\def\eta{\unicode{x1D702}}\)
+\(\def\theta{\unicode{x1D703}}\)
+\(\def\vartheta{\unicode{x1D717}}\)
+\(\def\iota{\unicode{x1D704}}\)
+\(\def\kappa{\unicode{x1D705}}\)
+\(\def\varkappa{\unicode{x1D718}}\)
+\(\def\lambda{\unicode{x1D706}}\)
+\(\def\mu{\unicode{x1D707}}\)
+\(\def\nu{\unicode{x1D708}}\)
+\(\def\xi{\unicode{x1D709}}\)
+\(\def\omicron{\unicode{x1D70A}}\)
+\(\def\pi{\unicode{x1D70B}}\)
+\(\def\varpi{\unicode{x1D71B}}\)
+\(\def\rho{\unicode{x1D70C}}\)
+\(\def\varrho{\unicode{x1D71A}}\)
+\(\def\sigma{\unicode{x1D70E}}\)
+\(\def\varsigma{\unicode{x1D70D}}\)
+\(\def\tau{\unicode{x1D70F}}\)
+\(\def\upsilon{\unicode{x1D710}}\)
+\(\def\phi{\unicode{x1D719}}\)
+\(\def\varphi{\unicode{x1D711}}\)
+\(\def\chi{\unicode{x1D712}}\)
+\(\def\psi{\unicode{x1D713}}\)
+\(\def\omega{\unicode{x1D714}}\)
+</div>
+
+<a id="ClassicalElectrodynamics-html-autopage-184"></a>
+<div class="pagegrid">
+
+<nav class="topnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Головна</a></nav>
+<div class="sidetoccontainer" data-pagefind-ignore>
+
+<nav class="sidetoc">
+
+<div class="sidetoctitle">
+<p>
+<a href="ClassicalElectrodynamics-html.html" class="sidetoc-home"><span class="sidetocthetitle">Класична електродинаміка</span></a>
+</p>
+<p class="sidetoc-meta"><a href="index.html">Про посібник</a><span aria-hidden="true">·</span><a href="ClassicalElectrodynamics.pdf">PDF</a></p>
+</div>
+
+<div class="sidetoccontents">
+<p>
+<a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Головна</a>
+</p>
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-4" class="tocchapter" >
+Передмова</a>
+</p>
+
+<p>
+<a href="ClassicalElectrodynamics-html.html#autosec-5" class="tocchapter" >
+Вибір системи одиниць</a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-8" class="tocpart" >
+<span class="sectionnumber">I</span>&#x2003;Класична електродинаміка</a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-9" class="tocchapter" >
+<span class="sectionnumber">1</span><span class="toctitle">&#x2003;Базові поняття та рівняння</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-10" class="tocsection" >
+<span class="sectionnumber">1.1</span><span class="toctitle">&#x2003;Величини, що спостерігаються в електродинаміці</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-25" class="tocsection" >
+<span class="sectionnumber">1.2</span><span class="toctitle">&#x2003;Рівняння електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-42" class="tocsection" >
+<span class="sectionnumber">1.3</span><span class="toctitle">&#x2003;Закони збереження</span></a>
+</p>
+
+<p>
+<a href="ch1.html#autosec-46" class="tocsection" >
+<span class="sectionnumber">1.4</span><span class="toctitle">&#x2003;Межі застосовності класичної електродинаміки</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-58" class="tocchapter" >
+<span class="sectionnumber">2</span><span class="toctitle">&#x2003;Розв’язки рівнянь Максвелла</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-59" class="tocsection" >
+<span class="sectionnumber">2.1</span><span class="toctitle">&#x2003;Потенціали електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-65" class="tocsection" >
+<span class="sectionnumber">2.2</span><span class="toctitle">&#x2003;Потенціали ізольованої системи зарядів і струмів</span></a>
+</p>
+
+<p>
+<a href="ch2.html#autosec-70" class="tocsection" >
+<span class="sectionnumber">2.3</span><span class="toctitle">&#x2003;Задача Коші для рівнянь Максвелла</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-82" class="tocchapter" >
+<span class="sectionnumber">3</span><span class="toctitle">&#x2003;Вільне електромагнітне поле</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-83" class="tocsection" >
+<span class="sectionnumber">3.1</span><span class="toctitle">&#x2003;Спектральний розклад і плоскі хвилі</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-89" class="tocsection" >
+<span class="sectionnumber">3.2</span><span class="toctitle">&#x2003;Випадкові поля випромінювання</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-116" class="tocsection" >
+<span class="sectionnumber">3.3</span><span class="toctitle">&#x2003;Співвідношення між тривалістю сигналу та шириною його спектру</span></a>
+</p>
+
+<p>
+<a href="ch3.html#autosec-118" class="tocsection" >
+<span class="sectionnumber">3.4</span><span class="toctitle">&#x2003;Загальний розв’язок рівнянь вільного поля</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-127" class="tocchapter" >
+<span class="sectionnumber">4</span><span class="toctitle">&#x2003;Випромінювання</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-128" class="tocsection" >
+<span class="sectionnumber">4.1</span><span class="toctitle">&#x2003;Поле прискореного заряду</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-135" class="tocsection" >
+<span class="sectionnumber">4.2</span><span class="toctitle">&#x2003;Випромінювання малих систем</span></a>
+</p>
+
+<p>
+<a href="ch4.html#autosec-138" class="tocsection" >
+<span class="sectionnumber">4.3</span><span class="toctitle">&#x2003;Розсіювання електромагнітних хвиль</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-151" class="tocpart" >
+<span class="sectionnumber">II</span>&#x2003;Чотиривимірне формулювання класичної електродинаміки</a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-152" class="tocchapter" >
+<span class="sectionnumber">5</span><span class="toctitle">&#x2003;Перетворення Лоренца як наслідок постулатів Айнштайна</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-153" class="tocsection" >
+<span class="sectionnumber">5.1</span><span class="toctitle">&#x2003;Простір-час, системи відліку</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-155" class="tocsection" >
+<span class="sectionnumber">5.2</span><span class="toctitle">&#x2003;Перетворення Лоренца для одновимірних рухів систем відліку</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-164" class="tocsection" >
+<span class="sectionnumber">5.3</span><span class="toctitle">&#x2003;Власний час</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-165" class="tocsection" >
+<span class="sectionnumber">5.4</span><span class="toctitle">&#x2003;Квадрат інтервалу</span></a>
+</p>
+
+<p>
+<a href="ch5.html#autosec-169" class="tocsection" >
+<span class="sectionnumber">5.5</span><span class="toctitle">&#x2003;Перетворення довжини та об’єму</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-186" class="tocchapter" >
+<span class="sectionnumber">6</span><span class="toctitle">&#x2003;Співвідношення СТВ у просторі Мінковського</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-189" class="tocsection" >
+<span class="sectionnumber">6.1</span><span class="toctitle">&#x2003;Загальні та власні перетворення Лоренца</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-191" class="tocsection" >
+<span class="sectionnumber">6.2</span><span class="toctitle">&#x2003;Вектори і тензори в просторі Мінковського</span></a>
+</p>
+
+<p>
+<a href="ch6.html#autosec-193" class="tocsection" >
+<span class="sectionnumber">6.3</span><span class="toctitle">&#x2003;Світові лінії та чотиривектор швидкості</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-199" class="tocchapter" >
+<span class="sectionnumber">7</span><span class="toctitle">&#x2003;Електродинаміка у просторі Мінковського</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-200" class="tocsection" >
+<span class="sectionnumber">7.1</span><span class="toctitle">&#x2003;Чотиривимірна форма рівнянь Максвелла</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-203" class="tocsection" >
+<span class="sectionnumber">7.2</span><span class="toctitle">&#x2003;Трансформаційні властивості \(F_{\mitmu \mitnu }\)</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-208" class="tocsection" >
+<span class="sectionnumber">7.3</span><span class="toctitle">&#x2003;Рівняння руху зарядженої частинки</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-210" class="tocsection" >
+<span class="sectionnumber">7.4</span><span class="toctitle">&#x2003;Плоскі монохроматичні хвилі</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-211" class="tocsection" >
+<span class="sectionnumber">7.5</span><span class="toctitle">&#x2003;Ефект Доплера</span></a>
+</p>
+
+<p>
+<a href="ch7.html#autosec-216" class="tocsection" >
+<span class="sectionnumber">7.6</span><span class="toctitle">&#x2003;Вектор-потенціал електромагнітного поля у випадку ізольованої системи</span></a>
+</p>
+
+<p>
+<a href="ch8.html#autosec-220" class="tocchapter" >
+<span class="sectionnumber">8</span><span class="toctitle">&#x2003;Варіаційний принцип для рівнянь електродинаміки</span></a>
+</p>
+
+<p>
+<a href="ch8.html#autosec-221" class="tocsection" >
+<span class="sectionnumber">8.1</span><span class="toctitle">&#x2003;Заряд у зовнішньому електромагнітному полі</span></a>
+</p>
+
+<p>
+<a href="ch8.html#autosec-223" class="tocsection" >
+<span class="sectionnumber">8.2</span><span class="toctitle">&#x2003;Дія для електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-226" class="tocchapter" >
+<span class="sectionnumber">9</span><span class="toctitle">&#x2003;Тензор енергії-імпульсу і закони збереження</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-227" class="tocsection" >
+<span class="sectionnumber">9.1</span><span class="toctitle">&#x2003;Чотири-імпульс системи тіл</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-231" class="tocsection" >
+<span class="sectionnumber">9.2</span><span class="toctitle">&#x2003;Енергія-імпульс електромагнітного поля</span></a>
+</p>
+
+<p>
+<a href="ch9.html#autosec-232" class="tocsection" >
+<span class="sectionnumber">9.3</span><span class="toctitle">&#x2003;Тензор моменту імпульсу електромагнітної системи</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-237" class="tocchapter" >
+<span class="sectionnumber">10</span><span class="toctitle">&#x2003;Реакція випромінювання</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-238" class="tocsection" >
+<span class="sectionnumber">10.1</span><span class="toctitle">&#x2003;Нерелятивістська сила Абрагама–Лоренца</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-240" class="tocsection" >
+<span class="sectionnumber">10.2</span><span class="toctitle">&#x2003;Релятивістське узагальнення</span></a>
+</p>
+
+<div class="sidetoc-appendix-title" style="margin-top:1.2rem; padding:.4rem .8rem; font-weight:600; font-size:.9rem; color:var(--gold,#c99a2e); border-top:1px solid rgba(255,255,255,.15);">Додатки</div>
+<p>
+<a href="ch10.html#autosec-249" class="tocsection" >
+<span class="sectionnumber">А</span><span class="toctitle">&#x2003;Таблиця переходу між гаусовою системою одиниць та SI</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-254" class="tocsection" >
+<span class="sectionnumber">Б</span><span class="toctitle">&#x2003;Основні формули векторного аналізу</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-270" class="tocsection" >
+<span class="sectionnumber">В</span><span class="toctitle">&#x2003;Узагальнені функції</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-271" class="tocsection" >
+<span class="sectionnumber">Г</span><span class="toctitle">&#x2003;Фундаментальні розв’язки</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-272" class="tocsection" >
+<span class="sectionnumber">Д</span><span class="toctitle">&#x2003;Спеціальні функції</span></a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-282" class="tocpart" >
+Література</a>
+</p>
+
+<p>
+<a href="ch10.html#autosec-283" class="tocchapter" >
+Предметний покажчик</a>
+</p>
+
+</div>
+</nav>
+</div>
+
+<main class="bodycontainer">
+
+<section class="textbody" data-pagefind-body>
+<div data-pagefind-ignore><h1>Класична електродинаміка</h1></div>
+
+<!--
+...... chapter Співвідношення СТВ у просторі Мінковського ......
+-->
+<h3 id="autosec-186" data-pagefind-meta="title">Розділ&nbsp;<span class="sectionnumber">6&#x2003;</span>Співвідношення СТВ у просторі Мінковського</h3>
+<a id="ClassicalElectrodynamics-html-autopage-186"></a>
+<a id="ClassicalElectrodynamics-html-autofile-6"></a>
+<a id="Minkovsky"></a>
+<p>
+Рівняння СТВ набувають найбільш елегантної форми в чотиривимірному формулюванні. Для цього використовується апарат тензорного аналізу і ми припускаємо, що читач вже прослухав відповідний курс. Але деякі елементи тензорного аналізу
+нагадаємо нижче.
+</p>
+<!--
+...... subsection Елементи тензорного аналізу ......
+-->
+<h5 id="autosec-187">Елементи тензорного аналізу</h5>
+<a id="ClassicalElectrodynamics-html-autopage-187"></a>
+
+<p>
+Позначення, що використовують в СТВ, відрізняються від тривимірної електродинаміки. Деякі з позначень пов’язані з вимогами зручності, деякі — історичними та інколи суб’єктивними причинами. Читач, що починає вивчення теорії відносності,
+може бути дещо збентежений тим різноманіттям позначень в різних посібниках, що стосуються вибору індексів (грецькі чи римські у відповідних ситуаціях) та сигнатури метричного тензора. Тому, перш ніж перейти до основної частини розділу,
+рекомендуємо звертати на це увагу.
+</p>
+
+<p>
+<b>1</b>. <b>Сигнатура.</b> Ми використовуємо сигнатуру \((+,-,-,-)\)&nbsp;<span class="textup">(<a href="ch6.html#eq:sinature">6.1</a>)</span>, що відповідає [<a href="ch10.html#LWR-ht-cite.0@LandauLifshitz2003">2</a>,
+<a href="ch10.html#LWR-ht-cite.0@bogoliubov1980introduction">1</a>]. У цілому система нотацій, що далі використовується, найбільш відповідає книзі&nbsp;[<a href="ch10.html#LWR-ht-cite.0@gusynin2023vstup">3</a>]. Це так звана
+«західнобережна» конвенція (West Coast convention).
+</p>
+
+<p>
+<b>2</b>. <b>Індекси.</b> <i>Далі усі грецькі індекси (штриховані та нештриховані) пробігають значення \(0,1,2,3\); латинські індекси — \(1,2,3\).</i>
+</p>
+
+<p>
+<b>3</b>. <b>Координати.</b> Індекс у координат пишемо згори, наприклад, \(x^\mu \). Набори диференціалів \(dx^\mu \) утворюють контраваріантний вектор. В СТВ, як правило, \(x^0 = ct\), де \(t\) — координатний час інерціальної
+системи відліку; \(x^1, x^2, x^3\) — просторові координати. Коли йдеться про вектори в чотиривимірному просторі Мінковського, досить часто вживають термін «чотиривектор» або «4-вектор». Також, коли треба виділити просторову частину
+координат (при інтегруванні тощо) пишемо \(d^3\vect {r}\).
+</p>
+
+<p>
+<b>4</b>. <b>Похідні.</b> Частинні похідні за відповідними координатами:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                                        𝜕𝜇  ≡           𝜕     .
+                                                                                                         𝜕𝑥𝜇
+
+-->
+
+<p>
+
+\begin{equation*}
+\partial _\mu \equiv \frac {\partial }{\partial x^\mu }.
+\end{equation*}
+
+</p>
+
+<p>
+Якщо \(\phi \) — скалярна функція, то набори цих похідних в різних координатних системах утворюють коваріантний вектор. Похідні від вектора чи тензора, наприклад \(\partial _\mu A^\nu \), вже не утворюють тензорних величин в разі
+загальних перетворень. Але, якщо обмежитися групою лінійних перетворень координат (наприклад, групою Лоренца, яка визначена нижче), при диференціюванні тензорні властивості зберігаються.
+</p>
+
+<p>
+<b>5</b>. <b>Правило підсумовування.</b> Наявність двох однакових індексів — обов’язково одного верхнього та одного нижнього — означає суму за цими індексами (правило Айнштайна)<sup>1</sup>. Ці індекси називають <i>німими</i>.
+Наприклад:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                                                                                                                                                                                                                3
+
+                                                                                                                                                                                  𝐴𝜇𝐵𝜇 ≡ ∑ 𝐴𝜇𝐵𝜇.
+
+                                                                                                                                                                                                                                                             𝜇=0
+
+-->
+
+<p>
+
+\begin{equation*}
+A^\mu B_\mu \equiv \sum _{\mu =0}^{3} A^\mu B_\mu .
+\end{equation*}
+
+</p>
+
+<p>
+Зауважимо, що у фізичній літературі, яка не пов’язана із теорією відносності, часто відходять від цього правила і пишуть обидва німих індекси унизу чи згори.
+</p>
+
+<p>
+<b>6</b>. <b>Запис правил перетворення векторів та тензорів.</b> Нехай координатні системи \(x^\mu \) та \(x^{\prime \mu &apos;}\) пов’язані взаємно-однозначним диференційовним зв’язком, у загальному випадку, нелінійним.
+Розглянемо контраваріантний вектор, заданий в точці \(m\) чотиривимірного многовиду, причому набори \(A^\mu \) та \(A^{\prime \mu &apos;}\) \((\mu &apos; = 0,1,2,3)\), є компонентами цього вектора в \(x^\mu \) та \(x^{\prime \mu
+&apos;}\), тобто
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                          𝐴′𝜇′        =  𝜕𝑥′𝜇′  𝐴𝜇     або        𝐴′𝜇′     =         𝜕𝑥′𝜇′      𝐴𝛼,
+                                                                           𝜕𝑥𝜇                                             𝜕𝑥𝛼
+
+-->
+<p>
+
+\begin{equation*}
+A^{\prime \mu &apos;} = \frac {\partial x^{\prime \mu &apos;}}{\partial x^\mu } A^\mu \quad \text {або}\quad A^{\prime \mu &apos;} = \frac {\partial x^{\prime \mu &apos;}}{\partial x^\alpha } A^\alpha ,
+\end{equation*}
+
+</p>
+
+<p>
+де похідні обчислюються в точці \(m\) у відповідних координатних системах. У обчисленнях це зручно переписати, замінивши деякі з індексів на штриховані, що пробігають ті ж самі значення:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                          𝐴′𝛼′        =  𝜕𝑥′𝛼′  𝐴𝛼     або        𝐴′𝛼′     =         𝜕𝑥′𝛼′      𝐴𝛽  .
+                                                                           𝜕𝑥𝛼                                             𝜕𝑥𝛽
+
+-->
+<p>
+
+\begin{equation*}
+A^{\prime \alpha &apos;} = \frac {\partial x^{\prime \alpha &apos;}}{\partial x^\alpha } A^\alpha \quad \text {або}\quad A^{\prime \alpha &apos;} = \frac {\partial x^{\prime \alpha &apos;}}{\partial x^\beta }
+A^\beta .
+\end{equation*}
+
+</p>
+
+<p>
+В разі векторного поля ці співвідношення мають виконуватися в будь-якій точці простору-часу. Здебільшого за контекстом зрозуміло, в якій точці обчислюються похідні в формулах для перетворення, тому відповідну позначку в похідних, як
+правило, опускаємо:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                          𝐴′𝛼′        =  𝜕𝑥′𝛼′     𝐴𝛼  або        𝐴′𝜇′     =         𝜕𝑥′𝜇′      𝐴𝜈.
+                                                                           𝜕𝑥𝛼                                              𝜕𝑥𝜈
+
+-->
+<p>
+
+\begin{equation*}
+A^{\prime \alpha &apos;} = \frac {\partial x^{\prime \alpha &apos;}}{\partial x^\alpha } A^\alpha \quad \text {або}\quad A^{\prime \mu &apos;} = \frac {\partial x^{\prime \mu &apos;}}{\partial x^\nu } A^\nu .
+\end{equation*}
+
+</p>
+
+<p>
+Тензором називають сукупність компонент, які перетворюються як прямий добуток відповідної кількості коваріантних та контраваріантних векторів.
+</p>
+
+<p>
+Наприклад, для один раз коваріантного та двічі контраваріантного тензорного поля<sup>2</sup>
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                     𝑇 ′𝛼′𝛾′ 𝛽′  =  𝜕𝑥′𝛼′      𝜕𝑥′𝛾′      𝜕𝑥𝛽    𝑇  𝛼𝛾  𝛽  .
+                                                                                        𝜕𝑥𝛼        𝜕𝑥𝛾        𝜕𝑥′𝛽′
+
+-->
+<p>
+
+\begin{equation*}
+T^{\prime \alpha &apos;\gamma &apos;}{}_{\beta &apos;} = \frac {\partial x^{\prime \alpha &apos;}}{\partial x^\alpha } \frac {\partial x^{\prime \gamma &apos;}}{\partial x^\gamma } \frac {\partial x^\beta
+}{\partial x^{\prime \beta &apos;}} T^{\alpha \gamma }{}_\beta .
+\end{equation*}
+
+</p>
+
+<p>
+<b>7</b>. <i>Контраваріантні індекси — завжди верхні, коваріантні — нижні.</i>
+</p>
+
+<p>
+<b>8</b>. Як правило, ми позначаємо \(V\) — область тривимірного простору, \(\Omega \) — область чотиривимірного простору; \(\partial \Omega \) — межа області \(\Omega \).
+</p>
+
+<p>
+<b>9</b>. <i>Нехай \(g_{\mu \nu }\) — двічі коваріантний тензор, \(\det \|g_{\mu \nu }\| \ne 0\). Утворимо в усіх системах координат обернену матрицю \(g^{\mu \nu }\), тобто \(g^{\mu \lambda }g_{\lambda \nu } = \delta ^\mu
+{}_\nu \).</i> Покажемо, що обернена матриця \(g^{\mu \nu }\) — двічі контраваріантний тензор. Нехай
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                          𝑔′𝛼′𝛽′  =  𝜕𝑥𝛼    𝜕𝑥𝛽      𝑔𝛼𝛽  ,          𝑔′𝛼′𝛽′𝑔′𝛽′𝛾′ = 𝛿𝛼′𝛾′.
+                                                                        𝜕𝑥′𝛼′  𝜕𝑥′𝛽′
+
+-->
+<p>
+
+\begin{equation*}
+g&apos;_{\alpha &apos;\beta &apos;} = \frac {\partial x^\alpha }{\partial x^{\prime \alpha &apos;}} \frac {\partial x^\beta }{\partial x^{\prime \beta &apos;}} g_{\alpha \beta },\qquad g^{\prime \alpha
+&apos;\beta &apos;} g&apos;_{\beta &apos;\gamma &apos;} = \delta ^{\alpha &apos;}{}_{\gamma &apos;}.
+\end{equation*}
+
+</p>
+
+<p>
+У другому з цих співвідношень використаємо закон перетворення тензора \(g_{\alpha \beta }\): \(g&apos;_{\alpha &apos;\beta &apos;} = \cdots \), й після використання тотожностей та згортки отримаємо \(g^{\prime \alpha
+&apos;\gamma &apos;} = \frac {\partial x^{\prime \alpha &apos;}}{\partial x^\alpha } \frac {\partial x^{\prime \gamma &apos;}}{\partial x^\gamma } g^{\alpha \gamma }\), що&nbsp;і&nbsp;треба&nbsp;довести.
+</p>
+
+<p>
+Аналогічно можна довести, що <i>коли \(g^{\mu \nu }\) — двічі контраваріантний тензор, \(\det \|g^{\mu \nu }\| \ne 0\), то обернена до нього матриця є двічі коваріантним тензором.</i>
+</p>
+
+<p>
+Далі позначатимемо координати подій в інерціальних системах так: \(x^\mu \), \(x^0 = ct\) — час, \(x^1, x^2, x^3\) — просторові декартові координати, або \(x^\mu = (ct,\,\vect {r})\). Часто індекси у координат подій не пишуть, де це не
+викликає проблем.
+</p>
+<div role="note" class="footnotes">
+
+<a id="ClassicalElectrodynamics-html-autopage-188"></a>
+<p>
+<sup>1</sup>&nbsp;Цю операцію називають згорткою по парі індексів, див.&nbsp;<a href="ch6.html#sec:VectAndTensors">Вектори і тензори в просторі Мінковського</a>
+</p>
+
+<p>
+<sup>2</sup>&nbsp;Введення штрихованих індексів (відповідно до штрихованих координат) непринципове, але це зручно в обчисленнях.
+</p>
+
+</div>
+<!--
+...... section Загальні та власні перетворення Лоренца ......
+-->
+<h4 id="autosec-189"><span class="sectionnumber">6.1&#x2003;</span>Загальні та власні перетворення Лоренца</h4>
+<a id="ClassicalElectrodynamics-html-autopage-189"></a>
+
+<a id="sec:general_Lorentz_transformation"></a>
+
+<p>
+З урахуванням нових позначень можна записати квадрат інтервалу між довільними точками \(x_1^\mu \) та \(x_2^\mu \) чотиривимірного простору-часу так:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                                                                                                 (𝑥10 − 𝑥20)2 − (𝑥11 − 𝑥21)2 − (𝑥12 − 𝑥22)2 − (𝑥13 − 𝑥23)2 ≡ 𝜂𝜇𝜈 ∆𝑥𝜇 ∆𝑥𝜈,
+
+-->
+
+<p>
+
+\begin{equation*}
+(x_1^0-x_2^0)^2 - (x_1^1-x_2^1)^2 - (x_1^2-x_2^2)^2 - (x_1^3-x_2^3)^2 \equiv \eta _{\mu \nu }\,\D x^\mu \,\D x^\nu ,
+\end{equation*}
+
+</p>
+
+<p>
+де \(\D x^\mu = x_1^\mu - x_2^\mu \), а матриця
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{0}\)</span>
+
+<!--
+
+                                                                                         10 0 0
+     ‖𝜂𝜇𝜈‖ ≡ ‖𝜂‖ ≡ diag(1, −1, −1, −1) = ⎛⎜⎜00                                                                 ⎞
+                                                                                         −1         0           0  ⎟                                                                                                    (6.1)                    --><a id="eq:sinature"></a><!--
+                                                                                          0        −1           0  ⎟
+
+                                                                                         ⎝0 0 0 −1⎠
+
+-->
+<p>
+
+\begin{equation}
+\label {eq:sinature} \|\eta _{\mu \nu }\| \equiv \|\eta \| \equiv \mathrm {diag}(1,-1,-1,-1) = \begin{pmatrix} 1 &amp; 0 &amp; 0 &amp; 0 \\ 0 &amp; -1 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; -1 &amp; 0 \\ 0 &amp; 0
+&amp; 0 &amp; -1 \end {pmatrix}
+\end{equation}
+
+</p>
+
+<p>
+має назву <b>тензора Мінковського</b>. Матриця \(\|\eta _{\mu \nu }\|\) збігається зі своєю оберненою, тому тензор Мінковського можна писати також з верхніми індексами: \(\eta ^{\mu \nu } = \eta _{\mu \nu }\). Забігаючи вперед,
+відзначимо, що завдяки п.&nbsp;8 можливість такого запису обумовлена тим, що \(\eta _{\mu \nu }\) <b>є одночасно двічі коваріантним і двічі контраваріантним тензором відносно перетворень групи Лоренца та групи
+Пуанкаре.</b>
+</p>
+
+<p>
+Як було з’ясовано у попередньому розділі, при переході від однієї інерціальної системи з координатами \(x^\mu \) до іншої з координатами \(x^{\prime \mu &apos;}\) ці координати пов’язані лінійними співвідношеннями, причому числове
+значення квадрата інтервалу залишається тим самим в обох системах. Інваріантність квадрата інтервалу при перетворенні координат \(x^\mu \to x^{\prime \mu &apos;}\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{1}\)</span>
+
+<!--
+
+                   𝜂𝜇𝜈 ∆𝑥𝜇 ∆𝑥𝜈 = 𝜂𝜇′𝜈′ ∆𝑥′𝜇′ ∆𝑥′𝜈′                                                                                                                                                                          (6.2)  --><a id="eq:2.1"></a><!--
+
+-->
+<p>
+
+\begin{equation}
+\label {eq:2.1} \eta _{\mu \nu }\,\D x^\mu \,\D x^\nu = \eta _{\mu &apos;\nu &apos;}\,\D x^{\prime \mu &apos;}\,\D x^{\prime \nu &apos;}
+\end{equation}
+
+</p>
+
+<p>
+нагадує умову інваріантності квадрата відстані між точками при просторових поворотах у тривимірному просторі.
+</p>
+
+<p>
+Звертаємо увагу на розташування верхніх та нижніх індексів. Щоб запобігти плутанині та помилкам, при опусканні та підійманні індексів слід зберігати їх порядок, залишаючи, коли треба, вільні місця:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{2}\)</span>
+
+<!--
+
+                                                                                                                      𝐴𝜇 = 𝜂𝜇𝜈𝐴𝜈,                                         𝐴𝜇 = 𝜂𝜇𝜈𝐴𝜈.
+
+-->
+<p>
+
+\begin{equation*}
+A_\mu = \eta _{\mu \nu } A^\nu , \qquad A^\mu = \eta ^{\mu \nu } A_\nu .
+\end{equation*}
+
+</p>
+
+<p>
+Якщо розглядаються інерціальні системи <i>зі спільним початком координат</i>, зв’язок між ними дається <i>однорідним</i> перетворенням
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{2}\)</span>
+
+<!--
+
+                                                               𝑥′𝜇′ = 𝐿𝜇′𝜇 𝑥𝜇.                                                                                                                                                     (6.3)  --><a id="eq:2.2"></a><!--
+
+-->
+<p>
+
+\begin{equation}
+x^{\prime \mu &apos;} = L^{\mu &apos;}{}_\mu \, x^\mu . \label {eq:2.2}
+\end{equation}
+
+</p>
+
+<p>
+Більш загальні (неоднорідні) лінійні перетворення містять константи у правій частині&nbsp;<span class="textup">(<a href="ch6.html#eq:2.2">6.3</a>)</span>, які — за вимоги однорідності простору-часу — завжди можна прибрати за
+допомогою зсуву початку координат.
+</p>
+
+<p>
+Підстановка&nbsp;<span class="textup">(<a href="ch6.html#eq:2.2">6.3</a>)</span> в&nbsp;<span class="textup">(<a href="ch6.html#eq:2.1">6.2</a>)</span> дає:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{3}\)</span>
+
+<!--
+
+                                                            𝜂𝛼𝛽 = 𝐿𝛼′𝛼 𝐿𝛽′𝛽 𝜂𝛼′𝛽′.                                                                                                                                            (6.4)  --><a id="eq:2.3"></a><!--
+
+-->
+<p>
+
+\begin{equation}
+\eta _{\alpha \beta } = L^{\alpha &apos;}{}_\alpha \, L^{\beta &apos;}{}_\beta \, \eta _{\alpha &apos;\beta &apos;}. \label {eq:2.3}
+\end{equation}
+
+</p>
+
+<p>
+Оскільки \(\det \|L\| \ne 0\), існує обернена матриця \(\|(L^{-1})^{\mu }{}_{\mu &apos;}\|\). За означенням оберненої матриці:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{4}\)</span>
+
+<!--
+
+                                                                                                                      (𝐿−1)𝜇𝜇′ 𝐿𝜇′𝜈 = 𝛿�𝜈�,                              𝐿𝜇′𝜇 (𝐿−1)𝜇𝜈′ = 𝛿�𝜈�′′.
+
+-->
+<p>
+
+\begin{equation*}
+(L^{-1})^{\mu }{}_{\mu &apos;} \, L^{\mu &apos;}{}_{\nu } = \delta ^{\mu }_{\nu }, \qquad L^{\mu &apos;}{}_{\mu } \, (L^{-1})^{\mu }{}_{\nu &apos;} = \delta ^{\mu &apos;}_{\nu &apos;}.
+\end{equation*}
+
+</p>
+
+<p>
+Помножимо обидві частини&nbsp;<span class="textup">(<a href="ch6.html#eq:2.2">6.3</a>)</span> зліва на \((L^{-1})^{\alpha }{}_{\mu &apos;}\):
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{4}\)</span>
+
+<!--
+
+                                                                                                                                                                        (𝐿−1)𝛼𝜇′ 𝑥′𝜇′ = (𝐿−1)𝛼𝜇′ 𝐿𝜇′𝜇 𝑥𝜇.
+
+-->
+
+<p>
+
+\begin{equation*}
+(L^{-1})^{\alpha }{}_{\mu &apos;} \, x^{\prime \mu &apos;} = (L^{-1})^{\alpha }{}_{\mu &apos;} \, L^{\mu &apos;}{}_{\mu } \, x^{\mu }.
+\end{equation*}
+
+</p>
+
+<p>
+Згортка \((L^{-1})^{\alpha }{}_{\mu &apos;} \, L^{\mu &apos;}{}_{\mu } = \delta ^{\alpha }_{\mu }\), тому
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{4}\)</span>
+
+<!--
+
+                                                                                                                                                                            (𝐿−1)𝛼𝜇′ 𝑥′𝜇′ = 𝛿�𝜇� 𝑥𝜇 = 𝑥𝛼.
+
+-->
+
+<p>
+
+\begin{equation*}
+(L^{-1})^{\alpha }{}_{\mu &apos;} \, x^{\prime \mu &apos;} = \delta ^{\alpha }_{\mu } \, x^{\mu } = x^{\alpha }.
+\end{equation*}
+
+</p>
+
+<p>
+Перейменувавши німий індекс \(\alpha \to \mu \), отримаємо обернене перетворення до&nbsp;<span class="textup">(<a href="ch6.html#eq:2.2">6.3</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{4}\)</span>
+
+<!--
+
+                   𝑥𝜇 = (𝐿−1)𝜇𝜇′ 𝑥′𝜇′,                                                                                                                                                             (6.5)                                  --><a id="eq:Direct_tranformation"></a><!--
+
+-->
+<p>
+
+\begin{equation}
+\label {eq:Direct_tranformation} x^{\mu } = (L^{-1})^{\mu }{}_{\mu &apos;} \, x^{\prime \mu &apos;},
+\end{equation}
+
+</p>
+
+<p>
+<b>Групу</b><sup>3</sup> <b>всіх лінійних однорідних перетворень, що залишають інваріантним квадрат інтервалу&nbsp;<span class="textup">(<a href="ch6.html#eq:2.1">6.2</a>)</span>, називають загальною групою
+Лоренца (ГЛ).</b> Очевидно, кожний елемент цієї групи однозначно представлений матрицею \(\|L^{\mu &apos;}{}_\mu \|\), що задовольняє&nbsp;<span class="textup">(<a href="ch6.html#eq:2.3">6.4</a>)</span>. Перетворення з цієї
+групи називатимемо <b>(загальними) перетвореннями Лоренца.</b> Одновимірні перетворення&nbsp;<span class="textup">(<a href="ch5.html#eq:LT_1_10">5.10</a>)</span>, <span class="textup">(<a
+href="ch5.html#eq:LT_1_11">5.11</a>)</span> також належать до загальної групи Лоренца і утворюють її підгрупу.
+</p>
+
+<p>
+Оскільки праву частину&nbsp;<span class="textup">(<a href="ch6.html#eq:2.3">6.4</a>)</span> можна подати як добуток матриць<sup>4</sup>, тобто&nbsp;<span class="textup">(<a href="ch6.html#eq:2.3">6.4</a>)</span> подати
+як \(\|L\|^T \cdot \|\eta \| \cdot \|L\| = \|\eta \|\), розглядаючи визначник обох частин цієї рівності отримаємо \((\det \|L\|)^2 = 1\), звідки \(\det \|L\| = \pm 1\).
+</p>
+
+<p>
+Якщо розписати&nbsp;<span class="textup">(<a href="ch6.html#eq:2.3">6.4</a>)</span> з урахуванням явного виду \(\eta _{\mu \nu }\) та покласти \(\mu = \nu = 0\), дістаємо
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{5}\)</span>
+
+<!--
+
+                                                                                                                                         3
+
+                                                                                                                      (𝐿0′0)2 − ∑ (𝐿𝑖′0)2 = 1,
+
+                                                                                                                                       𝑖=1
+
+-->
+<p>
+
+\begin{equation*}
+(L^{0&apos;}{}_0)^2 - \sum _{i=1}^{3}(L^{i&apos;}{}_0)^2 = 1,
+\end{equation*}
+
+</p>
+
+<p>
+звідки \(|L^{0&apos;}{}_0| \geqslant 1\).
+</p>
+
+<p>
+Звідси видно, що не усі матриці з ГЛ можна отримати з одиничної матриці за допомогою неперервної зміни компонент, не виходячи з цієї групи. Наприклад, перетворенню часової інверсії (\(t \to -t\)) відповідає \(L^{0&apos;}{}_0 = -1\); вона
+задовольняє умові&nbsp;<span class="textup">(<a href="ch6.html#eq:2.3">6.4</a>)</span>, але її не можна неперервним чином отримати з одиничної матриці, не порушуючи умову \(L^{0&apos;}{}_0 \geqslant 1\). Аналогічно всередині
+ГЛ з одиничної матриці не можна отримати неперервною зміною параметрів матрицю, яка відповідає зміні напрямку однієї з просторових осей на протилежний (наприклад, \(x^1 \to -x^1\)). Іншими словами, <i>загальна ГЛ є незв’язною.</i>
+<b>Власною групою Лоренца</b> (або групою власних перетворень Лоренца) <b>називають зв’язну підгрупу загальної ГЛ, яка містить одиницю,</b> тобто таку підгрупу загальної ГЛ, кожний елемент котрої можна отримати шляхом
+неперервної зміни коефіцієнтів матриці \(L^{\mu &apos;}{}_\mu \), починаючи від одиничної матриці і залишаючись всередині підгрупи. <i>Для елементів власної ГЛ</i>
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{5}\)</span>
+
+<!--
+
+                                                                                                                      det ‖𝐿‖ = +1,                                                          𝐿0′0 ⩾ 1.
+
+-->
+<p>
+
+\begin{equation*}
+\det \| L \| = +1, \qquad L^{0&apos;}{}_0 \geqslant 1.
+\end{equation*}
+
+</p>
+
+<p>
+Оскільки \(\det \|L\| = 1\) є якобіаном переходу \(x \to x&apos;\), звідси випливає <b>інваріантність елементу об’єму</b> \(d^4\vect {x}\) при перетвореннях власної групи Лоренца.
+</p>
+
+<p>
+Приклад власного перетворення Лоренца в одновимірному випадку дають формули&nbsp;<span class="textup">(<a href="ch5.html#eq:LT_1_10">5.10</a>)</span>. Якщо система \(S&apos;\) рухається відносно системи \(S\) з швидкістю
+\(v\) вздовж осі \(x^1\), ці формули мають такий вигляд:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{5}\)</span>
+
+<!--
+
+                                                                                                                                                   𝑥′0 = 𝛾(𝑥0 − 𝛽𝑥1), 𝑥′1 = 𝛾(𝑥1 − 𝛽𝑥0), 𝑥′2 = 𝑥2; 𝑥′3 = 𝑥3,
+
+-->
+
+<p>
+
+\begin{equation*}
+x^{\prime 0} = \gamma (x^0 - \beta x^1),\quad x^{\prime 1} = \gamma (x^1 - \beta x^0),\quad x^{\prime 2} = x^2;\quad x^{\prime 3} = x^3,
+\end{equation*}
+
+</p>
+
+<p>
+де \(\beta = v/c\), \(\gamma = (1-\beta ^2)^{-1/2}\).
+</p>
+
+<p>
+Відповідна матриця <i>одновимірного перетворення Лоренца (бусту)</i> має вид:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{5}\)</span>
+
+<!--
+
+                                                                              𝛾 −𝛽𝛾 0 0
+                                                              𝜕𝑥′𝜇′        ⎛⎜⎜−0𝛽𝛾                00⎟⎟⎞ .
+     ‖𝐿boost‖  ≡  ‖𝐿𝜇′ 𝜇 ‖                          =  ‖  𝜕𝑥𝜇    ‖  =             𝛾        0                                                                                                                    (6.6)                    --><a id="eq:BoostMatrix"></a><!--
+                                                           ‖            ‖                0         1
+                                                           ‖            ‖
+
+                                                                              ⎝0         0 0 1⎠
+
+-->
+<p>
+
+\begin{equation}
+\label {eq:BoostMatrix} \|L_\text {boost}\| \equiv \|L^{\mu &apos;}{}_\mu \| = \left \|\frac {\partial x^{\prime \mu &apos;}}{\partial x^\mu }\right \| = \begin{pmatrix} \gamma &amp; -\beta \gamma &amp; 0 &amp;
+0 \\ -\beta \gamma &amp; \gamma &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1 \end {pmatrix}.
+\end{equation}
+
+</p>
+
+<p>
+Іноді цю матрицю зручно записати через швидкісний параметр&nbsp;\(\psi \), використовуючи співвідношення<a id="LWRindex-45"></a>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{6}\)</span>
+
+<!--
+
+                                                                                                                                                                    𝛽 = th 𝜓,  𝛾 = ch 𝜓,  𝛽𝛾 = sh 𝜓.
+
+-->
+
+<p>
+
+\begin{equation*}
+\beta = \th \psi , \qquad \gamma = \ch \psi , \qquad \beta \gamma = \sh \psi .
+\end{equation*}
+
+</p>
+
+<p>
+Тоді&nbsp;<span class="textup">(<a href="ch6.html#eq:BoostMatrix">6.6</a>)</span> набуде вигляду:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{6}\)</span>
+
+<!--
+
+     ‖𝐿boost‖ = ⎛⎜⎜−csh0h𝜓𝜓                                 − sh 𝜓            0      000⎟⎟⎞ .                                                                                                                (6.7)                           --><a id="eq:boost_hyperbolic"></a><!--
+                                                                ch 𝜓             0
+                                                                                  1
+                                                                  0
+
+                                                        ⎝0                 0 0 1⎠
+
+-->
+<p>
+
+\begin{equation}
+\label {eq:boost_hyperbolic} \|L_\text {boost}\| = \begin{pmatrix} \ch \psi &amp; -\sh \psi &amp; 0 &amp; 0 \\ -\sh \psi &amp; \ch \psi &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 1 &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; 1
+\end {pmatrix}.
+\end{equation}
+
+</p>
+
+<p>
+У цьому контексті буст можна назвати <b>гіперболічним поворотом</b> (у просторі Мінковського) на кут&nbsp;\(\psi \)<sup>5</sup> у площині \((x^0, x^1)\), а перетворення Лоренца набувають вигляду:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                                                           𝑥′0 = 𝑥0 ch 𝜓 − 𝑥1 sh 𝜓, 𝑥′1 = −𝑥0 sh 𝜓 + 𝑥1 ch 𝜓, 𝑥′2 = 𝑥2, 𝑥′3 = 𝑥3.
+
+-->
+
+<p>
+
+\begin{equation*}
+x^{\prime 0} = x^0 \ch \psi - x^1 \sh \psi ,\quad x^{\prime 1} = -x^0 \sh \psi + x^1 \ch \psi ,\quad x^{\prime 2} = x^2,\quad x^{\prime 3} = x^3.
+\end{equation*}
+
+</p>
+
+<p>
+Ізотропія простору гарантує, що функція \(\psi (v)\) є непарною (\(\psi (-v) = -\psi (v)\)). Крім того, з властивостей гіперболічних функцій випливає <b>адитивність</b> швидкісного параметра <em>при послідовних бустах уздовж однієї
+осі</em>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                                                                                                    𝜓13 = 𝜓12 + 𝜓23,
+
+-->
+
+<p>
+
+\begin{equation*}
+\psi _{13} = \psi _{12} + \psi _{23},
+\end{equation*}
+
+</p>
+
+<p>
+що еквівалентно формулі додавання швидкостей (див. розділ&nbsp;<a href="ch5.html#sec:velocity_addition_low">5.2</a>). На відміну від швидкості \(v\), яка обмежена інтервалом \((-c,c)\), швидкісний параметр \(\psi \) пробігає всі
+дійсні значення \((-\infty ,+\infty )\).
+</p>
+
+<p>
+Можна показати, що будь-яке перетворення власної ГЛ, що описується матрицею \(\| L_\text {proper}\|\), можна подати як добуток просторових поворотів \(\|{O}_1\|\), \(\|{O}_2\|\) та одновимірного перетворення Лоренца \(\|{L}_\text
+{boost}\|\)&nbsp;<span class="textup">(<a href="ch6.html#eq:BoostMatrix">6.6</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                                                                                         ‖𝐿proper‖ = ‖𝑂1‖ ⋅ ‖𝐿boost‖ ⋅ ‖𝑂2‖.
+
+-->
+
+<p>
+
+\begin{equation*}
+\| L_\text {proper}\| = \|{O}_1\| \cdot \|{L}_\text {boost}\| \cdot \|{O}_2\|.
+\end{equation*}
+
+</p>
+
+<p>
+Загальна ГЛ містить власну ГЛ як підгрупу, решта перетворень загальної ГЛ є добутками перетворень власної ГЛ та інверсій простору й часу.
+</p>
+
+<p>
+Якщо доповнити перетворення групи Лоренца просторовими та часовими зсувами, маємо <b>групу Пуанкаре</b>, перетворення якої мають вид
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                                                                                                𝑥′𝜇′ = 𝐿𝜇′𝜇 𝑥𝜇 + 𝑎𝜇′.
+
+-->
+
+<p>
+
+\begin{equation*}
+x^{\prime \mu &apos;} = L^{\mu &apos;}{}_\mu \, x^\mu + a^{\mu &apos;}.
+\end{equation*}
+
+</p>
+
+<p>
+Очевидно, перетворення тензорів відносно групи Пуанкаре такі самі, як для групи Лоренца.
+</p>
+
+<p>
+Множину подій з введеними на ній трансформаційними співвідношеннями для тензорів називають <b>простором Мінковського</b>.
+</p>
+<div role="note" class="footnotes">
+
+<a id="ClassicalElectrodynamics-html-autopage-190"></a>
+<p>
+<sup>3</sup>&nbsp;Множина елементів є групою, якщо в ній заданий асоціативний добуток з одиницею, причому кожний елемент має обернений.
+</p>
+
+<p>
+<sup>4</sup>&nbsp;Індекс \(T\) позначає транспоновану матрицю.
+</p>
+
+<p>
+<sup>5</sup>&nbsp;На відміну від звичайного (евклідового) повороту, який у площині \((x, y)\) задається матрицею \(\begin {pmatrix} \cos \varphi &amp; -\sin \varphi \\ \sin \varphi &amp; \cos \varphi \end {pmatrix}\) і
+зберігає відстань \(x^2 + y^2\), гіперболічний поворот (буст) зберігає інтервал \(c^2 t^2 - x^2\) та описується матрицею \(\begin {pmatrix} \ch \psi &amp; -\sh \psi \\ -\sh \psi &amp; \ch \psi \end {pmatrix}\).
+</p>
+
+</div>
+<!--
+...... section Вектори і тензори в просторі Мінковського ......
+-->
+<h4 id="autosec-191"><span class="sectionnumber">6.2&#x2003;</span>Вектори і тензори в просторі Мінковського</h4>
+<a id="ClassicalElectrodynamics-html-autopage-191"></a>
+
+<a id="sec:VectAndTensors"></a>
+
+<p>
+Закони перетворення векторів та тензорів формально такі самі, як і у випадку загальних перетворень координат. Але слід пам’ятати, що далі йдеться про <i>лінійні</i> перетворення — з груп Лоренца або Пуанкаре.
+</p>
+
+<p>
+Уведемо <b>операцію підіймання та опускання індексів</b>: за допомогою тензора Мінковського з коваріантного вектора \(A_\mu \) можна отримати контраваріантний вектор<sup>6</sup> \(A^\mu = \eta ^{\mu \nu } A_\nu \)
+(покомпонентно це буде \(A^0 = A_0\), \(A^i = -A_i\), \(i=1,2,3\)); легко довести, що \(A^\mu \) дійсно має властивості контраваріантного вектора при перетвореннях Лоренца. Аналогічно, \(A_\mu = \eta _{\mu \nu } A^\nu \) —
+коваріантний вектор, якщо \(A^\mu \) — контраваріантний. Перехід від коваріантних до контраваріантних векторів і навпаки є формальним; він обумовлений вимогами зручності і не приводить до нових фізичних сутностей. У СТВ коваріантний
+та контраваріантний вектор описують один і той самий геометричний об’єкт.
+</p>
+
+<p>
+Вектор \(A^\mu \) (або \(A_\mu \)) називають <b>часоподібним</b>, якщо \(\eta _{\mu \nu }A^\mu A^\nu &gt; 0\), <b>просторовоподібним</b>, якщо \(\eta _{\mu \nu }A^\mu A^\nu &lt; 0\), та <b>ізотропним</b> (або
+<b>світлоподібним</b>), якщо \(\eta _{\mu \nu }A^\mu A^\nu = 0\).
+</p>
+
+<p>
+<b>Тензори</b> визначаються набором чисел (компонент), які перетворюються як прямий добуток відповідного числа коваріантних та контраваріантних векторів. Наприклад, двічі коваріантний та один раз контраваріантний тензор
+\(T_{\alpha &apos;\beta &apos;}{}^{\gamma &apos;}\) при переході, відповідно до&nbsp;<span class="textup">(<a href="ch6.html#eq:2.2">6.3</a>)</span>, в іншу систему відліку перетворюється за правилом
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                  𝑇�′�′𝛽′𝛾′ = (𝐿−1)𝛼𝛼′ (𝐿−1)𝛽𝛽′ 𝐿𝛾′𝛾 𝑇𝛼𝛽𝛾.
+
+-->
+<p>
+
+\begin{equation*}
+T&apos;_{\alpha &apos;\beta &apos;}{}^{\gamma &apos;} = (L^{-1})^\alpha {}_{\alpha &apos;}\,(L^{-1})^\beta {}_{\beta &apos;}\, L^{\gamma &apos;}{}_\gamma \, T_{\alpha \beta }{}^\gamma .
+\end{equation*}
+
+</p>
+
+<p>
+Нагадаємо <b>основні властивості тензорів</b> та операції, що можна здійснювати над ними.
+</p>
+
+<p>
+З тензорів однакової будови можна утворювати <b>лінійну комбінацію</b>. З довільних тензорів можна утворювати <b>прямий добуток</b>.
+</p>
+
+<p>
+З формули для перетворення тензорів очевидно, що <i>коли усі компоненти тензора дорівнюють нулю в одній системі, то вони є нульовими в усіх системах. Якщо усі компоненти двох тензорів збігаються в одній системі, то вони збігаються в
+усіх системах.</i>
+</p>
+
+<p>
+<i>Тензор визначений однозначно, якщо задані його компоненти в одній системі координат; компоненти в інших системах обчислюємо за правилами тензорного перетворення.</i>
+</p>
+
+<p>
+В силу&nbsp;<span class="textup">(<a href="ch6.html#eq:2.3">6.4</a>)</span> матриця \(\eta _{\mu \nu }\) складає <i><b>двічі коваріантний тензор</b></i> — тензор Мінковського, причому компоненти цього тензора зберігають
+свої числові значення при перетвореннях. Як вже було відзначено, специфічною властивістю є те, що компоненти матриці \(\eta ^{\mu \nu }\) <b><i>утворюють двічі контраваріантний</i></b> тензор (\(\eta ^{\mu \nu } = \eta
+_{\mu \nu }\), \(\eta ^{00}=1\), \(\eta ^{ii}=-1 \quad (i=1,2,3, \text { без підсумовування})\)): \(\eta ^{\prime \mu &apos;\nu &apos;} = L^{\mu &apos;}{}_\mu \, L^{\nu &apos;}{}_\nu \, \eta ^{\mu \nu } = \eta ^{\mu
+&apos;\nu &apos;}\).
+</p>
+
+<p>
+За допомогою тензора Мінковського можна опускати й піднімати індекси тензорів, подібно до аналогічної операції над векторами. Наприклад: \(T^\mu {}_\nu = \eta ^{\mu \alpha } T_{\alpha \nu }\); \(T_{\mu \nu } = \eta _{\mu \alpha
+}\, \eta _{\nu \beta }\, T^{\alpha \beta }\). Так само як у випадку векторів, з фізичного погляду підіймання та опускання індексів не приводить до якихось нових об’єктів.
+</p>
+
+<p>
+<i>Зверніть увагу на положення індексів після підіймання та опускання</i>. Наприклад, в тензорі \(T_m{}^\nu {}_\rho \) після підіймання індекс \(m\) залишаємо на першому місці, якщо рахувати по горизонталі від \(T\). Невиконання цього
+правила може призвести до плутанини, коли \(T^{\mu \nu }\) не є симетричним за своїми індексами.
+</p>
+
+<p>
+Якщо тензор має один коваріантний та один контраваріантний індекс, прирівнюючи їх та підсумовуючи за ними отримуємо тензор, що має на два індекси менше. Цю операцію називають <b>згорткою</b>. Наприклад, згортка \(T^\mu {}_{\mu
+\nu }\) є коваріантним вектором. Конструкцію типу \(A^\mu B_\mu \) також називають згорткою векторів \(A_\mu \) та \(B_\mu \), оскільки тут відбувається згортка після підняття індексу у першого або другого вектора. Аналогічно \(T^{\mu
+\nu }{}_\nu \) є згорткою тензора \(T^{\mu \nu }{}_\lambda \) з вектором \(\delta ^\lambda {}_\nu \) за певними індексами тощо.
+</p>
+
+<p>
+Завдяки лінійності перетворень Лоренца, <em>при диференціюванні тензора отримуємо новий тензор</em>. Наприклад, \(\partial _\beta A^{\prime \alpha &apos;} = \frac {\partial x^{\prime \alpha &apos;}}{\partial x^\alpha }
+\frac {\partial x^\beta }{\partial x^{\prime \beta &apos;}} \partial _\beta A^\alpha \), де використано, що \(L^{\mu &apos;}{}_\mu \) є константами завдяки лінійності перетворень Лоренца. Таким чином,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                            𝜕𝐴′𝛼′    =  𝜕𝑥′𝛼′  𝜕𝑥𝛽      𝜕𝐴𝛼 .
+                                                                                                            𝜕𝑥′𝛽′       𝜕𝑥𝛼    𝜕𝑥′𝛽′    𝜕𝑥𝛽
+
+-->
+<p>
+
+\begin{equation*}
+\frac {\partial A^{\prime \alpha &apos;}}{\partial x^{\prime \beta &apos;}} = \frac {\partial x^{\prime \alpha &apos;}}{\partial x^\alpha } \frac {\partial x^\beta }{\partial x^{\prime \beta &apos;}} \frac
+{\partial A^\alpha }{\partial x^\beta }.
+\end{equation*}
+
+</p>
+
+<p>
+Окрім тензора Мінковського, маємо ще один тензор, компоненти якого не змінюються при власних перетвореннях Лоренца. Це <b>абсолютно антисиметричний символ</b> (Леві-Чівіта) \(\varepsilon ^{\mu \nu \rho \sigma }\), що змінює
+знак при перестановках будь-яких двох індексів, причому \(\varepsilon ^{0123} = 1\). Очевидно, всі компоненти \(\varepsilon ^{\mu \nu \rho \sigma }\) дорівнюють або \(+1\), якщо впорядкована сукупність індексів \(\{\mu , \nu ,
+\rho , \sigma \}\) складає парну перестановку чисел \(\{0,1,2,3\}\), або \(-1\) у разі непарної перестановки, або \(0\), якщо хоча б два індекси приймають однакові значення. Знайдемо закон перетворення \(\varepsilon ^{\mu \nu \rho
+\sigma }\). За означенням детермінанта
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                  ‖ 𝜕𝑥′𝜇′ ‖       =  𝜕𝑥′0    𝜕𝑥′1      𝜕𝑥′2  𝜕𝑥′3 𝜀𝛼𝛽𝛾𝛿,
+                                                                                                  det ‖           ‖     𝜕𝑥𝛼    𝜕𝑥𝛽      𝜕𝑥𝛾  𝜕𝑥𝛿
+                                                                                                       ‖  𝜕𝑥𝜈  ‖
+
+-->
+<p>
+
+\begin{equation*}
+\det \left \|\frac {\partial x^{\prime \mu &apos;}}{\partial x^\nu }\right \| = \frac {\partial x^{\prime 0}}{\partial x^\alpha } \frac {\partial x^{\prime 1}}{\partial x^\beta } \frac {\partial x^{\prime
+2}}{\partial x^\gamma } \frac {\partial x^{\prime 3}}{\partial x^\delta } \varepsilon ^{\alpha \beta \gamma \delta },
+\end{equation*}
+
+</p>
+
+<p>
+а після перестановки верхніх індексів \(\mu &apos;\nu &apos;\rho &apos;\sigma &apos;\) отримаємо
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+     𝜕𝑥′𝜇′                                                                                     𝜕𝑥′𝜈′  𝜕𝑥′𝜌′    𝜕𝑥′𝜍′  𝜀𝛼𝛽𝛾𝛿  =  det(‖𝐿‖) 𝜀𝜇′𝜈′𝜌′𝜍′.
+     𝜕𝑥𝛼                                                                                       𝜕𝑥𝛽     𝜕𝑥𝛾      𝜕𝑥𝛿
+
+-->
+<p>
+
+\begin{equation*}
+\frac {\partial x^{\prime \mu &apos;}}{\partial x^\alpha } \frac {\partial x^{\prime \nu &apos;}}{\partial x^\beta } \frac {\partial x^{\prime \rho &apos;}}{\partial x^\gamma } \frac {\partial x^{\prime \sigma
+&apos;}}{\partial x^\delta } \varepsilon ^{\alpha \beta \gamma \delta } = \det (\|L\|)\,\varepsilon ^{\mu &apos;\nu &apos;\rho &apos;\sigma &apos;}.
+\end{equation*}
+
+</p>
+
+<p>
+Сукупність величин, що перетворюються таким чином, називають тензорною густиною. Але відносно власних перетворень Лоренца \(\varepsilon ^{\mu \nu \rho \sigma }\) є чотириіндексним контраваріантним тензором, оскільки для цих
+перетворень визначник \(\det \|L\| = 1\).
+</p>
+
+<p>
+Легко бачити, що <i>коваріантний</i> символ Леві-Чівіта дорівнює
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                                                                                   𝜀𝛼𝛽𝛾𝛿 = 𝜂𝛼𝜇 𝜂𝛽𝜈 𝜂𝛾𝜌 𝜂𝛿𝜍 𝜀𝜇𝜈𝜌𝜍 = −𝜀𝛼𝛽𝛾𝛿
+
+-->
+
+<p>
+
+\begin{equation*}
+\varepsilon _{\alpha \beta \gamma \delta } = \eta _{\alpha \mu }\,\eta _{\beta \nu }\,\eta _{\gamma \rho }\,\eta _{\delta \sigma }\, \varepsilon ^{\mu \nu \rho \sigma } = -\varepsilon ^{\alpha \beta \gamma
+\delta }
+\end{equation*}
+
+</p>
+
+<p>
+і має аналогічні властивості (\(\varepsilon _{0123} = -1\)).
+</p>
+<div role="note" class="footnotes">
+<a id="ClassicalElectrodynamics-html-autopage-192"></a>
+<p>
+<sup>6</sup>&nbsp;Результат підіймання (опускання) індексів позначають тим самим символом, що й тензор до цієї операції, підкреслюючи, що це один і той самий геометричний об’єкт.
+</p>
+
+</div>
+<!--
+...... section Світові лінії та чотиривектор швидкості ......
+-->
+<h4 id="autosec-193"><span class="sectionnumber">6.3&#x2003;</span>Світові лінії та чотиривектор швидкості</h4>
+<a id="ClassicalElectrodynamics-html-autopage-193"></a>
+
+<p>
+Траєкторії точкових тіл в чотиривимірному просторі-часі, що також називають <i>світовими лініями</i>, зручно записувати у параметричному вигляді: \(x^\mu = x^\mu (p)\), де \(p\) — деякий неособливий параметр, який монотонно зростає з
+часом \(t\). Зважаючи на те, що швидкості фізичних тіл не перевищують швидкості світла, маємо вздовж світової лінії тіла з ненульовою масою
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                                   𝑑𝑠2   = 𝜂𝜇𝜈  𝑑𝑥𝜇     𝑑𝑥𝜈  > 0.
+                                                                                                                                     𝑑𝑝       𝑑𝑝
+
+-->
+<p>
+
+\begin{equation*}
+ds^2 = \eta _{\mu \nu }\,\frac {dx^\mu }{dp}\,\frac {dx^\nu }{dp} &gt; 0.
+\end{equation*}
+
+</p>
+
+<p>
+В цьому разі вектор дотичної \(dx^\mu /dp\) часоподібний, а траєкторію \(x^\mu (p)\) називають <i>часоподібною</i>. У випадку протилежного знаку маємо <i>просторовоподібну</i> криву. На траєкторії фотонів та інших частинок нульової
+маси, що рухаються зі швидкістю світла, \(\eta _{\mu \nu }dx^\mu dx^\nu = 0\); тоді траєкторію називають <i>ізотропною</i> або <i>світлоподібною</i>.
+</p>
+
+<p>
+Якщо на часоподібній траєкторії параметром \(p\) виберемо часову координату \(t = x^0/c\), маємо
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                                   𝑑𝑥𝜇  =    𝑐  𝑑𝑥𝜇  =   (𝑐,    𝑑𝑥𝑖  )  .
+                                                                                                                   𝑑𝑝             𝑑𝑥0               𝑑𝑡
+
+-->
+
+<p>
+
+\begin{equation*}
+\frac {dx^\mu }{dp} = c\,\frac {dx^\mu }{dx^0} = \left (c,\,\frac {dx^i}{dt}\right ).
+\end{equation*}
+
+</p>
+
+<p>
+За формулою&nbsp;<span class="textup">(<a href="ch5.html#eq:LT_1_13">5.15</a>)</span>:
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                                                                                                          𝑑𝜏  =  1   √𝜂𝜇𝜈  𝑑𝑥𝜇  𝑑𝑥𝜈  =      √1  −       𝑣2  𝑑𝑡,
+                                                                                                                   𝑐                                              𝑐2
+
+-->
+
+<p>
+
+\begin{equation*}
+d\tau = \frac {1}{c}\sqrt {\eta _{\mu \nu }\,dx^\mu \,dx^\nu } = \sqrt {1 - \frac {v^2}{c^2}}\,dt,
+\end{equation*}
+
+</p>
+
+<p>
+де \(v^2 = \sum _i (dx^i/dt)^2\).
+</p>
+
+<p>
+З цих співвідношень видно, що власний час можна обчислити за формулою
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{7}\)</span>
+
+<!--
+
+                              𝜏 =  1   ˆ𝑝2                           𝑑𝑥𝜇  𝑑𝑥𝜈   1/2  𝑑𝑝.                                                                             (6.8)  --><a id="eq:2.5"></a><!--
+                                    𝑐     (𝜂𝜇𝜈                     𝑑𝑝    𝑑𝑝
+                                                                                       )
+
+                                        𝑝1
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:2.5} \tau = \frac {1}{c}\int \limits _{p_1}^{p_2} \left (\eta _{\mu \nu }\,\frac {dx^\mu }{dp}\,\frac {dx^\nu }{dp}\right )^{1/2}dp.
+\end{equation}
+
+</p>
+
+<p>
+Ця формула дає змогу обчислити інтервал власного часу між точками \(x_i^\mu \) (\(i=1,2\)) <i>для довільної параметризації</i> часоподібної траєкторії. Як зазначено в п.&nbsp;<a href="ch5.html#sec:proper_time">5.3</a>,
+формула&nbsp;<span class="textup">(<a href="ch6.html#eq:2.5">6.8</a>)</span> зберігає свій вигляд у разі <i>довільних часоподібних траєкторій, у тому числі й для тих, що описують неінерціальні рухи точкових тіл</i>. Але система
+відліку, де зберігає свій вигляд формула&nbsp;<span class="textup">(<a href="ch6.html#eq:2.5">6.8</a>)</span>, має бути інерціальною. Оскільки \(dx^\mu \) є контраваріантним вектором, а \(\eta _{\mu \nu }\) — двічі коваріантний
+тензор відносно перетворень Лоренца, величина
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{8}\)</span>
+
+<!--
+
+                                                                                                                                                                                  𝑑𝑠2 = 𝜂𝜇𝜈 𝑑𝑥𝜇 𝑑𝑥𝜈
+
+-->
+
+<p>
+
+\begin{equation*}
+ds^2 = \eta _{\mu \nu }\,dx^\mu \,dx^\nu
+\end{equation*}
+
+</p>
+
+<p>
+є інваріантом відносно цих перетворень. Тому власний час тіла, обчислений згідно до&nbsp;<span class="textup">(<a href="ch6.html#eq:2.5">6.8</a>)</span>, як і належить бути числовому значенню спостережуваної величини, не залежить
+від вибору системи відліку. Зазначимо також, що формула&nbsp;<span class="textup">(<a href="ch6.html#eq:2.5">6.8</a>)</span> не залежить від вибору допустимого параметра \(p\).
+</p>
+
+<p>
+Часоподібну траєкторію зручно параметризувати за допомогою величини \(s = c\tau \), де вибір константи визначається початком відліку власного часу. На світовій лінії тіла \(x^\mu (s)\) введемо контраваріантний <b>чотиривектор
+швидкості</b> (<b>чотиришвидкість</b> або 4-швидкість)
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{8}\)</span>
+
+<!--
+
+                                                                                                                                ᵆ𝜇  =      𝑑𝑥𝜇  ,
+                                                                                                                                             𝑑𝑠
+
+-->
+
+<p>
+
+\begin{equation*}
+u^\mu = \frac {dx^\mu }{ds},
+\end{equation*}
+
+</p>
+
+<p>
+а також відповідний коваріантний вектор \(u_\mu = \eta _{\mu \nu }u^\nu \). Ці величини є безрозмірними. Безпосередньо з&nbsp;<span class="textup">(<a href="ch6.html#eq:2.5">6.8</a>)</span> маємо співвідношення
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{8}\)</span>
+
+<!--
+
+                              𝜂𝜇𝜈 ᵆ𝜇 ᵆ𝜈 = 1                 або   𝜂𝜇𝜈  𝑑𝑥𝜇  𝑑𝑥𝜈       = 1,                                                                       (6.9)  --><a id="eq:2.6"></a><!--
+                                                                                𝑑𝑠    𝑑𝑠
+
+-->
+
+<p>
+
+\begin{equation}
+\label {eq:2.6} \eta _{\mu \nu }\,u^\mu \, u^\nu = 1 \quad \text {або}\quad \eta _{\mu \nu }\,\frac {dx^\mu }{ds}\,\frac {dx^\nu }{ds} = 1,
+\end{equation}
+
+</p>
+
+<p>
+яке називатимемо <b>умовою нормування чотиришвидкості</b>. Звідси видно, що з чотирьох компонент \(u^\mu \) незалежними є лише три. У власній системі відліку, де тіло на цей час покоїться, просторові компоненти швидкості
+дорівнюють нулю (\(u^i = 0\), \(i=1,2,3\)) і \(u^0 = 1\), що, очевидно, задовольняє умову нормування. Інколи цю систему називають також системою спокою тіла.
+</p>
+
+<p>
+Якщо \(x^\mu (p)\) — світлоподібна (наприклад, траєкторія руху фотонів), то у цьому разі замість&nbsp;<span class="textup">(<a href="ch6.html#eq:2.6">6.9</a>)</span> маємо, для будь-якої параметризації,
+</p>
+
+<span class="hidden"> \(\seteqnumber{0}{6.}{9}\)</span>
+
+<!--
+
+                                                                                                                       𝜂𝜇𝜈   𝑑𝑥𝜇      𝑑𝑥𝜈  = 0.
+                                                                                                                                𝑑𝑝        𝑑𝑝
+
+-->
+
+<p>
+
+\begin{equation*}
+\eta _{\mu \nu }\,\frac {dx^\mu }{dp}\,\frac {dx^\nu }{dp} = 0.
+\end{equation*}
+
+</p>
+<!--
+...... section Задачі ......
+-->
+<h4 id="autosec-194">Задачі</h4>
+<a id="ClassicalElectrodynamics-html-autopage-194"></a>
+<div class="theorembodyproblem">
+<ul class="list" style="list-style-type:none">
+
+<a id="autoid-70"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 6.1.</span></span> <a id="autoid-71" ></a ><a id="prb:2.1"></a>Записати перетворення Лоренца для контраваріантного чотиривектора \(A^\mu = (A^0, \vect {A})\) у
+тривимірному векторному вигляді для довільного напрямку швидкості \(\vect {v}\) нової системи відліку. <i>Вказівка.</i> Компоненти контраваріантного вектора в СТВ перетворюються так само як і координати. Подайте \(\vect {A}\) у
+вигляді суми паралельної та перпендикулярної до \(\vect {v}\) складових. Див. Вправу&nbsp;<a href="ch5.html#prb:1.4">5.3</a>.
+</p>
+
+</li>
+</ul>
+</div>
+<div class="theorembodyproblem">
+
+<ul class="list" style="list-style-type:none">
+
+<a id="autoid-72"></a>
+<li>
+<p>
+<span class="listmarker"> <span class="theoremheaderplain"> 6.2.</span></span> <a id="autoid-73" ></a >Контраваріантний вектор \(A^\mu = (A^0, \vect {A})\) — часоподібний. Користуючись результатом Вправи&nbsp;<a
+href="ch6.html#prb:2.1">6.1</a>, знайдіть перетворення Лоренца до системи координат, де просторові компоненти цього вектора дорівнюють нулю.
+</p>
+
+</li>
+
+</ul>
+
+</div>
+</section>
+</main>
+
+<nav class="botnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
+Головна</a></nav>
+</div><!-- grid -->
+</body>
+</html>

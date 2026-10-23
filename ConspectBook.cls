@@ -710,7 +710,8 @@
     \@restonecolfalse
   \fi
   \chapter*{Додатки}%
-  \addcontentsline{toc}{chapter}{Додатки}
+  \addtocontents{toc}{\protect\tocnopartname}%
+  \addcontentsline{toc}{part}{Додатки}% рівень частини: у закладках PDF -- не всередині останньої частини
   \if@restonecol\twocolumn\fi
 }
 % ---------------------------------------- Верстка ВІДПОВІДЕЙ -----------------
@@ -754,17 +755,42 @@
 % перед назвою, назва — по центру темно-синього кольору.
 %\titleformat{\part}[display]{\bfseries\sffamily\huge}{\partname\ \thepart }{0pt}{\addvspace{1em}\Huge\centering\color{themecolordark} #1}
 
+% \currentparttitle -- назва поточної частини для колонтитула парних сторінок (стиль main).
+\newcommand\currentparttitle{}
 \titleformat{\part}[display]{\bfseries\sffamily\huge}{\partname\ \thepart}{0pt}%
   {\addvspace{1em}\Huge\centering\color{themecolordark} #1%
-   \begingroup\def\\{ }\xdef\@currentlabelname{#1}\endgroup}
+   \begingroup\def\\{ }\xdef\@currentlabelname{#1}\endgroup
+   \gdef\currentparttitle{#1}}
 
 % Запис частини у зміст: великий жирний sans-serif, з вертикальним
 % відступом, горизонтальною лінією після і номером сторінки праворуч.
+% На рівні частин стоять і Додатки, Література, Алфавітний покажчик (щоб у закладках PDF
+% вони не опинялися всередині останньої частини): перед ними \tocnopartname прибирає
+% префікс «Частина» (\tocpartprefix), а \tocnorule -- лінійку під Літературою й покажчиком.
+\newcommand\tocpartprefix{\partname~}
+\newcommand\tocnopartname{\let\tocpartprefix\relax}
+\newcommand\tocpartrule{\titlerule}
+\newcommand\tocnorule{\let\tocpartrule\relax}
+% Розриви сторінок змісту -- як у стандартному \l@part: перед частиною розрив бажаний
+% (\addpenalty{-\@highpenalty}), після її запису й лінійки заборонений (\nopagebreak), тож назва
+% частини не лишається внизу сторінки без своїх розділів і ручні \clearpage у змісті не потрібні.
 \titlecontents{part}%
-[0pt]{\sffamily\bfseries\large\protect\addvspace{25pt}\addvspace{1.5ex}}
-{}{\partname~}
+[0pt]{\addpenalty{-\@highpenalty}\sffamily\bfseries\large\protect\addvspace{25pt}\addvspace{1.5ex}}
+{}{\tocpartprefix}
 {\hfill\contentspage}%
-[\addvspace{0.7ex}\titlerule\addvspace{10pt}]%
+[\nopagebreak\addvspace{0.7ex}\tocpartrule\nopagebreak\addvspace{10pt}\nopagebreak\global\tocafterparttrue]%
+% Стандартний \l@chapter ставить перед розділом \addpenalty{-\@highpenalty} -- бажаний розрив,
+% який перебив би заборону вище: одразу після частини його не ставимо. titletoc зберіг
+% стандартне означення в \ttl@savel@chapter (сам \l@chapter у нього -- \ttl@lselect{chapter}).
+\RequirePackage{etoolbox}
+\newif\iftocafterpart
+\patchcmd{\ttl@savel@chapter}{\addpenalty{-\@highpenalty}}%
+  {\iftocafterpart\global\tocafterpartfalse\else\addpenalty{-\@highpenalty}\fi}{}%
+  {\ClassWarning{ConspectBook}{\string\l@chapter\space not patched: a part may stay alone at the bottom of a contents page}}
+% ... а після рядка розділу (там \penalty\@highpenalty -- лише небажаний розрив) розрив заборонено:
+% розділ не лишається внизу сторінки без свого першого параграфа.
+\patchcmd{\ttl@savel@chapter}{\penalty\@highpenalty}{\penalty\@M}{}%
+  {\ClassWarning{ConspectBook}{\string\l@chapter\space not patched: a chapter may stay alone at the bottom of a contents page}}
 
 % Кожна частина починається на новій сторінці.
 \titleclass{\part}{top}
@@ -818,8 +844,10 @@
 %   plain: лише номер сторінки по центру знизу (для першої сторінки
 %          розділу, де немає колонтитула зверху).
 \newpagestyle{main}{\headrule%
-  \sethead{\ifodd\thepage\relax\else\itshape\small\thechapter.\ \chaptertitle\fi}{}{\ifodd\thepage\itshape\small\thechapter.\
-      \chaptertitle\else\relax\fi}
+  \sethead
+    {\ifodd\thepage\relax\else\itshape\small\partname~\thepart.\ \begingroup\let\\\space\currentparttitle\endgroup\fi}
+    {}
+    {\ifodd\thepage\itshape\small\thechapter.\ \chaptertitle\else\relax\fi}
   \setfoot{}{\small\thepage}{}}
 
 \newpagestyle{answers}{\headrule%
@@ -832,6 +860,11 @@
 
 \newpagestyle{bibliography}{\headrule%
   \sethead{\ifodd\thepage\relax\else\itshape\small\bibname\fi}{}{\ifodd\thepage\itshape\small\bibname\else\relax\fi}
+  \setfoot{}{\small\thepage}{}}
+
+% предметний покажчик (ClassicalElectrodynamics.tex: \clearpage\pagestyle{index} перед \printindex)
+\newpagestyle{index}{\headrule%
+  \sethead{\ifodd\thepage\relax\else\itshape\small Алфавітний покажчик\fi}{}{\ifodd\thepage\itshape\small Алфавітний покажчик\else\relax\fi}
   \setfoot{}{\small\thepage}{}}
 
 \renewpagestyle{plain}{%
@@ -915,6 +948,8 @@
   title={Алфавітний покажчик},
   noautomatic=false     % автоматично генерувати записи через \index{}
 ]
+% у змісті й закладках -- на рівні частин, як Література (інакше вкладений у Літературу)
+\indexsetup{toclevel=part}
 
 
 %===============================================================================
@@ -930,7 +965,10 @@
 %   unicode                 — підтримка Unicode у метаданих PDF
 %   linktocpage=true        — у змісті клікабельний номер сторінки,
 %                             а не весь рядок заголовка
-%   hypertexnames=true      — стабільні імена якорів між компіляціями
+%   hypertexnames=false     — імена якорів з внутрішніх лічильників, а не з \theequation тощо:
+%                             у додатках (номер розділу 0) інакше дублюються equation.Alph0.N
+%   bookmarksopen, bookmarksopenlevel=0, pdfpagemode=UseOutlines — PDF відкривається з панеллю закладок,
+%                             розгорнутою до частин
 %   pdftoolbar=true         — показувати панель інструментів у PDF
 %   pdfpagelayout=TwoPageRight — відкривати PDF у режимі розвороту
 %                               (ліва сторінка парна, права непарна)
@@ -943,9 +981,12 @@
 \RequirePackage[%
   bookmarks = true,
   bookmarksnumbered=true,
+  bookmarksopen=true,
+  bookmarksopenlevel=0,
+  pdfpagemode=UseOutlines,
   unicode,
   linktocpage = true,
-  hypertexnames=true,
+  hypertexnames=false,
   pdftoolbar=true,
   pdfpagelayout=TwoPageRight,
   pdfauthor={Ponomarenko S.M.},
@@ -955,6 +996,9 @@
   hyperindex=true
 ]%
 {hyperref}
+% bookmark: закладки PDF без «вирівнювання» рівнів hyperref. Після запису-частини (Додатки) одразу йдуть
+% розділи-section (А, Б, ...): hyperref підняв би А до рівня глави, і Б, В ... опинилися б усередині А.
+\RequirePackage{bookmark}
 % hypcap: виправляє позицію якоря гіперпосилань для рисунків і таблиць
 % (без нього посилання веде до підпису, а не до рисунка).
 \RequirePackage[all]{hypcap}
@@ -1008,6 +1052,13 @@
   %   Problems  — збірники задач
   \DeclareBibliographyCategory{Textbooks}
   \DeclareBibliographyCategory{Problems}
+  % Заголовок bibintoc (\printbibliography[heading=bibintoc]): запис у змісті й закладках PDF --
+  % на рівні частин, а не розділом усередині останньої частини; без префікса «Частина» і без лінійки.
+  \defbibheading{bibintoc}[\bibname]{%
+    \chapter*{#1}%
+    \addtocontents{toc}{\protect\tocnopartname\protect\tocnorule}%
+    \addcontentsline{toc}{part}{#1}%
+  }
 \else
   % Стандартний bibtex: мітка у форматі «1.» (крапка, а не дужки).
   \renewcommand{\@biblabel}[1]{#1.}
