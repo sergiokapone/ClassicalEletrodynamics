@@ -207,25 +207,13 @@ Copy-Item -LiteralPath "$main.bbl" -Destination "${main}_html.bbl" -Force
 
 # --- 3. HTML ---------------------------------------------------------------------
 Stage 3 'HTML build (lwarpmk, several passes - this is the long step)'
-# lwarpmk does not notice changes of the class or of included files, and skips the build when it thinks the HTML is up to date, so 'lwarpmk again' forces every pass.
-# 1. First pass: LuaLaTeX collects the index entries into ${main}_html.idx
-Step 'lwarpmk again (force Pass 1)' { lwarpmk again -p $main }
-Step 'lwarpmk html (Pass 1)' { lwarpmk html -p $main }
-if (-not (Test-Path "${main}_html.idx")) {
-    throw "Pass 1 did not create ${main}_html.idx - lwarpmk built nothing. Run .\build-html.ps1 -Full and look at the lwarpmk output."
-}
+# lwarpmk does not notice changes of the class or of included files: force the rebuild.
+# (The HTML version has no subject index, so one 'lwarpmk html' is enough: no upmendex pass.)
+Step 'lwarpmk again' { lwarpmk again -p $main }
+Step 'lwarpmk html' { lwarpmk html -p $main } "${main}_html.log" $false   # the log is sifted only on failure
 
-# 2. upmendex processes _html.idx with lwarp.ist and produces _html.ind
-Step 'Build Index (upmendex)' {
-    upmendex -s lwarp.ist -o "${main}_html.ind" "${main}_html.idx"
-}
-
-# 3. Second pass: lwarp reads ${main}_html.ind and typesets the index on the HTML page
-Step 'lwarpmk again (force Pass 2)' { lwarpmk again -p $main }
-Step 'lwarpmk html (Pass 2)' { lwarpmk html -p $main }
-
-# 4. Post-processing of the pages in the project root (before they are moved to $OutDir/)
-Step 'Post-process HTML (navigation, search marks, appendices, index)' { & $py postprocess_html.py }
+# Post-processing of the pages in the project root (before they are moved to $OutDir/)
+Step 'Post-process HTML (navigation, search marks)' { & $py postprocess_html.py }
 
 # --- 4. checks ---------------------------------------------------------------------
 Stage 4 'Checks'
@@ -296,10 +284,9 @@ if ($NoPublish) {
 } else {
     & $py publish_html.py --out $OutDir --extra ClassicalElectrodynamics.pdf
     if ($LASTEXITCODE -ne 0) { throw "publish_html.py failed (exit code $LASTEXITCODE)" }
-    # search index for book.js: $OutDir/pagefind/. Only the split chapter pages (ch*/app*.html, marked by
-    # postprocess_html.py): the home page repeats the contents, every hit would show twice. Needs node (npx).
+    # search index for book.js: $OutDir/pagefind/ (only the chapter text, marked by postprocess_html.py). Needs node (npx).
     if (Get-Command npx -ErrorAction SilentlyContinue) {
-        Step 'search index (Pagefind)' { npx -y pagefind@1.3.0 --site $OutDir --glob '{ch,app}*.html' }
+        Step 'search index (Pagefind)' { npx -y pagefind@1.3.0 --site $OutDir }
     } else {
         Write-Host "  Warning: npx (node) not found - no search index, the search field stays hidden." -ForegroundColor Yellow
         $script:problems++

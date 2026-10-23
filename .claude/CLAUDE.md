@@ -5,9 +5,14 @@ are Ukrainian, in the other Python / PowerShell scripts English: keep that. Comm
 only when asked. Sister project with the same tooling: `d:\Projects\LaTeX\ElMag\ElMagConspect` (keep the two in step).
 
 ## HTML build
-`build-html.ps1` -> `prepare_html.py` (fixed copies in `_html/`) -> lwarp (`ConspectBookHTML.cls`, two passes + upmendex
-for the index) -> `postprocess_html.py` (edits the pages in the root) -> `publish_html.py` (moves the site to `docs/`,
-GitHub Pages serves `main:/docs`) -> Pagefind index `docs/pagefind/` (only `ch*/app*.html`).
+`build-html.ps1` -> `prepare_html.py` (fixed copies in `_html/`) -> lwarp (`ConspectBookHTML.cls`) ->
+`postprocess_html.py` (edits the pages in the root) -> `publish_html.py` (moves the site to `docs/`, GitHub Pages serves
+`main:/docs`) -> Pagefind index `docs/pagefind/`.
+
+- The HTML version has no subject index (`\printindex` is empty in `ConspectBookHTML.cls`). Додатки (sections А, Б, ...)
+  and Література are pages of their own (`\schapterpage` = `\ForceHTMLPage` + `\schapter`, as in ElMagConspect).
+- Search marks as in ElMagConspect (`mark_for_indexing`): `<main>` of every `ch*.html` is indexed, the result title is
+  the chapter from `<title>`; the book home page is not marked, so Pagefind skips it.
 
 - `docs/` is wiped on every publish except `SITE_OWN` in `publish_html.py` (`index.html`, `google*.html`, `assets/`,
   `serve.py`), the PDF, CNAME and dot-files. So a fix to the generated pages goes into `postprocess_html.py` /

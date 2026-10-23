@@ -33,8 +33,8 @@
 %                                    INDEX
 %
 %===============================================================================
-\RequirePackage{makeidx}
-\makeindex
+% the print class builds an index (indextools); the HTML version has none (\index exists in the LaTeX kernel and is ignored)
+\providecommand{\printindex}[1][]{}
 
 \RequirePackage[unicode]{hyperref}   % lwarp patches it
 % ---- ссылки на части: \partref{part:I} -> "Частина I: <назва>" ----
@@ -119,6 +119,19 @@
 % prepare_html.py puts fixed copies of some tikz files into _html/ (see there)
 \newcommand{\localinput}[1]{\IfFileExists{_html/\currfilebase/tikz/#1}{\input{_html/\currfilebase/tikz/#1}}{\input{\currfilebase/tikz/#1}}}
 \def\schapter#1{\chapter*{#1}\addcontentsline{toc}{chapter}{#1}}
+% lwarp opens a new HTML page for a starred \chapter* only after \ForceHTMLPage (otherwise the text goes
+% to the end of the previous chapter's page): \schapterpage = \schapter on a page of its own
+\newcommand{\schapterpage}[1]{\ForceHTMLPage\schapter{#1}}
+% ---- appendices: sections А, Б, ... on one page "Додатки" (print: \appendix in ConspectBook.cls) ----
+\let\ConspectOrigAppendix\appendix
+\renewcommand\appendix{%
+  \ConspectOrigAppendix
+  \setcounter{section}{0}%
+  \gdef\thesection{\@Alph\c@section}%
+  \@addtoreset{table}{section}\@addtoreset{equation}{section}%
+  \renewcommand\thetable{\thesection.\@arabic\c@table}%
+  \renewcommand\theequation{\thesection.\arabic{equation}}%
+  \schapterpage{Додатки}}
 \ExplSyntaxOn
 \NewDocumentCommand{\multiinclude}{ m O{} }
  {\clist_set:Nx \l_Chapters_clist{ #1 }
@@ -371,7 +384,8 @@ fyz/.style={fill=cyan},yz face/.code={\tikzset{parallelepiped/fyz/.style={#1}}}
 \DefineBibliographyStrings{ukrainian}{bibliography = {Література}}
 \DeclareBibliographyCategory{Textbooks}
 \DeclareBibliographyCategory{Problems}
-\defbibheading{bibintoc}{\chapter*{\bibname}\addcontentsline{toc}{part}{\bibname}}
+% the print heading is a part-level entry; in HTML the bibliography is a page of its own
+\defbibheading{bibintoc}{\schapterpage{Література}}
 
 %===============================================================================
 %  Boxes, questions, problems: simple HTML blocks (styled by CSS classes)

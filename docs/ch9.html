@@ -697,7 +697,7 @@ MathJax.startup.input[0].postFilters.add(({math}) => {
 
 <nav class="topnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
 Головна</a></nav>
-<div class="sidetoccontainer" data-pagefind-ignore>
+<div class="sidetoccontainer">
 
 <nav class="sidetoc">
 
@@ -958,60 +958,59 @@ MathJax.startup.input[0].postFilters.add(({math}) => {
 <span class="sectionnumber">10.2</span><span class="toctitle">&#x2003;Релятивістське узагальнення</span></a>
 </p>
 
-<div class="sidetoc-appendix-title" style="margin-top:1.2rem; padding:.4rem .8rem; font-weight:600; font-size:.9rem; color:var(--gold,#c99a2e); border-top:1px solid rgba(255,255,255,.15);">Додатки</div>
 <p>
-<a href="ch10.html#autosec-249" class="tocsection" >
+<a href="ch11.html#autosec-251" class="tocchapter" >
+Додатки</a>
+</p>
+
+<p>
+<a href="ch11.html#autosec-252" class="tocsection" >
 <span class="sectionnumber">А</span><span class="toctitle">&#x2003;Таблиця переходу між гаусовою системою одиниць та SI</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-254" class="tocsection" >
+<a href="ch11.html#autosec-257" class="tocsection" >
 <span class="sectionnumber">Б</span><span class="toctitle">&#x2003;Основні формули векторного аналізу</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-270" class="tocsection" >
+<a href="ch11.html#autosec-273" class="tocsection" >
 <span class="sectionnumber">В</span><span class="toctitle">&#x2003;Узагальнені функції</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-271" class="tocsection" >
+<a href="ch11.html#autosec-274" class="tocsection" >
 <span class="sectionnumber">Г</span><span class="toctitle">&#x2003;Фундаментальні розв’язки</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-272" class="tocsection" >
+<a href="ch11.html#autosec-275" class="tocsection" >
 <span class="sectionnumber">Д</span><span class="toctitle">&#x2003;Спеціальні функції</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-282" class="tocpart" >
+<a href="ch12.html#autosec-287" class="tocchapter" >
 Література</a>
-</p>
-
-<p>
-<a href="ch10.html#autosec-283" class="tocchapter" >
-Предметний покажчик</a>
 </p>
 
 </div>
 </nav>
 </div>
 
-<main class="bodycontainer">
+<main class="bodycontainer" data-pagefind-body data-pagefind-meta="title[data-title]" data-title="9. Тензор енергії-імпульсу і закони збереження">
 
-<section class="textbody" data-pagefind-body>
-<div data-pagefind-ignore><h1>Класична електродинаміка</h1></div>
+<section class="textbody">
+<h1 data-pagefind-ignore>Класична електродинаміка</h1>
 
 <!--
 ...... chapter Тензор енергії-імпульсу і закони збереження ......
 -->
-<h3 id="autosec-226" data-pagefind-meta="title">Розділ&nbsp;<span class="sectionnumber">9&#x2003;</span>Тензор енергії-імпульсу і закони збереження</h3>
+<h3 id="autosec-226">Розділ&nbsp;<span class="sectionnumber">9&#x2003;</span>Тензор енергії-імпульсу і закони збереження</h3>
 <a id="ClassicalElectrodynamics-html-autopage-226"></a>
 <a id="ClassicalElectrodynamics-html-autofile-9"></a>
 <a id="Tei"></a>
 <p>
-В цьому розділі будуть отримані закони збереження енергії-імпульсу та моменту імпульсу як наслідок рівнянь електродинаміки в коваріантній формі та введено тензор енергії-імпульсу<a id="LWRindex-68"></a> електромагнітного поля.
+В цьому розділі будуть отримані закони збереження енергії-імпульсу та моменту імпульсу як наслідок рівнянь електродинаміки в коваріантній формі та введено тензор енергії-імпульсу електромагнітного поля.
 </p>
 <!--
 ...... section Чотири-імпульс системи тіл ......
@@ -1020,7 +1019,7 @@ MathJax.startup.input[0].postFilters.add(({math}) => {
 <a id="ClassicalElectrodynamics-html-autopage-227"></a>
 
 <p>
-Перепишемо рівняння руху частинки в зовнішньому електромагнітному полі за допомогою вектора 4-імпульсу<a id="LWRindex-69"></a>, який означимо так:
+Перепишемо рівняння руху частинки в зовнішньому електромагнітному полі за допомогою вектора 4-імпульсу, який означимо так:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{9.}{0}\)</span>
@@ -1152,8 +1151,8 @@ p^{\mu } = mc\,u^{\mu }.
 </p>
 
 <p>
-де \(\vect {p}=m\vect {v}(1-v^2/c^2)^{-1/2}\) — тривимірна частина 4-імпульсу. Це рівняння описує обмін імпульсом між зарядженим тілом та електромагнітним полем, причому права частина рівняння дає значення сили<a
-id="LWRindex-70"></a>, що діє на тіло. Таким чином, \(\vect {p}\) має сенс імпульсу рухомого тіла.
+де \(\vect {p}=m\vect {v}(1-v^2/c^2)^{-1/2}\) — тривимірна частина 4-імпульсу. Це рівняння описує обмін імпульсом між зарядженим тілом та електромагнітним полем, причому права частина рівняння дає значення сили, що діє на тіло.
+Таким чином, \(\vect {p}\) має сенс імпульсу рухомого тіла.
 </p>
 
 <p>
@@ -1380,7 +1379,7 @@ T_{\min } = \frac {(M^2 - m^2 - m_1^2)c^4}{2m_1c^2} - mc^2.
 <a id="ClassicalElectrodynamics-html-autopage-231"></a>
 
 <p>
-Введемо, за означенням, <em>тензор енергії-імпульсу електромагнітного поля<a id="LWRindex-71"></a></em>:
+Введемо, за означенням, <em>тензор енергії-імпульсу електромагнітного поля</em>:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{9.}{3}\)</span>
@@ -1508,7 +1507,7 @@ F^{\alpha \beta } F_{\alpha \beta ,\nu } = - F^{\alpha \beta } \left ( F_{\beta 
 i}}{\partial x^i} \\ &amp; = \frac {1}{c}\,\frac {d}{dt} \int \limits _{\Omega _3} T^{\mu 0}\, d^3 x + \oint \limits _{\partial \Omega _3} T^{\mu i}\, d\sigma _i \, .
 \end{align*}
 де \(d\sigma _i\) — елемент площини поверхні \(\partial \Omega _3\), що обмежує просторову область \(\Omega _3\) (з \(d\sigma _1=dy\,dz\), \(d\sigma _2=dx\,dz\), \(d\sigma _3=dx\,dy\)), причому інтеграл по \(\partial \Omega _3\)
-описує потік 4-імпульсу через межу цієї області. Інтегральний <em>закон збереження енергії та імпульсу<a id="LWRindex-72"></a></em> усієї системи «поле + частинки» в цій області має такий вигляд:
+описує потік 4-імпульсу через межу цієї області. Інтегральний <em>закон збереження енергії та імпульсу</em> усієї системи «поле + частинки» в цій області має такий вигляд:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{9.}{5}\)</span>
@@ -1533,7 +1532,7 @@ i}}{\partial x^i} \\ &amp; = \frac {1}{c}\,\frac {d}{dt} \int \limits _{\Omega _
 
 <p>
 де враховано&nbsp;<span class="textup">(<a href="ch9.html#eq:dPdt">9.3</a>)</span>,&nbsp;<span class="textup">(<a href="ch9.html#eq:divT">9.5</a>)</span>, причому тут вважаємо, що частинки не перетинають межі області
-\(\Omega _3\). Звідси \(T^{00}\) можна інтерпретувати як густину енергії електромагнітного поля<a id="LWRindex-73"></a>, \(T^{i0}/c\) — як густину імпульсу. Останній доданок в&nbsp;<span class="textup">(<a
+\(\Omega _3\). Звідси \(T^{00}\) можна інтерпретувати як густину енергії електромагнітного поля, \(T^{i0}/c\) — як густину імпульсу. Останній доданок в&nbsp;<span class="textup">(<a
 href="ch9.html#eq:conservation_integral">9.6</a>)</span> описує потік 4-імпульсу через поверхню \(\partial \Omega _3\); відповідно \(cT^{i0}=\Pi ^i\) описує компоненти тривимірного вектора густини потоку енергії, де \(\vect {\Pi
 }\) — вектор Пойнтінга.
 </p>
@@ -1641,9 +1640,10 @@ T^{\mu \nu }\eta _{\mu \nu } = 0.
 
 <!--
 
-                                                                                                                                       𝑀𝜇𝜈 = 𝑥𝜇𝑝𝜈 − 𝑥𝜈𝑝𝜇,                                                                                                                                     (9.10)                                          --><a id="eq:M_particle"></a><!--
+                                                                                                            𝑀𝜇𝜈 = 𝑥𝜇𝑝𝜈 − 𝑥𝜈𝑝𝜇,                                                                                                                                                                (9.10)                                          --><a id="eq:M_particle"></a><!--
 
 -->
+
 <p>
 
 \begin{equation}
@@ -1653,7 +1653,7 @@ T^{\mu \nu }\eta _{\mu \nu } = 0.
 </p>
 
 <p>
-яке називають <em>4-тензором моменту імпульсу<a id="LWRindex-74"></a></em>. Обчислимо, як змінюється ця величина вздовж траєкторії зарядженої частинки:
+яке називають <em>4-тензором моменту імпульсу</em>. Обчислимо, як змінюється ця величина вздовж траєкторії зарядженої частинки:
 </p>
 <span class="hidden"> \(\seteqnumber{0}{9.}{10}\)</span>
 
@@ -1848,7 +1848,7 @@ _3}M^{\mu \nu }\,dV = 0.
 </p>
 
 <p>
-Це співвідношення виражає збереження 4-моменту імпульсу<a id="LWRindex-75"></a>, причому \((x^{\mu }T^{\nu 0}-x^{\nu }T^{\mu 0})\) дає густину цієї величини, а другий доданок в&nbsp;<span class="textup">(<a
+Це співвідношення виражає збереження 4-моменту імпульсу, причому \((x^{\mu }T^{\nu 0}-x^{\nu }T^{\mu 0})\) дає густину цієї величини, а другий доданок в&nbsp;<span class="textup">(<a
 href="ch9.html#eq:angular_conservation">9.14</a>)</span> — її потік через \(\partial \Omega _3\). При просторових значеннях індексів \(\mu \), \(\nu \) це співвідношення подає закон збереження компонент звичайного моменту
 імпульсу.
 </p>

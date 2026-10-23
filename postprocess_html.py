@@ -11,25 +11,16 @@
     add_head_extras          favicon і assets/book.js (тема, зміст, шухляда на телефоні, «попередній/наступний», пошук,
                              збільшення рисунків, перенесення довгих формул)
     move_mathjax_macros      блок макросів MathJax -> на початок <body>
-    add_appendix_header      заголовок «Додатки» в бічному змісті
-    letter_appendix_numbers  нумерація додатків .1, .2 -> А, Б, ...
-    localize_index           «section 1.1» -> «розділ 1.1» у покажчику
+    wrap_toc_titles          назва пункту змісту -> <span class="toctitle"> (формула не падає під номер)
 
   Пошук (Pagefind; поле пошуку й формули в результатах додає book.js, індекс будує build-html.ps1)
-    mark_for_indexing        що індексувати: лише розділи ch*/app*, без бічної панелі та загального h1
+    mark_for_indexing        як в ElMagConspect: індексується <main> сторінок ch*.html, заголовок результату з <title>
 
   Обробляються лише сторінки, створені lwarp (мають <meta name="generator" content="LaTeX Lwarp package">).
   Службовий *_html.html не чіпається. Після цього publish_html.py переносить сайт у docs/ (GitHub Pages).
 """
 import glob
-import os
 import re
-
-APP_MAP = {
-    '.1': 'А', '.2': 'Б', '.3': 'В', '.4': 'Г', '.5': 'Д', '.6': 'Е', '.7': 'Є'
-}
-
-TEXTBODY = re.compile(r'<(?:div|section)\b[^>]*\bclass="textbody"[^>]*>')
 
 # ───────────────────────────── Сторінка ─────────────────────────────
 
@@ -49,76 +40,6 @@ def move_mathjax_macros(s):
             count=1
         )
     return s
-
-
-def add_appendix_header(s):
-    """Розділювач «Додатки» в sidetoc перед першим додатком (.1)."""
-    if '.1' in s and 'sidetoc-appendix-title' not in s:
-        appendix_header = (
-            '<div class="sidetoc-appendix-title" style="margin-top:1.2rem; padding:.4rem .8rem; '
-            'font-weight:600; font-size:.9rem; color:var(--gold,#c99a2e); '
-            'border-top:1px solid rgba(255,255,255,.15);">'
-            'Додатки</div>\n'
-        )
-        s = re.sub(
-            r'(<p>\s*<a [^>]*>\s*<span class="sectionnumber">\s*\.1\s*</span>)',
-            appendix_header + r'\1',
-            s,
-            count=1
-        )
-    return s
-
-
-def letter_appendix_numbers(s):
-    """Крапкова нумерація .1, .2 -> А, Б, ..."""
-    for num_str, letter in APP_MAP.items():
-        pattern = rf'(<span class="sectionnumber">\s*){re.escape(num_str)}(\s*)'
-        replacement = rf'\1{letter}\2'
-        s = re.sub(pattern, replacement, s)
-    return s
-
-
-# Англійські назви типів посилань, які lwarp пише в предметному покажчику, -> українські.
-# Змінюйте праві частини за смаком (наприклад, "section": "розділ" або "п.").
-INDEX_REF_WORDS = {
-    "chapter": "розділ",
-    "section": "§",
-    "subsection": "§",
-    "subsubsection": "§",
-    "paragraph": "п.",
-    "footnote": "виноска",
-    "appendix": "додаток",
-    "equation": "формула",
-    "figure": "рис.",
-    "table": "табл.",
-    "page": "с.",
-}
-# Тип «problem»: \newtheorem{problem}{} має порожню назву, тому lwarp пише «??».
-INDEX_UNKNOWN_REF_WORD = "задача"
-
-
-def localize_index(s):
-    r"""Українізує слова перед номерами в предметному покажчику.
-
-    lwarp пише посилання як  section&nbsp;<a href="ch5.html#LWRindex-44">5.2</a>
-    (слово, нерозривний пробіл-ентіті й тег <a>), тому простий регекс «section\s+номер»
-    їх не бачив. Замінюємо слово лише перед посиланнями на LWRindex-..., щоб не
-    зачепити решту сторінки. Невідомий тип (запис покажчика в задачі) дає «??&nbsp;7.2»
-    без тега <a>: його замінюємо тільки всередині записів покажчика.
-    """
-    words = "|".join(sorted(INDEX_REF_WORDS, key=len, reverse=True))
-    s = re.sub(
-        rf'\b({words})(?:&nbsp;|\s)+(?=<a href="[^"]*#LWRindex-)',
-        lambda m: INDEX_REF_WORDS[m.group(1)] + '&nbsp;',
-        s,
-    )
-
-    def fix_entry(m):
-        return re.sub(r'\?\?(?:&nbsp;|\s)+(?=[A-Za-z\d])', INDEX_UNKNOWN_REF_WORD + '&nbsp;', m.group(0))
-
-    s = re.sub(r'<span class="indexitem">.*?</p>', fix_entry, s, flags=re.DOTALL)
-    # старий випадок: звичайний текст «section 1.1» без тега <a>
-    return re.sub(r'(>|,\s*)section\s+([a-zA-Z\d\.]+)', r'\1' + INDEX_REF_WORDS["section"] + r'&nbsp;\2', s)
 
 
 def wrap_toc_titles(s):
@@ -225,48 +146,18 @@ def add_head_extras(s):
 # ───────────────────────────── Пошук ─────────────────────────────
 
 def mark_for_indexing(s, filename):
-    """Чітке розмежування індексації для Pagefind."""
-    # А) Завжди ігноруємо бокову панель
-    if 'data-pagefind-ignore' not in s:
-        s = s.replace(
-            '<div class="sidetoccontainer"',
-            '<div class="sidetoccontainer" data-pagefind-ignore'
-        )
-
-    # Б) Окремий файл розділу/додатка (ch1.html, ch10.html, app1.html)?
-    is_chapter_file = bool(re.match(r'^(ch|app)\d+.*\.html$', filename, re.IGNORECASE))
-
-    if is_chapter_file:
-        # Блок тексту може бути <section class="textbody"> або <div class="textbody">
-        m = TEXTBODY.search(s)
-        if m:
-            tag = m.group(0)
-            # Позначаємо контент розділу для індексу
-            if 'data-pagefind-body' not in tag:
-                s = s.replace(tag, tag[:-1] + ' data-pagefind-body>', 1)
-                m = TEXTBODY.search(s)
-
-            # Ховаємо загальний h1 "Класична електродинаміка" від Pagefind
-            s = re.sub(
-                r'(<(?:div|section)\b[^>]*\bclass="textbody"[^>]*>\s*)(<h1>.*?</h1>)',
-                r'\1<div data-pagefind-ignore>\2</div>',
-                s,
-                count=1,
-                flags=re.DOTALL
-            )
-
-            # Заголовком картки в пошуку стає назва розділу (перший h3 тексту)
-            m = TEXTBODY.search(s)
-            head, body = s[:m.end()], s[m.end():]
-            if 'data-pagefind-meta="title"' not in body:
-                body = re.sub(r'<h3 (id="[^"]*")>', r'<h3 \1 data-pagefind-meta="title">', body, count=1)
-            s = head + body
-    else:
-        # Всі інші сукупні файли (ClassicalElectrodynamics.html, index.html) блокуємо повністю
-        if 'data-pagefind-ignore' not in s:
-            s = re.sub(r'(<body[^>]*>)', r'\1\n<div data-pagefind-ignore>', s, count=1)
-            s = s.replace('</body>', '</div>\n</body>')
-    return s
+    """Пошук (Pagefind, індекс будує build-html.ps1) -- як в ElMagConspect: індексується лише текст сторінок розділів
+    (ch*.html: розділи, Додатки, Література), уся <main class="bodycontainer">. Заголовок результату -- назва розділу
+    з <title> («N. Назва — книга» після set_chapter_title), а не <h1>, який на кожній сторінці -- назва книги.
+    Сторінки без data-pagefind-body (головна книги) Pagefind пропускає, бо інші сторінки його мають."""
+    if not re.fullmatch(r'ch\d+\.html', filename) or 'data-pagefind-body' in s:
+        return s
+    m = re.search(r'<title>(.*?)</title>', s, re.DOTALL)
+    parts = [p.strip() for p in (m.group(1) if m else filename).split(' — ')]
+    title = next((p for p in parts if p != BOOK_TITLE), parts[0]).replace('"', '&quot;')
+    s = s.replace('<main class="bodycontainer">', '<main class="bodycontainer" data-pagefind-body '
+                  'data-pagefind-meta="title[data-title]" data-title="%s">' % title, 1)
+    return s.replace('<h1>', '<h1 data-pagefind-ignore>', 1)
 
 
 # MathJax-розширення, які треба явно підключити (автозавантаження у цій конфігурації не спрацьовує):
@@ -319,14 +210,11 @@ def process(content, filename, donor=None):
     s = add_head_extras(s)              # першим: решта вставок у <head> лягає після нього — порядок стабільний
     s = add_unicode_support(s)
     s = move_mathjax_macros(s)
-    s = add_appendix_header(s)
-    s = letter_appendix_numbers(s)
-    s = localize_index(s)
     s = wrap_toc_titles(s)
-    s = mark_for_indexing(s, filename)
-    s = add_home_sidebar(s, donor)      # після mark_for_indexing: сторінка вже в <div data-pagefind-ignore>
-    s = localize_nav(s)
     s = set_chapter_title(s)
+    s = mark_for_indexing(s, filename)  # після set_chapter_title: заголовок результату пошуку береться з <title>
+    s = add_home_sidebar(s, donor)
+    s = localize_nav(s)
     return s
 
 
@@ -383,7 +271,7 @@ def main():
     donor = next((pages[fp] for fp in pages if re.match(r'ch\d+\.html$', fp)), None)
     for fp in home:
         save(fp, process(pages[fp], fp, donor))
-    print(f"Оновлено {count} HTML-файлів (навігація, індексація для пошуку, додатки, покажчик).")
+    print(f"Оновлено {count} HTML-файлів (навігація, розмітка для пошуку).")
 
 if __name__ == "__main__":
     main()

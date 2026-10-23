@@ -697,7 +697,7 @@ MathJax.startup.input[0].postFilters.add(({math}) => {
 
 <nav class="topnavigation"><a href="ClassicalElectrodynamics-html.html" class="linkhome" >
 Головна</a></nav>
-<div class="sidetoccontainer" data-pagefind-ignore>
+<div class="sidetoccontainer">
 
 <nav class="sidetoc">
 
@@ -958,55 +958,54 @@ MathJax.startup.input[0].postFilters.add(({math}) => {
 <span class="sectionnumber">10.2</span><span class="toctitle">&#x2003;Релятивістське узагальнення</span></a>
 </p>
 
-<div class="sidetoc-appendix-title" style="margin-top:1.2rem; padding:.4rem .8rem; font-weight:600; font-size:.9rem; color:var(--gold,#c99a2e); border-top:1px solid rgba(255,255,255,.15);">Додатки</div>
 <p>
-<a href="ch10.html#autosec-249" class="tocsection" >
+<a href="ch11.html#autosec-251" class="tocchapter" >
+Додатки</a>
+</p>
+
+<p>
+<a href="ch11.html#autosec-252" class="tocsection" >
 <span class="sectionnumber">А</span><span class="toctitle">&#x2003;Таблиця переходу між гаусовою системою одиниць та SI</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-254" class="tocsection" >
+<a href="ch11.html#autosec-257" class="tocsection" >
 <span class="sectionnumber">Б</span><span class="toctitle">&#x2003;Основні формули векторного аналізу</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-270" class="tocsection" >
+<a href="ch11.html#autosec-273" class="tocsection" >
 <span class="sectionnumber">В</span><span class="toctitle">&#x2003;Узагальнені функції</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-271" class="tocsection" >
+<a href="ch11.html#autosec-274" class="tocsection" >
 <span class="sectionnumber">Г</span><span class="toctitle">&#x2003;Фундаментальні розв’язки</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-272" class="tocsection" >
+<a href="ch11.html#autosec-275" class="tocsection" >
 <span class="sectionnumber">Д</span><span class="toctitle">&#x2003;Спеціальні функції</span></a>
 </p>
 
 <p>
-<a href="ch10.html#autosec-282" class="tocpart" >
+<a href="ch12.html#autosec-287" class="tocchapter" >
 Література</a>
-</p>
-
-<p>
-<a href="ch10.html#autosec-283" class="tocchapter" >
-Предметний покажчик</a>
 </p>
 
 </div>
 </nav>
 </div>
 
-<main class="bodycontainer">
+<main class="bodycontainer" data-pagefind-body data-pagefind-meta="title[data-title]" data-title="7. Електродинаміка у просторі Мінковського">
 
-<section class="textbody" data-pagefind-body>
-<div data-pagefind-ignore><h1>Класична електродинаміка</h1></div>
+<section class="textbody">
+<h1 data-pagefind-ignore>Класична електродинаміка</h1>
 
 <!--
 ...... chapter Електродинаміка у просторі Мінковського ......
 -->
-<h3 id="autosec-199" data-pagefind-meta="title">Розділ&nbsp;<span class="sectionnumber">7&#x2003;</span>Електродинаміка у просторі Мінковського</h3>
+<h3 id="autosec-199">Розділ&nbsp;<span class="sectionnumber">7&#x2003;</span>Електродинаміка у просторі Мінковського</h3>
 <a id="ClassicalElectrodynamics-html-autopage-199"></a>
 <a id="ClassicalElectrodynamics-html-autofile-7"></a>
 <a id="RelElectrodynamics"></a>
@@ -1051,8 +1050,8 @@ j^{\mu } = \rho \frac {ds}{dt}\frac {dx^{\mu }}{ds}, \qquad \{j^{\mu }\} \equiv 
 <p>
 З формули для перетворення густини заряду&nbsp;<span class="textup">(<a href="ch5.html#eq:charge_density_transform">5.21</a>)</span>, яку легко узагальнити на випадок довільного напрямку швидкості, випливає, що величина
 \(\rho \sqrt {1-\vect {v}^{2}/c^{2}} = \rho \,ds/dt\) є інваріантом — це густина заряду у власній системі елемента середовища. Тоді \(j^{\mu }\) має ті ж трансформаційні властивості, що й \(dx^{\mu }/ds\), тобто це контраваріантний
-вектор. Його називають <b>чотиривектором густини струму<a id="LWRindex-46"></a></b>. Цей вектор введено для середовища з неперервним розподілом зарядів та швидкостей, але його можна означити та для точкових зарядів \(q_{i}\) з
-траєкторіями \(x^{\alpha }=x^{\alpha }_{(i)}\) (індекс \(i=1,2,\ldots \) нумерує заряди):
+вектор. Його називають <b>чотиривектором густини струму</b>. Цей вектор введено для середовища з неперервним розподілом зарядів та швидкостей, але його можна означити та для точкових зарядів \(q_{i}\) з траєкторіями \(x^{\alpha
+}=x^{\alpha }_{(i)}\) (індекс \(i=1,2,\ldots \) нумерує заряди):
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{7.}{0}\)</span>
@@ -1087,7 +1086,7 @@ j^{\mu } = c\sum _{i}q_{i}\int ds_{i}\,\delta ^{(4)}(x - x_{(i)}(s_{i})) \frac {
 <!--
 
                                                                                                                    0                  𝐸1       𝐸2  −�𝐸��23�1⎟⎞⎟ ,
-                                                                                                    ‖‖𝐹𝜇𝜈‖‖ = ⎜⎛⎜−−�𝐸�12           0       −𝐵3    0⎠
+                                                                                                    ‖‖𝐹𝜇𝜈‖‖ = ⎜⎜⎛−−�𝐸�12           0       −𝐵3    0⎠
 
                                                                                                                ⎝−𝐸3                  𝐵3        0
                                                                                                                                      −𝐵2
@@ -1103,8 +1102,8 @@ j^{\mu } = c\sum _{i}q_{i}\int ds_{i}\,\delta ^{(4)}(x - x_{(i)}(s_{i})) \frac {
 </p>
 
 <p>
-де \(F_{\mu \nu }=-F_{\nu \mu }\); \(E_i\) — компоненти напруженості електричного поля<a id="LWRindex-47"></a>, \(B_i\) — індукції магнітного поля в декартових координатах \(x^{i}\) (\(i=1,2,3\)). Цю матрицю називають
-<em>тензором електромагнітного поля<a id="LWRindex-48"></a></em>. Компоненти цього тензора можна означити ще й так:
+де \(F_{\mu \nu }=-F_{\nu \mu }\); \(E_i\) — компоненти напруженості електричного поля, \(B_i\) — індукції магнітного поля в декартових координатах \(x^{i}\) (\(i=1,2,3\)). Цю матрицю називають <em>тензором електромагнітного
+поля</em>. Компоненти цього тензора можна означити ще й так:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{7.}{0}\)</span>
@@ -1123,12 +1122,12 @@ F_{0i} = -F_{i0} = E_i, \qquad F_{ij} = -\varepsilon _{ijk}B_k,
 </p>
 
 <p>
-де в останній рівності береться сума по \(k\), причому індекси \(i\), \(j\), \(k\) приймають значення 1,&nbsp;2,&nbsp;3. Як буде видно далі, \(F_{\mu \nu }\) дійсно є двічі коваріантним тензором<a id="LWRindex-49"></a> відносно
-перетворень групи Лоренца та групи Пуанкаре; відповідно \(F^{\mu \nu }=\eta ^{\mu \alpha }\eta ^{\nu \beta }F_{\alpha \beta }\) є двічі контраваріантним тензором.
+де в останній рівності береться сума по \(k\), причому індекси \(i\), \(j\), \(k\) приймають значення 1,&nbsp;2,&nbsp;3. Як буде видно далі, \(F_{\mu \nu }\) дійсно є двічі коваріантним тензором відносно перетворень групи Лоренца та групи
+Пуанкаре; відповідно \(F^{\mu \nu }=\eta ^{\mu \alpha }\eta ^{\nu \beta }F_{\alpha \beta }\) є двічі контраваріантним тензором.
 </p>
 
 <p>
-<b>Рівняння Максвелла</b> в гаусовій системі одиниць<a id="LWRindex-50"></a>, переписані за допомогою \(F\), мають вид:
+<b>Рівняння Максвелла</b> в гаусовій системі одиниць, переписані за допомогою \(F\), мають вид:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{7.}{0}\)</span>
@@ -1182,18 +1181,18 @@ F_{0i} = -F_{i0} = E_i, \qquad F_{ij} = -\varepsilon _{ijk}B_k,
 </p>
 
 <p>
-де \(\varepsilon ^{\alpha \beta \gamma \delta }\) — абсолютно антисиметричний символ Леві-Чівіта<a id="LWRindex-51"></a>.
+де \(\varepsilon ^{\alpha \beta \gamma \delta }\) — абсолютно антисиметричний символ Леві-Чівіта.
 </p>
 
 <p>
-З антисиметрії \(F_{\mu \nu }\) та з&nbsp;<span class="textup">(<a href="ch7.html#eq:Maxwell_4D_1">7.1</a>)</span> випливає <b>закон збереження заряду<a id="LWRindex-52"></a></b>:
+З антисиметрії \(F_{\mu \nu }\) та з&nbsp;<span class="textup">(<a href="ch7.html#eq:Maxwell_4D_1">7.1</a>)</span> випливає <b>закон збереження заряду</b>:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{7.}{2}\)</span>
 
 <!--
 
-                                                         𝜕𝜇𝑗𝜇 = 0,                                                                                             (7.3)                 --><a id="eq:charge_conservation"></a><!--
+                                                         𝜕𝜇𝑗𝜇 = 0,                                                                                             (7.3)                                      --><a id="eq:charge_conservation"></a><!--
 
 -->
 <p>
@@ -1288,7 +1287,7 @@ href="ch7.html#eq:charge_conservation">7.3</a>)</span>, користуючись
 </p>
 
 <p>
-<i>Відповідь</i>: Рівняння&nbsp;<span class="textup">(<a href="ch7.html#eq:charge_conservation">7.3</a>)</span> є іншим записом <em>рівняння неперервності<a id="LWRindex-53"></a></em>:
+<i>Відповідь</i>: Рівняння&nbsp;<span class="textup">(<a href="ch7.html#eq:charge_conservation">7.3</a>)</span> є іншим записом <em>рівняння неперервності</em>:
 </p>
 
 <p>
@@ -1992,7 +1991,7 @@ m\frac {d}{dt}\!\left (\frac {\vect {v}}{\sqrt {1-\vect {v}^2/c^2}}\right ) = q\
 </p>
 
 <p>
-Права частина — це сила Лоренца<a id="LWRindex-54"></a>, що визначає швидкість передачі імпульсу від поля до зарядженої частинки. Звідси випливає <em>вираз для тривимірної частини релятивістського імпульсу</em>:
+Права частина — це сила Лоренца, що визначає швидкість передачі імпульсу від поля до зарядженої частинки. Звідси випливає <em>вираз для тривимірної частини релятивістського імпульсу</em>:
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{7.}{8}\)</span>
@@ -2146,7 +2145,7 @@ F_{\mu \nu }(x) = f_{\mu \nu }\exp (-i\Omega ),
 
 <p>
 де компоненти тензора \(f_{\mu \nu }\) — сталі, а скаляр \(\Omega \) — лінійна функція координат, \(\Omega (x)=k_{\mu }x^{\mu }\equiv k^0x^0 - \vect {k}\cdot \vect {r}\); \(k_{\mu }=\partial _{\mu }\Omega \) — хвильовий
-(коваріантний) чотиривектор<a id="LWRindex-55"></a>.
+(коваріантний) чотиривектор.
 </p>
 
 <p>
@@ -2633,7 +2632,7 @@ k_{\mu } u_s^{\mu } = k^0\,\gamma \!\left (1 + \frac {\vect {n}\cdot \vect {v}}{
 <a id="ClassicalElectrodynamics-html-autopage-216"></a>
 
 <p>
-У цьому розділі отримаємо явний розв’язок рівнянь електромагнітного поля за допомогою <em>4-вектора потенціалу<a id="LWRindex-56"></a></em>, існування якого забезпечене рівняннями&nbsp;<span class="textup">(<a
+У цьому розділі отримаємо явний розв’язок рівнянь електромагнітного поля за допомогою <em>4-вектора потенціалу</em>, існування якого забезпечене рівняннями&nbsp;<span class="textup">(<a
 href="ch7.html#eq:Maxwell_4D_2">7.2</a>)</span>: внаслідок цих рівнянь можна ввести коваріантне векторне поле \(A_{\mu }\) (4-потенціал), таке, що
 </p>
 
@@ -2662,7 +2661,7 @@ class="textup">(<a href="ch7.html#eq:Maxwell_4D_1">7.1</a>)</span>, що від�
 
 <p>
 Очевидно, фізичні поля, що їх описує тензор \(F_{\mu \nu }\) згідно до&nbsp;<span class="textup">(<a href="ch7.html#eq:4potential_def">7.18</a>)</span>, залишаться незмінними при перетворенні виду \(A_{\mu }\to A_{\mu
-}+\partial _{\mu }\chi \), де \(\chi \) — довільна функція. Це перетворення 4-потенціалу називають <em>калібрувальним (або градієнтним)<a id="LWRindex-57"></a></em>. Завдяки калібрувальній інваріантності можна накласти <em>умову
+}+\partial _{\mu }\chi \), де \(\chi \) — довільна функція. Це перетворення 4-потенціалу називають <em>калібрувальним (або градієнтним)</em>. Завдяки калібрувальній інваріантності можна накласти <em>умову
 Лоренца</em><sup>4</sup>:
 </p>
 
@@ -2736,7 +2735,7 @@ class="textup">(<a href="ch7.html#eq:Maxwell_4D_1">7.1</a>)</span> дає
 відсутності зовнішнього випромінювання</em>. Розглянемо розв’язок&nbsp;<span class="textup">(<a href="ch7.html#eq:wave_eq_A">7.20</a>)</span> починаючи з нескінченного минулого, припускаючи, що 4-вектор \(j^{\nu }(x)\equiv
 j^{\nu }(x^0,\vect {r})\) відмінний від нуля лише в обмеженій області просторових координат \(\vect {r}\), а будь-які джерела на нескінченності відсутні. Як відомо з курсу математичної фізики, цим умовам відповідає розв’язок
 рівняння&nbsp;<span class="textup">(<a href="ch7.html#eq:wave_eq_A">7.20</a>)</span> у вигляді запізнюючих потенціалів, що можна подати за допомогою фундаментального розв’язку \(G_\text {ret}(x)\) хвильового оператора
-(див.&nbsp;<a href="ch10.html#eq:dalambert_fundamental">9</a>):
+(див.&nbsp;<a href="ch11.html#eq:dalambert_fundamental">Г.5</a>):
 </p>
 
 <span class="hidden"> \(\seteqnumber{0}{7.}{21}\)</span>
@@ -2826,7 +2825,7 @@ A^{\nu }(x) &amp; = \frac {2}{c}\int d^4\vect {x}\; \theta (x^0-x&apos;^0)\,\del
 <p>
 Розв’язок описує електромагнітне поле обмеженої системи з 4-вектором густини струму \(j^{\nu }\). Функція \(G_\text {ret}(x)\) є скаляром відносно власних перетворень Лоренца, оскільки тут аргумент \(\delta \)-функції залежить від
 квадрата інтервалу, а в \(\theta (x^0)\) аргумент не змінює знак при цих перетвореннях. Тому з&nbsp;<span class="textup">(<a href="ch7.html#eq:retarded_potentials">7.22</a>)</span> випливає, що \(A^{\nu }\) <b>є 4-вектором
-відносно перетворень власної групи Лоренца<a id="LWRindex-58"></a>, оскільки \(j^{\nu }\) — 4-вектор</b>.
+відносно перетворень власної групи Лоренца, оскільки \(j^{\nu }\) — 4-вектор</b>.
 </p>
 
 <p>
