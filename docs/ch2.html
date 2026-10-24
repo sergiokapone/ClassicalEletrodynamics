@@ -1005,7 +1005,7 @@ MathJax.startup.input[0].postFilters.add(({math}) => {
 <!--
 ...... chapter Розв'язки рівнянь Максвелла ......
 -->
-<h3 id="autosec-58">Розділ&nbsp;<span class="sectionnumber">2&#x2003;</span>Розв’язки рівнянь Максвелла</h3>
+<h3 id="autosec-58"><span class="sectionnumber">2&#x2003;</span>Розв’язки рівнянь Максвелла</h3>
 <a id="ClassicalElectrodynamics-html-autopage-58"></a>
 <a id="ClassicalElectrodynamics-html-autofile-2"></a>
 <a id="Solutions"></a>
@@ -1082,7 +1082,7 @@ MathJax.startup.input[0].postFilters.add(({math}) => {
 
 <!--
 
-                                                                                                 𝐄 +     1   𝜕𝐀  =  −∇𝜑,
+                                                                                                 𝐄   +   1   𝜕𝐀  =  −∇𝜙,
                                                                                                           𝑐  𝜕𝑡
 
 -->
@@ -1103,7 +1103,7 @@ MathJax.startup.input[0].postFilters.add(({math}) => {
 
 <!--
 
-     𝐄  =  −∇𝜑  −  1   𝜕𝐀                                                    .                                                        (2.2)  --><a id="eq:potE"></a><!--
+     𝐄  =  −∇𝜙  −  1   𝜕𝐀                                                    .                                                        (2.2)  --><a id="eq:potE"></a><!--
                      𝑐  𝜕𝑡
 
 -->
@@ -1148,7 +1148,7 @@ class="textup">(<a href="ch1.html#eq:M2D">1.27</a>)</span>, <span class="textup"
 <span class="hidden"> \(\seteqnumber{0}{2.}{3}\)</span>
 <!--
 
-                                                                 𝜑′  =  𝜑  −  1   𝜕𝜒  .                                                (2.4)  --><a id="eq:phi'"></a><!--
+                                                                 𝜙′  =  𝜙  −  1   𝜕𝜒  .                                                (2.4)  --><a id="eq:phi'"></a><!--
                                                                                 𝑐  𝜕𝑡
 
 -->
@@ -1170,7 +1170,7 @@ class="textup">(<a href="ch1.html#eq:M2D">1.27</a>)</span>, <span class="textup"
 
 <!--
 
-                                                                                             𝐁 = rot 𝐀′,  𝐄  =  −∇𝜑′  −  1   𝜕𝐀′  .                                                                                      (2.5)
+                                                                                             𝐁 = rot 𝐀′,  𝐄  =  −∇𝜙′  −  1   𝜕𝐀′  .                                                                                      (2.5)
                                                                                                                              𝑐   𝜕𝑡
 
 -->
@@ -1206,8 +1206,8 @@ class="textup">(<a href="ch2.html#eq:A'">2.3</a>)</span>, <span class="textup">(
 
 <!--
 
-                                                         div 𝐀 +     1   𝜕𝜑   =  0.                                                                                                                (2.6)           --><a id="eq:LorenzCondition"></a><!--
-                                                                      𝑐  𝜕𝑡
+                                                         div 𝐀    +  1    𝜕𝜙   =  0.                                                                                                                  (2.6)           --><a id="eq:LorenzCondition"></a><!--
+                                                                      𝑐   𝜕𝑡
 
 -->
 
@@ -1227,8 +1227,8 @@ class="textup">(<a href="ch2.html#eq:A'">2.3</a>)</span>, <span class="textup">(
 
 <!--
 
-                                                                                                                          div 𝐀    +     1   𝜕𝜑   =  𝑓    ≠  0,
-                                                                                                                                          𝑐  𝜕𝑡
+                                                                                                                            div 𝐀     +     1   𝜕𝜙   =  𝑓    ≠  0,
+                                                                                                                                             𝑐  𝜕𝑡
 
 -->
 
@@ -1249,8 +1249,8 @@ href="ch2.html#eq:phi'">2.4</a>)</span>. Тоді:
 
 <!--
 
-                                                                                                             div 𝐀′ +        1   𝜕𝜑′   = 𝑓 −        1     𝜕2𝜒  + Δ𝜒.
-                                                                                                                              𝑐  𝜕𝑡                  𝑐2   𝜕𝑡2
+                                                                                                              div 𝐀′ +          1   𝜕𝜙′   =   𝑓 −      1     𝜕2𝜒  + Δ𝜒.
+                                                                                                                                 𝑐  𝜕𝑡                  𝑐2   𝜕𝑡2
 
 -->
 
@@ -1270,8 +1270,8 @@ href="ch2.html#eq:phi'">2.4</a>)</span>. Тоді:
 
 <!--
 
-                                                         □   =     1      𝜕2    − Δ,                                                                                                                 (2.7)           --><a id="eq:wave_operator"></a><!--
-                                                                   𝑐2    𝜕𝑡2
+                                                         □   =        1    𝜕2    − Δ,                                                                                                                   (2.7)           --><a id="eq:wave_operator"></a><!--
+                                                                      𝑐2  𝜕𝑡2
 
 -->
 
@@ -1298,8 +1298,8 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span> маємо:
 
 <!--
 
-                                                                                                  div 𝐄  =  div (−∇𝜑 −  1   𝜕𝐀  )  =  −Δ𝜑 −          1   𝜕     div 𝐀   =   1    𝜕2𝜑  − Δ𝜑.
-                                                                                                                          𝑐  𝜕𝑡                        𝑐  𝜕𝑡                𝑐2  𝜕𝑡2
+                                                                                                   div 𝐄  =  div (−∇𝜙 −   1    𝜕𝐀  )  =  −Δ𝜙 −          1   𝜕     div 𝐀   =   1    𝜕2𝜙  − Δ𝜙.
+                                                                                                                            𝑐   𝜕𝑡                        𝑐  𝜕𝑡                𝑐2  𝜕𝑡2
 
 -->
 
@@ -1319,7 +1319,7 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span> маємо:
 
 <!--
 
-                                                                          □ 𝜑 = 4𝜋𝜌.                                                                                                                       (2.8)   --><a id="eq:Dphi"></a><!--
+                                                                           □ 𝜙 = 4𝜋𝜌.                                                                                                                         (2.8)   --><a id="eq:Dphi"></a><!--
 
 -->
 <p>
@@ -1339,8 +1339,8 @@ href="ch1.html#eq:M4D">1.29</a>)</span>:
 
 <!--
 
-                                                                                                             rot(rot 𝐀)      =     4𝜋   𝐣  +  1   (−∇𝜑 −         1   𝜕𝐀  )  .
-                                                                                                                                     𝑐          𝑐                  𝑐  𝜕𝑡
+                                                                                                              rot(rot 𝐀)        =     4𝜋   𝐣  +  1   (−∇𝜙 −         1   𝜕𝐀  )  .
+                                                                                                                                        𝑐          𝑐                  𝑐  𝜕𝑡
 
 -->
 <p>
@@ -1359,8 +1359,8 @@ href="ch1.html#eq:M4D">1.29</a>)</span>:
 
 <!--
 
-                                                                                                             rot(rot 𝐀)  =   ∇ div 𝐀 − Δ𝐀            =     −  1   ∇  𝜕𝜑  −   Δ𝐀.
-                                                                                                                                                                 𝑐     𝜕𝑡
+                                                                                                              rot(rot  𝐀)  =    ∇ div    𝐀     −  Δ𝐀    =     −  1   ∇  𝜕𝜙  −   Δ𝐀.
+                                                                                                                                                                    𝑐     𝜕𝑡
 
 -->
 
@@ -1380,8 +1380,8 @@ href="ch1.html#eq:M4D">1.29</a>)</span>:
 
 <!--
 
-                                                                          □ 𝐀      =   4𝜋  𝐣.                                                                                                              (2.9)   --><a id="eq:DA"></a><!--
-                                                                                         𝑐
+                                                                           □ 𝐀      =   4𝜋  𝐣.                                                                                                                (2.9)   --><a id="eq:DA"></a><!--
+                                                                                          𝑐
 
 -->
 
@@ -1401,8 +1401,8 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span>. Комбінування р�
 <span class="hidden"> \(\seteqnumber{0}{2.}{9}\)</span>
 <!--
 
-                                                                                                             □  (  1   𝜕𝜑   +   div 𝐀)     =      4𝜋  (   𝜕𝜌   + div 𝐣) .                                            (2.10)
-                                                                                                                   𝑐  𝜕𝑡                           𝑐      𝜕𝑡
+                                                                                                              □  (     1   𝜕𝜙  + div 𝐀) =            4𝜋  (   𝜕𝜌   + div 𝐣) .                                         (2.10)
+                                                                                                                       𝑐  𝜕𝑡                          𝑐      𝜕𝑡
 
 -->
 <p>
@@ -1421,7 +1421,7 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span>. Комбінування р�
 
 <!--
 
-                                                         1   𝜕𝜑  +  div  𝐀    =  0.                                                                                                                (2.11)          --><a id="eq:LorentzCalibr"></a><!--
+                                                         1   𝜕𝜙  +  div  𝐀     =  0.                                                                                                                  (2.11)          --><a id="eq:LorentzCalibr"></a><!--
                                                          𝑐  𝜕𝑡
 
 -->
@@ -1443,7 +1443,7 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span>. Комбінування р�
 
 <!--
 
-                                                                           □ 𝑓 = 0                                                                                                                           (2.12)  --><a id="eq:Df"></a><!--
+                                                                           □ 𝑓 = 0                                                                                                                              (2.12)  --><a id="eq:Df"></a><!--
 
 -->
 <p>
@@ -1482,7 +1482,7 @@ class="textup">(<a href="ch2.html#eq:DA">2.9</a>)</span>, що розгляда�
 
 <!--
 
-                                                                                        𝜑 = 0.                                                                                               (2.13)  --><a id="eq:HamiltonCondition"></a><!--
+                                                                                        𝜙 = 0.                                                                                               (2.13)  --><a id="eq:HamiltonCondition"></a><!--
 
 -->
 <p>
@@ -1619,7 +1619,7 @@ href="ch2.html#eq:HamiltonCondition">2.13</a>)</span>.
 
 <!--
 
-                                                                   div 𝐀 = 0,                                                                                                  (2.17)  --><a id="eq:ColumbCondition"></a><!--
+                                                                   div 𝐀 = 0,                                                                                                 (2.17)  --><a id="eq:ColumbCondition"></a><!--
 
 -->
 <p>
@@ -1642,7 +1642,7 @@ href="ch2.html#eq:HamiltonCondition">2.13</a>)</span>.
 
 <!--
 
-                                                                                                         Δ𝜑 = −4𝜋𝜌                                                   (2.18)          --><a id="eq:ColumbCondition_Puasson"></a><!--
+                                                                                                         Δ𝜙 = −4𝜋𝜌                                                  (2.18)          --><a id="eq:ColumbCondition_Puasson"></a><!--
 
 -->
 
@@ -1666,7 +1666,7 @@ href="ch2.html#eq:HamiltonCondition">2.13</a>)</span>.
 
 <!--
 
-                                                          □ 𝐀  =  4𝜋  𝐣  −  1   ∇  𝜕𝜑  .                                                                                   (2.19)  --><a id="eq:ColumbCondition_DA"></a><!--
+                                                          □ 𝐀  =  4𝜋  𝐣  −  1   ∇  𝜕𝜙  .                                                                                  (2.19)  --><a id="eq:ColumbCondition_DA"></a><!--
                                                                     𝑐         𝑐     𝜕𝑡
 
 -->
@@ -1687,8 +1687,8 @@ href="ch2.html#eq:HamiltonCondition">2.13</a>)</span>.
 <span class="hidden"> \(\seteqnumber{0}{2.}{19}\)</span>
 <!--
 
-                                                                                               □  div 𝐀  =  4𝜋  div 𝐣 +  1   Δ  𝜕𝜑  =  4𝜋  (div 𝐣 +  𝜕𝜑  )  ,
-                                                                                                              𝑐            𝑐     𝜕𝑡      𝑐             𝜕𝑡
+                                                                                               □  div 𝐀 =  4𝜋  div 𝐣 +  1   Δ  𝜕𝜙  =  4𝜋  (div 𝐣 +  𝜕𝜙  )  ,
+                                                                                                             𝑐            𝑐     𝜕𝑡      𝑐             𝜕𝑡
 
 -->
 <p>
@@ -1736,9 +1736,9 @@ href="ch2.html#eq:HamiltonCondition">2.13</a>)</span>.
 
 <!--
 
-                                                          𝜑̃(𝜔, 𝐫) = 1   ˆ+∞
+                                                          𝜙(̃ 𝜔, 𝐫) = 1  ˆ+∞
 
-                                                                √2𝜋                𝑑𝑡 𝑒𝑖𝜔𝑡𝜑(𝑡, 𝐫).                                                       (2.20)                      --><a id="eq:tilde_phi"></a><!--
+                                                                √2𝜋                   𝑑𝑡 𝑒𝑖𝜔𝑡𝜙(𝑡, 𝐫).                                                       (2.20)                   --><a id="eq:tilde_phi"></a><!--
 
                                                                         −∞
 
@@ -1756,7 +1756,7 @@ href="ch2.html#eq:HamiltonCondition">2.13</a>)</span>.
 
                                                           𝐀̃ (𝜔, 𝐫) = 1          ˆ+∞
 
-                                                                   √2𝜋             𝑑𝑡 𝑒𝑖𝜔𝑡𝐀(𝑡, 𝐫).                                                               (2.21)              --><a id="eq:tilde_A"></a><!--
+                                                                   √2𝜋                𝑑𝑡 𝑒𝑖𝜔𝑡𝐀(𝑡, 𝐫).                                                               (2.21)           --><a id="eq:tilde_A"></a><!--
 
                                                                            −∞
 
@@ -1779,8 +1779,8 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span> має вигляд:
 
 <!--
 
-                                                                                                              div 𝐀̃           −  𝑖𝜔  𝜑̃  =  0.                                            (2.22)
-                                                                                                                                   𝑐
+                                                                                                                 div  𝐀̃          −  𝑖𝜔  𝜙̃  =  0.                                         (2.22)
+                                                                                                                                      𝑐
 
 -->
 
@@ -1800,7 +1800,7 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span> має вигляд:
 
 <!--
 
-                                                                                                              −𝑖𝜔𝜌̃ + div 𝐣̃ = 0,                                                          (2.23)
+                                                                                                                 −𝑖𝜔𝜌̃ + div 𝐣̃ = 0,                                                       (2.23)
 
 -->
 
@@ -1820,11 +1820,11 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span> має вигляд:
 
 <!--
 
-                                                                                                              𝜌(̃ 𝜔, 𝐫) = 1     ˆ+∞
+                                                                                                                 𝜌(̃ 𝜔, 𝐫) = 1     ˆ+∞
 
-                                                                                                              √2𝜋                       𝑑𝑡 𝑒𝑖𝜔𝑡𝜌(𝑡, 𝐫),                              (2.24)
+                                                                                                                 √2𝜋                       𝑑𝑡 𝑒𝑖𝜔𝑡𝜌(𝑡, 𝐫),                           (2.24)
 
-                                                                                                                      −∞
+                                                                                                                         −∞
 
 -->
 
@@ -1838,11 +1838,11 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span> має вигляд:
 <span class="hidden"> \(\seteqnumber{0}{2.}{24}\)</span>
 <!--
 
-                                                                                                              𝐣(̃ 𝜔, 𝐫) = 1     ˆ+∞
+                                                                                                                 𝐣(̃ 𝜔, 𝐫) = 1     ˆ+∞
 
-                                                                                                              √2𝜋                       𝑑𝑡 𝑒𝑖𝜔𝑡𝐣(𝑡, 𝐫).                              (2.25)
+                                                                                                                 √2𝜋                       𝑑𝑡 𝑒𝑖𝜔𝑡𝐣(𝑡, 𝐫).                           (2.25)
 
-                                                                                                                      −∞
+                                                                                                                         −∞
 
 -->
 
@@ -1864,8 +1864,8 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span> має вигляд:
 
 <!--
 
-                                                          Δ𝜑̃ + 𝑘2𝜑̃ = −4𝜋𝜌,̃  де        𝑘    =  𝜔  .                                                       (2.26)                      --><a id="eq:Dphi_Fourier"></a><!--
-                                                                                                       𝑐
+                                                          Δ𝜙̃ + 𝑘2𝜙̃ = −4𝜋𝜌,̃     де      𝑘    =  𝜔  .                                                         (2.26)                   --><a id="eq:Dphi_Fourier"></a><!--
+                                                                                                        𝑐
 
 -->
 
@@ -1879,8 +1879,8 @@ href="ch2.html#eq:LorenzCondition">2.6</a>)</span> має вигляд:
 <span class="hidden"> \(\seteqnumber{0}{2.}{26}\)</span>
 <!--
 
-                                                          Δ𝐀̃  +   𝑘2𝐀̃  =       −    4𝜋  𝐣.̃                                                                 (2.27)                      --><a id="eq:DA_Fourier"></a><!--
-                                                                                          𝑐
+                                                          Δ𝐀̃  +   𝑘2𝐀̃          =  −  4𝜋  𝐣.̃                                                                   (2.27)                   --><a id="eq:DA_Fourier"></a><!--
+                                                                                           𝑐
 
 -->
 
@@ -1907,7 +1907,7 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                                                                                                                                               □ 𝜑 = 𝛿(𝐫 − 𝐫0)𝜒(𝑡, 𝐫0),
+                                                                                                                                                                               □ 𝜙 = 𝛿(𝐫 − 𝐫0)𝜒(𝑡, 𝐫0),
 
 -->
 
@@ -1931,8 +1931,8 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                                                                                                   □ 𝜑  =  1    𝜕2𝜑     −      1    𝜕     (𝑟2  𝜕𝜑   )  .
-                                                                                                                                            𝑐2  𝜕𝑡2            𝑟2  𝜕𝑟         𝜕𝑟
+                                                                                                                                 □ 𝜙  =  1    𝜕2𝜙    −      1    𝜕    (𝑟2  𝜕𝜙   )  .
+                                                                                                                                          𝑐2  𝜕𝑡2           𝑟2  𝜕𝑟        𝜕𝑟
 
 -->
 
@@ -1952,8 +1952,8 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                                                                                                   □ 𝜑  =  1    (    1    𝜕2𝜓       −  𝜕2𝜓     =      0.
-                                                                                                                                            𝑟        𝑐2  𝜕𝑡2          𝜕𝑟2 )
+                                                                                                                                 □ 𝜙  =  1    (   1    𝜕2𝜓     −  𝜕2𝜓      =      0.
+                                                                                                                                          𝑟       𝑐2  𝜕𝑡2        𝜕𝑟2 )
 
 -->
 <p>
@@ -1972,8 +1972,8 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                                                                                                   𝜓    =  𝑓1  (𝑡  −    𝑟  )  +    𝑓2  (𝑡  +  𝑟  )  ,
-                                                                                                                                                           𝑐                       𝑐
+                                                                                                                                 𝜓  =  𝑓1   (𝑡  −    𝑟  )  +  𝑓2  (𝑡   +  𝑟  )  ,
+                                                                                                                                                        𝑐                      𝑐
 
 -->
 
@@ -1997,8 +1997,8 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                                                                                                            𝜑   =    1    𝑓1    (𝑡  −  𝑟  )  .
-                                                                                                                                                      𝑟                  𝑐
+                                                                                                                                          𝜙   =   1    𝑓1  (𝑡  −  𝑟   )  .
+                                                                                                                                                   𝑟                𝑐
 
 -->
 
@@ -2018,7 +2018,7 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                                𝜑(𝑡, 𝐫)  =        1        𝑓1  (𝑡  −  |𝐫  −    𝐫0  |  )  .                                                                (2.28)  --><a id="eq:rad_phi"></a><!--
+                                                                𝜙(𝑡, 𝐫)  =        1        𝑓1  (𝑡  −  |𝐫  −    𝐫0|  )  .                                                              (2.28)  --><a id="eq:rad_phi"></a><!--
                                                                                     −                            𝑐
                                                                                |𝐫      𝐫0|
 
@@ -2045,11 +2045,11 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                                                                           ˆ  𝑑𝑡 𝑒𝑖𝜔𝑡  𝑓1  (𝑡  −  |𝐫−𝐫0| )      exp  [𝑖 𝜔 |𝐫 −  𝐫0|]  𝑓1̃ (𝜔),
-                                                                                      𝜑̃(𝜔, 𝐫) = 1
+                                                                                                            ˆ  𝑑𝑡 𝑒𝑖𝜔𝑡 𝑓1 (𝑡  −   |𝐫−𝐫0| )      exp  [𝑖 𝜔 |𝐫 −  𝐫0|]  𝑓1̃ (𝜔),
+                                                                                       𝜙(̃ 𝜔, 𝐫) = 1
                                                                                                                                              𝑐        =           𝑐                                          (2.29)
-                                                                                                    √2𝜋
-                                                                                                                                  |𝐫 − 𝐫0|                   |𝐫 − 𝐫0|
+                                                                                                     √2𝜋
+                                                                                                                                    |𝐫 − 𝐫0|                 |𝐫 − 𝐫0|
 
 -->
 <p>
@@ -2073,8 +2073,8 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                                                      𝜑̃(𝜔, 𝐫)                          ∼  𝑒𝑖𝜔(𝑟−𝐧𝐫0)/𝑐      + 𝑂(𝑟−2).
-                                                                                                                                     𝑟
+                                                                                       𝜙(̃ 𝜔, 𝐫)                          ∼  𝑒𝑖𝜔(𝑟−𝐧𝐫0)/𝑐    + 𝑂(𝑟−2).
+                                                                                                                                       𝑟
 
 -->
 <p>
@@ -2094,8 +2094,8 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                         𝜑̃(𝜔, 𝐫)  ∼  𝑒𝑖𝑘𝑟  .                                                                                                            (2.30)  --><a id="eq:rad_phi_sph"></a><!--
-                                                                          𝑟
+                                                         𝜙(̃ 𝜔, 𝐫)  ∼  𝑒𝑖𝑘𝑟  .                                                                                                           (2.30)  --><a id="eq:rad_phi_sph"></a><!--
+                                                                           𝑟
 
 -->
 
@@ -2120,7 +2120,7 @@ class="textup">(<a href="ch2.html#eq:Dphi">2.8</a>)</span> та його Фур�
 
 <!--
 
-                                                                                                              𝜑̃(𝜔, 𝐫)  ≈  𝐶(𝐧)      𝑒𝑖𝜔𝑟/𝑐  + 𝑂(𝑟−2),
+                                                                                                               𝜙(̃ 𝜔, 𝐫)  ≈  𝐶  (𝐧)  𝑒𝑖𝜔𝑟/𝑐  + 𝑂(𝑟−2),
                                                                                                                                              𝑟
 
 -->
@@ -2179,8 +2179,8 @@ href="ch2.html#eq:DA_Fourier">2.27</a>)</span> для їх Фур’є-пере�
 
 <!--
 
-                                                                                                                                                                                                                                           𝐺̃(𝐫)   =  𝑔(𝑟)
-                                                                                                                                                                                                                                                          𝑟
+                                                                                                                                                                                                                                        𝐺̃(𝐫)   =  𝑔(𝑟)
+                                                                                                                                                                                                                                                       𝑟
 
 -->
 
@@ -2200,8 +2200,8 @@ href="ch2.html#eq:DA_Fourier">2.27</a>)</span> для їх Фур’є-пере�
 
 <!--
 
-                                                                                                                                                                                                   𝑑2𝑔  +     𝑘2𝑔  =    0           ⇒         𝑔 = 𝐶1(𝑘)𝑒𝑖𝑘𝑟 + 𝐶2(𝑘)𝑒−𝑖𝑘𝑟.
-                                                                                                                                                                                                   𝑑𝑟2
+                                                                                                                                                                                                𝑑2𝑔  +     𝑘2𝑔  =    0           ⇒         𝑔 = 𝐶1(𝑘)𝑒𝑖𝑘𝑟 + 𝐶2(𝑘)𝑒−𝑖𝑘𝑟.
+                                                                                                                                                                                                𝑑𝑟2
 
 -->
 
@@ -2221,8 +2221,8 @@ href="ch2.html#eq:DA_Fourier">2.27</a>)</span> для їх Фур’є-пере�
 
 <!--
 
-                                                                                                                                                                                                                      𝐺̃(𝑟)   =       𝐶1(𝑘)   𝑒𝑖𝑘𝑟  ,     за     𝑟 > 0.
-                                                                                                                                                                                                                                                   𝑟
+                                                                                                                                                                                                                   𝐺̃(𝑟)   =       𝐶1(𝑘)   𝑒𝑖𝑘𝑟  ,     за     𝑟 > 0.
+                                                                                                                                                                                                                                                𝑟
 
 -->
 
@@ -2243,8 +2243,8 @@ href="ch2.html#eq:DA_Fourier">2.27</a>)</span> для їх Фур’є-пере�
 
 <!--
 
-                                                                                                                                                                                                                                  Δ     (  𝑞  )  =  −4𝜋𝑞𝛿(𝐫).                                                                                                                                                                                                        (2.31)
-                                                                                                                                                                                                                                           𝑟
+                                                                                                                                                                                                                               Δ     (  𝑞  )  =  −4𝜋𝑞𝛿(𝐫).                                                                                                                                                                                                        (2.31)
+                                                                                                                                                                                                                                        𝑟
 
 -->
 
@@ -2264,8 +2264,8 @@ href="ch2.html#eq:DA_Fourier">2.27</a>)</span> для їх Фур’є-пере�
 
 <!--
 
-                                                                                                                                    𝐺̃(𝑟)   =    −    𝑒𝑖𝑘𝑟  .                                                                                                                                                                             (2.32)                                                       --><a id="eq:tildeGr"></a><!--
-                                                                                                                                                        4𝜋𝑟
+                                                                                                                                   𝐺̃(𝑟)   =    −    𝑒𝑖𝑘𝑟  .                                                                                                                                                                           (2.32)                                                       --><a id="eq:tildeGr"></a><!--
+                                                                                                                                                       4𝜋𝑟
 
 -->
 
@@ -2290,8 +2290,8 @@ class="textup">(<a href="ch2.html#eq:tilde_A">2.21</a>)</span> за умови �
 
 <!--
 
-                                                                                                                    ˆ     𝑑𝑉 ′    exp  [𝑖  𝜔   |𝐫  −    𝐫′|]    𝜌(̃ 𝜔,  𝐫′),                                                                                                                                              (2.33)                                             --><a id="eq:tilde_phi_bundle"></a><!--
-                                                                                                       𝜑̃(𝜔, 𝐫) =    |𝐫 − 𝐫′|            𝑐
+                                                                                                                   ˆ     𝑑𝑉 ′    exp  [𝑖  𝜔   |𝐫  −    𝐫′|]    𝜌(̃ 𝜔,  𝐫′),                                                                                                                                            (2.33)                                             --><a id="eq:tilde_phi_bundle"></a><!--
+                                                                                                      𝜙(̃ 𝜔, 𝐫) =   |𝐫 − 𝐫′|            𝑐
 
 -->
 <p>
@@ -2305,8 +2305,8 @@ class="textup">(<a href="ch2.html#eq:tilde_A">2.21</a>)</span> за умови �
 <span class="hidden"> \(\seteqnumber{0}{2.}{33}\)</span>
 <!--
 
-                                                                                                                     ˆ    𝑑𝑉 ′       exp    [𝑖  𝜔   |𝐫  −    𝐫′|]    𝐣(̃ 𝜔,  𝐫′).                                                                                                                                            (2.34)                                          --><a id="eq:tilde_A_bundle"></a><!--
-                                                                                                       𝐀̃ (𝜔, 𝐫) =   𝑐|𝐫 − 𝐫′|               𝑐
+                                                                                                                    ˆ    𝑑𝑉 ′       exp    [𝑖  𝜔   |𝐫  −    𝐫′|]    𝐣(̃ 𝜔,  𝐫′).                                                                                                                                          (2.34)                                          --><a id="eq:tilde_A_bundle"></a><!--
+                                                                                                      𝐀̃ (𝜔, 𝐫) =   𝑐|𝐫 − 𝐫′|               𝑐
 
 -->
 <p>
@@ -2326,9 +2326,9 @@ class="textup">(<a href="ch2.html#eq:tilde_A">2.21</a>)</span> за умови �
 
 <!--
 
-                                                                                                                                                                                                                 𝜑(𝑡, 𝐫) = 1                   ˆ
+                                                                                                                                                                                                              𝜙(𝑡, 𝐫) = 1                   ˆ
 
-                                                                                                                                                                                                                                        √2𝜋         𝑒−𝑖𝜔𝑡𝜑̃(𝜔, 𝐫)𝑑𝜔,                                                                                                                                                                                            (2.35)
+                                                                                                                                                                                                                                     √2𝜋         𝑒−𝑖𝜔𝑡𝜙(̃ 𝜔, 𝐫)𝑑𝜔,                                                                                                                                                                                           (2.35)
 
 -->
 <p>
@@ -2341,9 +2341,9 @@ class="textup">(<a href="ch2.html#eq:tilde_A">2.21</a>)</span> за умови �
 <span class="hidden"> \(\seteqnumber{0}{2.}{35}\)</span>
 <!--
 
-                                                                                                                                                                                                                 𝜌(𝑡, 𝐫) = 1                   ˆ
+                                                                                                                                                                                                              𝜌(𝑡, 𝐫) = 1                   ˆ
 
-                                                                                                                                                                                                                                        √2𝜋         𝑒−𝑖𝜔𝑡𝜌(̃ 𝜔, 𝐫)𝑑𝜔.                                                                                                                                                                                           (2.36)
+                                                                                                                                                                                                                                     √2𝜋         𝑒−𝑖𝜔𝑡𝜌(̃ 𝜔, 𝐫)𝑑𝜔.                                                                                                                                                                                           (2.36)
 
 -->
 <p>
@@ -2362,9 +2362,9 @@ class="textup">(<a href="ch2.html#eq:tilde_A">2.21</a>)</span> за умови �
 
 <!--
 
-                                                                                                                                                                                               ˆ                 𝑑𝑉 ′ ˆ                                       ˆ                      𝑑𝑉 ′          𝜌(𝑡ret,    𝐫′),                                                                                                                                                 (2.37)
-                                                                                                                                                                                   𝜑(𝑡, 𝐫) =                |𝐫 − 𝐫′|            𝑑𝜔 𝑒−𝑖𝜔𝑡𝜌(̃ 𝜔, 𝐫′) =                   |𝐫 − 𝐫′|
-                                                                                                                                                                                                                                    √2𝜋
+                                                                                                                                                                                              ˆ               𝑑𝑉 ′ ˆ                                       ˆ                      𝑑𝑉 ′          𝜌(𝑡ret,    𝐫′),                                                                                                                                                 (2.37)
+                                                                                                                                                                                  𝜙(𝑡, 𝐫) =              |𝐫 − 𝐫′|            𝑑𝜔 𝑒−𝑖𝜔𝑡𝜌(̃ 𝜔, 𝐫′) =                   |𝐫 − 𝐫′|
+                                                                                                                                                                                                                                 √2𝜋
 
 -->
 <p>
@@ -2388,8 +2388,8 @@ class="textup">(<a href="ch2.html#eq:tilde_A">2.21</a>)</span> за умови �
 
 <!--
 
-                                                                                                                      ˆ               𝑑𝑉 ′      𝜌  (𝑡   −     1   |𝐫  −    𝐫′|,  𝐫′)  ,                                                                                                                                                  (2.38)                                                       --><a id="eq:phi_ret"></a><!--
-                                                                                                          𝜑(𝑡, 𝐫) =              |𝐫 − 𝐫′|                    𝑐
+                                                                                                                     ˆ               𝑑𝑉 ′      𝜌  (𝑡   −     1   |𝐫  −    𝐫′|, 𝐫′) ,                                                                                                                                                  (2.38)                                                       --><a id="eq:phi_ret"></a><!--
+                                                                                                         𝜙(𝑡, 𝐫) =              |𝐫 − 𝐫′|                    𝑐
 
 -->
 <p>
@@ -2408,9 +2408,9 @@ class="textup">(<a href="ch2.html#eq:tilde_A">2.21</a>)</span> за умови �
 
 <!--
 
-                                                                                                                                1   ˆ      𝑑𝑉 ′                     1
-                                                                                                                                𝑐       |𝐫 − 𝐫′|                   𝑐
-                                                                                                          𝐀(𝑡,        𝐫)  =                          𝐣  (𝑡  −         |𝐫  −  𝐫′|, 𝐫′)      .                                                                                                                                            (2.39)                                                          --><a id="eq:A_ret"></a><!--
+                                                                                                                               1   ˆ      𝑑𝑉 ′                     1
+                                                                                                                               𝑐       |𝐫 − 𝐫′|                   𝑐
+                                                                                                         𝐀(𝑡,        𝐫)  =                          𝐣  (𝑡  −         |𝐫  −  𝐫′|, 𝐫′)    .                                                                                                                                            (2.39)                                                          --><a id="eq:A_ret"></a><!--
 
 -->
 <p>
@@ -2436,8 +2436,8 @@ href="ch11.html#sec:GeneralizedFunctions">В</a>, формула&nbsp;<span clas
 
 <!--
 
-                                                                                                                             𝐺(𝑡, 𝐫)  =     1        𝛿  (𝑡2  −   𝑟2/𝑐2) 𝜃(𝑡).                                                                                                                                                                  (2.40)                                                            --><a id="eq:G"></a><!--
-                                                                                                                                              2𝜋𝑐
+                                                                                                                            𝐺(𝑡, 𝐫)  =     1        𝛿  (𝑡2  −   𝑟2/𝑐2) 𝜃(𝑡).                                                                                                                                                                (2.40)                                                            --><a id="eq:G"></a><!--
+                                                                                                                                             2𝜋𝑐
 
 -->
 
@@ -2457,8 +2457,8 @@ href="ch11.html#sec:GeneralizedFunctions">В</a>, формула&nbsp;<span clas
 
 <!--
 
-                                                                                                                           ˆ                                                                                                                                                                                                                    (2.41)                                                          --><a id="eq:2.2.18"></a><!--
-                                                                                                          𝜑(𝑡, 𝐫) = 4𝜋 𝑑𝑡′𝑑𝑉 ′𝐺(𝑡 − 𝑡′, 𝐫 − 𝐫′)𝜌(𝑡′, 𝐫′).
+                                                                                                                          ˆ                                                                                                                                                                                                                  (2.41)                                                          --><a id="eq:2.2.18"></a><!--
+                                                                                                         𝜙(𝑡, 𝐫) = 4𝜋 𝑑𝑡′𝑑𝑉 ′𝐺(𝑡 − 𝑡′, 𝐫 − 𝐫′)𝜌(𝑡′, 𝐫′).
 
 -->
 
@@ -2477,12 +2477,12 @@ href="ch11.html#sec:GeneralizedFunctions">В</a>, формула&nbsp;<span clas
 
 <!--
 
-𝜑(𝑡, 𝐫) =    ˆ      𝑑𝑡′𝑑𝑉 ′𝛿  [(𝑡  −  𝑡′)2  −  (𝐫  − 𝐫′)2  ]  𝜃(𝑡  −  𝑡′)𝜌(𝑡′,  𝐫′)  =
+𝜙(𝑡, 𝐫) =    ˆ      𝑑𝑡′𝑑𝑉 ′𝛿  [(𝑡  −  𝑡′)2  −  (𝐫  − 𝐫′)2  ]  𝜃(𝑡  −  𝑡′)𝜌(𝑡′, 𝐫′)  =
               2                                               𝑐2
-              𝑐                                                                                                                                                                                                                                                                                                                                                                                ˆ              ˆ
-                                                                                                                                                                                                                                                                                                                                                                                              1          𝑑𝑉 ′
-                                                                                                                                                                                                                                                                                                                                                                                      =       𝑐                      𝛿  [𝑡  −  𝑡′  −  |𝐫   −   𝐫′|  𝜌(𝑡′,  𝐫′)   𝑑𝑡′,
-                                                                                                                                                                                                                                                                                                                                                                                                                                                𝑐     ]  |𝑡 −    𝑡′|
+              𝑐                                                                                                                                                                                                                                                                                                                                                                             ˆ              ˆ
+                                                                                                                                                                                                                                                                                                                                                                                           1          𝑑𝑉 ′
+                                                                                                                                                                                                                                                                                                                                                                                   =       𝑐                      𝛿  [𝑡  −  𝑡′  −  |𝐫   −   𝐫′|  𝜌(𝑡′,  𝐫′)   𝑑𝑡′,
+                                                                                                                                                                                                                                                                                                                                                                                                                                             𝑐     ]  |𝑡 −    𝑡′|
 
 -->
 
@@ -2503,9 +2503,9 @@ href="ch11.html#sec:GeneralizedFunctions">В</a>, формула&nbsp;<span clas
 
 <!--
 
-                                                                                                                           4𝜋  ˆ
-                                                                                                                            𝑐
-                                                                                                          𝐀(𝑡, 𝐫)    =           𝑑𝑡′𝑑𝑉 ′ 𝐺(𝑡 − 𝑡′, 𝐫 − 𝐫′) 𝐣(𝑡′, 𝐫′).                                                                                                                                                            (2.42)                                                          --><a id="eq:2.2.19"></a><!--
+                                                                                                                          4𝜋  ˆ
+                                                                                                                           𝑐
+                                                                                                         𝐀(𝑡, 𝐫)    =           𝑑𝑡′𝑑𝑉 ′ 𝐺(𝑡 − 𝑡′, 𝐫 − 𝐫′) 𝐣(𝑡′, 𝐫′).                                                                                                                                                          (2.42)                                                          --><a id="eq:2.2.19"></a><!--
 
 -->
 <p>
@@ -2524,22 +2524,22 @@ href="ch11.html#sec:GeneralizedFunctions">В</a>, формула&nbsp;<span clas
 
 <!--
 
-1    𝜕𝜑  +  div  𝐀  =
+1    𝜕𝜙  +  div  𝐀  =
 𝑐   𝜕𝑡
-                                                                                                                                                                           ˆ
-                                                                                                                                                                      4𝜋                                𝜕                                                               𝜕
-                                                                                                                                                             =         𝑐       𝑑𝑡′𝑑𝑉       ′  [(    𝜕𝑡  𝐺(𝑡  −  𝑡′,   𝐫  −   𝐫′))     𝜌(𝑡′,   𝐫′)  +   (  𝜕𝑥𝑖  𝐺(𝑡     −   𝑡′  ,  𝐫  −   𝐫′))  𝑗𝑖  (𝑡′,  𝐫′)]  =
+                                                                                                                                                                          ˆ
+                                                                                                                                                                     4𝜋                              𝜕                                                               𝜕
+                                                                                                                                                            =         𝑐       𝑑𝑡′𝑑𝑉     ′  [(    𝜕𝑡  𝐺(𝑡  −  𝑡′,   𝐫  −   𝐫′))     𝜌(𝑡′,   𝐫′)  +   (  𝜕𝑥𝑖  𝐺(𝑡     −   𝑡′  ,  𝐫  −   𝐫′))  𝑗𝑖  (𝑡′,  𝐫′)]  =
 
-                                                                                                                                                                      4𝜋  ˆ                              𝜕                                                                 𝜕
-                                                                                                                                                                       𝑐                                𝜕𝑡′                                                              𝜕𝑥�′�
-                                                                                                                                                            =    −               𝑑𝑡′𝑑𝑉      ′  [(           𝐺(𝑡  −    𝑡′,    𝐫  −  𝐫′))  𝜌(𝑡′,      𝐫′)  +   (           𝐺(𝑡     −  𝑡′,     𝐫  −  𝐫′))  𝑗𝑖  (𝑡′,  𝐫′)]  =
-                                                                                                                                                                                ˆ
-                                                                                                                                                                           4𝜋                                                              𝜕                                                              𝜕
-                                                                                                                                                                  =         𝑐         𝑑𝑡′𝑑𝑉      ′  [𝐺(𝑡  −    𝑡′,  𝐫  −   𝐫′)   𝜕𝑡′  𝜌(𝑡′,   𝐫′)  +   𝐺(𝑡  −       𝑡′,  𝐫  −  𝐫′)     𝜕𝑥�′�  𝑗𝑖(𝑡′,  𝐫′)]  =
+                                                                                                                                                                     4𝜋  ˆ                            𝜕                                                                 𝜕
+                                                                                                                                                                      𝑐                              𝜕𝑡′                                                              𝜕𝑥�′�
+                                                                                                                                                           =    −               𝑑𝑡′𝑑𝑉    ′  [(           𝐺(𝑡  −    𝑡′,    𝐫  −  𝐫′))  𝜌(𝑡′,      𝐫′)  +   (           𝐺(𝑡     −  𝑡′,     𝐫  −  𝐫′))  𝑗𝑖  (𝑡′,  𝐫′)]  =
+                                                                                                                                                                               ˆ
+                                                                                                                                                                          4𝜋                                                            𝜕                                                              𝜕
+                                                                                                                                                                 =         𝑐       𝑑𝑡′𝑑𝑉      ′  [𝐺(𝑡  −    𝑡′,  𝐫  −   𝐫′)   𝜕𝑡′  𝜌(𝑡′,   𝐫′)  +   𝐺(𝑡  −       𝑡′,  𝐫  −  𝐫′)     𝜕𝑥�′�  𝑗𝑖(𝑡′,  𝐫′)]  =
 
-                                                                                                                                                                                                                                                                                                                                                                   4𝜋  ˆ                                                  𝜕
-                                                                                                                                                                                                                                                                                                                                                                    𝑐                                                    𝜕𝑡′
-                                                                                                                                                                                                                                                                                                                                                                =          𝑑𝑡′𝑑𝑉  ′𝐺(𝑡  −  𝑡′  ,  𝐫  −  𝐫′)  [          𝜌(𝑡′,  𝐫′)  +   div′  𝐣(𝑡′,  𝐫′)]  =  0
+                                                                                                                                                                                                                                                                                                                                                                4𝜋  ˆ                                                  𝜕
+                                                                                                                                                                                                                                                                                                                                                                 𝑐                                                    𝜕𝑡′
+                                                                                                                                                                                                                                                                                                                                                             =          𝑑𝑡′𝑑𝑉  ′𝐺(𝑡  −  𝑡′  ,  𝐫  −  𝐫′)  [          𝜌(𝑡′,  𝐫′)  +   div′  𝐣(𝑡′,  𝐫′)]  =  0
 
 -->
 
@@ -3111,7 +3111,7 @@ href="ch2.html#eq:2.3.1">2.43</a>)</span> та&nbsp;<span class="textup">(<a hre
 <span class="hidden"> \(\seteqnumber{0}{2.}{51}\)</span>
 <!--
 
-                                                                                                                                                                                  Δ𝜑̃ + 𝑘2𝜑̃ = −4𝜋𝜌̃
+                                                                                                                                                                                  Δ𝜙̃ + 𝑘2𝜙̃ = −4𝜋𝜌̃
 
 -->
 <p>
